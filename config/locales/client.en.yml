@@ -1,4 +1,10 @@
 en:
   js:
-    discourse_chat:
-      
+    chat:
+      menu_title: "Chat Integrations"
+
+      integration:
+        telegram:
+          title: "Telegram"
+        slack:
+          title: "Slack"
