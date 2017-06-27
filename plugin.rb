@@ -3,7 +3,7 @@
 # version: 0.1
 # url: https://github.com/discourse/discourse-chat
 
-enabled_site_setting :discourse_chat_enabled
+enabled_site_setting :chat_enabled
 
 after_initialize do
 
@@ -16,13 +16,20 @@ after_initialize do
     end
   end
 
-  require_relative "lib/integration"
+  require_relative "lib/provider"
+  require_relative "lib/manager"
+
+  DiscourseEvent.on(:post_created) do |post|
+    if SiteSetting.chat_enabled?
+      ::DiscourseChat::Manager.trigger_notifications(post.id)
+    end
+  end
 
   class ::DiscourseChat::ChatController < ::ApplicationController
     requires_plugin DiscourseChat::PLUGIN_NAME
 
-    def list_integrations
-      render json: ::DiscourseChat::Integration.integrations.map {|x| x::INTEGRATION_NAME}
+    def list_providers
+      render json: ::DiscourseChat::Provider.providers.map {|x| x::PROVIDER_NAME}
     end
 
   end
@@ -33,7 +40,7 @@ after_initialize do
   add_admin_route 'chat.menu_title', 'chat'
 
   DiscourseChat::Engine.routes.draw do
-    get "/list-integrations" => "chat#list_integrations", constraints: AdminConstraint.new
+    get "/list-providers" => "chat#list_providers", constraints: AdminConstraint.new
   end
 
   Discourse::Application.routes.prepend do

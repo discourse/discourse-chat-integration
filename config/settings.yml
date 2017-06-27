@@ -1,3 +1,5 @@
 plugins:
-  discourse_chat_enabled:
+  chat_enabled:
     default: false
+  chat_discourse_username:
+    default: system
