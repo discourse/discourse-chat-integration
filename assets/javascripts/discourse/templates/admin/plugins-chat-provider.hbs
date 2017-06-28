@@ -1,0 +1,63 @@
+
+<div id="admin-plugin-slack">
+	<div class="admin-controls">
+		<div class="span15">
+		  <ul class="nav nav-pills">
+		  	{{#each model.providers as |provider|}}
+		    	{{nav-item route='adminPlugins.chat.provider' routeParam=provider label=(concat 'chat.integration.' provider '.title')}}
+		    {{/each}}
+		  </ul>
+		</div>
+	</div>  
+
+  <table>
+    <tr>
+      <th>{{i18n "chat.channel"}}</th>
+      <th>{{i18n "chat.filter"}}</th>
+
+      <th>{{i18n "chat.category"}}</th>
+
+      {{#if siteSettings.tagging_enabled}}
+        <th>{{i18n "chat.tags"}}</th>
+      {{/if}}
+
+      
+      
+      <th></th>
+    </tr>
+
+    {{#each model.rules as |rule|}}
+      <tr class="">
+				<td>{{rule.channel}}</td>
+        <td>{{rule.filterName}}</td>
+
+        <td>{{rule.categoryName}}</td>
+
+
+        {{#if siteSettings.tagging_enabled}}
+          <td>{{rule.tags}}</td>
+        {{/if}}
+
+        
+        <td>
+          {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat.edit"}}
+          {{d-button action="delete" actionParam=rule icon="trash-o" class="delete btn-danger" title="chat.delete"}}
+        </td>
+      </tr>
+    {{/each}}
+
+  </table>
+	<hr/>
+  {{d-button action="testNotification"
+      icon="rocket"
+      disabled=testingNotification
+      title="chat.test_notification"
+      label="chat.test_notification"}}
+
+  {{#d-button
+      action="resetSettings"
+      icon="trash"
+      title="chat.reset_settings"
+      label="chat.reset_settings"}}
+  {{/d-button}}
+</div>

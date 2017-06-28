@@ -2,7 +2,14 @@ en:
   js:
     chat:
       menu_title: "Chat Integrations"
-
+      channel: "Channel"
+      filter: "Filter"
+      category: "Category"
+      tags: "Tags"
+      edit: "Edit"
+      delete: "Delete"
+      test_notification: "Test Notification"
+      reset_settings: "Reset Settings"
       integration:
         telegram:
           title: "Telegram"

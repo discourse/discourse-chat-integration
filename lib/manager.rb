@@ -10,6 +10,36 @@ module DiscourseChat
       "#{KEY_PREFIX}#{cat_id.present? ? cat_id : '*'}"
     end
 
+    def self.get_all_rules
+      rules = []
+      PluginStoreRow.where(plugin_name: DiscourseChat::PLUGIN_NAME)
+        .where("key ~* :pattern", pattern: "^#{DiscourseChat::Manager::KEY_PREFIX}.*")
+        .each do |row|
+        PluginStore.cast_value(row.type_name, row.value).each do |rule|
+          category_id =
+            if row.key == DiscourseChat::Manager.get_store_key
+              nil
+            else
+              row.key.gsub!(DiscourseChat::Manager::KEY_PREFIX, '')
+              row.key
+            end
+
+          rules << {
+            provider: rule[:provider],
+            channel: rule[:channel],
+            filter: rule[:filter],
+            category_id: category_id,
+            tags: rule[:tags]
+          }
+        end
+      end
+      return rules
+    end
+
+    def self.get_rules_for_provider(provider)
+      get_all_rules.select { |rule| rule[:provider] == provider }
+    end
+
     def self.get_rules_for_category(cat_id = nil)      
       PluginStore.get(DiscourseChat::PLUGIN_NAME, get_store_key(cat_id)) || []
     end
