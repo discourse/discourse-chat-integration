@@ -10,6 +10,7 @@ en:
       delete: "Delete"
       test_notification: "Test Notification"
       reset_settings: "Reset Settings"
+      edit_rule_modal_title: "Edit Rule"
       integration:
         telegram:
           title: "Telegram"

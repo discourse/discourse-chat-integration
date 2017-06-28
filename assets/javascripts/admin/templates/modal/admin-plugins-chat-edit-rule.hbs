@@ -1,0 +1,42 @@
+{{#d-modal-body title="chat.edit_rule_modal_title"}}
+  	
+  
+	<form class="form-horizontal">
+		<div>
+      <label for="category">{{i18n "chat.category"}}</label>
+      {{category-chooser
+      			name="category"
+            value=model.categoryId
+            rootNoneLabel="slack.choose.all_categories"
+            rootNone=true}} 
+    </div>
+
+    {{#if siteSettings.tagging_enabled}}
+	    <div>
+	    	<label for="tags">{{i18n "chat.tags"}}</label>
+	      {{tag-chooser name="tags" tags=model.tags placeholderKey="slack.choose.tags"}}
+	    </div>
+    {{/if}}
+
+    <div>
+    	<label for="channel">{{i18n "chat.channel"}}</label>
+			{{text-field 
+						name="channel"
+						value=model.channel 
+						placeholderKey="slack.choose.channel" 
+						class="channel"}}
+		</div>
+
+		<div>
+    	<label for="filter">{{i18n "chat.filter"}}</label>
+			{{combo-box name="filter" content=model.available_filters value=model.filter}}
+		</div>
+
+	</form>
+
+{{/d-modal-body}}
+
+<div class="modal-footer">
+  <button class='btn btn-primary' {{action "save"}} disabled={{submitDisabled}}>{{i18n 'chat.save'}}</button>
+  <a {{action "cancel"}}>{{i18n 'chat.cancel'}}</a>
+</div>

@@ -3,6 +3,12 @@ import Category from 'discourse/models/category';
 import computed from "ember-addons/ember-computed-decorators";
 
 export default RestModel.extend({
+  available_filters: [
+    { id: 'watch', name: I18n.t('chat.filter.watch'), icon: 'exclamation-circle' },
+    { id: 'follow', name: I18n.t('chat.filter.follow'), icon: 'circle'},
+    { id: 'mute', name: I18n.t('chat.filter.mute'), icon: 'times-circle' }
+  ],
+
   category_id: null,
   provider: '',
   channel: '',
