@@ -3,8 +3,9 @@ export default {
   path: '/plugins',
   map() {
     this.route('chat', function(){
-    	this.route('index', { 'path': '/' });
-    	this.route('provider', {path: '/:provider'});
-    });
+    		this.route('provider', {path: '/:provider'});	
+    	});
+    	
+    
   }
 };

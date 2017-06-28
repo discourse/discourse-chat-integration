@@ -1,14 +1,5 @@
 
-<div id="admin-plugin-slack">
-	<div class="admin-controls">
-		<div class="span15">
-		  <ul class="nav nav-pills">
-		  	{{#each model.providers as |provider|}}
-		    	{{nav-item route='adminPlugins.chat.provider' routeParam=provider label=(concat 'chat.integration.' provider '.title')}}
-		    {{/each}}
-		  </ul>
-		</div>
-	</div>  
+
 
   <table>
     <tr>
@@ -26,7 +17,7 @@
       <th></th>
     </tr>
 
-    {{#each model.rules as |rule|}}
+    {{#each model as |rule|}}
       <tr class="">
 				<td>{{rule.channel}}</td>
         <td>{{rule.filterName}}</td>
@@ -60,4 +51,3 @@
       title="chat.reset_settings"
       label="chat.reset_settings"}}
   {{/d-button}}
-</div>

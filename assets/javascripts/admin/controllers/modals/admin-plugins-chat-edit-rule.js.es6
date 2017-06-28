@@ -1,9 +1,9 @@
-import FilterRule from 'discourse/plugins/discourse-chat/admin/models/filter-rule'
+import Rule from 'discourse/plugins/discourse-chat/admin/models/rule'
 import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Controller.extend({
 
-  model: FilterRule.create({}),
+  model: Rule.create({}),
   
   actions: {
     cancel: function(){

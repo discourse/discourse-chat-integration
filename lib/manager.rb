@@ -15,7 +15,7 @@ module DiscourseChat
       PluginStoreRow.where(plugin_name: DiscourseChat::PLUGIN_NAME)
         .where("key ~* :pattern", pattern: "^#{DiscourseChat::Manager::KEY_PREFIX}.*")
         .each do |row|
-        PluginStore.cast_value(row.type_name, row.value).each do |rule|
+        PluginStore.cast_value(row.type_name, row.value).each_with_index do |rule, thisIndex|
           category_id =
             if row.key == DiscourseChat::Manager.get_store_key
               nil
@@ -25,6 +25,7 @@ module DiscourseChat
             end
 
           rules << {
+            id: "#{(category_id || 'all')}_#{thisIndex}",
             provider: rule[:provider],
             channel: rule[:channel],
             filter: rule[:filter],

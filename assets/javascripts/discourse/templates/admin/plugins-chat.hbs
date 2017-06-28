@@ -1,0 +1,13 @@
+<div id="admin-plugin-slack">
+	<div class="admin-controls">
+		<div class="span15">
+		  <ul class="nav nav-pills">
+		  	{{#each model as |provider|}}
+		    	{{nav-item route='adminPlugins.chat.provider' routeParam=provider.name label=(concat 'chat.integration.' provider.name '.title')}}
+		    {{/each}}
+		  </ul>
+		</div>
+	</div>
+		{{outlet}}
+</div>
+	

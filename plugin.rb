@@ -28,27 +28,34 @@ after_initialize do
   class ::DiscourseChat::ChatController < ::ApplicationController
     requires_plugin DiscourseChat::PLUGIN_NAME
 
-    def list
-      requested_provider = params[:provider]
+    def respond
+      render
+    end
 
+    def list_providers
+      providers = ::DiscourseChat::Provider.providers.map {|x| {name: x::PROVIDER_NAME, id: x::PROVIDER_NAME}}
+      render json:providers, root: 'providers'
+    end
+
+    def list_rules
       providers = ::DiscourseChat::Provider.providers.map {|x| x::PROVIDER_NAME}
 
-      if requested_provider.nil? 
-        requested_provider = providers[0]
-      end
+      requested_provider = params[:provider]
 
-      if not providers.include? requested_provider 
+      if requested_provider.nil?
+        rules = DiscourseChat::Manager.get_all_rules()
+      elsif providers.include? requested_provider
+        rules = DiscourseChat::Manager.get_rules_for_provider(requested_provider)
+      else
         raise Discourse::NotFound
       end
 
-      rules = DiscourseChat::Manager.get_rules_for_provider(requested_provider)
-
-      out = {provider: requested_provider, providers: providers, rules: rules}
-
-      render json: out
+      render json: rules, root: 'rules'
     end
 
   end
+
+
 
   require_dependency 'admin_constraint'
 
@@ -56,8 +63,11 @@ after_initialize do
   add_admin_route 'chat.menu_title', 'chat'
 
   DiscourseChat::Engine.routes.draw do
-    get "(.:format)" => "chat#list" # TODO: Fix this hack
-    get "/:provider" => "chat#list"
+    get "" => "chat#respond"
+    get '/providers' => "chat#list_providers"
+    get '/rules' => "chat#list_rules"
+
+    get "/:provider" => "chat#respond"
   end
 
   Discourse::Application.routes.append do
