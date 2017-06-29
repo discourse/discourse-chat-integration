@@ -10,21 +10,26 @@ export default RestModel.extend({
   ],
 
   category_id: null,
+  tags: null,
   provider: '',
   channel: '',
   filter: null,
 
   @computed('category_id')
-  categoryName(categoryId) {
-    if (categoryId)
-      return Category.findById(categoryId).get('name');
-    else {
-      return I18n.t('slack.choose.all_categories');
+  category(categoryId) {
+    if (categoryId){
+      return Category.findById(categoryId);
+    }else {
+      return false;
     }
   },
 
   @computed('filter')
   filterName(filter) {
     return I18n.t(`slack.present.${filter}`);
+  },
+
+  updateProperties() {
+    return ['category_id','provider','channel', 'tags','filter'];
   }
 });

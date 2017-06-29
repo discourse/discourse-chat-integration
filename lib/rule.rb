@@ -79,7 +79,7 @@
     end
 
     # Use JSON selectors like this:
-    #    Rule.where("value::json->>'provider'=?", "telegram")
+    #    Rule.where("value::json->>'provider'=?", "slack")
     def self.where(*args)
       rows = self._all_raw.where(*args)
       self._from_psr_rows(rows)

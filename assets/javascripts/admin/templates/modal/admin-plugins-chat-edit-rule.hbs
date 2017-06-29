@@ -6,9 +6,11 @@
       <label for="category">{{i18n "chat.category"}}</label>
       {{category-chooser
       			name="category"
-            value=model.categoryId
+            value=model.category_id
             rootNoneLabel="slack.choose.all_categories"
-            rootNone=true}} 
+            rootNone=true
+            allowUncategorized="true"
+            }} 
     </div>
 
     {{#if siteSettings.tagging_enabled}}

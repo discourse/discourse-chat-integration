@@ -5,6 +5,7 @@
 
 enabled_site_setting :chat_enabled
 
+
 after_initialize do
 
   module ::DiscourseChat
@@ -60,19 +61,24 @@ after_initialize do
       requested_provider = params[:provider]
 
       if requested_provider.nil?
-        rules = DiscourseChat::Manager.get_all_rules()
+        rules = DiscourseChat::Rule.all
       elsif providers.include? requested_provider
-        rules = DiscourseChat::Manager.get_rules_for_provider(requested_provider)
+        rules = DiscourseChat::Rule.all_for_provider(requested_provider)
       else
         raise Discourse::NotFound
       end
 
-      render json: rules, root: 'rules'
+      render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
     end
 
+    def update_rule
+      render json: {success: false}
+    end
   end
 
-
+  class DiscourseChat::RuleSerializer < ActiveModel::Serializer
+    attributes :id, :provider, :channel, :category_id, :tags, :filter
+  end
 
   require_dependency 'admin_constraint'
 
@@ -82,7 +88,9 @@ after_initialize do
   DiscourseChat::Engine.routes.draw do
     get "" => "chat#respond"
     get '/providers' => "chat#list_providers"
+    
     get '/rules' => "chat#list_rules"
+    put 'rules/:id' => "chat#update_rule"
 
     get "/:provider" => "chat#respond"
   end
