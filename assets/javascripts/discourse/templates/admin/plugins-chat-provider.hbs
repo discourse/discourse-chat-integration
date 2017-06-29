@@ -22,7 +22,13 @@
 				<td>{{rule.channel}}</td>
         <td>{{rule.filterName}}</td>
 
-        <td>{{rule.categoryName}}</td>
+        <td>
+        	{{#if rule.category}}
+        		{{category-link rule.category allowUncategorized="true" link="false"}}
+        	{{else}}
+        		{{i18n "slack.choose.all_categories"}}
+        	{{/if}}
+        </td>
 
 
         {{#if siteSettings.tagging_enabled}}
