@@ -14,10 +14,27 @@ after_initialize do
       engine_name DiscourseChat::PLUGIN_NAME
       isolate_namespace DiscourseChat
     end
+
+    def self.plugin_name
+      DiscourseChat::PLUGIN_NAME
+    end
+
+    def self.pstore_get(key)
+      PluginStore.get(self.plugin_name, key)
+    end
+
+    def self.pstore_set(key, value)
+      PluginStore.set(self.plugin_name, key, value)
+    end
+
+    def self.pstore_delete(key)
+      PluginStore.remove(self.plugin_name, key)
+    end
   end
 
   require_relative "lib/provider"
   require_relative "lib/manager"
+  require_relative "lib/rule"
 
   DiscourseEvent.on(:post_created) do |post|
     if SiteSetting.chat_enabled?
