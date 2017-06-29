@@ -5,13 +5,14 @@ import showModal from 'discourse/lib/show-modal';
 
 
 export default Ember.Controller.extend({
-
+	modalShowing: false,
 
   actions:{
   	edit(rule){
-  		console.log(rule.hasDirtyAttributes);
+  		this.set('modalShowing', true);
   		showModal('admin-plugins-chat-edit-rule', { model: rule, admin: true });
   	},
+
   }
 
 });
