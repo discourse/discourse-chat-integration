@@ -18,11 +18,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     	this.get('model').update().then(function(result) {
         self.send('closeModal');
-        if (result.responseJson.success) {
-          self.transitionToRoute('tags.show', result.responseJson.tag.id);
-        } else {
-          self.flash(extractError(result.responseJson.errors[0]), 'error');
-        }
       }).catch(function(error) {
         self.flash(extractError(error), 'error');
       });

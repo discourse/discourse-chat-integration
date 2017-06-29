@@ -71,8 +71,30 @@ after_initialize do
       render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
     end
 
+    def create_rule
+      rule = DiscourseChat::Rule.new()
+      hash = params.require(:rule)
+
+      rule.update(hash)
+
+      render_serialized rule, DiscourseChat::RuleSerializer, root: 'rule'
+    end
+
     def update_rule
-      render json: {success: false}
+      rule = DiscourseChat::Rule.find(params[:id].to_i)
+      hash = params.require(:rule)
+
+      rule.update(hash)
+
+      render_serialized rule, DiscourseChat::RuleSerializer, root: 'rule'
+    end
+
+    def destroy_rule
+      rule = DiscourseChat::Rule.find(params[:id].to_i)
+
+      rule.destroy
+
+      render json: success_json
     end
   end
 
@@ -90,7 +112,9 @@ after_initialize do
     get '/providers' => "chat#list_providers"
     
     get '/rules' => "chat#list_rules"
-    put 'rules/:id' => "chat#update_rule"
+    put '/rules' => "chat#create_rule"
+    put '/rules/:id' => "chat#update_rule"
+    delete '/rules/:id' => "chat#destroy_rule"
 
     get "/:provider" => "chat#respond"
   end

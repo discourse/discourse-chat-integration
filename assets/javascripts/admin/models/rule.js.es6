@@ -30,6 +30,12 @@ export default RestModel.extend({
   },
 
   updateProperties() {
-    return ['category_id','provider','channel', 'tags','filter'];
+    var prop_names = ['category_id','provider','channel', 'tags','filter'];
+    return this.getProperties(prop_names);
+  },
+
+  createProperties() {
+    return this.updateProperties();
   }
+
 });

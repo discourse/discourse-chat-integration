@@ -50,6 +50,14 @@
       from_hash hash
     end
 
+    def update(h)
+      [:provider, :channel, :category_id, :tags, :filter].each do |sym|
+        public_send("#{sym}=", h[sym]) if h[sym]
+      end
+
+      save
+    end
+
     def save
       unless @id && @id > 0
         @id = self.class.alloc_id

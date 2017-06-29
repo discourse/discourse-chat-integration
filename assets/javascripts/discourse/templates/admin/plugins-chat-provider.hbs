@@ -17,7 +17,8 @@
       <th></th>
     </tr>
 
-    {{#each model as |rule|}}
+    {{#each model.rules as |rule|}}
+
       <tr class="">
 				<td>{{rule.channel}}</td>
         <td>{{rule.filterName}}</td>
@@ -44,6 +45,7 @@
     {{/each}}
 
   </table>
+  
 	<hr/>
   {{d-button action="testNotification"
       icon="rocket"
@@ -57,3 +59,6 @@
       title="chat.reset_settings"
       label="chat.reset_settings"}}
   {{/d-button}}
+  <div class="pull-right">
+     {{d-button action="create" actionParam=model.provider icon="plus" title="chat.create_rule" label="chat.create_rule"}}
+  </div>

@@ -4,7 +4,10 @@ import { ajax } from 'discourse/lib/ajax';
 export default Discourse.Route.extend({
 
   model(params, transition) {
-    return this.store.find('rule', {provider: params.provider});
+    return Ember.RSVP.hash({
+      rules: this.store.find('rule', {provider: params.provider}),
+      provider: params.provider
+    });
   },
 
   serialize: function(model, params) {
@@ -20,6 +23,10 @@ export default Discourse.Route.extend({
 
       return true; // Continue bubbling up, so the modal actually closes
     },
+
+    refresh: function(data){
+      this.refresh();
+    }
 
   }
 });
