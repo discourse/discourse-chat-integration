@@ -57,15 +57,57 @@ module DiscourseChat::Provider::SlackProvider
     message
   end
 
-  def self.trigger_notification(post, channel)
-  	message = slack_message(post, channel)
-
-		http = Net::HTTP.new("hooks.slack.com", 443)
+  def self.send_via_api(message)
+  	http = Net::HTTP.new("slack.com", 443)
     http.use_ssl = true
+  	
+  	response = nil
+    uri = ""
+    record = DiscourseChat.pstore_get("slack_topic_#{post.topic.id}_#{channel}")
 
+    if (record.present? && ((Time.now.to_i - record[:ts].split('.')[0].to_i)/ 60) < 5 && record[:message][:attachments].length < 5)
+      attachments = record[:message][:attachments]
+      attachments.concat message[:attachments]
+
+      uri = URI("https://slack.com/api/chat.update" +
+        "?token=#{SiteSetting.chat_slack_access_token}" +
+        "&username=#{CGI::escape(record[:message][:username])}" +
+        "&text=#{CGI::escape(record[:message][:text])}" +
+        "&channel=#{record[:channel]}" +
+        "&attachments=#{CGI::escape(attachments.to_json)}" +
+        "&ts=#{record[:ts]}"
+      )
+    else
+      uri = URI("https://slack.com/api/chat.postMessage" +
+        "?token=#{SiteSetting.chat_slack_access_token}" +
+        "&username=#{CGI::escape(message[:username])}" +
+        "&icon_url=#{CGI::escape(message[:icon_url])}" +
+        "&channel=#{ message[:channel].gsub('#', '') }" +
+        "&attachments=#{CGI::escape(message[:attachments].to_json)}"
+      )
+    end
+
+    response = http.request(Net::HTTP::Post.new(uri))
+
+    DiscourseChat.pstore_set("slack_topic_#{post.topic.id}_#{channel}", JSON.parse(response.body) )
+  end
+
+  def self.send_via_webhook(message)
+  	http = Net::HTTP.new("hooks.slack.com", 443)
+    http.use_ssl = true
   	req = Net::HTTP::Post.new(URI(SiteSetting.slack_outbound_webhook_url), 'Content-Type' =>'application/json')
     req.body = message.to_json
     response = http.request(req)
+  end
+
+  def self.trigger_notification(post, channel)
+  	message = slack_message(post, channel)
+
+		if SiteSetting.chat_slack_access_token.empty?
+			self.send_via_webhook(message)
+		else
+			self.send_via_api(message)
+		end
 
   end
 end

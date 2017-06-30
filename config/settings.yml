@@ -17,6 +17,8 @@ plugins:
     default: 400
   chat_slack_icon_url:
     default: ''
+  chat_slack_access_token:
+    default: ''
 
 #######################################
 ######### TELEGRAM SETTINGS ###########
