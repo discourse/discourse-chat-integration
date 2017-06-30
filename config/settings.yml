@@ -5,3 +5,21 @@ plugins:
     default: system
   chat_delay_seconds:
     default: 20
+
+#######################################
+########## SLACK SETTINGS #############
+#######################################
+  chat_slack_enabled:
+    default: false
+  chat_slack_outbound_webhook_url:
+    default: ''
+  chat_slack_discourse_excerpt_length:
+    default: 400
+  chat_slack_icon_url:
+    default: ''
+
+#######################################
+######### TELEGRAM SETTINGS ###########
+#######################################
+  chat_telegram_enabled:
+    default: false
