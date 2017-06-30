@@ -1,3 +1,5 @@
+require_relative "slack_message_formatter.rb"
+
 module DiscourseChat::Provider::SlackProvider
   PROVIDER_NAME = "slack".freeze
 
@@ -31,7 +33,7 @@ module DiscourseChat::Provider::SlackProvider
 
     message = {
       channel: channel,
-      username: SiteSetting.title,
+      username: SiteSetting.title || "Discourse",
       icon_url: icon_url,
       attachments: []
     }
@@ -57,7 +59,7 @@ module DiscourseChat::Provider::SlackProvider
     message
   end
 
-  def self.send_via_api(message)
+  def self.send_via_api(post, channel, message)
   	http = Net::HTTP.new("slack.com", 443)
     http.use_ssl = true
   	
@@ -90,14 +92,16 @@ module DiscourseChat::Provider::SlackProvider
     response = http.request(Net::HTTP::Post.new(uri))
 
     DiscourseChat.pstore_set("slack_topic_#{post.topic.id}_#{channel}", JSON.parse(response.body) )
+    response
   end
 
   def self.send_via_webhook(message)
   	http = Net::HTTP.new("hooks.slack.com", 443)
     http.use_ssl = true
-  	req = Net::HTTP::Post.new(URI(SiteSetting.slack_outbound_webhook_url), 'Content-Type' =>'application/json')
+  	req = Net::HTTP::Post.new(URI(SiteSetting.chat_slack_outbound_webhook_url), 'Content-Type' =>'application/json')
     req.body = message.to_json
     response = http.request(req)
+    response
   end
 
   def self.trigger_notification(post, channel)
@@ -106,7 +110,7 @@ module DiscourseChat::Provider::SlackProvider
 		if SiteSetting.chat_slack_access_token.empty?
 			self.send_via_webhook(message)
 		else
-			self.send_via_api(message)
+			self.send_via_api(post, channel, message)
 		end
 
   end
