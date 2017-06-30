@@ -33,13 +33,27 @@ after_initialize do
     end
   end
 
-  require_relative "lib/provider"
-  require_relative "lib/manager"
-  require_relative "lib/rule"
+  require_relative "lib/discourse_chat/provider"
+  require_relative "lib/discourse_chat/manager"
+  require_relative "lib/discourse_chat/rule"
 
-  DiscourseEvent.on(:post_created) do |post|
+  module ::Jobs
+    class NotifyChats < Jobs::Base
+      def execute(args)
+        return if not SiteSetting.chat_enabled? # Plugin may have been disabled since job triggered
+
+        ::DiscourseChat::Manager.trigger_notifications(args[:post_id])
+      end
+    end
+  end
+
+  DiscourseEvent.on(:post_created) do |post| 
     if SiteSetting.chat_enabled?
-      ::DiscourseChat::Manager.trigger_notifications(post.id)
+      # This will run for every post, even PMs. Don't worry, they're filtered out later.
+      Jobs.enqueue_in(SiteSetting.chat_delay_seconds.seconds,
+          :notify_chats,
+          post_id: post.id
+        )
     end
   end
 

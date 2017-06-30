@@ -3,3 +3,5 @@ plugins:
     default: false
   chat_discourse_username:
     default: system
+  chat_delay_seconds:
+    default: 20
