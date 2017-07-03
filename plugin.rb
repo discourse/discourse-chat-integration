@@ -69,7 +69,12 @@ after_initialize do
     end
 
     def list_providers
-      providers = ::DiscourseChat::Provider.enabled_providers.map {|x| {name: x::PROVIDER_NAME, id: x::PROVIDER_NAME}}
+      providers = ::DiscourseChat::Provider.enabled_providers.map {|x| {
+                                        name: x::PROVIDER_NAME, 
+                                        id: x::PROVIDER_NAME, 
+                                        channel_regex: (defined? x::PROVIDER_CHANNEL_REGEX) ? x::PROVIDER_CHANNEL_REGEX : nil
+                                        }}
+      
       render json:providers, root: 'providers'
     end
 
@@ -85,7 +90,7 @@ after_initialize do
       end
 
       filter_order = ["watch", "follow", "mute"]
-      rules = rules.sort_by{ |r| [r.channel, filter_order.index(r.filter), r.category_id] } 
+      rules = rules.sort_by{ |r| [r.channel, r.category_id.nil? ? 0 : r.category_id, filter_order.index(r.filter)] } 
 
       render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
     end

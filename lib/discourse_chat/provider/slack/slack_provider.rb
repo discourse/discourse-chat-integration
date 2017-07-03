@@ -5,6 +5,8 @@ module DiscourseChat::Provider::SlackProvider
 
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
+  PROVIDER_CHANNEL_REGEX = '^[@#]\S*$'
+
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
     doc = Nokogiri::HTML.fragment(post.excerpt(max_length,
       remap_emoji: true,

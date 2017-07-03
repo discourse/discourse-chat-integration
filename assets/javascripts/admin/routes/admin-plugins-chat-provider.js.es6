@@ -6,12 +6,12 @@ export default Discourse.Route.extend({
   model(params, transition) {
     return Ember.RSVP.hash({
       rules: this.store.find('rule', {provider: params.provider}),
-      provider: params.provider
+      provider: this.modelFor("admin-plugins-chat").findBy('id',params.provider)
     });
   },
 
   serialize: function(model, params) {
-    return { provider: model['provider']};
+    return { provider: model['provider'].get('id')};
   },
 
   actions: {

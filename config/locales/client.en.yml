@@ -27,6 +27,9 @@ en:
         tags: "Tags"
         channel: "Channel"
         filter: "Filter"
+        channel_validation:
+          ok: "Valid"
+          fail: "Invalid channel format"
         instructions:
           filter: "Notification level. Mute overrides other matching rules."
           category: "This rule will only apply to topics in the specified category."

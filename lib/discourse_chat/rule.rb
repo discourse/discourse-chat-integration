@@ -22,7 +22,7 @@
     end
 
     def category_id=(val)
-      if val.nil? or val.empty?
+      if val.nil? or val.blank?
         @category_id = nil
       else
         @category_id = val.to_i
@@ -102,6 +102,12 @@
       
       # Validate channel
       return false if @channel.blank?
+
+      provider = ::DiscourseChat::Provider.get_by_name(@provider)
+      if defined? provider::PROVIDER_CHANNEL_REGEX
+        channel_regex = Regexp.new provider::PROVIDER_CHANNEL_REGEX
+        return false if not channel_regex.match?(@channel)
+      end
       
       # Validate category
       return false if not (@category_id.nil? or Category.where(id: @category_id).exists?)

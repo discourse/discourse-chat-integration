@@ -9,13 +9,15 @@ export default Ember.Controller.extend({
 	modalShowing: false,
 	
   actions:{
-  	create(provider){
+  	create(){
   		this.set('modalShowing', true);
-  		showModal('admin-plugins-chat-edit-rule', { model: this.store.createRecord('rule',{provider: provider}), admin: true });
+      var model = {rule: this.store.createRecord('rule',{provider: this.get('model.provider').id}), provider:this.get('model.provider')};
+  		showModal('admin-plugins-chat-edit-rule', { model: model, admin: true });
   	},
   	edit(rule){
   		this.set('modalShowing', true);
-  		showModal('admin-plugins-chat-edit-rule', { model: rule, admin: true });
+      var model = {rule: rule, provider:this.get('model.provider')};
+  		showModal('admin-plugins-chat-edit-rule', { model: model, admin: true });
   	},
   	delete(rule){
   		const self = this;
