@@ -5,6 +5,8 @@
 
 enabled_site_setting :chat_integration_enabled
 
+# Site setting validators must be loaded before initialize
+require_relative "lib/validators/chat_integration_slack_enabled_setting_validator"
 
 after_initialize do
 

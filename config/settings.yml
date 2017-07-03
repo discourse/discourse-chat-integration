@@ -12,8 +12,10 @@ plugins:
 #######################################
   chat_integration_slack_enabled:
     default: false
+    validator: "ChatIntegrationSlackEnabledSettingValidator"
   chat_integration_slack_outbound_webhook_url:
     default: ''
+    regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
   chat_integration_slack_excerpt_length:
     default: 400
   chat_integration_slack_icon_url:

@@ -14,6 +14,9 @@ en:
     chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
     chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
 
+    errors:
+      chat_integration_slack_api_configs_are_empty: "You must enter either an outbound webhook URL, or an access token"
+
     #######################################
     ######### TELEGRAM SETTINGS ###########
     #######################################
