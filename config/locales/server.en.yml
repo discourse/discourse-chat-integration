@@ -1,3 +1,20 @@
 en:
   site_settings:
-    discourse_chat_enabled: 'Enable the discourse-chat plugin'
+    chat_integration_enabled: 'Enable the discourse-chat-integration plugin'
+    chat_integration_discourse_username: 'Username of user to act as when fetching content.'
+    chat_integration_delay_seconds: 'Number of seconds to wait after post creation before sending chat notitifications'
+
+
+    #######################################
+    ########## SLACK SETTINGS #############
+    #######################################
+    chat_integration_slack_enabled: 'Enable the slack chat-integration provider'
+    chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
+    chat_integration_slack_excerpt_length: 'Post excerpt length'
+    chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
+    chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
+
+    #######################################
+    ######### TELEGRAM SETTINGS ###########
+    #######################################
+    chat_integration_telegram_enabled: "Enable the telegram chat-integration provider"

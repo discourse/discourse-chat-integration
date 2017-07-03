@@ -1,15 +1,14 @@
 
 
-
   <table>
     <tr>
-      <th>{{i18n "chat.channel"}}</th>
-      <th>{{i18n "chat.filter"}}</th>
+      <th>{{i18n "chat_integration.rule_table.channel"}}</th>
+      <th>{{i18n "chat_integration.rule_table.filter"}}</th>
 
-      <th>{{i18n "chat.category"}}</th>
+      <th>{{i18n "chat_integration.rule_table.category"}}</th>
 
       {{#if siteSettings.tagging_enabled}}
-        <th>{{i18n "chat.tags"}}</th>
+        <th>{{i18n "chat_integration.rule_table.tags"}}</th>
       {{/if}}
 
       
@@ -27,7 +26,7 @@
         	{{#if rule.category}}
         		{{category-link rule.category allowUncategorized="true" link="false"}}
         	{{else}}
-        		{{i18n "slack.choose.all_categories"}}
+        		{{i18n "chat_integration.all_categories"}}
         	{{/if}}
         </td>
 
@@ -38,27 +37,16 @@
 
         
         <td>
-          {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat.edit"}}
-          {{d-button action="delete" actionParam=rule icon="trash-o" class="delete btn-danger" title="chat.delete"}}
+          {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat_integration.rule_table.edit_rule"}}
+          {{d-button action="delete" actionParam=rule icon="trash-o" class="delete btn-danger" title="chat_integration.rule_table.delete_rule"}}
         </td>
       </tr>
     {{/each}}
 
   </table>
   
-	<hr/>
-  {{d-button action="testNotification"
-      icon="rocket"
-      disabled=testingNotification
-      title="chat.test_notification"
-      label="chat.test_notification"}}
-
-  {{#d-button
-      action="resetSettings"
-      icon="trash"
-      title="chat.reset_settings"
-      label="chat.reset_settings"}}
-  {{/d-button}}
-  <div class="pull-right">
-     {{d-button action="create" actionParam=model.provider icon="plus" title="chat.create_rule" label="chat.create_rule"}}
+  <div>
+    <div class="pull-right">
+       {{d-button action="create" actionParam=model.provider icon="plus" title="chat_integration.create_rule" label="chat_integration.create_rule"}}
+    </div>
   </div>

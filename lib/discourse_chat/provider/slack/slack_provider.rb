@@ -3,7 +3,9 @@ require_relative "slack_message_formatter.rb"
 module DiscourseChat::Provider::SlackProvider
   PROVIDER_NAME = "slack".freeze
 
-  def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_discourse_excerpt_length)
+  PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
+
+  def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
     doc = Nokogiri::HTML.fragment(post.excerpt(max_length,
       remap_emoji: true,
       keep_onebox_source: true

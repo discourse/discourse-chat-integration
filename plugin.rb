@@ -65,18 +65,16 @@ after_initialize do
     end
 
     def list_providers
-      providers = ::DiscourseChat::Provider.providers.map {|x| {name: x::PROVIDER_NAME, id: x::PROVIDER_NAME}}
+      providers = ::DiscourseChat::Provider.enabled_providers.map {|x| {name: x::PROVIDER_NAME, id: x::PROVIDER_NAME}}
       render json:providers, root: 'providers'
     end
 
     def list_rules
-      providers = ::DiscourseChat::Provider.providers.map {|x| x::PROVIDER_NAME}
+      providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
 
       requested_provider = params[:provider]
 
-      if requested_provider.nil?
-        rules = DiscourseChat::Rule.all
-      elsif providers.include? requested_provider
+      if providers.include? requested_provider
         rules = DiscourseChat::Rule.all_for_provider(requested_provider)
       else
         raise Discourse::NotFound
@@ -119,7 +117,7 @@ after_initialize do
   require_dependency 'admin_constraint'
 
 
-  add_admin_route 'chat.menu_title', 'chat'
+  add_admin_route 'chat_integration.menu_title', 'chat'
 
   DiscourseChat::Engine.routes.draw do
     get "" => "chat#respond"

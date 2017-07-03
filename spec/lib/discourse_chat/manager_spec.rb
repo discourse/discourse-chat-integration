@@ -10,9 +10,14 @@ RSpec.describe DiscourseChat::Manager do
   let(:second_post) {Fabricate(:post, topic: topic, post_number:2)}
 
   describe '.trigger_notifications' do
+    before do
+      SiteSetting.chat_integration_enabled = true
+    end
+
     before(:each) do 
       module ::DiscourseChat::Provider::DummyProvider
         PROVIDER_NAME = "dummy".freeze
+        PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
         @@sent_messages = []
 
         def self.trigger_notification(post, channel)
@@ -33,6 +38,15 @@ RSpec.describe DiscourseChat::Manager do
 
     def create_rule(provider, channel, filter, category_id, tags) # Just shorthand for testing purposes
       DiscourseChat::Rule.new({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags}).save
+    end
+
+    it "should only send notifications when provider is enabled" do
+      SiteSetting.chat_integration_enabled = false
+      create_rule('dummy', 'chan1', 'watch', category.id, nil)
+
+      manager.trigger_notifications(first_post.id)
+
+      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
     end
 
     it "should send a notification to watched and following channels for new topic" do

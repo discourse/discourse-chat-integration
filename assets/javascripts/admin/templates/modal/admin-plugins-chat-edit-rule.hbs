@@ -1,12 +1,12 @@
-{{#d-modal-body title="chat.edit_rule_modal_title"}}
+{{#d-modal-body title="chat_integration.edit_rule_modal.title"}}
   	
   
 	<form class="form-horizontal">
 		<div>
-		Rule for provider {{model.provider}}
+		{{i18n 'chat_integration.edit_rule_modal.provider'}}: {{i18n (concat 'chat_integration.provider.' model.provider '.title')}}
 		</div>
 		<div>
-      <label for="category">{{i18n "chat.category"}}</label>
+      <label for="category">{{i18n "chat_integration.edit_rule_modal.category"}}</label>
       {{category-chooser
       			name="category"
             value=model.category_id
@@ -18,22 +18,22 @@
 
     {{#if siteSettings.tagging_enabled}}
 	    <div>
-	    	<label for="tags">{{i18n "chat.tags"}}</label>
-	      {{tag-chooser name="tags" tags=model.tags placeholderKey="slack.choose.tags"}}
+	    	<label for="tags">{{i18n "chat_integration.edit_rule_modal.tags"}}</label>
+	      {{tag-chooser name="tags" tags=model.tags placeholderKey="chat_integration.edit_rule_modal.placeholders.tags"}}
 	    </div>
     {{/if}}
 
     <div>
-    	<label for="channel">{{i18n "chat.channel"}}</label>
+    	<label for="channel">{{i18n "chat_integration.edit_rule_modal.channel"}}</label>
 			{{text-field 
 						name="channel"
 						value=model.channel 
-						placeholderKey="slack.choose.channel" 
+						placeholderKey="chat_integration.edit_rule_modal.placeholders.channel" 
 						class="channel"}}
 		</div>
 
 		<div>
-    	<label for="filter">{{i18n "chat.filter"}}</label>
+    	<label for="filter">{{i18n "chat_integration.edit_rule_modal.filter"}}</label>
 			{{combo-box name="filter" content=model.available_filters value=model.filter}}
 		</div>
 
@@ -42,6 +42,8 @@
 {{/d-modal-body}}
 
 <div class="modal-footer">
-  <button class='btn btn-primary' {{action "save"}} disabled={{submitDisabled}}>{{i18n 'chat.save'}}</button>
-  <a {{action "cancel"}}>{{i18n 'chat.cancel'}}</a>
+	{{d-button class='btn-primary' action="save" title="chat_integration.edit_rule_modal.save" label="chat_integration.edit_rule_modal.save"}}
+
+	{{d-button action="cancel" title="chat_integration.edit_rule_modal.cancel" label="chat_integration.edit_rule_modal.cancel"}}
+
 </div>

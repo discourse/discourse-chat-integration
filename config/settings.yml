@@ -3,6 +3,7 @@ plugins:
     default: false
   chat_integration_discourse_username:
     default: system
+    type: username
   chat_integration_delay_seconds:
     default: 20
 
@@ -13,7 +14,7 @@ plugins:
     default: false
   chat_integration_slack_outbound_webhook_url:
     default: ''
-  chat_integration_slack_discourse_excerpt_length:
+  chat_integration_slack_excerpt_length:
     default: 400
   chat_integration_slack_icon_url:
     default: ''

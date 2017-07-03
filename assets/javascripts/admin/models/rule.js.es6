@@ -4,9 +4,9 @@ import computed from "ember-addons/ember-computed-decorators";
 
 export default RestModel.extend({
   available_filters: [
-    { id: 'watch', name: I18n.t('chat.filter.watch'), icon: 'exclamation-circle' },
-    { id: 'follow', name: I18n.t('chat.filter.follow'), icon: 'circle'},
-    { id: 'mute', name: I18n.t('chat.filter.mute'), icon: 'times-circle' }
+    { id: 'watch', name: I18n.t('chat_integration.filter.watch'), icon: 'exclamation-circle' },
+    { id: 'follow', name: I18n.t('chat_integration.filter.follow'), icon: 'circle'},
+    { id: 'mute', name: I18n.t('chat_integration.filter.mute'), icon: 'times-circle' }
   ],
 
   category_id: null,
@@ -26,7 +26,7 @@ export default RestModel.extend({
 
   @computed('filter')
   filterName(filter) {
-    return I18n.t(`slack.present.${filter}`);
+    return I18n.t(`chat_integration.filter.${filter}`);
   },
 
   updateProperties() {

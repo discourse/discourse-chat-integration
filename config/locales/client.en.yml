@@ -1,17 +1,35 @@
 en:
   js:
-    chat:
+    chat_integration:
       menu_title: "Chat Integrations"
-      channel: "Channel"
-      filter: "Filter"
-      category: "Category"
-      tags: "Tags"
-      edit: "Edit"
-      delete: "Delete"
-      test_notification: "Test Notification"
-      reset_settings: "Reset Settings"
-      edit_rule_modal_title: "Edit Rule"
-      integration:
+      settings: "Settings"
+      no_providers: "You need to enable some providers in the plugin settings"
+      all_categories: "All Categories"
+      create_rule: "Create Rule"
+      rule_table:
+        channel: "Channel"
+        filter: "Filter"
+        category: "Category"
+        tags: "Tags"
+        edit: "Edit"
+        delete: "Delete"
+      filter:
+        watch: "Watch"
+        follow: "Follow"
+        mute: "Mute"
+      edit_rule_modal:
+        title: "Edit Rule"
+        save: "Save Rule"
+        cancel: "Cancel"
+        provider: "Provider"
+        category: "Category"
+        tags: "Tags"
+        channel: "Channel"
+        filter: "Filter"
+        placeholders:
+          tags: "Choose tags"
+          channel: "#channel, @user or Channel ID"
+      provider:
         telegram:
           title: "Telegram"
         slack:

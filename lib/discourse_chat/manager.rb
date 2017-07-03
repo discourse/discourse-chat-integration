@@ -63,10 +63,12 @@ module DiscourseChat
       matching_rules.each do |rule|
         Rails.logger.info("Sending notification to provider #{rule.provider}, channel #{rule.channel}")
         provider = ::DiscourseChat::Provider.get_by_name(rule.provider)
-        if provider
+        is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
+        if provider and is_enabled
           provider.trigger_notification(post, rule.channel)
+        elsif provider
+          # Provider is disabled, don't do anything
         else
-          puts "Can't find provider"
           # TODO: Handle when the provider does not exist
         end
       end
