@@ -1,15 +1,15 @@
-# name: discourse-chat
+# name: discourse-chat-integration
 # about: This plugin integrates discourse with a number of chat providers
 # version: 0.1
-# url: https://github.com/discourse/discourse-chat
+# url: https://github.com/discourse/discourse-chat-integration
 
-enabled_site_setting :chat_enabled
+enabled_site_setting :chat_integration_enabled
 
 
 after_initialize do
 
   module ::DiscourseChat
-    PLUGIN_NAME = "discourse-chat".freeze
+    PLUGIN_NAME = "discourse-chat-integration".freeze
 
     class Engine < ::Rails::Engine
       engine_name DiscourseChat::PLUGIN_NAME
@@ -40,7 +40,7 @@ after_initialize do
   module ::Jobs
     class NotifyChats < Jobs::Base
       def execute(args)
-        return if not SiteSetting.chat_enabled? # Plugin may have been disabled since job triggered
+        return if not SiteSetting.chat_integration_enabled? # Plugin may have been disabled since job triggered
 
         ::DiscourseChat::Manager.trigger_notifications(args[:post_id])
       end
@@ -48,9 +48,9 @@ after_initialize do
   end
 
   DiscourseEvent.on(:post_created) do |post| 
-    if SiteSetting.chat_enabled?
+    if SiteSetting.chat_integration_enabled?
       # This will run for every post, even PMs. Don't worry, they're filtered out later.
-      Jobs.enqueue_in(SiteSetting.chat_delay_seconds.seconds,
+      Jobs.enqueue_in(SiteSetting.chat_integration_delay_seconds.seconds,
           :notify_chats,
           post_id: post.id
         )

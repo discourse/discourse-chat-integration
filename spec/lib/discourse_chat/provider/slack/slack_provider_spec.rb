@@ -53,12 +53,12 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
 
   describe '.trigger_notifications' do
     before do
-      SiteSetting.chat_slack_outbound_webhook_url = "https://hooks.slack.com/services/abcde"
-      SiteSetting.chat_slack_enabled = true
+      SiteSetting.chat_integration_slack_outbound_webhook_url = "https://hooks.slack.com/services/abcde"
+      SiteSetting.chat_integration_slack_enabled = true
     end
 
     before do
-      @stub1 = stub_request(:post, SiteSetting.chat_slack_outbound_webhook_url).to_return(body: "success")
+      @stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
     end
 
     
@@ -71,7 +71,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
 
     describe 'with api token' do
       before do
-        SiteSetting.chat_slack_access_token = "magic"
+        SiteSetting.chat_integration_slack_access_token = "magic"
         @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"success\":true, \"ts\": \"#{Time.now.to_i}.012345\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: {'Content-Type' => 'application/json'})
         @stub3 = stub_request(:post, %r{https://slack.com/api/chat.update}).to_return(body: '{"success":true, "ts": "some_message_id"}', headers: {'Content-Type' => 'application/json'})
       end

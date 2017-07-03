@@ -3,7 +3,7 @@ require_relative "slack_message_formatter.rb"
 module DiscourseChat::Provider::SlackProvider
   PROVIDER_NAME = "slack".freeze
 
-  def self.excerpt(post, max_length = SiteSetting.chat_slack_discourse_excerpt_length)
+  def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_discourse_excerpt_length)
     doc = Nokogiri::HTML.fragment(post.excerpt(max_length,
       remap_emoji: true,
       keep_onebox_source: true
@@ -25,8 +25,8 @@ module DiscourseChat::Provider::SlackProvider
     category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]": "[#{topic.category.name}]"
 
     icon_url =
-      if !SiteSetting.chat_slack_icon_url.blank?
-        "#{Discourse.base_url}#{SiteSetting.chat_slack_icon_url}"
+      if !SiteSetting.chat_integration_slack_icon_url.blank?
+        "#{Discourse.base_url}#{SiteSetting.chat_integration_slack_icon_url}"
       elsif !SiteSetting.logo_small_url.blank?
         "#{Discourse.base_url}#{SiteSetting.logo_small_url}"
       end
@@ -72,7 +72,7 @@ module DiscourseChat::Provider::SlackProvider
       attachments.concat message[:attachments]
 
       uri = URI("https://slack.com/api/chat.update" +
-        "?token=#{SiteSetting.chat_slack_access_token}" +
+        "?token=#{SiteSetting.chat_integration_slack_access_token}" +
         "&username=#{CGI::escape(record[:message][:username])}" +
         "&text=#{CGI::escape(record[:message][:text])}" +
         "&channel=#{record[:channel]}" +
@@ -81,7 +81,7 @@ module DiscourseChat::Provider::SlackProvider
       )
     else
       uri = URI("https://slack.com/api/chat.postMessage" +
-        "?token=#{SiteSetting.chat_slack_access_token}" +
+        "?token=#{SiteSetting.chat_integration_slack_access_token}" +
         "&username=#{CGI::escape(message[:username])}" +
         "&icon_url=#{CGI::escape(message[:icon_url])}" +
         "&channel=#{ message[:channel].gsub('#', '') }" +
@@ -98,7 +98,7 @@ module DiscourseChat::Provider::SlackProvider
   def self.send_via_webhook(message)
   	http = Net::HTTP.new("hooks.slack.com", 443)
     http.use_ssl = true
-  	req = Net::HTTP::Post.new(URI(SiteSetting.chat_slack_outbound_webhook_url), 'Content-Type' =>'application/json')
+  	req = Net::HTTP::Post.new(URI(SiteSetting.chat_integration_slack_outbound_webhook_url), 'Content-Type' =>'application/json')
     req.body = message.to_json
     response = http.request(req)
     response
@@ -107,7 +107,7 @@ module DiscourseChat::Provider::SlackProvider
   def self.trigger_notification(post, channel)
   	message = slack_message(post, channel)
 
-		if SiteSetting.chat_slack_access_token.empty?
+		if SiteSetting.chat_integration_slack_access_token.empty?
 			self.send_via_webhook(message)
 		else
 			self.send_via_api(post, channel, message)

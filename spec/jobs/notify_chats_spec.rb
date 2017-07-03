@@ -12,7 +12,7 @@ RSpec.describe PostCreator do
   describe 'when a post is created' do
     describe 'when plugin is enabled' do
       before do
-        SiteSetting.chat_enabled = true
+        SiteSetting.chat_integration_enabled = true
       end
 
       it 'should schedule a chat notification job' do
@@ -25,7 +25,7 @@ RSpec.describe PostCreator do
           job = Jobs::NotifyChats.jobs.last
 
           expect(job['at'])
-            .to eq((Time.zone.now + SiteSetting.chat_delay_seconds.seconds).to_f)
+            .to eq((Time.zone.now + SiteSetting.chat_integration_delay_seconds.seconds).to_f)
 
           expect(job['args'].first['post_id']).to eq(post.id)
         end
@@ -34,7 +34,7 @@ RSpec.describe PostCreator do
 
     describe 'when plugin is not enabled' do
       before do
-        SiteSetting.chat_enabled = false
+        SiteSetting.chat_integration_enabled = false
       end
 
       it 'should not schedule a job for chat notifications' do

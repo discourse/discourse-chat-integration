@@ -2,7 +2,7 @@ module DiscourseChat
   module Manager
 
     def self.guardian
-      Guardian.new(User.find_by(username: SiteSetting.chat_discourse_username))
+      Guardian.new(User.find_by(username: SiteSetting.chat_integration_discourse_username))
     end
 
     def self.trigger_notifications(post_id)

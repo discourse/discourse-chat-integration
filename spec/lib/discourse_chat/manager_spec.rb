@@ -109,7 +109,7 @@ RSpec.describe DiscourseChat::Manager do
       group.add(user)
 
       # Set the chat_user to the newly created non-admin user
-      SiteSetting.chat_discourse_username = 'david'
+      SiteSetting.chat_integration_discourse_username = 'david'
 
       # Create a category
       category = Fabricate(:category, name: "Test category")
