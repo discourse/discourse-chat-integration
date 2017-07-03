@@ -37,7 +37,7 @@ RSpec.describe DiscourseChat::Manager do
     let(:provider) {::DiscourseChat::Provider::DummyProvider}
 
     def create_rule(provider, channel, filter, category_id, tags) # Just shorthand for testing purposes
-      DiscourseChat::Rule.new({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags}).save
+      DiscourseChat::Rule.new({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags}).save!
     end
 
     it "should only send notifications when provider is enabled" do

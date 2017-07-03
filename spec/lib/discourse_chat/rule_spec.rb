@@ -1,6 +1,11 @@
 require 'rails_helper'
 
+
+
 RSpec.describe DiscourseChat::Rule do
+  let(:tag1){Fabricate(:tag)}
+  let(:tag2){Fabricate(:tag)}
+
   describe '.alloc_id' do
     it 'should return sequential numbers' do 
       expect( DiscourseChat::Rule.alloc_id ).to eq(1)
@@ -15,10 +20,10 @@ RSpec.describe DiscourseChat::Rule do
     rule = DiscourseChat::Rule.new({
           provider:"slack",
           channel: "#general",
-          category_id: 2,
-          tags: ['hello', 'world'],
+          category_id: 1,
+          tags: [tag1.name, tag2.name],
           filter: 'watch'
-        }).save
+        }).save!
 
     expect(DiscourseChat::Rule.all.length).to eq(1)
 
@@ -26,8 +31,8 @@ RSpec.describe DiscourseChat::Rule do
 
     expect(loadedRule.provider).to eq('slack')
     expect(loadedRule.channel).to eq('#general')
-    expect(loadedRule.category_id).to eq(2)
-    expect(loadedRule.tags).to contain_exactly('hello','world')
+    expect(loadedRule.category_id).to eq(1)
+    expect(loadedRule.tags).to contain_exactly(tag1.name,tag2.name)
     expect(loadedRule.filter).to eq('watch')
 
   end
@@ -37,23 +42,23 @@ RSpec.describe DiscourseChat::Rule do
       rule = DiscourseChat::Rule.new({
           provider:"slack",
           channel: "#general",
-          category_id: 2,
-          tags: ['hello', 'world']
-        }).save
+          category_id: 1,
+          tags: [tag1.name, tag2.name]
+        }).save!
     end
 
     it 'can be modified' do
       rule = DiscourseChat::Rule.all.first
       rule.channel = "#random"
 
-      rule.save
+      rule.save!
 
       rule = DiscourseChat::Rule.all.first
       expect(rule.channel).to eq('#random')
     end
 
     it 'can be deleted' do
-      DiscourseChat::Rule.new.save
+      DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
       expect(DiscourseChat::Rule.all.length).to eq(2)
 
       rule = DiscourseChat::Rule.all.first
@@ -63,11 +68,11 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can delete all' do
-      DiscourseChat::Rule.new.save
-      DiscourseChat::Rule.new.save
-      DiscourseChat::Rule.new.save
-      DiscourseChat::Rule.new.save
-
+      DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
+      DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
+      DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
+      DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
+      
       expect(DiscourseChat::Rule.all.length).to eq(5)
 
       DiscourseChat::Rule.destroy_all
@@ -76,8 +81,8 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be filtered by provider' do
-      rule2 = DiscourseChat::Rule.new({provider:'telegram'}).save
-      rule3 = DiscourseChat::Rule.new({provider:'slack'}).save
+      rule2 = DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
+      rule3 = DiscourseChat::Rule.new({provider:'slack', channel:'blah'}).save!
 
       expect(DiscourseChat::Rule.all.length).to eq(3)
 
@@ -86,16 +91,73 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be filtered by category' do
-      rule2 = DiscourseChat::Rule.new({category_id: 1}).save      
-      rule3 = DiscourseChat::Rule.new({category_id: nil}).save
+      rule2 = DiscourseChat::Rule.new({provider:'slack', channel:'blah', category_id: 1}).save!      
+      rule3 = DiscourseChat::Rule.new({provider:'slack', channel:'blah', category_id: nil}).save!
 
       expect(DiscourseChat::Rule.all.length).to eq(3)
 
-      expect(DiscourseChat::Rule.all_for_category(2).length).to eq(1)
-      expect(DiscourseChat::Rule.all_for_category(1).length).to eq(1)
+      expect(DiscourseChat::Rule.all_for_category(1).length).to eq(2)
       expect(DiscourseChat::Rule.all_for_category(nil).length).to eq(1)
+    end
+  end
+
+  describe 'validations' do
+    
+    let(:rule) do
+      DiscourseChat::Rule.new({
+          filter: 'watch',
+          provider:"slack",
+          channel: "#general",
+          category_id: 1,
+        }).save!
+    end
+
+    it 'validates provider correctly' do
+      expect(rule.valid?).to eq(true)
+      rule.provider = 'somerandomprovider'
+      expect(rule.valid?).to eq(false)
+    end
+
+    it 'validates channel correctly' do
+      expect(rule.valid?).to eq(true)
+      rule.channel = ''
+      expect(rule.valid?).to eq(false)
+    end
+
+    it 'validates category correctly' do
+      expect(rule.valid?).to eq(true)
+      rule.category_id = 99
+      expect(rule.valid?).to eq(false)
+    end
+
+    it 'validates filter correctly' do
+      expect(rule.valid?).to eq(true)
+      rule.filter = 'follow'
+      expect(rule.valid?).to eq(true)
+      rule.filter = 'mute'
+      expect(rule.valid?).to eq(true)
+      rule.filter = ''
+      expect(rule.valid?).to eq(false)
+      rule.filter = 'somerandomstring'
+      expect(rule.valid?).to eq(false)
+    end
+
+    it 'validates tags correctly' do
+      expect(rule.valid?).to eq(true)
+      rule.tags = []
+      expect(rule.valid?).to eq(true)
+      rule.tags = [tag1.name]
+      expect(rule.valid?).to eq(true)
+      rule.tags = [tag1.name, 'blah']
+      expect(rule.valid?).to eq(false)
+    end
+
+    it "doesn't allow save when invalid" do
+      expect(rule.valid?).to eq(true)
+      rule.provider = 'somerandomprovider'
+      expect(rule.valid?).to eq(false)
+      expect(rule.save).to eq(false)
     end
 
   end
-
 end

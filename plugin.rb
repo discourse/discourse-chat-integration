@@ -86,21 +86,33 @@ after_initialize do
     end
 
     def create_rule
-      rule = DiscourseChat::Rule.new()
-      hash = params.require(:rule)
+      begin
+        rule = DiscourseChat::Rule.new()
+        hash = params.require(:rule)
 
-      rule.update(hash)
+        if not rule.update(hash)
+          raise Discourse::InvalidParameters, 'Rule is not valid'
+        end
 
-      render_serialized rule, DiscourseChat::RuleSerializer, root: 'rule'
+        render_serialized rule, DiscourseChat::RuleSerializer, root: 'rule'
+      rescue Discourse::InvalidParameters => e
+        render json: {errors: [e.message]}, status: 422
+      end
     end
 
     def update_rule
-      rule = DiscourseChat::Rule.find(params[:id].to_i)
-      hash = params.require(:rule)
+      begin
+        rule = DiscourseChat::Rule.find(params[:id].to_i)
+        hash = params.require(:rule)
 
-      rule.update(hash)
+        if not rule.update(hash)
+          raise Discourse::InvalidParameters, 'Rule is not valid'
+        end
 
-      render_serialized rule, DiscourseChat::RuleSerializer, root: 'rule'
+        render_serialized rule, DiscourseChat::RuleSerializer, root: 'rule'
+      rescue Discourse::InvalidParameters => e
+        render json: {errors: [e.message]}, status: 422
+      end
     end
 
     def destroy_rule

@@ -6,7 +6,28 @@
     attr_accessor :id, :provider, :channel, :category_id, :tags, :filter
 
     def initialize(h={})
+      @provider = ''
+      @channel = ''
+      @category_id = nil
+      @tags = []
+      @filter = 'watch'
       h.each {|k,v| public_send("#{k}=",v)}
+    end
+
+    def tags=(array)
+      if array.nil? or array.empty?
+        @tags = nil
+      else
+        @tags = array
+      end
+    end
+
+    def category_id=(val)
+      if val.nil? or val.empty?
+        @category_id = nil
+      else
+        @category_id = val.to_i
+      end
     end
 
     # saving/loading functions
@@ -59,11 +80,44 @@
     end
 
     def save
+      return false if not valid?
+
       unless @id && @id > 0
         @id = self.class.alloc_id
       end
       DiscourseChat.pstore_set "rule:#{id}", to_hash
       return self
+    end
+
+    def save!
+      if not save
+        raise 'Rule not valid'
+      end
+      return self
+    end
+
+    def valid?
+      
+      # Validate provider
+      return false if not ::DiscourseChat::Provider.providers.map {|x| x::PROVIDER_NAME}.include? @provider
+      
+      # Validate channel
+      return false if @channel.blank?
+      
+      # Validate category
+      return false if not (@category_id.nil? or Category.where(id: @category_id).exists?)
+
+      # Validate tags
+      if not @tags.nil?
+        @tags.each do |tag|
+          return false if not Tag.where(name: tag).exists?
+        end
+      end
+
+      # Validate filter
+      return false if not ['watch','follow','mute'].include? @filter
+
+      return true
     end
 
     def destroy
