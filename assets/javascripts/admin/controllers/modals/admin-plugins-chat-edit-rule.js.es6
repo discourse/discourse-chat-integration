@@ -1,4 +1,4 @@
-import Rule from 'discourse/plugins/discourse-chat/admin/models/rule'
+import Rule from 'discourse/plugins/discourse-chat-integration/admin/models/rule'
 import ModalFunctionality from 'discourse/mixins/modal-functionality';
 import { ajax } from 'discourse/lib/ajax';
 import { extractError } from 'discourse/lib/ajax-error';

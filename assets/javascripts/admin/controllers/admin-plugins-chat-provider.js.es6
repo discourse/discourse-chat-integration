@@ -1,4 +1,4 @@
-import Rule from 'discourse/plugins/discourse-chat/admin/models/rule'
+import Rule from 'discourse/plugins/discourse-chat-integration/admin/models/rule'
 import { ajax } from 'discourse/lib/ajax';
 import computed from "ember-addons/ember-computed-decorators";
 import showModal from 'discourse/lib/show-modal';

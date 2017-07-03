@@ -1,4 +1,4 @@
-import Rule from 'discourse/plugins/discourse-chat/admin/models/rule'
+import Rule from 'discourse/plugins/discourse-chat-integration/admin/models/rule'
 import { ajax } from 'discourse/lib/ajax';
 
 export default Discourse.Route.extend({
