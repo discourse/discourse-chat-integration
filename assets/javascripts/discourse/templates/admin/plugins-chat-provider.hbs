@@ -18,7 +18,7 @@
 
     {{#each model.rules as |rule|}}
 
-      <tr class="">
+      <tr>
 				<td>{{rule.channel}}</td>
         <td>{{rule.filterName}}</td>
 
@@ -32,7 +32,13 @@
 
 
         {{#if siteSettings.tagging_enabled}}
-          <td>{{rule.tags}}</td>
+          <td>
+            {{#if rule.tags}}
+              {{rule.tags}}
+            {{else}}
+              {{i18n "chat_integration.all_tags"}}
+            {{/if}}
+          </td>
         {{/if}}
 
         
@@ -45,7 +51,7 @@
 
   </table>
   
-  <div>
+  <div class="table-footer">
     <div class="pull-right">
        {{d-button action="create" actionParam=model.provider icon="plus" title="chat_integration.create_rule" label="chat_integration.create_rule"}}
     </div>

@@ -1,4 +1,3 @@
-  
   # Similar to an ActiveRecord class, but uses PluginStore for storage instead. Adapted from discourse-data-explorer
   # Using this means we can use a standard serializer for sending JSON to the client, and also have convenient save/update/delete methods
   # Since this is now being used in two plugins, maybe it should be built into core somehow

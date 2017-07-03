@@ -4,19 +4,20 @@ en:
       menu_title: "Chat Integrations"
       settings: "Settings"
       no_providers: "You need to enable some providers in the plugin settings"
-      all_categories: "All Categories"
+      all_categories: "(all categories)"
+      all_tags: "(all tags)"
       create_rule: "Create Rule"
+      filter:
+        mute: 'Mute'
+        follow: 'First post only'
+        watch: 'All posts and replies'
       rule_table:
         channel: "Channel"
         filter: "Filter"
         category: "Category"
         tags: "Tags"
-        edit: "Edit"
-        delete: "Delete"
-      filter:
-        watch: "Watch"
-        follow: "Follow"
-        mute: "Mute"
+        edit_rule: "Edit"
+        delete_rule: "Delete"
       edit_rule_modal:
         title: "Edit Rule"
         save: "Save Rule"
@@ -26,11 +27,23 @@ en:
         tags: "Tags"
         channel: "Channel"
         filter: "Filter"
-        placeholders:
-          tags: "Choose tags"
-          channel: "#channel, @user or Channel ID"
+        instructions:
+          filter: "Notification level. Mute overrides other matching rules."
+          category: "This rule will only apply to topics in the specified category."
+          tags: "If specified, this rule will only apply to topics which have at least one of these tags."
+      
       provider:
-        telegram:
-          title: "Telegram"
+
+        #######################################
+        ########### SLACK STRINGS #############
+        #######################################
         slack:
           title: "Slack"
+          channel_instructions: "e.g. #channel, @username."
+      
+        #######################################
+        ########## TELEGRAM STRINGS ###########
+        #######################################
+        telegram:
+          title: "Telegram"
+          channel_instructions: "Enter a chat_id. You will need to add the bot to the chat first."

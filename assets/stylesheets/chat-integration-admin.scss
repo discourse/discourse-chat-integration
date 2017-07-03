@@ -1,0 +1,56 @@
+#admin-plugin-chat{
+
+	table{
+		td:last-child{
+			white-space:nowrap;
+		}
+		td:not(:last-child){
+			width: 25%;
+		}
+	}
+
+	div.table-footer{
+		margin-top: 10px;
+	}
+
+}
+
+#chat_integration_edit_rule_modal{
+		table{
+			width:100%;
+
+			tr.input td{
+				padding-top: 10px;
+
+				&.label{
+					width: 100px;
+					label{
+						margin-bottom: 0px;
+						font-weight: bold;
+					}
+				}
+			}
+
+			tr.instructions label{
+				color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+			}
+
+
+		}
+
+		input{
+			width: 200px;
+			margin-bottom: 0px;
+			box-shadow: none;
+		}
+		.tag-chooser{
+			ul.select2-choices{
+				border: none;
+				background:none; 
+			}
+			margin-bottom: 0px;
+			margin-top: 0px;
+		}
+
+
+	}

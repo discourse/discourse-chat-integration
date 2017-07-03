@@ -5,6 +5,8 @@
 
 enabled_site_setting :chat_integration_enabled
 
+register_asset "stylesheets/chat-integration-admin.scss"
+
 # Site setting validators must be loaded before initialize
 require_relative "lib/validators/chat_integration_slack_enabled_setting_validator"
 
@@ -81,6 +83,9 @@ after_initialize do
       else
         raise Discourse::NotFound
       end
+
+      filter_order = ["watch", "follow", "mute"]
+      rules = rules.sort_by{ |r| [r.channel, filter_order.index(r.filter), r.category_id] } 
 
       render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
     end
