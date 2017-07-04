@@ -79,6 +79,39 @@ after_initialize do
       render json:providers, root: 'providers'
     end
 
+    def test_provider
+      begin
+        requested_provider = params[:provider]
+        channel = params[:channel]
+        topic_id = params[:topic_id]
+
+        provider = ::DiscourseChat::Provider.get_by_name(requested_provider)
+
+        if provider.nil? or not ::DiscourseChat::Provider.is_enabled(provider)
+          raise Discourse::NotFound
+        end
+
+        if defined? provider::PROVIDER_CHANNEL_REGEX
+          channel_regex = Regexp.new provider::PROVIDER_CHANNEL_REGEX
+          raise Discourse::InvalidParameters, 'Channel is not valid' if not channel_regex.match?(channel)
+        end
+
+        post = Topic.find(topic_id.to_i).posts.first
+
+        provider.trigger_notification(post, channel)
+
+        render json:success_json
+      rescue Discourse::InvalidParameters, ActiveRecord::RecordNotFound => e
+        render json: {errors: [e.message]}, status: 422
+      rescue DiscourseChat::ProviderError => e
+        if e.info.key?(:error_key) and !e.info[:error_key].nil?
+          render json: {error_key: e.info[:error_key]}, status: 422
+        else 
+          render json: {errors: [e.message]}, status: 422
+        end
+      end
+    end
+
     def list_rules
       providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
 
@@ -148,6 +181,7 @@ after_initialize do
   DiscourseChat::Engine.routes.draw do
     get "" => "chat#respond"
     get '/providers' => "chat#list_providers"
+    post '/test' => "chat#test_provider"
     
     get '/rules' => "chat#list_rules"
     put '/rules' => "chat#create_rule"

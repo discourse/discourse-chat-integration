@@ -9,6 +9,16 @@ en:
       all_categories: "(all categories)"
       all_tags: "(all tags)"
       create_rule: "Create Rule"
+      test_provider: "Test Provider"
+      test_modal:
+        title: "Send a test message"
+        provider: "Provider"
+        channel: "Channel"
+        topic: "Topic"
+        send: "Send Test Message"
+        close: "Close"
+        error: "An unknown error occured while sending the message. Check the site logs for more information."
+        success: "Message sent successfully"
       filter:
         mute: 'Mute'
         follow: 'First post only'

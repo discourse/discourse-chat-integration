@@ -28,7 +28,7 @@
 
 }
 
-#chat_integration_edit_rule_modal{
+#chat_integration_edit_rule_modal, #chat_integration_test_modal{
 		table{
 			width:100%;
 
@@ -51,7 +51,7 @@
 
 		}
 
-		input{
+		#channel-field{
 			width: 200px;
 			margin-bottom: 0px;
 			box-shadow: none;

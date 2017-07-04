@@ -26,7 +26,10 @@ module DiscourseChat::Provider::SlackProvider
 
     topic = post.topic
 
-    category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]": "[#{topic.category.name}]"
+    category = ''
+    if topic.category
+      category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]": "[#{topic.category.name}]"
+    end
 
     icon_url =
       if !SiteSetting.chat_integration_slack_icon_url.blank?
@@ -46,7 +49,7 @@ module DiscourseChat::Provider::SlackProvider
       fallback: "#{topic.title} - #{display_name}",
       author_name: display_name,
       author_icon: post.user.small_avatar_url,
-      color: "##{topic.category.color}",
+      color: topic.category ? "##{topic.category.color}" : nil,
       text: ::DiscourseSlack::Slack.excerpt(post),
       mrkdwn_in: ["text"]
     }
