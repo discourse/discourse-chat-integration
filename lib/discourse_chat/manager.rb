@@ -61,11 +61,30 @@ module DiscourseChat
 
       # Loop through each rule, and trigger appropriate notifications
       matching_rules.each do |rule|
-        Rails.logger.info("Sending notification to provider #{rule.provider}, channel #{rule.channel}")
         provider = ::DiscourseChat::Provider.get_by_name(rule.provider)
         is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
+
         if provider and is_enabled
-          provider.trigger_notification(post, rule.channel)
+          begin
+            provider.trigger_notification(post, rule.channel)
+            rule.update({error_key: nil}, false) if rule.error_key
+          rescue => e
+            if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
+              rule.error_key = e.info[:error_key]
+            else
+              rule.error_key = 'chat_integration.rule_exception'
+            end
+            rule.save(false) # Save without validations
+
+            # Log the error
+            Discourse.handle_job_exception(e,
+              message: "Triggering notifications failed",
+              extra: { provider_name: provider::PROVIDER_NAME,
+                       channel: rule.channel,
+                       post_id: post.id,
+                       error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
+            )
+          end
         elsif provider
           # Provider is disabled, don't do anything
         else

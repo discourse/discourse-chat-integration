@@ -2,7 +2,7 @@
   # Using this means we can use a standard serializer for sending JSON to the client, and also have convenient save/update/delete methods
   # Since this is now being used in two plugins, maybe it should be built into core somehow
   class DiscourseChat::Rule
-    attr_accessor :id, :provider, :channel, :category_id, :tags, :filter
+    attr_accessor :id, :provider, :channel, :category_id, :tags, :filter, :error_key
 
     def initialize(h={})
       @provider = ''
@@ -10,6 +10,7 @@
       @category_id = nil
       @tags = []
       @filter = 'watch'
+      @error_key = nil
       h.each {|k,v| public_send("#{k}=",v)}
     end
 
@@ -41,7 +42,7 @@
 
     def self.from_hash(h)
       rule = DiscourseChat::Rule.new
-      [:provider, :channel, :category_id, :tags, :filter].each do |sym|
+      [:provider, :channel, :category_id, :tags, :filter, :error_key].each do |sym|
         rule.send("#{sym}=", h[sym]) if h[sym]
       end
       if h[:id]
@@ -58,6 +59,7 @@
         category_id: @category_id,
         tags: @tags,
         filter: @filter,
+        error_key: @error_key,
       }
     end
 
@@ -70,16 +72,18 @@
       from_hash hash
     end
 
-    def update(h)
-      [:provider, :channel, :category_id, :tags, :filter].each do |sym|
-        public_send("#{sym}=", h[sym]) if h[sym]
+    def update(h, validate=true)
+      [:provider, :channel, :category_id, :tags, :filter, :error_key].each do |sym|
+        public_send("#{sym}=", h[sym]) if h.key?(sym)
       end
 
-      save
+      save(validate)
     end
 
-    def save
-      return false if not valid?
+    def save(validate=true)
+      if validate
+        return false if not valid?
+      end
 
       unless @id && @id > 0
         @id = self.class.alloc_id
@@ -88,8 +92,8 @@
       return self
     end
 
-    def save!
-      if not save
+    def save!(validate=true)
+      if not save(validate)
         raise 'Rule not valid'
       end
       return self

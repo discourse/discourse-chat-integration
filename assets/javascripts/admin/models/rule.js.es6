@@ -14,6 +14,7 @@ export default RestModel.extend({
   provider: '',
   channel: '',
   filter: null,
+  error_key: null,
 
   @computed('category_id')
   category(categoryId) {

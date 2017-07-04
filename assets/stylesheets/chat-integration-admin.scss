@@ -13,6 +13,19 @@
 		margin-top: 10px;
 	}
 
+	div.error {
+		font-size: 1.1em;
+		font-weight:bold;
+		max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: dark-light-diff($quaternary, $secondary, 70%, -70%);
+    padding: 15px;
+
+    
+  }
+
+
 }
 
 #chat_integration_edit_rule_modal{

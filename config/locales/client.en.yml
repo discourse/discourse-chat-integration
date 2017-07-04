@@ -4,6 +4,8 @@ en:
       menu_title: "Chat Integrations"
       settings: "Settings"
       no_providers: "You need to enable some providers in the plugin settings"
+      rules_with_errors: "Some rules for this provider failed last time they were triggered. Click the error icon(s) to learn more."
+      rule_exception: "An unknown error occured when this rule was last triggered. Check the site logs for more information."
       all_categories: "(all categories)"
       all_tags: "(all tags)"
       create_rule: "Create Rule"
@@ -43,6 +45,9 @@ en:
         slack:
           title: "Slack"
           channel_instructions: "e.g. #channel, @username."
+          errors:
+            action_prohibited: "The bot does not have permission to post to that channel"
+            channel_not_found: "The specified channel does not exist on slack"
       
         #######################################
         ########## TELEGRAM STRINGS ###########

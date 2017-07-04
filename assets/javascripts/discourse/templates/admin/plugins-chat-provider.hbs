@@ -1,4 +1,10 @@
 
+  {{#if anyErrors}}
+    <div class="error">
+      <i class="fa fa-exclamation-triangle"></i>
+      <span class="error-message">{{i18n "chat_integration.rules_with_errors"}}</span>
+    </div>
+  {{/if}}
 
   <table>
     <tr>
@@ -16,10 +22,19 @@
       <th></th>
     </tr>
 
+
     {{#each model.rules as |rule|}}
 
       <tr>
-				<td>{{rule.channel}}</td>
+				<td>
+          {{#if rule.error_key}}
+
+            {{d-button action="showError" actionParam=rule.error_key class="delete btn-danger" icon="exclamation-triangle"}}
+            
+          {{/if}}
+
+          {{rule.channel}}
+        </td>
         <td>{{rule.filterName}}</td>
 
         <td>
@@ -44,7 +59,7 @@
         
         <td>
           {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat_integration.rule_table.edit_rule"}}
-          {{d-button action="delete" actionParam=rule icon="trash-o" class="delete btn-danger" title="chat_integration.rule_table.delete_rule"}}
+          {{d-button action="delete" actionParam=rule icon="trash-o" class="delete" title="chat_integration.rule_table.delete_rule"}}
         </td>
       </tr>
     {{/each}}

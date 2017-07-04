@@ -105,7 +105,19 @@ module DiscourseChat::Provider::SlackProvider
   	req = Net::HTTP::Post.new(URI(SiteSetting.chat_integration_slack_outbound_webhook_url), 'Content-Type' =>'application/json')
     req.body = message.to_json
     response = http.request(req)
-    response
+
+    unless response.kind_of? Net::HTTPSuccess
+      if response.code.to_s == '403'
+        error_key = 'chat_integration.provider.slack.errors.action_prohibited'
+      elsif response.body == 'channel_not_found' or response.body == 'channel_is_archived'
+        error_key = 'chat_integration.provider.slack.errors.channel_not_found'
+      else
+        error_key = nil
+      end
+      raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, request: req.body, response_code:response.code, response_body:response.body}
+    end
+
+    
   end
 
   def self.trigger_notification(post, channel)

@@ -19,13 +19,21 @@ RSpec.describe DiscourseChat::Manager do
         PROVIDER_NAME = "dummy".freeze
         PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
         @@sent_messages = []
+        @@raise_exception = nil
 
         def self.trigger_notification(post, channel)
+          if @@raise_exception
+            raise @@raise_exception
+          end
           @@sent_messages.push(post: post.id, channel: channel)
         end
 
         def self.sent_messages
           @@sent_messages
+        end
+
+        def self.set_raise_exception(bool)
+          @@raise_exception = bool
         end
       end
     end
@@ -40,7 +48,28 @@ RSpec.describe DiscourseChat::Manager do
       DiscourseChat::Rule.new({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags}).save!
     end
 
-    it "should only send notifications when provider is enabled" do
+    it "should fail gracefully when a provider throws an exception" do
+      create_rule('dummy', 'chan1', 'watch', category.id, nil)
+
+      # Triggering a ProviderError should set the error_key to the error message
+      ::DiscourseChat::Provider::DummyProvider.set_raise_exception(DiscourseChat::ProviderError.new info: {error_key:"hello"})
+      manager.trigger_notifications(first_post.id)
+      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
+      expect(DiscourseChat::Rule.all.first.error_key).to eq('hello')
+
+      # Triggering a different error should set the error_key to a generic message
+      ::DiscourseChat::Provider::DummyProvider.set_raise_exception(StandardError.new "hello")
+      manager.trigger_notifications(first_post.id)
+      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
+      expect(DiscourseChat::Rule.all.first.error_key).to eq('chat_integration.rule_exception')
+
+      ::DiscourseChat::Provider::DummyProvider.set_raise_exception(nil)
+
+      manager.trigger_notifications(first_post.id)
+      expect(DiscourseChat::Rule.all.first.error_key.nil?).to be true      
+    end
+
+    it "should not send notifications when provider is disabled" do
       SiteSetting.chat_integration_enabled = false
       create_rule('dummy', 'chan1', 'watch', category.id, nil)
 

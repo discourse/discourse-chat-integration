@@ -43,6 +43,7 @@ after_initialize do
 
   module ::Jobs
     class NotifyChats < Jobs::Base
+      sidekiq_options retry: false # Don't retry, could result in duplicate notifications for some providers
       def execute(args)
         return if not SiteSetting.chat_integration_enabled? # Plugin may have been disabled since job triggered
 
@@ -113,6 +114,7 @@ after_initialize do
     def update_rule
       begin
         rule = DiscourseChat::Rule.find(params[:id].to_i)
+        rule.error_key = nil # Reset any error on the rule
         hash = params.require(:rule)
 
         if not rule.update(hash)
@@ -135,7 +137,7 @@ after_initialize do
   end
 
   class DiscourseChat::RuleSerializer < ActiveModel::Serializer
-    attributes :id, :provider, :channel, :category_id, :tags, :filter
+    attributes :id, :provider, :channel, :category_id, :tags, :filter, :error_key
   end
 
   require_dependency 'admin_constraint'

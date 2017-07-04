@@ -8,6 +8,16 @@ import { popupAjaxError } from 'discourse/lib/ajax-error';
 export default Ember.Controller.extend({
 	modalShowing: false,
 	
+  anyErrors: function(){
+    var anyErrors = false;
+    this.get('model.rules').forEach(function(rule){
+      if(rule.error_key){
+        anyErrors = true;
+      }
+    });
+    return anyErrors;
+  }.property('model.rules'),
+
   actions:{
   	create(){
   		this.set('modalShowing', true);
@@ -25,6 +35,9 @@ export default Ember.Controller.extend({
         self.send('refresh');
       }).catch(popupAjaxError)
   	},
+    showError(error_key){
+      bootbox.alert(I18n.t(error_key));
+    }
 
   }
 

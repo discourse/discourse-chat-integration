@@ -1,4 +1,13 @@
 module DiscourseChat
+  class ProviderError < StandardError
+    attr_accessor :info
+
+    def initialize(message = nil, info: nil)
+      super(message)
+      self.info = info.nil? ? {} : info
+    end
+  end
+
   module Provider
     def self.providers
       constants.select do |constant|
