@@ -123,9 +123,6 @@ after_initialize do
         raise Discourse::NotFound
       end
 
-      filter_order = ["watch", "follow", "mute"]
-      rules = rules.sort_by{ |r| [r.channel, r.category_id.nil? ? 0 : r.category_id, filter_order.index(r.filter)] } 
-
       render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
     end
 

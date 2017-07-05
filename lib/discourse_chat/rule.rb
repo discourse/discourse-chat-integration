@@ -8,7 +8,7 @@
       @provider = ''
       @channel = ''
       @category_id = nil
-      @tags = []
+      @tags = nil
       @filter = 'watch'
       @error_key = nil
       h.each {|k,v| public_send("#{k}=",v)}
@@ -141,6 +141,10 @@
       self.where("value::json->>'provider'=?", provider)
     end
 
+    def self.all_for_channel(provider, channel)
+      self.where("value::json->>'provider'=? AND value::json->>'channel'=?", provider, channel)
+    end
+
     def self.all_for_category(category_id)
       if category_id.nil?
         self.where("json_typeof(value::json->'category_id')='null'")
@@ -167,9 +171,13 @@
     end
 
     def self._from_psr_rows(raw)
-      raw.map do |psr|
+      rules = raw.map do |psr|
         from_hash PluginStore.cast_value(psr.type_name, psr.value)
       end
+
+      filter_order = ["mute", "watch", "follow"]
+      rules = rules.sort_by{ |r| [r.channel, r.category_id.nil? ? 0 : r.category_id, filter_order.index(r.filter)] } 
+      return rules
     end
 
     def self.destroy_all

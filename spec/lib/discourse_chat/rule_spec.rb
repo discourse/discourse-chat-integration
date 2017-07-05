@@ -90,6 +90,18 @@ RSpec.describe DiscourseChat::Rule do
       expect(DiscourseChat::Rule.all_for_provider('telegram').length).to eq(1)
     end
 
+    it 'can be filtered by channel' do
+      rule2 = DiscourseChat::Rule.new({provider:'telegram', channel:'blah'}).save!
+      rule3 = DiscourseChat::Rule.new({provider:'slack', channel:'#blah'}).save!
+      rule4 = DiscourseChat::Rule.new({provider:'slack', channel:'#general'}).save!
+      rule5 = DiscourseChat::Rule.new({provider:'slack', channel:'#general'}).save!
+
+      expect(DiscourseChat::Rule.all.length).to eq(5)
+
+      expect(DiscourseChat::Rule.all_for_channel('slack','#general').length).to eq(3)
+      expect(DiscourseChat::Rule.all_for_channel('slack', '#blah').length).to eq(1)
+    end
+
     it 'can be filtered by category' do
       rule2 = DiscourseChat::Rule.new({provider:'slack', channel:'#blah', category_id: 1}).save!      
       rule3 = DiscourseChat::Rule.new({provider:'slack', channel:'#blah', category_id: nil}).save!
