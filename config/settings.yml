@@ -20,6 +20,8 @@ plugins:
     default: 400
   chat_integration_slack_icon_url:
     default: ''
+  chat_integration_slack_incoming_webhook_token:
+    default: ''
   chat_integration_slack_access_token:
     default: ''
 
