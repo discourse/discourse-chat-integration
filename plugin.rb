@@ -40,6 +40,7 @@ after_initialize do
   require_relative "lib/discourse_chat/provider"
   require_relative "lib/discourse_chat/manager"
   require_relative "lib/discourse_chat/rule"
+  require_relative "lib/discourse_chat/helper"
 
   module ::Jobs
     class NotifyChats < Jobs::Base

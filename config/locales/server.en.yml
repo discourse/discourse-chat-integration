@@ -21,3 +21,36 @@ en:
     ######### TELEGRAM SETTINGS ###########
     #######################################
     chat_integration_telegram_enabled: "Enable the telegram chat-integration provider"
+  
+  chat_integration:
+    
+    all_categories: "(all categories)"
+    deleted_category: "(deleted category)"
+
+    provider:
+      slack:
+        status:
+          header: |
+            *Rules for this channel*
+            (if multiple rules match a post, the topmost rule is executed)
+          no_rules: "There are no rules set up for this channel. Run `/discourse help` for instructions."
+          rule_string: "*%{index})* *%{filter}* posts in *%{category}*"
+          rule_string_tags_suffix: " with tags: *%{tags}*"
+        error: "Sorry, I didn't understand that. Run `/discourse help` for instructions."
+        not_found:
+          tag: "The *%{name}* tag cannot be found."
+          category: "The *%{name}* category cannot be found. Available categories: *%{list}*"
+
+        help: |
+          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+          
+          *Help:* `/discourse help`
