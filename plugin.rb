@@ -15,8 +15,8 @@ after_initialize do
   module ::DiscourseChat
     PLUGIN_NAME = "discourse-chat-integration".freeze
 
-    class Engine < ::Rails::Engine
-      engine_name DiscourseChat::PLUGIN_NAME
+    class AdminEngine < ::Rails::Engine
+      engine_name DiscourseChat::PLUGIN_NAME+"-admin"
       isolate_namespace DiscourseChat
     end
 
@@ -178,7 +178,7 @@ after_initialize do
 
   add_admin_route 'chat_integration.menu_title', 'chat'
 
-  DiscourseChat::Engine.routes.draw do
+  DiscourseChat::AdminEngine.routes.draw do
     get "" => "chat#respond"
     get '/providers' => "chat#list_providers"
     post '/test' => "chat#test_provider"
@@ -192,7 +192,10 @@ after_initialize do
   end
 
   Discourse::Application.routes.append do
-    mount ::DiscourseChat::Engine, at: '/admin/plugins/chat', constraints: AdminConstraint.new
+    mount ::DiscourseChat::AdminEngine, at: '/admin/plugins/chat', constraints: AdminConstraint.new
+    mount ::DiscourseChat::Provider::HookEngine, at: '/chat-integration/'
   end
+
+  DiscourseChat::Provider.mount_engines
 
 end

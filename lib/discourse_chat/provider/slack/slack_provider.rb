@@ -1,5 +1,3 @@
-require_relative "slack_message_formatter.rb"
-
 module DiscourseChat::Provider::SlackProvider
   PROVIDER_NAME = "slack".freeze
 
@@ -134,3 +132,6 @@ module DiscourseChat::Provider::SlackProvider
 
   end
 end
+
+require_relative "slack_message_formatter.rb"
+require_relative "slack_command_controller.rb"

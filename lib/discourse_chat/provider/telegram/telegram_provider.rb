@@ -8,3 +8,5 @@ module DiscourseChat
     end
   end
 end
+
+require_relative "telegram_command_controller.rb"

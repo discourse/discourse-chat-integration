@@ -21,6 +21,10 @@ module DiscourseChat
       end
     end
 
+    def self.enabled_provider_names
+      self.enabled_providers.map {|x| x::PROVIDER_NAME}
+    end
+
     def self.get_by_name(name)
       self.providers.find{|p| p::PROVIDER_NAME == name}
     end
@@ -30,6 +34,51 @@ module DiscourseChat
         SiteSetting.send(provider::PROVIDER_ENABLED_SETTING)
       else
         false
+      end
+    end
+
+    class HookEngine < ::Rails::Engine
+      engine_name DiscourseChat::PLUGIN_NAME+"-hooks"
+      isolate_namespace DiscourseChat::Provider
+    end
+
+    class HookController < ::ApplicationController
+      requires_plugin DiscourseChat::PLUGIN_NAME
+
+      class ProviderDisabled < StandardError; end
+
+      rescue_from ProviderDisabled  do
+        rescue_discourse_actions(:not_found, 404)
+      end
+
+      def self.requires_provider(provider_name)
+        before_filter do
+          raise ProviderDisabled.new unless Provider.enabled_provider_names.include?(provider_name)
+        end
+      end
+
+      def respond
+        render 
+      end
+    end
+
+    # Automatically mount each provider's engine inside the HookEngine
+    def self.mount_engines
+      engines = []
+      DiscourseChat::Provider.providers.each do |provider|
+        engine = provider.constants.select do |constant|
+          constant.to_s =~ /Engine$/ and not constant.to_s == "HookEngine"
+        end.map(&provider.method(:const_get)).first
+
+        if engine
+          engines.push({engine: engine, name: provider::PROVIDER_NAME})
+        end  
+      end
+
+      DiscourseChat::Provider::HookEngine.routes.draw do
+        engines.each do |engine|
+          mount engine[:engine], at: engine[:name]
+        end
       end
     end
 
