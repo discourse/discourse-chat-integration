@@ -4,6 +4,8 @@ RSpec.describe DiscourseChat::Manager do
 
   let(:category) {Fabricate(:category)}
   let(:tag1){Fabricate(:tag)}
+  let(:tag2){Fabricate(:tag)}
+  let(:tag3){Fabricate(:tag)}
 
   describe '.status_for_channel' do
     
@@ -51,6 +53,95 @@ RSpec.describe DiscourseChat::Manager do
       end
 
     end
+
+  end
+
+  describe '.smart_create_rule' do
+
+    it 'creates a rule when there are none' do
+      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
+                                                    channel: '#general',
+                                                    filter: 'watch',
+                                                    category_id: category.id,
+                                                    tags: [tag1.name]
+                                                    )
+      expect(val).to eq(:created)
+
+      record = DiscourseChat::Rule.all.first
+      expect(record.provider).to eq('slack')
+      expect(record.channel).to eq('#general')
+      expect(record.filter).to eq('watch')
+      expect(record.category_id).to eq(category.id)
+      expect(record.tags).to eq([tag1.name])
+    end
+
+    it 'updates a rule when it has the same category and tags' do
+      existing = DiscourseChat::Rule.new({provider: 'slack',
+                                          channel: '#general',
+                                          filter: 'watch',
+                                          category_id: category.id,
+                                          tags: [tag2.name, tag1.name]
+                                        }).save!
+
+      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
+                                                    channel: '#general',
+                                                    filter: 'mute',
+                                                    category_id: category.id,
+                                                    tags: [tag1.name, tag2.name]
+                                                    )
+
+      expect(val).to eq(:updated)
+
+      expect(DiscourseChat::Rule.all.size).to eq(1)
+      expect(DiscourseChat::Rule.all.first.filter).to eq('mute')
+    end
+
+    it 'updates a rule when it has the same category and filter' do
+      existing = DiscourseChat::Rule.new({provider: 'slack',
+                                          channel: '#general',
+                                          filter: 'watch',
+                                          category_id: category.id,
+                                          tags: [tag1.name, tag2.name]
+                                        }).save!
+
+      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
+                                                    channel: '#general',
+                                                    filter: 'watch',
+                                                    category_id: category.id,
+                                                    tags: [tag1.name, tag3.name]
+                                                    )
+
+      expect(val).to eq(:updated)
+
+      expect(DiscourseChat::Rule.all.size).to eq(1)
+      expect(DiscourseChat::Rule.all.first.tags).to contain_exactly(tag1.name, tag2.name, tag3.name)
+    end
+
+    it 'destroys duplicate rules on save' do
+      DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter: 'watch'}).save!
+      DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter: 'watch'}).save!
+      expect(DiscourseChat::Rule.all.size).to eq(2)
+      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
+                                                    channel: '#general',
+                                                    filter: 'watch',
+                                                    category_id: nil,
+                                                    tags: nil
+                                                    )
+      expect(val).to eq(:updated)
+      expect(DiscourseChat::Rule.all.size).to eq(1)
+    end
+
+    it 'returns false on error' do
+      val = DiscourseChat::Helper.smart_create_rule(provider: 'nonexistantprovider',
+                                                    channel: '#general',
+                                                    filter: 'watch',
+                                                    category_id: nil,
+                                                    tags: nil
+                                                    )
+
+      expect(val).to eq(false)
+    end
+
 
   end
 
