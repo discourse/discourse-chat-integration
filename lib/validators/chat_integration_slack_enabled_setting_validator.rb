@@ -4,7 +4,7 @@ class ChatIntegrationSlackEnabledSettingValidator
   end
 
   def valid_value?(val)
-    return true if val == 'f'
+    return true if val == 'f' or val == false
     return false if SiteSetting.chat_integration_slack_outbound_webhook_url.blank? && SiteSetting.chat_integration_slack_access_token.blank?
     true
   end

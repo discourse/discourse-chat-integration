@@ -39,7 +39,7 @@ en:
         parse_error: "Sorry, I didn't understand that. Run `/discourse help` for instructions."
         create:
           created: "Rule created successfully"
-          updated: "Rule updated succecssfully"
+          updated: "Rule updated successfully"
           error: "Sorry, an error occured while creating that rule."
         delete:
           success: "Rule deleted successfully"
