@@ -56,6 +56,59 @@ RSpec.describe DiscourseChat::Manager do
 
   end
 
+  describe '.delete_by_index' do
+    let(:category2) {Fabricate(:category)}
+    let(:category3) {Fabricate(:category)}
+
+    it 'deletes the correct rule' do
+      # Three identical rules, with different categories 
+      # Status will be sorted by category id, so they should
+      # be in this order
+      rule1 = DiscourseChat::Rule.new({provider: 'slack',
+                                          channel: '#general',
+                                          filter: 'watch',
+                                          category_id: category.id,
+                                          tags: [tag1.name, tag2.name]
+                                        }).save!
+      rule2 = DiscourseChat::Rule.new({provider: 'slack',
+                                          channel: '#general',
+                                          filter: 'watch',
+                                          category_id: category2.id,
+                                          tags: [tag1.name, tag2.name]
+                                        }).save!
+      rule3 = DiscourseChat::Rule.new({provider: 'slack',
+                                          channel: '#general',
+                                          filter: 'watch',
+                                          category_id: category3.id,
+                                          tags: [tag1.name, tag2.name]
+                                        }).save!
+
+      expect(DiscourseChat::Rule.all.size).to eq(3)
+
+      expect(DiscourseChat::Helper.delete_by_index('slack','#general',2)).to eq(:deleted)
+
+      expect(DiscourseChat::Rule.all.size).to eq(2)
+      expect(DiscourseChat::Rule.all.map(&:category_id)).to contain_exactly(category.id, category3.id)
+    end
+
+    it 'fails gracefully for out of range indexes' do
+      rule1 = DiscourseChat::Rule.new({provider: 'slack',
+                                          channel: '#general',
+                                          filter: 'watch',
+                                          category_id: category.id,
+                                          tags: [tag1.name, tag2.name]
+                                        }).save!
+
+      expect(DiscourseChat::Helper.delete_by_index('slack','#general',-1)).to eq(false)
+      expect(DiscourseChat::Helper.delete_by_index('slack','#general',0)).to eq(false)
+      expect(DiscourseChat::Helper.delete_by_index('slack','#general',2)).to eq(false)
+
+      expect(DiscourseChat::Helper.delete_by_index('slack','#general',1)).to eq(:deleted)
+    end
+
+
+  end
+
   describe '.smart_create_rule' do
 
     it 'creates a rule when there are none' do
@@ -141,8 +194,6 @@ RSpec.describe DiscourseChat::Manager do
 
       expect(val).to eq(false)
     end
-
-
   end
 
 end

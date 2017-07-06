@@ -41,6 +41,16 @@ module DiscourseChat
       return text
   	end
 
+    # Delete a rule based on its (1 based) index as seen in the 
+    # status_for_channel function
+    def self.delete_by_index(provider, channel, index)
+      rules = DiscourseChat::Rule.all_for_channel(provider, channel)
+
+      return false if index < 1 or index > rules.size
+
+      return :deleted if rules[index-1].destroy
+    end
+
     # Create a rule for a specific channel
     # Designed to be used by provider's "Slash commands" 
     # Will intelligently adjust existing rules to avoid duplicates 
