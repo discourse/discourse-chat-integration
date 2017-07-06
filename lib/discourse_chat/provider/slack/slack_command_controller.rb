@@ -32,9 +32,11 @@ module DiscourseChat::Provider::SlackProvider
           "##{params[:channel_name]}"
         end
 
+      provider = DiscourseChat::Provider::SlackProvider::PROVIDER_NAME
+
       cmd = tokens.shift if tokens.size >= 1
 
-      error_text = I18n.t("chat_integration.provider.slack.error")
+      error_text = I18n.t("chat_integration.provider.slack.parse_error")
 
       case cmd
       when "watch", "follow", "mute"
@@ -66,15 +68,31 @@ module DiscourseChat::Provider::SlackProvider
           unless tag # If tag doesn't exist, abort
             return I18n.t("chat_integration.provider.slack.not_found.tag", name: tag_name)
           end
-          tags.push(tag)
+          tags.push(tag.name)
         end
 
-        return "You want to watch post in #{category.nil? ? '(all)':category.name} with tags #{tags.map(&:name)}. Sorry, I can't do that yet"
-
+        category_id = category.nil? ? nil : category.id
+        case DiscourseChat::Helper.smart_create_rule(provider: provider, channel:channel, filter:cmd, category_id: category_id, tags:tags)
+        when :created
+          return I18n.t("chat_integration.provider.slack.create.created")
+        when :updated
+          return I18n.t("chat_integration.provider.slack.create.updated")
+        else
+          return I18n.t("chat_integration.provider.slack.create.error")
+        end
       when "remove"
-        return "You want to remove a rule. Sorry, I don't know how to do that yet"
+        return error_text unless tokens.size == 1
+
+        rule_number = tokens[0].to_i
+        return error_text unless rule_number.to_s == tokens[0] # Check we were given a number
+
+        if DiscourseChat::Helper.delete_by_index(provider, channel, rule_number)
+          return I18n.t("chat_integration.provider.slack.delete.success")
+        else
+          return I18n.t("chat_integration.provider.slack.delete.error")
+        end
       when "status"
-        return DiscourseChat::Helper.status_for_channel(DiscourseChat::Provider::SlackProvider::PROVIDER_NAME, channel)
+        return DiscourseChat::Helper.status_for_channel(provider, channel)
       when "help"
         return I18n.t("chat_integration.provider.slack.help")
       else

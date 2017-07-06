@@ -36,7 +36,14 @@ en:
           no_rules: "There are no rules set up for this channel. Run `/discourse help` for instructions."
           rule_string: "*%{index})* *%{filter}* posts in *%{category}*"
           rule_string_tags_suffix: " with tags: *%{tags}*"
-        error: "Sorry, I didn't understand that. Run `/discourse help` for instructions."
+        parse_error: "Sorry, I didn't understand that. Run `/discourse help` for instructions."
+        create:
+          created: "Rule created successfully"
+          updated: "Rule updated succecssfully"
+          error: "Sorry, an error occured while creating that rule."
+        delete:
+          success: "Rule deleted successfully"
+          error: "Sorry, an error occured while deleting that rule. Run `/discourse status` for a list of rules."
         not_found:
           tag: "The *%{name}* tag cannot be found."
           category: "The *%{name}* category cannot be found. Available categories: *%{list}*"
