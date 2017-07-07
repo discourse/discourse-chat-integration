@@ -28,7 +28,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
       	
       	var response = e.jqXHR.responseJSON
       	var error_key = 'chat_integration.test_modal.error'
-      	debugger;
+
       	if(response['error_key']){
       		error_key = response['error_key']	
         }

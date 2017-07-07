@@ -96,6 +96,21 @@ module DiscourseChat::Provider::SlackProvider
 
     response = http.request(Net::HTTP::Post.new(uri))
 
+    unless response.kind_of? Net::HTTPSuccess 
+      raise ::DiscourseChat::ProviderError.new info: {request: uri, response_code:response.code, response_body:response.body}
+    end
+
+    json = JSON.parse(response.body)
+
+    unless json["ok"] == true
+      if json.key?("error") and (json["error"] == 'channel_not_found' or json["error"] == 'is_archived')
+        error_key = 'chat_integration.provider.slack.errors.channel_not_found'
+      else
+        error_key = json.to_s
+      end
+      raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, request: uri, response_code:response.code, response_body:response.body}
+    end
+
     DiscourseChat.pstore_set("slack_topic_#{post.topic.id}_#{channel}", JSON.parse(response.body) )
     response
   end
