@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 describe 'Slack Command Controller', type: :request do
-  # let(:first_post) { Fabricate(:post) }
-  # let(:topic) { Fabricate(:topic, posts: [first_post]) }
-  # let(:admin) { Fabricate(:admin) }
   let(:category) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
