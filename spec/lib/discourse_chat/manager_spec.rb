@@ -1,5 +1,6 @@
 require 'rails_helper'
 require_dependency 'post_creator'
+require_relative '../../dummy_provider'
 
 RSpec.describe DiscourseChat::Manager do
 
@@ -10,39 +11,11 @@ RSpec.describe DiscourseChat::Manager do
   let(:second_post) {Fabricate(:post, topic: topic, post_number:2)}
 
   describe '.trigger_notifications' do
+    include_context "dummy provider"
+
     before do
       SiteSetting.chat_integration_enabled = true
     end
-
-    before(:each) do 
-      module ::DiscourseChat::Provider::DummyProvider
-        PROVIDER_NAME = "dummy".freeze
-        PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
-        @@sent_messages = []
-        @@raise_exception = nil
-
-        def self.trigger_notification(post, channel)
-          if @@raise_exception
-            raise @@raise_exception
-          end
-          @@sent_messages.push(post: post.id, channel: channel)
-        end
-
-        def self.sent_messages
-          @@sent_messages
-        end
-
-        def self.set_raise_exception(bool)
-          @@raise_exception = bool
-        end
-      end
-    end
-
-    after(:each) do
-      ::DiscourseChat::Provider.send(:remove_const, :DummyProvider)
-    end
-
-    let(:provider) {::DiscourseChat::Provider::DummyProvider}
 
     def create_rule(provider, channel, filter, category_id, tags) # Just shorthand for testing purposes
       DiscourseChat::Rule.new({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags}).save!
