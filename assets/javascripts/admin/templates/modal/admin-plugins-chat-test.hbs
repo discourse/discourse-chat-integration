@@ -46,7 +46,7 @@
 
 <div class="modal-footer">
   {{#conditional-loading-spinner condition=loading}}
-    {{d-button class='btn-primary btn-large' action="send" title="chat_integration.test_modal.send" label="chat_integration.test_modal.send" disabled=sendDisabled}}
+    {{d-button id="send_test" class='btn-primary btn-large' action="send" title="chat_integration.test_modal.send" label="chat_integration.test_modal.send" disabled=sendDisabled}}
   
 	  {{d-button class="btn-large" action="closeModal" title="chat_integration.test_modal.close" label="chat_integration.test_modal.close"}}
   {{/conditional-loading-spinner}}
