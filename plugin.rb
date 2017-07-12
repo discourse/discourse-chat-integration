@@ -119,7 +119,7 @@ after_initialize do
       requested_provider = params[:provider]
 
       if providers.include? requested_provider
-        rules = DiscourseChat::Rule.all_for_provider(requested_provider)
+        rules = DiscourseChat::Rule.with_provider(requested_provider)
       else
         raise Discourse::NotFound
       end
@@ -129,10 +129,11 @@ after_initialize do
 
     def create_rule
       begin
-        rule = DiscourseChat::Rule.new()
-        hash = params.require(:rule)
+        hash = params.require(:rule).permit(:provider, :channel, :filter, :category_id, tags:[])
 
-        if not rule.update(hash)
+        rule = DiscourseChat::Rule.new(hash)
+        
+        if not rule.save(hash)
           raise Discourse::InvalidParameters, 'Rule is not valid'
         end
 
@@ -146,8 +147,8 @@ after_initialize do
       begin
         rule = DiscourseChat::Rule.find(params[:id].to_i)
         rule.error_key = nil # Reset any error on the rule
-        hash = params.require(:rule)
-
+        hash = params.require(:rule).permit(:provider, :channel, :filter, :category_id, tags:[])
+        
         if not rule.update(hash)
           raise Discourse::InvalidParameters, 'Rule is not valid'
         end

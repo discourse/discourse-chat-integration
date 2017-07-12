@@ -18,7 +18,7 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     def create_rule(provider, channel, filter, category_id, tags) # Just shorthand for testing purposes
-      DiscourseChat::Rule.new({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags}).save!
+      DiscourseChat::Rule.create({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags})
     end
 
     it "should fail gracefully when a provider throws an exception" do

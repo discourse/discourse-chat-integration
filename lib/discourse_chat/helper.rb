@@ -3,7 +3,7 @@ module DiscourseChat
 	
     # Produce a string with a list of all rules associated with a channel
   	def self.status_for_channel(provider, channel)
-  		rules = DiscourseChat::Rule.all_for_channel(provider, channel)
+  		rules = DiscourseChat::Rule.with_channel(provider, channel)
 
   		text = I18n.t("chat_integration.provider.#{provider}.status.header") + "\n"
 
@@ -44,7 +44,7 @@ module DiscourseChat
     # Delete a rule based on its (1 based) index as seen in the 
     # status_for_channel function
     def self.delete_by_index(provider, channel, index)
-      rules = DiscourseChat::Rule.all_for_channel(provider, channel)
+      rules = DiscourseChat::Rule.with_channel(provider, channel)
 
       return false if index < 1 or index > rules.size
 
@@ -59,7 +59,7 @@ module DiscourseChat
     #     :created if a new rule has been created
     #     false if there was an error
     def self.smart_create_rule(provider:, channel:, filter:, category_id:, tags:)
-      existing_rules = DiscourseChat::Rule.all_for_channel(provider, channel)
+      existing_rules = DiscourseChat::Rule.with_channel(provider, channel)
 
       # Select the ones that have the same category
       same_category = existing_rules.select { |rule| rule.category_id == category_id }

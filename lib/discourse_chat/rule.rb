@@ -1,186 +1,105 @@
-  # Similar to an ActiveRecord class, but uses PluginStore for storage instead. Adapted from discourse-data-explorer
-  # Using this means we can use a standard serializer for sending JSON to the client, and also have convenient save/update/delete methods
-  # Since this is now being used in two plugins, maybe it should be built into core somehow
-  class DiscourseChat::Rule
-    attr_accessor :id, :provider, :channel, :category_id, :tags, :filter, :error_key
+class DiscourseChat::Rule < PluginStoreRow
+  PLUGIN_NAME = 'discourse-chat-integration'
+  KEY_PREFIX = 'rule:'
+  
+  # Restrict the scope to JSON PluginStoreRows which are for this plugin, and this model
+  default_scope { where(type_name: 'JSON')
+                  .where(plugin_name: PLUGIN_NAME)
+                  .where("key like?", "#{KEY_PREFIX}%") 
+                }
 
-    def initialize(h={})
-      @provider = ''
-      @channel = ''
-      @category_id = nil
-      @tags = nil
-      @filter = 'watch'
-      @error_key = nil
-      h.each {|k,v| public_send("#{k}=",v)}
+  # Setup ActiveRecord::Store to use the JSON field to read/write these values
+  store :value, accessors: [ :provider, :channel, :category_id, :tags, :filter, :error_key ], coder: JSON
+
+  before_save :set_key
+
+  after_initialize :init
+
+  def init
+    self.filter  ||= 'watch'
+  end
+
+  validates :filter, :inclusion => { :in => %w(watch follow mute),
+    :message => "%{value} is not a valid filter" }
+
+  validate :provider_and_channel_valid?, :category_valid?, :tags_valid?
+
+  def provider_and_channel_valid?
+    # Validate provider
+    if not ::DiscourseChat::Provider.provider_names.include? provider
+      errors.add(:provider, "#{provider} is not a valid provider")
+      return
+    end
+    
+    # Validate channel
+    if channel.blank? 
+      errors.add(:channel, "channel cannot be blank")
+      return
     end
 
-    def tags=(array)
-      if array.nil? or array.empty?
-        @tags = nil
-      else
-        @tags = array
+    provider_class = ::DiscourseChat::Provider.get_by_name(provider)
+    if defined? provider_class::PROVIDER_CHANNEL_REGEX
+      channel_regex = Regexp.new provider_class::PROVIDER_CHANNEL_REGEX
+      if not channel_regex.match?(channel)
+        errors.add(:channel, "#{channel} is not a valid channel for provider #{provider}")
       end
-    end
-
-    def category_id=(val)
-      if val.nil? or val.blank?
-        @category_id = nil
-      else
-        @category_id = val.to_i
-      end
-    end
-
-    # saving/loading functions
-    def self.alloc_id
-      DistributedMutex.synchronize('discourse-chat_rule-id') do
-        max_id = DiscourseChat.pstore_get("rule:_id")
-        max_id = 1 unless max_id
-        DiscourseChat.pstore_set("rule:_id", max_id + 1)
-        max_id
-      end
-    end
-
-    def self.from_hash(h)
-      rule = DiscourseChat::Rule.new
-      [:provider, :channel, :category_id, :tags, :filter, :error_key].each do |sym|
-        rule.send("#{sym}=", h[sym]) if h[sym]
-      end
-      if h[:id]
-        rule.id = h[:id].to_i
-      end
-      rule
-    end
-
-    def to_hash
-      {
-        id: @id,
-        provider: @provider,
-        channel: @channel,
-        category_id: @category_id,
-        tags: @tags,
-        filter: @filter,
-        error_key: @error_key,
-      }
-    end
-
-    def self.find(id, opts={})
-      hash = DiscourseChat.pstore_get("rule:#{id}")
-      unless hash
-        return DiscourseChat::Rule.new if opts[:ignore_deleted]
-        raise Discourse::NotFound
-      end
-      from_hash hash
-    end
-
-    def update(h, validate=true)
-      [:provider, :channel, :category_id, :tags, :filter, :error_key].each do |sym|
-        public_send("#{sym}=", h[sym]) if h.key?(sym)
-      end
-
-      save(validate)
-    end
-
-    def save(validate=true)
-      if validate
-        return false if not valid?
-      end
-
-      unless @id && @id > 0
-        @id = self.class.alloc_id
-      end
-      DiscourseChat.pstore_set "rule:#{id}", to_hash
-      return self
-    end
-
-    def save!(validate=true)
-      if not save(validate)
-        raise 'Rule not valid'
-      end
-      return self
-    end
-
-    def valid?
-      
-      # Validate provider
-      return false if not ::DiscourseChat::Provider.providers.map {|x| x::PROVIDER_NAME}.include? @provider
-      
-      # Validate channel
-      return false if @channel.blank?
-
-      provider = ::DiscourseChat::Provider.get_by_name(@provider)
-      if defined? provider::PROVIDER_CHANNEL_REGEX
-        channel_regex = Regexp.new provider::PROVIDER_CHANNEL_REGEX
-        return false if not channel_regex.match?(@channel)
-      end
-      
-      # Validate category
-      return false if not (@category_id.nil? or Category.where(id: @category_id).exists?)
-
-      # Validate tags
-      if not @tags.nil?
-        @tags.each do |tag|
-          return false if not Tag.where(name: tag).exists?
-        end
-      end
-
-      # Validate filter
-      return false if not ['watch','follow','mute'].include? @filter
-
-      return true
-    end
-
-    def destroy
-      DiscourseChat.pstore_delete "rule:#{id}"
-    end
-
-    def read_attribute_for_serialization(attr)
-      self.send(attr)
-    end
-
-    def self.all_for_provider(provider)
-      self.where("value::json->>'provider'=?", provider)
-    end
-
-    def self.all_for_channel(provider, channel)
-      self.where("value::json->>'provider'=? AND value::json->>'channel'=?", provider, channel)
-    end
-
-    def self.all_for_category(category_id)
-      if category_id.nil?
-        self.where("json_typeof(value::json->'category_id')='null'")
-      else
-        self.where("value::json->>'category_id'=?", category_id.to_s)
-      end
-    end
-
-    # Use JSON selectors like this:
-    #    Rule.where("value::json->>'provider'=?", "slack")
-    def self.where(*args)
-      rows = self._all_raw.where(*args)
-      self._from_psr_rows(rows)
-    end
-
-    def self.all
-      self._from_psr_rows(self._all_raw)
-    end
-
-    def self._all_raw
-      PluginStoreRow.where(plugin_name: DiscourseChat.plugin_name)
-        .where("key LIKE 'rule:%'")
-        .where("key != 'rule:_id'")
-    end
-
-    def self._from_psr_rows(raw)
-      rules = raw.map do |psr|
-        from_hash PluginStore.cast_value(psr.type_name, psr.value)
-      end
-
-      filter_order = ["mute", "watch", "follow"]
-      rules = rules.sort_by{ |r| [r.channel, r.category_id.nil? ? 0 : r.category_id, filter_order.index(r.filter)] } 
-      return rules
-    end
-
-    def self.destroy_all
-      self._all_raw().destroy_all
     end
   end
+
+  def category_valid?
+    # Validate category
+    if not (category_id.nil? or Category.where(id: category_id).exists?)
+      errors.add(:category_id, "#{category_id} is not a valid category id")
+    end
+  end
+
+  def tags_valid?
+    # Validate tags
+    return if tags.nil?
+    tags.each do |tag|
+      if not Tag.where(name: tag).exists?
+        errors.add(:tags, "#{tag} is not a valid tag")
+      end
+    end
+  end
+
+  # We never want an empty array, set it to nil instead
+  def tags=(array)
+    if array.nil? or array.empty?
+      super(nil)
+    else
+      super(array)
+    end
+  end
+
+  # Don't want this to end up as anything other than an integer
+  def category_id=(val)
+    if val.nil? or val.blank?
+      super(nil)
+    else
+      super(val.to_i)
+    end
+  end
+
+  scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider)} 
+
+  scope :with_channel, ->(provider, channel) { with_provider(provider).where("value::json->>'channel'=?", channel)} 
+
+  scope :with_category, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s)}
+
+  private
+
+    def set_key
+      self.key ||= alloc_key
+    end
+
+    def alloc_key
+      DistributedMutex.synchronize("#{PLUGIN_NAME}_#{KEY_PREFIX}_id") do
+        max_id = PluginStore.get(PLUGIN_NAME, "#{KEY_PREFIX}_id")
+        max_id = 1 unless max_id
+        PluginStore.set(PLUGIN_NAME, "#{KEY_PREFIX}_id", max_id + 1)
+        "#{KEY_PREFIX}#{max_id}"
+      end
+    end
+
+end

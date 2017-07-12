@@ -87,7 +87,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        rule = DiscourseChat::Rule.new({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]}).save!
+        rule = DiscourseChat::Rule.create({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]})
 
         get '/admin/plugins/chat/rules.json', provider:'dummy'
 
@@ -165,7 +165,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'updating a rule' do
-    let(:rule){DiscourseChat::Rule.new({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]}).save!}
+    let(:rule){DiscourseChat::Rule.create({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]})}
     
     include_examples 'admin constraints', 'put', "/admin/plugins/chat/rules/1.json"
 
@@ -214,7 +214,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'deleting a rule' do
-    let(:rule){DiscourseChat::Rule.new({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]}).save!}
+    let(:rule){DiscourseChat::Rule.create({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]})}
     
     include_examples 'admin constraints', 'delete', "/admin/plugins/chat/rules/1.json"
 

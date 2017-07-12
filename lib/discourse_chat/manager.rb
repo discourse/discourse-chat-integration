@@ -22,10 +22,10 @@ module DiscourseChat
       return if topic.blank? || topic.archetype == Archetype.private_message
 
       # Load all the rules that apply to this topic's category
-      matching_rules = DiscourseChat::Rule.all_for_category(topic.category_id)
+      matching_rules = DiscourseChat::Rule.with_category(topic.category_id)
 
       if topic.category # Also load the rules for the wildcard category
-        matching_rules += DiscourseChat::Rule.all_for_category(nil)
+        matching_rules += DiscourseChat::Rule.with_category(nil)
       end
 
       # If tagging is enabled, thow away rules that don't apply to this topic
@@ -67,14 +67,13 @@ module DiscourseChat
         if provider and is_enabled
           begin
             provider.trigger_notification(post, rule.channel)
-            rule.update({error_key: nil}, false) if rule.error_key
+            rule.update_attribute('error_key', nil) if rule.error_key
           rescue => e
             if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
-              rule.error_key = e.info[:error_key]
+              rule.update_attribute('error_key', e.info[:error_key])
             else
-              rule.error_key = 'chat_integration.rule_exception'
+              rule.update_attribute('error_key','chat_integration.rule_exception')
             end
-            rule.save(false) # Save without validations
 
             # Log the error
             Discourse.handle_job_exception(e,

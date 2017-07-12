@@ -21,6 +21,10 @@ module DiscourseChat
       end
     end
 
+    def self.provider_names
+      self.providers.map {|x| x::PROVIDER_NAME}
+    end
+
     def self.enabled_provider_names
       self.enabled_providers.map {|x| x::PROVIDER_NAME}
     end
