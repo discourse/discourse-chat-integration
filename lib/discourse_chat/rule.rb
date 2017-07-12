@@ -1,21 +1,48 @@
-class DiscourseChat::Rule < PluginStoreRow
+class DiscourseChat::PluginModel < PluginStoreRow
   PLUGIN_NAME = 'discourse-chat-integration'
-  KEY_PREFIX = 'rule:'
+  KEY_PREFIX = 'unimplemented'
+
+  after_initialize :init_plugin_model
+
+  def init_plugin_model
+    self.type_name ||= 'JSON'
+    self.plugin_name  ||= PLUGIN_NAME
+  end
   
   # Restrict the scope to JSON PluginStoreRows which are for this plugin, and this model
-  default_scope { where(type_name: 'JSON')
-                  .where(plugin_name: PLUGIN_NAME)
-                  .where("key like?", "#{KEY_PREFIX}%") 
-                }
+  def self.default_scope 
+    where(type_name: 'JSON')
+   .where(plugin_name: self::PLUGIN_NAME)
+   .where("key like?", "#{self::KEY_PREFIX}%")
+  end
+  
+  before_save :set_key
+  private 
+    def set_key
+      self.key ||= self.class.alloc_key
+    end
+
+    def self.alloc_key
+      raise "KEY_PREFIX must be defined" if self::KEY_PREFIX == 'unimplemented'
+      DistributedMutex.synchronize("#{self::PLUGIN_NAME}_#{self::KEY_PREFIX}_id") do
+        max_id = PluginStore.get(self::PLUGIN_NAME, "#{self::KEY_PREFIX}_id")
+        max_id = 1 unless max_id
+        PluginStore.set(self::PLUGIN_NAME, "#{self::KEY_PREFIX}_id", max_id + 1)
+        "#{self::KEY_PREFIX}#{max_id}"
+      end
+    end
+
+end
+
+class DiscourseChat::Rule < DiscourseChat::PluginModel
+  KEY_PREFIX = 'rule:'
 
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :provider, :channel, :category_id, :tags, :filter, :error_key ], coder: JSON
 
-  before_save :set_key
+  after_initialize :init_filter
 
-  after_initialize :init
-
-  def init
+  def init_filter
     self.filter  ||= 'watch'
   end
 
@@ -87,19 +114,6 @@ class DiscourseChat::Rule < PluginStoreRow
 
   scope :with_category, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s)}
 
-  private
-
-    def set_key
-      self.key ||= alloc_key
-    end
-
-    def alloc_key
-      DistributedMutex.synchronize("#{PLUGIN_NAME}_#{KEY_PREFIX}_id") do
-        max_id = PluginStore.get(PLUGIN_NAME, "#{KEY_PREFIX}_id")
-        max_id = 1 unless max_id
-        PluginStore.set(PLUGIN_NAME, "#{KEY_PREFIX}_id", max_id + 1)
-        "#{KEY_PREFIX}#{max_id}"
-      end
-    end
+  
 
 end
