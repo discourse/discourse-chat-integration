@@ -48,13 +48,13 @@ module DiscourseChat::Provider::SlackProvider
       author_name: display_name,
       author_icon: post.user.small_avatar_url,
       color: topic.category ? "##{topic.category.color}" : nil,
-      text: ::DiscourseSlack::Slack.excerpt(post),
+      text: excerpt(post),
       mrkdwn_in: ["text"]
     }
 
-    record = ::PluginStore.get(DiscourseSlack::PLUGIN_NAME, "topic_#{post.topic.id}_#{channel}")
+    record = DiscourseChat.pstore_get("topic_#{post.topic.id}_#{channel}")
 
-    if (SiteSetting.slack_access_token.empty? || post.is_first_post? || record.blank? || (record.present? &&  ((Time.now.to_i - record[:ts].split('.')[0].to_i)/ 60) >= 5 ))
+    if (SiteSetting.chat_integration_slack_access_token.empty? || post.is_first_post? || record.blank? || (record.present? &&  ((Time.now.to_i - record[:ts].split('.')[0].to_i)/ 60) >= 5 ))
       summary[:title] = "#{topic.title} #{(category == '[uncategorized]')? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}"
       summary[:title_link] = post.full_url
       summary[:thumb_url] = post.full_url
