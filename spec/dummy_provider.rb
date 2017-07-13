@@ -24,6 +24,10 @@ RSpec.shared_context "dummy provider" do
         @@sent_messages
       end
 
+      def self.sent_to_channel_ids
+        @@sent_messages.map{|x| x[:channel].id}
+      end
+
       def self.set_raise_exception(bool)
         @@raise_exception = bool
       end

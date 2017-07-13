@@ -44,7 +44,7 @@ module DiscourseChat
       matching_rules = matching_rules.sort(&sort_func)
 
       # Take the first rule for each channel
-      uniq_func = proc { |rule| [rule.provider, rule.channel] }
+      uniq_func = proc { |rule| [rule.channel_id] }
       matching_rules = matching_rules.uniq(&uniq_func)
 
       # If a matching rule is set to mute, we can discard it now
@@ -61,7 +61,8 @@ module DiscourseChat
 
       # Loop through each rule, and trigger appropriate notifications
       matching_rules.each do |rule|
-        provider = ::DiscourseChat::Provider.get_by_name(rule.provider)
+        channel = rule.channel
+        provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
         is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
 
         if provider and is_enabled
