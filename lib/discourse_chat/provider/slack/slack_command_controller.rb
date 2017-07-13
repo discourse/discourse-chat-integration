@@ -22,7 +22,7 @@ module DiscourseChat::Provider::SlackProvider
       tokens = params[:text].split(" ")
 
       # channel name fix
-      channel =
+      channel_id =
         case params[:channel_name]
         when 'directmessage'
           "@#{params[:user_name]}"
@@ -33,6 +33,11 @@ module DiscourseChat::Provider::SlackProvider
         end
 
       provider = DiscourseChat::Provider::SlackProvider::PROVIDER_NAME
+
+      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('identifier',channel_id).first
+
+      # Create channel if doesn't exist
+      channel ||= DiscourseChat::Channel.create!(provider:provider, data:{identifier: channel_id})
 
       cmd = tokens.shift if tokens.size >= 1
 
@@ -72,7 +77,7 @@ module DiscourseChat::Provider::SlackProvider
         end
 
         category_id = category.nil? ? nil : category.id
-        case DiscourseChat::Helper.smart_create_rule(provider: provider, channel:channel, filter:cmd, category_id: category_id, tags:tags)
+        case DiscourseChat::Helper.smart_create_rule(channel:channel, filter:cmd, category_id: category_id, tags:tags)
         when :created
           return I18n.t("chat_integration.provider.slack.create.created")
         when :updated
@@ -86,13 +91,13 @@ module DiscourseChat::Provider::SlackProvider
         rule_number = tokens[0].to_i
         return error_text unless rule_number.to_s == tokens[0] # Check we were given a number
 
-        if DiscourseChat::Helper.delete_by_index(provider, channel, rule_number)
+        if DiscourseChat::Helper.delete_by_index(channel, rule_number)
           return I18n.t("chat_integration.provider.slack.delete.success")
         else
           return I18n.t("chat_integration.provider.slack.delete.error")
         end
       when "status"
-        return DiscourseChat::Helper.status_for_channel(provider, channel)
+        return DiscourseChat::Helper.status_for_channel(channel)
       when "help"
         return I18n.t("chat_integration.provider.slack.help")
       else

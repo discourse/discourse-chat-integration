@@ -57,16 +57,18 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
       SiteSetting.chat_integration_slack_enabled = true
     end
 
+    let(:chan1){DiscourseChat::Channel.create!(provider:'slack', data:{identifier: '#general'})}
+
     it 'sends a webhook request' do
       stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
-      described_class.trigger_notification(post, '#general')
+      described_class.trigger_notification(post, chan1)
       expect(stub1).to have_been_requested.once
     end
 
     it 'handles errors correctly' do 
       stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(status: 400, body: "error")
       expect(stub1).to have_been_requested.times(0)
-      expect{described_class.trigger_notification(post, '#general')}.to raise_exception(::DiscourseChat::ProviderError)
+      expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 
@@ -81,14 +83,14 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
       it 'sends an api request' do
         expect(@stub2).to have_been_requested.times(0)
         
-        described_class.trigger_notification(post, '#general')
+        described_class.trigger_notification(post, chan1)
         expect(@stub1).to have_been_requested.times(0)
         expect(@stub2).to have_been_requested.once
       end
 
       it 'handles errors correctly' do
         @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":false }", headers: {'Content-Type' => 'application/json'})
-        expect{described_class.trigger_notification(post, '#general')}.to raise_exception(::DiscourseChat::ProviderError)
+        expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
         expect(@stub2).to have_been_requested.once
       end
 
@@ -97,8 +99,8 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
         expect(@stub2).to have_been_requested.times(0)
         expect(@stub3).to have_been_requested.times(0)
         
-        described_class.trigger_notification(post, '#general')
-        described_class.trigger_notification(second_post, '#general')
+        described_class.trigger_notification(post, chan1)
+        described_class.trigger_notification(second_post, chan1)
         expect(@stub1).to have_been_requested.times(0)
         expect(@stub2).to have_been_requested.once # Initial creation of message
         expect(@stub3).to have_been_requested.once # Requests to update the existing message
