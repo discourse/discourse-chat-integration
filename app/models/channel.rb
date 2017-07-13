@@ -45,4 +45,6 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
 
   scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider)} 
 
+  scope :with_data_value, ->(key, value) { where("(value::json->>'data')::json->>?=?", key, value)} 
+
 end

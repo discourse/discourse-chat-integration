@@ -32,13 +32,24 @@ RSpec.describe DiscourseChat::Channel do
     expect(DiscourseChat::Channel.with_provider('dummy').length).to eq(1)
   end
 
+  it 'can be filtered by data value' do
+    channel2 = DiscourseChat::Channel.create!(provider:'dummy2', data:{val:"foo"})
+    channel3 = DiscourseChat::Channel.create!(provider:'dummy2', data:{val:"blah"})
+
+    expect(DiscourseChat::Channel.all.length).to eq(2)
+
+    for_provider = DiscourseChat::Channel.with_provider('dummy2')
+    expect(for_provider.length).to eq(2)
+
+    expect(DiscourseChat::Channel.with_provider('dummy2').with_data_value('val','blah').length).to eq(1)
+  end
+
   it 'can find its own rules' do
     channel = DiscourseChat::Channel.create({provider:'dummy'})
     expect(channel.rules.size).to eq(0)
     DiscourseChat::Rule.create(channel: channel)
     DiscourseChat::Rule.create(channel: channel)
     expect(channel.rules.size).to eq(2)
-
   end
 
   describe 'validations' do
