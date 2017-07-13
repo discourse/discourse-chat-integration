@@ -1,6 +1,6 @@
 require 'rails_helper'
 require_dependency 'post_creator'
-require_relative '../../dummy_provider'
+require_relative '../dummy_provider'
 
 RSpec.describe DiscourseChat::Manager do
 

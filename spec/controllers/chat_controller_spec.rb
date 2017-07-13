@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative './dummy_provider'
+require_relative '../dummy_provider'
 
 describe 'Chat Controller', type: :request do
   let(:first_post) { Fabricate(:post) }
