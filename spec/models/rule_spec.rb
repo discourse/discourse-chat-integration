@@ -7,7 +7,7 @@ RSpec.describe DiscourseChat::Rule do
   let(:tag1){Fabricate(:tag)}
   let(:tag2){Fabricate(:tag)}
 
-  let(:channel){DiscourseChat::Channel.create(provider:'dummy', descriptor:'#general')}
+  let(:channel){DiscourseChat::Channel.create(provider:'dummy')}
 
   describe '.alloc_key' do
     it 'should return sequential numbers' do 
@@ -87,8 +87,8 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be filtered by channel' do
-      channel2 = DiscourseChat::Channel.create(provider:'dummy', descriptor:'#random')
-      channel3 = DiscourseChat::Channel.create(provider:'dummy', descriptor:'#another')
+      channel2 = DiscourseChat::Channel.create(provider:'dummy')
+      channel3 = DiscourseChat::Channel.create(provider:'dummy')
 
       rule2 = DiscourseChat::Rule.create(channel:channel)
       rule3 = DiscourseChat::Rule.create(channel:channel)

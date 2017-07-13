@@ -2,28 +2,39 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
   KEY_PREFIX = 'channel:'
 
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :provider, :descriptor ], coder: JSON
+  store :value, accessors: [ :provider, :data ], coder: JSON
 
-  validate :provider_and_descriptor_valid?
+  after_initialize :init_data
 
-  def provider_and_descriptor_valid?
+  def init_data
+    self.data = {} if self.data.nil?
+  end
+
+  validate :provider_valid?, :data_valid?
+
+  def provider_valid?
     # Validate provider
     if not ::DiscourseChat::Provider.provider_names.include? provider
       errors.add(:provider, "#{provider} is not a valid provider")
       return
     end
-    
-    # Validate descriptor
-    if descriptor.blank? 
-      errors.add(:descriptor, "channel descriptor cannot be blank")
+  end
+
+  def data_valid?
+    # If provider is invalid, don't try and check data
+    return unless ::DiscourseChat::Provider.provider_names.include? provider
+
+    params = ::DiscourseChat::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
+
+    unless params.keys.sort == data.keys.sort
+      errors.add(:data, "data does not match the required structure for provider #{provider}")
       return
     end
 
-    provider_class = ::DiscourseChat::Provider.get_by_name(provider)
-    if defined? provider_class::PROVIDER_CHANNEL_REGEX
-      channel_regex = Regexp.new provider_class::PROVIDER_CHANNEL_REGEX
-      if not channel_regex.match?(descriptor)
-        errors.add(:descriptor, "#{descriptor} is not a valid channel descriptor for provider #{provider}")
+    data.each do |key, value|
+      regex_string = params[key]
+      if !Regexp.new(regex_string).match?(value)
+        errors.add(:data, "data.#{key} is invalid")
       end
     end
   end
