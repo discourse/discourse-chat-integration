@@ -2,7 +2,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   KEY_PREFIX = 'rule:'
 
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :provider, :channel, :category_id, :tags, :filter, :error_key ], coder: JSON
+  store :value, accessors: [ :channel_id, :category_id, :tags, :filter, :error_key ], coder: JSON
 
   after_initialize :init_filter
 
@@ -13,27 +13,12 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   validates :filter, :inclusion => { :in => %w(watch follow mute),
     :message => "%{value} is not a valid filter" }
 
-  validate :provider_and_channel_valid?, :category_valid?, :tags_valid?
+  validate :channel_valid?, :category_valid?, :tags_valid?
 
-  def provider_and_channel_valid?
-    # Validate provider
-    if not ::DiscourseChat::Provider.provider_names.include? provider
-      errors.add(:provider, "#{provider} is not a valid provider")
-      return
-    end
-    
-    # Validate channel
-    if channel.blank? 
-      errors.add(:channel, "channel cannot be blank")
-      return
-    end
-
-    provider_class = ::DiscourseChat::Provider.get_by_name(provider)
-    if defined? provider_class::PROVIDER_CHANNEL_REGEX
-      channel_regex = Regexp.new provider_class::PROVIDER_CHANNEL_REGEX
-      if not channel_regex.match?(channel)
-        errors.add(:channel, "#{channel} is not a valid channel for provider #{provider}")
-      end
+  def channel_valid?
+    # Validate category
+    if not (channel_id.nil? or DiscourseChat::Channel.where(id: channel_id).exists?)
+      errors.add(:channel_id, "#{channel_id} is not a valid channel id")
     end
   end
 
@@ -72,12 +57,18 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
     end
   end
 
-  scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider)} 
+  # Mock foreign key
+  # Could raise RecordNotFound
+  def channel
+    DiscourseChat::Channel.find(channel_id)
+  end
+  def channel=(val)
+    self.channel_id = val.id
+  end
 
-  scope :with_channel, ->(provider, channel) { with_provider(provider).where("value::json->>'channel'=?", channel)} 
+  scope :with_channel, ->(channel) { with_channel_id(channel.id) } 
+  scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s)} 
 
-  scope :with_category, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s)}
-
-  
+  scope :with_category_id, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s)}
 
 end

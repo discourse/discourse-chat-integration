@@ -22,10 +22,10 @@ module DiscourseChat
       return if topic.blank? || topic.archetype == Archetype.private_message
 
       # Load all the rules that apply to this topic's category
-      matching_rules = DiscourseChat::Rule.with_category(topic.category_id)
+      matching_rules = DiscourseChat::Rule.with_category_id(topic.category_id)
 
       if topic.category # Also load the rules for the wildcard category
-        matching_rules += DiscourseChat::Rule.with_category(nil)
+        matching_rules += DiscourseChat::Rule.with_category_id(nil)
       end
 
       # If tagging is enabled, thow away rules that don't apply to this topic
