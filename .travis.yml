@@ -4,11 +4,11 @@ services:
   - docker
 
 before_install: 
-  - plugin_name=${PWD##*/} && echo $plugin_name # Get the plugin's name
+  - plugin_name=${PWD##*/} && echo $plugin_name
 
 script: 
   - >
-    docker run                                                                   
+    docker run
     -e "COMMIT_HASH=origin/tests-passed"
     -e "LOAD_PLUGINS=1"
     -e SINGLE_PLUGIN=$plugin_name
