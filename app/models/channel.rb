@@ -26,13 +26,13 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
 
     params = ::DiscourseChat::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
 
-    unless params.keys.sort == data.keys.sort
+    unless params.map {|p| p[:key]}.sort == data.keys.sort
       errors.add(:data, "data does not match the required structure for provider #{provider}")
       return
     end
 
     data.each do |key, value|
-      regex_string = params[key]
+      regex_string = params.find{|p| p[:key] == key}[:regex]
       if !Regexp.new(regex_string).match?(value)
         errors.add(:data, "data.#{key} is invalid")
       end

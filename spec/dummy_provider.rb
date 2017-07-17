@@ -8,7 +8,7 @@ RSpec.shared_context "dummy provider" do
     module ::DiscourseChat::Provider::DummyProvider
       PROVIDER_NAME = "dummy".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
-      CHANNEL_PARAMETERS = {}
+      CHANNEL_PARAMETERS = []
 
       @@sent_messages = []
       @@raise_exception = nil
@@ -47,7 +47,9 @@ RSpec.shared_context "validated dummy provider" do
     module ::DiscourseChat::Provider::Dummy2Provider
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
-      CHANNEL_PARAMETERS = {"val" => '\S+'}
+      CHANNEL_PARAMETERS = [
+                            {key: "val", regex: '\S+'}
+                           ]
 
       @@sent_messages = []
 

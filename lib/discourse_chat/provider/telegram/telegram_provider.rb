@@ -3,7 +3,7 @@ module DiscourseChat
     module TelegramProvider
       PROVIDER_NAME = "telegram".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_telegram_enabled
-      CHANNEL_PARAMETERS = {}
+      CHANNEL_PARAMETERS = []
 
     end
   end

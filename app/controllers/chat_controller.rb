@@ -9,7 +9,7 @@ class DiscourseChat::ChatController < ApplicationController
     providers = ::DiscourseChat::Provider.enabled_providers.map {|x| {
                                       name: x::PROVIDER_NAME, 
                                       id: x::PROVIDER_NAME, 
-                                      channel_regex: (defined? x::PROVIDER_CHANNEL_REGEX) ? x::PROVIDER_CHANNEL_REGEX : nil
+                                      channel_parameters: (defined? x::CHANNEL_PARAMETERS) ? x::CHANNEL_PARAMETERS : []
                                       }}
     
     render json:providers, root: 'providers'
