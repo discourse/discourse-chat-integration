@@ -1,3 +1,63 @@
 en:
   site_settings:
-    discourse_chat_enabled: 'Enable the discourse-chat plugin'
+    chat_integration_enabled: 'Enable the discourse-chat-integration plugin'
+    chat_integration_discourse_username: 'Username of user to act as when fetching content.'
+    chat_integration_delay_seconds: 'Number of seconds to wait after post creation before sending chat notitifications'
+
+
+    #######################################
+    ########## SLACK SETTINGS #############
+    #######################################
+    chat_integration_slack_enabled: 'Enable the slack chat-integration provider'
+    chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
+    chat_integration_slack_excerpt_length: 'Post excerpt length'
+    chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
+    chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
+
+    errors:
+      chat_integration_slack_api_configs_are_empty: "You must enter either an outbound webhook URL, or an access token"
+
+    #######################################
+    ######### TELEGRAM SETTINGS ###########
+    #######################################
+    chat_integration_telegram_enabled: "Enable the telegram chat-integration provider"
+  
+  chat_integration:
+    
+    all_categories: "(all categories)"
+    deleted_category: "(deleted category)"
+
+    provider:
+      slack:
+        status:
+          header: |
+            *Rules for this channel*
+            (if multiple rules match a post, the topmost rule is executed)
+          no_rules: "There are no rules set up for this channel. Run `/discourse help` for instructions."
+          rule_string: "*%{index})* *%{filter}* posts in *%{category}*"
+          rule_string_tags_suffix: " with tags: *%{tags}*"
+        parse_error: "Sorry, I didn't understand that. Run `/discourse help` for instructions."
+        create:
+          created: "Rule created successfully"
+          updated: "Rule updated successfully"
+          error: "Sorry, an error occured while creating that rule."
+        delete:
+          success: "Rule deleted successfully"
+          error: "Sorry, an error occured while deleting that rule. Run `/discourse status` for a list of rules."
+        not_found:
+          tag: "The *%{name}* tag cannot be found."
+          category: "The *%{name}* category cannot be found. Available categories: *%{list}*"
+
+        help: |
+          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+          
+          *Help:* `/discourse help`

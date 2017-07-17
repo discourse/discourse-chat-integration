@@ -1,0 +1,19 @@
+# We want to use the KVM-based system, so require sudo
+sudo: required
+services:
+  - docker
+
+before_install: 
+  - plugin_name=${PWD##*/} && echo $plugin_name
+
+script: 
+  - >
+    docker run
+    -e "COMMIT_HASH=origin/tests-passed"
+    -e "LOAD_PLUGINS=1"
+    -e SINGLE_PLUGIN=$plugin_name
+    -e MODULE="Acceptance: Chat Integration"
+    -v $(pwd):/var/www/discourse/plugins/$plugin_name
+    -v $(pwd)/docker_patched.rake:/var/www/discourse/lib/tasks/docker.rake
+    discourse/discourse_test:release
+  

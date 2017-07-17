@@ -1,3 +1,32 @@
 plugins:
-  discourse_chat_enabled:
+  chat_integration_enabled:
+    default: false
+  chat_integration_discourse_username:
+    default: system
+    type: username
+  chat_integration_delay_seconds:
+    default: 20
+
+#######################################
+########## SLACK SETTINGS #############
+#######################################
+  chat_integration_slack_enabled:
+    default: false
+    validator: "ChatIntegrationSlackEnabledSettingValidator"
+  chat_integration_slack_outbound_webhook_url:
+    default: ''
+    regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
+  chat_integration_slack_excerpt_length:
+    default: 400
+  chat_integration_slack_icon_url:
+    default: ''
+  chat_integration_slack_incoming_webhook_token:
+    default: ''
+  chat_integration_slack_access_token:
+    default: ''
+
+#######################################
+######### TELEGRAM SETTINGS ###########
+#######################################
+  chat_integration_telegram_enabled:
     default: false

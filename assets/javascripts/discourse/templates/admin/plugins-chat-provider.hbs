@@ -1,0 +1,75 @@
+
+  {{#if anyErrors}}
+    <div class="error">
+      <i class="fa fa-exclamation-triangle"></i>
+      <span class="error-message">{{i18n "chat_integration.rules_with_errors"}}</span>
+    </div>
+  {{/if}}
+
+  <table>
+    <tr>
+      <th>{{i18n "chat_integration.rule_table.channel"}}</th>
+      <th>{{i18n "chat_integration.rule_table.filter"}}</th>
+
+      <th>{{i18n "chat_integration.rule_table.category"}}</th>
+
+      {{#if siteSettings.tagging_enabled}}
+        <th>{{i18n "chat_integration.rule_table.tags"}}</th>
+      {{/if}}
+
+      
+      
+      <th></th>
+    </tr>
+
+
+    {{#each model.rules as |rule|}}
+
+      <tr>
+				<td>
+          {{#if rule.error_key}}
+
+            {{d-button action="showError" actionParam=rule.error_key class="delete btn-danger" icon="exclamation-triangle"}}
+            
+          {{/if}}
+
+          {{rule.channel}}
+        </td>
+        <td>{{rule.filterName}}</td>
+
+        <td>
+        	{{#if rule.category}}
+        		{{category-link rule.category allowUncategorized="true" link="false"}}
+        	{{else}}
+        		{{i18n "chat_integration.all_categories"}}
+        	{{/if}}
+        </td>
+
+
+        {{#if siteSettings.tagging_enabled}}
+          <td>
+            {{#if rule.tags}}
+              {{rule.tags}}
+            {{else}}
+              {{i18n "chat_integration.all_tags"}}
+            {{/if}}
+          </td>
+        {{/if}}
+
+        
+        <td>
+          {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat_integration.rule_table.edit_rule"}}
+          {{d-button action="delete" actionParam=rule icon="trash-o" class="delete" title="chat_integration.rule_table.delete_rule"}}
+        </td>
+      </tr>
+    {{/each}}
+
+  </table>
+  
+  <div class="table-footer">
+    {{d-button id="test_provider" action="test" actionParam=model.provider icon="rocket" title="chat_integration.test_provider" label="chat_integration.test_provider"}}
+
+    <div class="pull-right">
+       {{d-button id="create_rule" action="create" actionParam=model.provider icon="plus" title="chat_integration.create_rule" label="chat_integration.create_rule"}}
+    </div>
+  </div>

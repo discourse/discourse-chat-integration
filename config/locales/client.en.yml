@@ -1,4 +1,67 @@
 en:
   js:
-    discourse_chat:
+    chat_integration:
+      menu_title: "Chat Integrations"
+      settings: "Settings"
+      no_providers: "You need to enable some providers in the plugin settings"
+      rules_with_errors: "Some rules for this provider failed last time they were triggered. Click the error icon(s) to learn more."
+      rule_exception: "An unknown error occured when this rule was last triggered. Check the site logs for more information."
+      all_categories: "(all categories)"
+      all_tags: "(all tags)"
+      create_rule: "Create Rule"
+      test_provider: "Test Provider"
+      test_modal:
+        title: "Send a test message"
+        provider: "Provider"
+        channel: "Channel"
+        topic: "Topic"
+        send: "Send Test Message"
+        close: "Close"
+        error: "An unknown error occured while sending the message. Check the site logs for more information."
+        success: "Message sent successfully"
+      filter:
+        mute: 'Mute'
+        follow: 'First post only'
+        watch: 'All posts and replies'
+      rule_table:
+        channel: "Channel"
+        filter: "Filter"
+        category: "Category"
+        tags: "Tags"
+        edit_rule: "Edit"
+        delete_rule: "Delete"
+      edit_rule_modal:
+        title: "Edit Rule"
+        save: "Save Rule"
+        cancel: "Cancel"
+        provider: "Provider"
+        category: "Category"
+        tags: "Tags"
+        channel: "Channel"
+        filter: "Filter"
+        channel_validation:
+          ok: "Valid"
+          fail: "Invalid channel format"
+        instructions:
+          filter: "Notification level. Mute overrides other matching rules."
+          category: "This rule will only apply to topics in the specified category."
+          tags: "If specified, this rule will only apply to topics which have at least one of these tags."
       
+      provider:
+
+        #######################################
+        ########### SLACK STRINGS #############
+        #######################################
+        slack:
+          title: "Slack"
+          channel_instructions: "e.g. #channel, @username."
+          errors:
+            action_prohibited: "The bot does not have permission to post to that channel"
+            channel_not_found: "The specified channel does not exist on slack"
+      
+        #######################################
+        ########## TELEGRAM STRINGS ###########
+        #######################################
+        telegram:
+          title: "Telegram"
+          channel_instructions: "Enter a chat_id. You will need to add the bot to the chat first."
