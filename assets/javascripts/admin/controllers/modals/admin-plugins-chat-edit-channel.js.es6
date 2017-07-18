@@ -6,11 +6,6 @@ import InputValidation from 'discourse/models/input-validation';
 
 export default Ember.Controller.extend(ModalFunctionality, {
 
-  initThing: function(){
-    console.log("Initialising controller");
-    console.log(this.get('model.data'));
-  }.on('init'),
-
   // The validation property must be defined at runtime since the possible parameters vary by provider
   setupValidations: function(){
     if(this.get('model.provider')){
@@ -23,6 +18,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
     var regString = parameter.regex;
     var regex = new RegExp(regString);
     var val = this.get('model.channel.data.'+parameter.key);
+
+    if(val==undefined){
+      val = "";
+    }
 
     if(val == ""){ // Fail silently if field blank
       return InputValidation.create({
