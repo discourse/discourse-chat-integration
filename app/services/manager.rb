@@ -22,10 +22,10 @@ module DiscourseChat
       return if topic.blank? || topic.archetype == Archetype.private_message
 
       # Load all the rules that apply to this topic's category
-      matching_rules = DiscourseChat::Rule.with_category(topic.category_id)
+      matching_rules = DiscourseChat::Rule.with_category_id(topic.category_id)
 
       if topic.category # Also load the rules for the wildcard category
-        matching_rules += DiscourseChat::Rule.with_category(nil)
+        matching_rules += DiscourseChat::Rule.with_category_id(nil)
       end
 
       # If tagging is enabled, thow away rules that don't apply to this topic
@@ -44,7 +44,7 @@ module DiscourseChat
       matching_rules = matching_rules.sort(&sort_func)
 
       # Take the first rule for each channel
-      uniq_func = proc { |rule| [rule.provider, rule.channel] }
+      uniq_func = proc { |rule| [rule.channel_id] }
       matching_rules = matching_rules.uniq(&uniq_func)
 
       # If a matching rule is set to mute, we can discard it now
@@ -61,34 +61,31 @@ module DiscourseChat
 
       # Loop through each rule, and trigger appropriate notifications
       matching_rules.each do |rule|
-        provider = ::DiscourseChat::Provider.get_by_name(rule.provider)
-        is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
+        # If there are any issues, skip to the next rule
+        next unless channel = rule.channel
+        next unless provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
+        next unless is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
 
-        if provider and is_enabled
-          begin
-            provider.trigger_notification(post, rule.channel)
-            rule.update_attribute('error_key', nil) if rule.error_key
-          rescue => e
-            if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
-              rule.update_attribute('error_key', e.info[:error_key])
-            else
-              rule.update_attribute('error_key','chat_integration.rule_exception')
-            end
-
-            # Log the error
-            Discourse.handle_job_exception(e,
-              message: "Triggering notifications failed",
-              extra: { provider_name: provider::PROVIDER_NAME,
-                       channel: rule.channel,
-                       post_id: post.id,
-                       error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
-            )
+        begin
+          provider.trigger_notification(post, channel)
+          channel.update_attribute('error_key', nil) if channel.error_key
+        rescue => e
+          if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
+            channel.update_attribute('error_key', e.info[:error_key])
+          else
+            channel.update_attribute('error_key','chat_integration.channel_exception')
           end
-        elsif provider
-          # Provider is disabled, don't do anything
-        else
-          # TODO: Handle when the provider does not exist
+
+          # Log the error
+          Discourse.handle_job_exception(e,
+            message: "Triggering notifications failed",
+            extra: { provider_name: provider::PROVIDER_NAME,
+                     channel: rule.channel,
+                     post_id: post.id,
+                     error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
+          )
         end
+        
       end
 
     end

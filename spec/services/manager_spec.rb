@@ -13,111 +13,102 @@ RSpec.describe DiscourseChat::Manager do
   describe '.trigger_notifications' do
     include_context "dummy provider"
 
+    let(:chan1){DiscourseChat::Channel.create!(provider:'dummy')}
+    let(:chan2){DiscourseChat::Channel.create!(provider:'dummy')}
+    let(:chan3){DiscourseChat::Channel.create!(provider:'dummy')}
+
     before do
       SiteSetting.chat_integration_enabled = true
     end
 
-    def create_rule(provider, channel, filter, category_id, tags) # Just shorthand for testing purposes
-      DiscourseChat::Rule.create({provider: provider, channel: channel, filter:filter, category_id:category_id, tags:tags})
-    end
-
     it "should fail gracefully when a provider throws an exception" do
-      create_rule('dummy', 'chan1', 'watch', category.id, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
 
       # Triggering a ProviderError should set the error_key to the error message
-      ::DiscourseChat::Provider::DummyProvider.set_raise_exception(DiscourseChat::ProviderError.new info: {error_key:"hello"})
+      provider.set_raise_exception(DiscourseChat::ProviderError.new info: {error_key:"hello"})
       manager.trigger_notifications(first_post.id)
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
-      expect(DiscourseChat::Rule.all.first.error_key).to eq('hello')
+      expect(provider.sent_to_channel_ids).to contain_exactly()
+      expect(DiscourseChat::Channel.all.first.error_key).to eq('hello')
 
       # Triggering a different error should set the error_key to a generic message
-      ::DiscourseChat::Provider::DummyProvider.set_raise_exception(StandardError.new "hello")
+      provider.set_raise_exception(StandardError.new "hello")
       manager.trigger_notifications(first_post.id)
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
-      expect(DiscourseChat::Rule.all.first.error_key).to eq('chat_integration.rule_exception')
+      expect(provider.sent_to_channel_ids).to contain_exactly()
+      expect(DiscourseChat::Channel.all.first.error_key).to eq('chat_integration.channel_exception')
 
-      ::DiscourseChat::Provider::DummyProvider.set_raise_exception(nil)
+      provider.set_raise_exception(nil)
 
       manager.trigger_notifications(first_post.id)
-      expect(DiscourseChat::Rule.all.first.error_key.nil?).to be true      
+      expect(DiscourseChat::Channel.all.first.error_key.nil?).to be true      
     end
 
     it "should not send notifications when provider is disabled" do
       SiteSetting.chat_integration_enabled = false
-      create_rule('dummy', 'chan1', 'watch', category.id, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
 
       manager.trigger_notifications(first_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
+      expect(provider.sent_to_channel_ids).to contain_exactly()
     end
 
     it "should send a notification to watched and following channels for new topic" do
-
-      create_rule('dummy', 'chan1', 'watch', category.id, nil)
-      create_rule('dummy', 'chan2', 'follow', category.id, nil)
-      create_rule('dummy', 'chan3', 'mute', category.id, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan2, filter: 'follow', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan3, filter: 'mute', category_id:category.id )
 
       manager.trigger_notifications(first_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1', 'chan2')
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id, chan2.id)
     end
 
     it "should send a notification only to watched for reply" do
-      create_rule('dummy', 'chan1', 'watch', category.id, nil)
-      create_rule('dummy', 'chan2', 'follow', category.id, nil)
-      create_rule('dummy', 'chan3', 'mute', category.id, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan2, filter: 'follow', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan3, filter: 'mute', category_id:category.id )
 
       manager.trigger_notifications(second_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1')
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
     end
 
     it "should respect wildcard category settings" do
-      create_rule('dummy', 'chan1', 'watch', nil, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil )
 
       manager.trigger_notifications(first_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1')
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
     end
 
     it "should respect mute over watch" do
-      create_rule('dummy', 'chan1', 'watch', nil, nil) # Wildcard watch
-      create_rule('dummy', 'chan1', 'mute', category.id, nil) # Specific mute
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil ) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'mute', category_id: category.id  ) # Specific mute
 
       manager.trigger_notifications(first_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
+      expect(provider.sent_to_channel_ids).to contain_exactly()
     end
 
     it "should respect watch over follow" do
-      create_rule('dummy', 'chan1', 'follow', nil, nil)
-      create_rule('dummy', 'chan1', 'watch', category.id, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id  ) # Specific watch
 
       manager.trigger_notifications(second_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1')
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
     end
 
     it "should not notify about private messages" do
-      create_rule('dummy', 'chan1', 'watch', nil, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
+      
       private_post = Fabricate(:private_message_post)
 
       manager.trigger_notifications(private_post.id)
 
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
-    end
-
-    it "should not notify about private messages" do
-      create_rule('dummy', 'chan1', 'watch', nil, nil)
-      private_post = Fabricate(:private_message_post)
-
-      manager.trigger_notifications(private_post.id)
-
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
+      expect(provider.sent_to_channel_ids).to contain_exactly()
     end
 
     it "should not notify about posts the chat_user cannot see" do
-      create_rule('dummy', 'chan1', 'watch', nil, nil)
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
 
       # Create a group & user
       group = Fabricate(:group, name: "friends")
@@ -138,7 +129,7 @@ RSpec.describe DiscourseChat::Manager do
 
       # Check no notification sent
       manager.trigger_notifications(first_post.id)
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly()
+      expect(provider.sent_to_channel_ids).to contain_exactly()
 
       # Now expose category to new user
       category.set_permissions(Group[:friends] => :full)
@@ -146,7 +137,7 @@ RSpec.describe DiscourseChat::Manager do
 
       # Check notification sent
       manager.trigger_notifications(first_post.id)
-      expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1')
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
 
     end
 
@@ -160,21 +151,21 @@ RSpec.describe DiscourseChat::Manager do
       end
 
       it 'should still work for rules without any tags specified' do
-        create_rule('dummy', 'chan1', 'watch', category.id, nil)
+        DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
 
         manager.trigger_notifications(first_post.id)
         manager.trigger_notifications(tagged_first_post.id)
 
-        expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1','chan1')
+        expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id, chan1.id)
       end
 
       it 'should only match tagged topics when rule has tags' do
-        create_rule('dummy', 'chan1', 'watch', category.id, [tag.name])
+        DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: category.id, tags:[tag.name] )
 
         manager.trigger_notifications(first_post.id)
         manager.trigger_notifications(tagged_first_post.id)
 
-        expect(provider.sent_messages.map{|x| x[:channel]}).to contain_exactly('chan1')
+        expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
       end
 
     end

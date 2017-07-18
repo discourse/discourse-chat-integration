@@ -1,12 +1,20 @@
-import Rule from 'discourse/plugins/discourse-chat-integration/admin/models/rule'
 import { ajax } from 'discourse/lib/ajax';
 
 export default Discourse.Route.extend({
 
   model(params, transition) {
     return Ember.RSVP.hash({
-      rules: this.store.find('rule', {provider: params.provider}),
+      channels: this.store.findAll('channel', {provider: params.provider}),
       provider: this.modelFor("admin-plugins-chat").findBy('id',params.provider)
+    }).then(value => {
+      value.channels.forEach(channel => {
+        channel.set('rules', channel.rules.map(rule => {
+          rule = this.store.createRecord('rule', rule);
+          rule.channel = channel;
+          return rule;
+        }));
+      });
+      return value;
     });
   },
 

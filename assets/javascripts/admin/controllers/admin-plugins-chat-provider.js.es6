@@ -7,42 +7,33 @@ import { popupAjaxError } from 'discourse/lib/ajax-error';
 
 export default Ember.Controller.extend({
 	modalShowing: false,
-	
+
   anyErrors: function(){
     var anyErrors = false;
-    this.get('model.rules').forEach(function(rule){
-      if(rule.error_key){
+    this.get('model.channels').forEach(function(channel){
+      if(channel.error_key){
         anyErrors = true;
       }
     });
     return anyErrors;
-  }.property('model.rules'),
+  }.property('model.channels'),
 
   actions:{
-  	create(){
+  	createChannel(){
   		this.set('modalShowing', true);
-      var model = {rule: this.store.createRecord('rule',{provider: this.get('model.provider').id}), provider:this.get('model.provider')};
-  		showModal('admin-plugins-chat-edit-rule', { model: model, admin: true });
+      var model = {channel: this.store.createRecord('channel',{provider: this.get('model.provider').id, data:{}},), provider:this.get('model.provider')};
+  		showModal('admin-plugins-chat-edit-channel', { model: model, admin: true });
   	},
-  	edit(rule){
+  	editChannel(channel){
   		this.set('modalShowing', true);
-      var model = {rule: rule, provider:this.get('model.provider')};
-  		showModal('admin-plugins-chat-edit-rule', { model: model, admin: true });
+      var model = {channel: channel, provider: this.get('model.provider')};
+  		showModal('admin-plugins-chat-edit-channel', { model: model, admin: true });
   	},
-  	delete(rule){
-  		const self = this;
-  		rule.destroyRecord().then(function() {
-        self.send('refresh');
-      }).catch(popupAjaxError)
-  	},
-    showError(error_key){
-      bootbox.alert(I18n.t(error_key));
-    },
-    test(){
+    testChannel(channel){
       this.set('modalShowing', true);
-      var model = {provider:this.get('model.provider'), channel:''}
+      var model = {channel:channel}
       showModal('admin-plugins-chat-test', { model: model, admin: true });
-    }
+    },
 
   }
 

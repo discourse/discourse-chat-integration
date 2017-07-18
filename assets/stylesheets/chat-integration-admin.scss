@@ -1,16 +1,17 @@
 #admin-plugin-chat{
 
 	table{
+		margin-top:0;
 		td:last-child{
 			white-space:nowrap;
 		}
 		td:not(:last-child){
-			width: 25%;
+			width: 30%;
 		}
 	}
 
 	div.table-footer{
-		margin-top: 10px;
+		margin: 10px;
 	}
 
 	div.error {
@@ -21,14 +22,35 @@
     margin-bottom: 10px;
     background-color: dark-light-diff($quaternary, $secondary, 70%, -70%);
     padding: 15px;
+  }
 
-    
+  div.channel-details{
+  	margin: 20px 10px;
+  	
+  	border: 1px solid dark-light-diff($primary, $secondary, 90%, -75%);
+
+  	div.channel-header{
+			background: dark-light-diff($primary, $secondary, 90%, -75%);  		
+			padding: 10px;
+			overflow:auto;
+
+			.channel-title{
+				font-weight: bold;
+				font-size: 1.3em;
+			}
+
+
+  	}
+
+  	div.channel-footer{
+  		overflow:auto;
+  	}
   }
 
 
 }
 
-#chat_integration_edit_rule_modal, #chat_integration_test_modal{
+#chat_integration_edit_channel_modal, #chat_integration_test_modal{
 		table{
 			width:100%;
 

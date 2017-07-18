@@ -6,7 +6,9 @@ describe 'Chat Controller', type: :request do
   let(:topic) { Fabricate(:topic, posts: [first_post]) }
   let(:admin) { Fabricate(:admin) }
   let(:category) { Fabricate(:category) }
+  let(:category2) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
+  let(:channel) { DiscourseChat::Channel.create(provider:'dummy') }
 
   include_context "dummy provider"
 
@@ -44,17 +46,17 @@ describe 'Chat Controller', type: :request do
 
         json = JSON.parse(response.body)
 
-        expect(json['providers'].size).to eq(1)
+        expect(json['providers'].size).to eq(2)
 
         expect(json['providers'][0]).to eq('name'=> 'dummy',
                               'id'=> 'dummy',
-                              'channel_regex'=> nil
+                              'channel_parameters'=> []
                               )
       end
     end
   end
 
-  describe 'testing providers' do
+  describe 'testing channels' do
     include_examples 'admin constraints', 'get', '/admin/plugins/chat/test.json'
 
     context 'when signed in as an admin' do
@@ -63,23 +65,23 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        post '/admin/plugins/chat/test.json', provider: 'dummy', channel: '#general', topic_id: topic.id
+        post '/admin/plugins/chat/test.json', channel_id: channel.id, topic_id: topic.id
 
         expect(response).to be_success
 
         json = JSON.parse(response.body)
       end
 
-      it 'should fail for invalid provider' do
-        post '/admin/plugins/chat/test.json', provider: 'someprovider', channel: '#general', topic_id: topic.id
+      it 'should fail for invalid channel' do
+        post '/admin/plugins/chat/test.json', channel_id: 999, topic_id: topic.id
 
         expect(response).not_to be_success
       end
     end
   end
 
-  describe 'viewing rules' do
-    include_examples 'admin constraints', 'get', '/admin/plugins/chat/rules.json'
+  describe 'viewing channels' do
+    include_examples 'admin constraints', 'get', '/admin/plugins/chat/channels.json'
 
     context 'when signed in as an admin' do
       before do
@@ -87,33 +89,123 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        rule = DiscourseChat::Rule.create({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]})
+        rule = DiscourseChat::Rule.create(channel: channel, filter:'follow', category_id:category.id, tags:[tag.name])
 
-        get '/admin/plugins/chat/rules.json', provider:'dummy'
+        get '/admin/plugins/chat/channels.json', provider:'dummy'
 
         expect(response).to be_success
 
-        rules = JSON.parse(response.body)['rules']
+        channels = JSON.parse(response.body)['channels']
 
-        expect(rules.count).to eq(1)
+        expect(channels.count).to eq(1)
 
-        expect(rules.first).to eq(
-          "channel" => "#general",
-          "category_id" => category.id,
-          "tags" => [tag.name],
-          "filter" => "follow",
+        expect(channels.first).to eq(
+          "id" => channel.id,
+          "provider" => 'dummy',
+          "data" => {},
           "error_key" => nil,
-          "id" => rule.id,
-          "provider" => 'dummy'
+          "rules" => [{"id" => rule.id, "filter" => "follow", "channel_id" => channel.id, "category_id" => category.id, "tags" => [tag.name]}]
         )
       end
 
       it 'should fail for invalid provider' do
-        get '/admin/plugins/chat/rules.json', provider:'someprovider'
+        get '/admin/plugins/chat/channels.json', provider:'someprovider'
 
         expect(response).not_to be_success
       end
 
+    end
+  end
+
+  describe 'adding a channel' do
+    include_examples 'admin constraints', 'post', '/admin/plugins/chat/channels.json'
+
+    context 'as an admin' do
+
+      before do
+        sign_in(admin)
+      end
+
+      it 'should be able to add a new channel' do
+        post '/admin/plugins/chat/channels.json',
+          channel:{
+            provider: 'dummy',
+            data: {}
+          }
+
+        expect(response).to be_success
+
+        channel = DiscourseChat::Channel.all.first
+
+        expect(channel.provider).to eq('dummy')
+      end
+
+      it 'should fail for invalid params' do
+        post '/admin/plugins/chat/channels.json',
+          channel:{
+            provider: 'dummy2',
+            data: {val: 'something with whitespace'}
+          }
+
+        expect(response).not_to be_success
+
+      end
+    end
+  end
+
+  describe 'updating a channel' do
+    let(:channel){DiscourseChat::Channel.create(provider:'dummy2', data:{val:"something"})}
+    
+    include_examples 'admin constraints', 'put', "/admin/plugins/chat/channels/1.json"
+
+    context 'as an admin' do
+
+      before do
+        sign_in(admin)
+      end
+
+      it 'should be able update a channel' do
+        put "/admin/plugins/chat/channels/#{channel.id}.json",
+          channel:{
+            data: {val: "something-else"}
+          }
+
+        expect(response).to be_success
+
+        channel = DiscourseChat::Channel.all.first
+        expect(channel.data).to eq({"val" => "something-else"})
+      end
+
+      it 'should fail for invalid params' do
+        put "/admin/plugins/chat/channels/#{channel.id}.json",
+          channel:{
+            data: {val: "something with whitespace"}
+          }
+
+        expect(response).not_to be_success
+
+      end
+    end
+  end
+
+  describe 'deleting a channel' do
+    let(:channel){DiscourseChat::Channel.create(provider:'dummy', data:{})}
+    
+    include_examples 'admin constraints', 'delete', "/admin/plugins/chat/channels/1.json"
+
+    context 'as an admin' do
+
+      before do
+        sign_in(admin)
+      end
+
+      it 'should be able delete a channel' do
+        delete "/admin/plugins/chat/channels/#{channel.id}.json"
+
+        expect(response).to be_success
+
+        expect(DiscourseChat::Channel.all.size).to eq(0)
+      end
     end
   end
 
@@ -127,10 +219,9 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able to add a new rule' do
-        put '/admin/plugins/chat/rules.json',
+        post '/admin/plugins/chat/rules.json',
           rule:{
-            provider: 'dummy',
-            channel: '#general',
+            channel_id: channel.id,
             category_id: category.id,
             filter: 'watch',
             tags: [tag.name]
@@ -140,8 +231,7 @@ describe 'Chat Controller', type: :request do
 
         rule = DiscourseChat::Rule.all.first
 
-        expect(rule.provider).to eq('dummy')
-        expect(rule.channel).to eq('#general')
+        expect(rule.channel_id).to eq(channel.id)
         expect(rule.category_id).to eq(category.id)
         expect(rule.filter).to eq('watch')
         expect(rule.tags).to eq([tag.name])
@@ -149,10 +239,9 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid params' do
-        put '/admin/plugins/chat/rules.json',
+        post '/admin/plugins/chat/rules.json',
           rule:{
-            provider: 'dummy',
-            channel: '#general',
+            channel_id: channel.id,
             category_id: category.id,
             filter: 'watch',
             tags: ['somenonexistanttag']
@@ -165,7 +254,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'updating a rule' do
-    let(:rule){DiscourseChat::Rule.create({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]})}
+    let(:rule){DiscourseChat::Rule.create(channel: channel, filter:'follow', category_id:category.id, tags:[tag.name])}
     
     include_examples 'admin constraints', 'put', "/admin/plugins/chat/rules/1.json"
 
@@ -178,9 +267,8 @@ describe 'Chat Controller', type: :request do
       it 'should be able update a rule' do
         put "/admin/plugins/chat/rules/#{rule.id}.json",
           rule:{
-            provider: rule.provider,
-            channel: '#random',
-            category_id: rule.category_id,
+            channel_id: channel.id,
+            category_id: category2.id,
             filter: rule.filter,
             tags: rule.tags
           }
@@ -188,20 +276,13 @@ describe 'Chat Controller', type: :request do
         expect(response).to be_success
 
         rule = DiscourseChat::Rule.all.first
-
-        expect(rule.provider).to eq('dummy')
-        expect(rule.channel).to eq('#random')
-        expect(rule.category_id).to eq(category.id)
-        expect(rule.filter).to eq('follow')
-        expect(rule.tags).to eq([tag.name])
-
+        expect(rule.category_id).to eq(category2.id)
       end
 
       it 'should fail for invalid params' do
         put "/admin/plugins/chat/rules/#{rule.id}.json",
           rule:{
-            provider: 'dummy',
-            channel: '#general',
+            channel_id: channel.id,
             category_id: category.id,
             filter: 'watch',
             tags: ['somenonexistanttag']
@@ -214,7 +295,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'deleting a rule' do
-    let(:rule){DiscourseChat::Rule.create({provider: 'dummy', channel: '#general', filter:'follow', category_id:category.id, tags:[tag.name]})}
+    let(:rule){DiscourseChat::Rule.create(channel_id: channel.id, filter:'follow', category_id:category.id, tags:[tag.name])}
     
     include_examples 'admin constraints', 'delete', "/admin/plugins/chat/rules/1.json"
 

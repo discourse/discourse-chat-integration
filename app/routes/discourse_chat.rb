@@ -4,10 +4,14 @@ module DiscourseChat
   AdminEngine.routes.draw do
     get "" => "chat#respond"
     get '/providers' => "chat#list_providers"
-    post '/test' => "chat#test_provider"
+    post '/test' => "chat#test"
     
-    get '/rules' => "chat#list_rules"
-    put '/rules' => "chat#create_rule"
+    get '/channels' => "chat#list_channels"
+    post '/channels' => "chat#create_channel"
+    put '/channels/:id' => "chat#update_channel"
+    delete '/channels/:id' => "chat#destroy_channel"
+
+    post '/rules' => "chat#create_rule"
     put '/rules/:id' => "chat#update_rule"
     delete '/rules/:id' => "chat#destroy_rule"
 

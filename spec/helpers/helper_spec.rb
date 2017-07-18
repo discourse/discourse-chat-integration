@@ -1,6 +1,13 @@
 require 'rails_helper'
+require_relative '../dummy_provider'
 
 RSpec.describe DiscourseChat::Manager do
+  include_context "dummy provider"
+
+  let(:chan1){DiscourseChat::Channel.create!(provider:'dummy')}
+  let(:chan2){DiscourseChat::Channel.create!(provider:'dummy')}
+
+  let(:category) {Fabricate(:category)}
 
   let(:category) {Fabricate(:category)}
   let(:tag1){Fabricate(:tag)}
@@ -11,45 +18,36 @@ RSpec.describe DiscourseChat::Manager do
     
     context 'with no rules' do
       it 'includes the heading' do
-        string = DiscourseChat::Helper.status_for_channel('slack','#general')
-        expect(string).to include('Rules for this channel')
+        string = DiscourseChat::Helper.status_for_channel(chan1)
+        expect(string).to include('dummy.status.header')
       end
 
       it 'includes the no_rules string' do
-        string = DiscourseChat::Helper.status_for_channel('slack','#general')
-        expect(string).to include('no rules')
+        string = DiscourseChat::Helper.status_for_channel(chan1)
+        expect(string).to include('dummy.status.no_rules')
       end
     end
 
     context 'with some rules' do
       before do
-        DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter:'watch', category_id:category.id, tags:nil}).save!
-        DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter:'mute', category_id:nil, tags:nil}).save!
-        DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter:'follow', category_id:nil, tags:[tag1.name]}).save!
-        DiscourseChat::Rule.new({provider: 'slack', channel: '#otherchannel', filter:'watch', category_id:1, tags:nil}).save!
+        DiscourseChat::Rule.create!(channel: chan1, filter:'watch', category_id:category.id, tags:nil)
+        DiscourseChat::Rule.create!(channel: chan1, filter:'mute', category_id:nil, tags:nil)
+        DiscourseChat::Rule.create!(channel: chan1, filter:'follow', category_id:nil, tags:[tag1.name])
+        DiscourseChat::Rule.create!(channel: chan2, filter:'watch', category_id:1, tags:nil)
       end
 
       it 'displays the correct rules' do
-        string = DiscourseChat::Helper.status_for_channel('slack','#general')
-        expect(string.scan('watch').size).to eq(1)
-        expect(string.scan('mute').size).to eq(1)
-        expect(string.scan('follow').size).to eq(1)
-      end
-
-      it 'enumerates the rules correctly' do
-        string = DiscourseChat::Helper.status_for_channel('slack','#general')
-        expect(string.scan('1)').size).to eq(1)
-        expect(string.scan('2)').size).to eq(1)
-        expect(string.scan('3)').size).to eq(1)
+        string = DiscourseChat::Helper.status_for_channel(chan1)
+        expect(string.scan('status.rule_string').size).to eq(3)
       end
 
       it 'only displays tags for rules with tags' do
-        string = DiscourseChat::Helper.status_for_channel('slack','#general')
-        expect(string.scan('with tags').size).to eq(0)
+        string = DiscourseChat::Helper.status_for_channel(chan1)
+        expect(string.scan('rule_string_tags_suffix').size).to eq(0)
 
         SiteSetting.tagging_enabled = true
-        string = DiscourseChat::Helper.status_for_channel('slack','#general')
-        expect(string.scan('with tags').size).to eq(1)
+        string = DiscourseChat::Helper.status_for_channel(chan1)
+        expect(string.scan('rule_string_tags_suffix').size).to eq(1)
       end
 
     end
@@ -64,46 +62,42 @@ RSpec.describe DiscourseChat::Manager do
       # Three identical rules, with different categories 
       # Status will be sorted by category id, so they should
       # be in this order
-      rule1 = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#general',
-                                          filter: 'watch',
-                                          category_id: category.id,
-                                          tags: [tag1.name, tag2.name]
-                                        }).save!
-      rule2 = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#general',
-                                          filter: 'watch',
-                                          category_id: category2.id,
-                                          tags: [tag1.name, tag2.name]
-                                        }).save!
-      rule3 = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#general',
-                                          filter: 'watch',
-                                          category_id: category3.id,
-                                          tags: [tag1.name, tag2.name]
-                                        }).save!
+      rule1 = DiscourseChat::Rule.create(channel: chan1,
+                                      filter: 'watch',
+                                      category_id: category.id,
+                                      tags: [tag1.name, tag2.name]
+                                      )
+      rule2 = DiscourseChat::Rule.create(channel: chan1,
+                                      filter: 'watch',
+                                      category_id: category2.id,
+                                      tags: [tag1.name, tag2.name]
+                                      )
+      rule3 = DiscourseChat::Rule.create(channel: chan1,
+                                      filter: 'watch',
+                                      category_id: category3.id,
+                                      tags: [tag1.name, tag2.name]
+                                      )
 
       expect(DiscourseChat::Rule.all.size).to eq(3)
 
-      expect(DiscourseChat::Helper.delete_by_index('slack','#general',2)).to eq(:deleted)
+      expect(DiscourseChat::Helper.delete_by_index(chan1,2)).to eq(:deleted)
 
       expect(DiscourseChat::Rule.all.size).to eq(2)
       expect(DiscourseChat::Rule.all.map(&:category_id)).to contain_exactly(category.id, category3.id)
     end
 
     it 'fails gracefully for out of range indexes' do
-      rule1 = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#general',
-                                          filter: 'watch',
-                                          category_id: category.id,
-                                          tags: [tag1.name, tag2.name]
-                                        }).save!
+      rule1 = DiscourseChat::Rule.create(channel: chan1,
+                                        filter: 'watch',
+                                        category_id: category.id,
+                                        tags: [tag1.name, tag2.name]
+                                        )
 
-      expect(DiscourseChat::Helper.delete_by_index('slack','#general',-1)).to eq(false)
-      expect(DiscourseChat::Helper.delete_by_index('slack','#general',0)).to eq(false)
-      expect(DiscourseChat::Helper.delete_by_index('slack','#general',2)).to eq(false)
+      expect(DiscourseChat::Helper.delete_by_index(chan1,-1)).to eq(false)
+      expect(DiscourseChat::Helper.delete_by_index(chan1,0)).to eq(false)
+      expect(DiscourseChat::Helper.delete_by_index(chan1,2)).to eq(false)
 
-      expect(DiscourseChat::Helper.delete_by_index('slack','#general',1)).to eq(:deleted)
+      expect(DiscourseChat::Helper.delete_by_index(chan1,1)).to eq(:deleted)
     end
 
 
@@ -112,8 +106,7 @@ RSpec.describe DiscourseChat::Manager do
   describe '.smart_create_rule' do
 
     it 'creates a rule when there are none' do
-      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
-                                                    channel: '#general',
+      val = DiscourseChat::Helper.smart_create_rule(channel: chan1,
                                                     filter: 'watch',
                                                     category_id: category.id,
                                                     tags: [tag1.name]
@@ -121,23 +114,20 @@ RSpec.describe DiscourseChat::Manager do
       expect(val).to eq(:created)
 
       record = DiscourseChat::Rule.all.first
-      expect(record.provider).to eq('slack')
-      expect(record.channel).to eq('#general')
+      expect(record.channel).to eq(chan1)
       expect(record.filter).to eq('watch')
       expect(record.category_id).to eq(category.id)
       expect(record.tags).to eq([tag1.name])
     end
 
     it 'updates a rule when it has the same category and tags' do
-      existing = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#general',
+      existing = DiscourseChat::Rule.create!(channel:chan1,
                                           filter: 'watch',
                                           category_id: category.id,
                                           tags: [tag2.name, tag1.name]
-                                        }).save!
+                                        )
 
-      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
-                                                    channel: '#general',
+      val = DiscourseChat::Helper.smart_create_rule(channel: chan1,
                                                     filter: 'mute',
                                                     category_id: category.id,
                                                     tags: [tag1.name, tag2.name]
@@ -150,15 +140,13 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it 'updates a rule when it has the same category and filter' do
-      existing = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#general',
-                                          filter: 'watch',
-                                          category_id: category.id,
-                                          tags: [tag1.name, tag2.name]
-                                        }).save!
+      existing = DiscourseChat::Rule.create(channel: chan1,
+                                            filter: 'watch',
+                                            category_id: category.id,
+                                            tags: [tag1.name, tag2.name]
+                                            )
 
-      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
-                                                    channel: '#general',
+      val = DiscourseChat::Helper.smart_create_rule(channel: chan1,
                                                     filter: 'watch',
                                                     category_id: category.id,
                                                     tags: [tag1.name, tag3.name]
@@ -171,11 +159,10 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it 'destroys duplicate rules on save' do
-      DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter: 'watch'}).save!
-      DiscourseChat::Rule.new({provider: 'slack', channel: '#general', filter: 'watch'}).save!
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch')
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch')
       expect(DiscourseChat::Rule.all.size).to eq(2)
-      val = DiscourseChat::Helper.smart_create_rule(provider: 'slack',
-                                                    channel: '#general',
+      val = DiscourseChat::Helper.smart_create_rule(channel: chan1,
                                                     filter: 'watch',
                                                     category_id: nil,
                                                     tags: nil
@@ -185,12 +172,7 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it 'returns false on error' do
-      val = DiscourseChat::Helper.smart_create_rule(provider: 'nonexistantprovider',
-                                                    channel: '#general',
-                                                    filter: 'watch',
-                                                    category_id: nil,
-                                                    tags: nil
-                                                    )
+      val = DiscourseChat::Helper.smart_create_rule(channel: chan1, filter: 'blah')
 
       expect(val).to eq(false)
     end

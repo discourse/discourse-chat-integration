@@ -3,34 +3,7 @@
     <form>
       <table>
 
-      	<tr class="input">
-          <td class="label"><label for='provider'>{{i18n "chat_integration.test_modal.provider"}}</label></td>
-          <td>
-          	{{i18n (concat 'chat_integration.provider.' model.provider.id '.title')}}
-          </td>
-        </tr>
-        <tr class="instructions">
-          <td></td>
-          <td></td>
-        </tr>
-
-        <tr class="input">
-          <td class="label"><label for='channel'>{{i18n "chat_integration.test_modal.channel"}}</label></td>
-          <td>
-          	{{text-field 
-							name="channel"
-							value=model.channel
-							autofocus="autofocus"
-              id="channel-field"}}
-
-            {{!-- &nbsp;{{input-tip validation=channelValidation}} --}}
-          </td>
-        </tr>
-        <tr class="instructions">
-          <td></td>
-          <td><label>{{i18n (concat 'chat_integration.provider.' model.provider.id '.channel_instructions')}}</label></td>
-        </tr>
-
+ 
         <tr class="input">
           <td class="label"><label for='channel'>{{i18n "chat_integration.test_modal.topic"}}</label></td>
           <td>

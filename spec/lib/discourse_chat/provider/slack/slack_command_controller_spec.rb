@@ -4,6 +4,7 @@ describe 'Slack Command Controller', type: :request do
   let(:category) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
+  let!(:chan1){DiscourseChat::Channel.create!(provider:'slack', data:{identifier: '#welcome'})}
 
   describe 'with plugin disabled' do
     it 'should return a 404' do
@@ -24,8 +25,6 @@ describe 'Slack Command Controller', type: :request do
     end
   end
   
-
-
   describe 'slash commands endpoint' do
     before do
       SiteSetting.chat_integration_enabled = true
@@ -82,8 +81,7 @@ describe 'Slack Command Controller', type: :request do
           expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
 
           rule = DiscourseChat::Rule.all.first
-          expect(rule.provider).to eq('slack')
-          expect(rule.channel).to eq('#welcome')
+          expect(rule.channel).to eq(chan1)
           expect(rule.filter).to eq('watch')
           expect(rule.category_id).to eq(category.id)
           expect(rule.tags).to eq(nil)
@@ -144,8 +142,7 @@ describe 'Slack Command Controller', type: :request do
             expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
 
             rule = DiscourseChat::Rule.all.first
-            expect(rule.provider).to eq('slack')
-            expect(rule.channel).to eq('#welcome')
+            expect(rule.channel).to eq(chan1)
             expect(rule.filter).to eq('watch')
             expect(rule.category_id).to eq(nil)
             expect(rule.tags).to eq([tag.name])
@@ -164,8 +161,7 @@ describe 'Slack Command Controller', type: :request do
             expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
 
             rule = DiscourseChat::Rule.all.first
-            expect(rule.provider).to eq('slack')
-            expect(rule.channel).to eq('#welcome')
+            expect(rule.channel).to eq(chan1)
             expect(rule.filter).to eq('watch')
             expect(rule.category_id).to eq(category.id)
             expect(rule.tags).to contain_exactly(tag.name, tag2.name)
@@ -184,16 +180,36 @@ describe 'Slack Command Controller', type: :request do
             expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.not_found.tag", name:"blah"))
           end
         end
+
+        context 'from an unknown channel' do
+          it 'creates the channel' do
+            post "/chat-integration/slack/command.json",
+            text: "watch #{category.slug}",
+            channel_name: 'general',
+            token: token
+
+            json = JSON.parse(response.body)
+
+            expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
+
+            chan = DiscourseChat::Channel.with_provider('slack').with_data_value('identifier','#general').first
+            expect(chan.provider).to eq('slack')
+
+            rule = chan.rules.first
+            expect(rule.filter).to eq('watch')
+            expect(rule.category_id).to eq(category.id)
+            expect(rule.tags).to eq(nil)
+          end
+        end
       end
 
       describe 'remove rule' do
         it 'removes the rule' do
-          rule1 = DiscourseChat::Rule.new({provider: 'slack',
-                                          channel: '#welcome',
-                                          filter: 'watch',
-                                          category_id: category.id,
-                                          tags: [tag.name, tag2.name]
-                                        }).save!
+          rule1 = DiscourseChat::Rule.create(channel: chan1,
+                                            filter: 'watch',
+                                            category_id: category.id,
+                                            tags: [tag.name, tag2.name]
+                                            )
 
           expect(DiscourseChat::Rule.all.size).to eq(1)
           post "/chat-integration/slack/command.json",
@@ -250,7 +266,7 @@ describe 'Slack Command Controller', type: :request do
 
           json = JSON.parse(response.body)
 
-          expect(json["text"]).to eq(DiscourseChat::Helper.status_for_channel('slack','#welcome'))
+          expect(json["text"]).to eq(DiscourseChat::Helper.status_for_channel(chan1))
         end
       end
 

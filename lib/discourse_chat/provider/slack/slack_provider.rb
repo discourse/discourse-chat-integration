@@ -3,7 +3,9 @@ module DiscourseChat::Provider::SlackProvider
 
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
-  PROVIDER_CHANNEL_REGEX = '^[@#]\S*$'
+  CHANNEL_PARAMETERS = [
+                        {key: "identifier", regex: '^[@#]\S*$'}
+                       ]
 
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
     doc = Nokogiri::HTML.fragment(post.excerpt(max_length,
@@ -137,12 +139,13 @@ module DiscourseChat::Provider::SlackProvider
   end
 
   def self.trigger_notification(post, channel)
-  	message = slack_message(post, channel)
+    channel_id = channel.data['identifier']
+  	message = slack_message(post, channel_id)
 
 		if SiteSetting.chat_integration_slack_access_token.empty?
 			self.send_via_webhook(message)
 		else
-			self.send_via_api(post, channel, message)
+			self.send_via_api(post, channel_id, message)
 		end
 
   end
