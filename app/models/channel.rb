@@ -2,7 +2,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
   KEY_PREFIX = 'channel:'
 
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :provider, :data ], coder: JSON
+  store :value, accessors: [ :provider, :error_key, :data ], coder: JSON
 
   after_initialize :init_data
 

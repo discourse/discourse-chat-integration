@@ -34,11 +34,6 @@ export default Ember.Controller.extend({
       var model = {channel:channel}
       showModal('admin-plugins-chat-test', { model: model, admin: true });
     },
-    showError(error_key){
-      bootbox.alert(I18n.t(error_key));
-    },
-
-
 
   }
 

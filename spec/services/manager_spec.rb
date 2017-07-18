@@ -28,18 +28,18 @@ RSpec.describe DiscourseChat::Manager do
       provider.set_raise_exception(DiscourseChat::ProviderError.new info: {error_key:"hello"})
       manager.trigger_notifications(first_post.id)
       expect(provider.sent_to_channel_ids).to contain_exactly()
-      expect(DiscourseChat::Rule.all.first.error_key).to eq('hello')
+      expect(DiscourseChat::Channel.all.first.error_key).to eq('hello')
 
       # Triggering a different error should set the error_key to a generic message
       provider.set_raise_exception(StandardError.new "hello")
       manager.trigger_notifications(first_post.id)
       expect(provider.sent_to_channel_ids).to contain_exactly()
-      expect(DiscourseChat::Rule.all.first.error_key).to eq('chat_integration.rule_exception')
+      expect(DiscourseChat::Channel.all.first.error_key).to eq('chat_integration.channel_exception')
 
       provider.set_raise_exception(nil)
 
       manager.trigger_notifications(first_post.id)
-      expect(DiscourseChat::Rule.all.first.error_key.nil?).to be true      
+      expect(DiscourseChat::Channel.all.first.error_key.nil?).to be true      
     end
 
     it "should not send notifications when provider is disabled" do

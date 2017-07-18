@@ -7,6 +7,10 @@
     {{d-button class='cancel' action="delete" actionParam=channel icon="trash" title="chat_integration.delete_channel" label="chat_integration.delete_channel"}}
   </div>
   <span class='channel-title'>
+    {{#if channel.error_key}}
+      {{d-button action="showError" actionParam=channel.error_key class="delete btn-danger" icon="exclamation-triangle"}}
+    {{/if}}
+
 
     {{# each provider.channel_parameters as |param|}}
         <b>{{i18n (concat 'chat_integration.provider.' channel.provider '.param.' param.key '.title')}}:</b>

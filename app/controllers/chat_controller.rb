@@ -91,7 +91,7 @@ class DiscourseChat::ChatController < ApplicationController
   def update_channel
     begin
       channel = DiscourseChat::Channel.find(params[:id].to_i)
-      # rule.error_key = nil # Reset any error on the rule
+      channel.error_key = nil # Reset any error on the rule
 
       allowed_keys = DiscourseChat::Provider.get_by_name(channel.provider)::CHANNEL_PARAMETERS.map{|p| p[:key].to_sym}
 
@@ -134,7 +134,6 @@ class DiscourseChat::ChatController < ApplicationController
   def update_rule
     begin
       rule = DiscourseChat::Rule.find(params[:id].to_i)
-      rule.error_key = nil # Reset any error on the rule
       hash = params.require(:rule).permit(:filter, :category_id, tags:[])
       
       if not rule.update(hash)

@@ -61,35 +61,31 @@ module DiscourseChat
 
       # Loop through each rule, and trigger appropriate notifications
       matching_rules.each do |rule|
-        channel = rule.channel
-        provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
-        is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
+        # If there are any issues, skip to the next rule
+        next unless channel = rule.channel
+        next unless provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
+        next unless is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
 
-        if provider and is_enabled
-          begin
-            provider.trigger_notification(post, rule.channel)
-            rule.update_attribute('error_key', nil) if rule.error_key
-          rescue => e
-            if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
-              rule.update_attribute('error_key', e.info[:error_key])
-            else
-              rule.update_attribute('error_key','chat_integration.rule_exception')
-            end
-
-            # Log the error
-            Discourse.handle_job_exception(e,
-              message: "Triggering notifications failed",
-              extra: { provider_name: provider::PROVIDER_NAME,
-                       channel: rule.channel,
-                       post_id: post.id,
-                       error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
-            )
+        begin
+          provider.trigger_notification(post, channel)
+          channel.update_attribute('error_key', nil) if channel.error_key
+        rescue => e
+          if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
+            channel.update_attribute('error_key', e.info[:error_key])
+          else
+            channel.update_attribute('error_key','chat_integration.channel_exception')
           end
-        elsif provider
-          # Provider is disabled, don't do anything
-        else
-          # TODO: Handle when the provider does not exist
+
+          # Log the error
+          Discourse.handle_job_exception(e,
+            message: "Triggering notifications failed",
+            extra: { provider_name: provider::PROVIDER_NAME,
+                     channel: rule.channel,
+                     post_id: post.id,
+                     error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
+          )
         end
+        
       end
 
     end

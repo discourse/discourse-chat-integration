@@ -2,7 +2,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   KEY_PREFIX = 'rule:'
 
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :channel_id, :category_id, :tags, :filter, :error_key ], coder: JSON
+  store :value, accessors: [ :channel_id, :category_id, :tags, :filter ], coder: JSON
 
   after_initialize :init_filter
 
@@ -67,9 +67,9 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   end
 
   # Mock foreign key
-  # Could raise RecordNotFound
+  # Could return nil
   def channel
-    DiscourseChat::Channel.find(channel_id)
+    DiscourseChat::Channel.find_by(id:channel_id)
   end
   def channel=(val)
     self.channel_id = val.id
