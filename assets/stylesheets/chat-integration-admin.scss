@@ -6,12 +6,12 @@
 			white-space:nowrap;
 		}
 		td:not(:last-child){
-			width: 25%;
+			width: 30%;
 		}
 	}
 
 	div.table-footer{
-		margin-top: 10px;
+		margin: 10px;
 	}
 
 	div.error {
@@ -22,8 +22,6 @@
     margin-bottom: 10px;
     background-color: dark-light-diff($quaternary, $secondary, 70%, -70%);
     padding: 15px;
-
-    
   }
 
   div.channel-details{

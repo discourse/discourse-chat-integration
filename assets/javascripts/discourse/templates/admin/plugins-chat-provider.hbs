@@ -7,7 +7,14 @@
   {{/if}}
 
   {{# each model.channels as |channel|}}
-    {{channel-details channel=channel provider=provider store=store refresh='refresh' edit='editChannel' test='testChannel'}}
+    {{channel-details 
+        channel=channel 
+        provider=model.provider 
+        store=store 
+        refresh='refresh' 
+        edit='editChannel' 
+        test='testChannel' 
+        }}
     
   {{/each}}
   
