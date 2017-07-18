@@ -52,6 +52,17 @@ RSpec.describe DiscourseChat::Channel do
     expect(channel.rules.size).to eq(2)
   end
 
+  it 'destroys its rules on destroy' do
+    channel = DiscourseChat::Channel.create({provider:'dummy'})
+    expect(channel.rules.size).to eq(0)
+    rule1 = DiscourseChat::Rule.create(channel: channel)
+    rule2 = DiscourseChat::Rule.create(channel: channel)
+
+    expect(DiscourseChat::Rule.with_channel(channel).exists?).to eq(true)
+    channel.destroy()
+    expect(DiscourseChat::Rule.with_channel(channel).exists?).to eq(false)
+  end
+
   describe 'validations' do
     let(:channel) {  }
 

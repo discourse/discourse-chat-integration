@@ -10,6 +10,11 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
     self.data = {} if self.data.nil?
   end
 
+  after_destroy :destroy_rules
+  def destroy_rules
+    rules.destroy_all()
+  end
+
   validate :provider_valid?, :data_valid?
 
   def provider_valid?
