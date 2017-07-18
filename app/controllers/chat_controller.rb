@@ -62,6 +62,10 @@ class DiscourseChat::ChatController < ApplicationController
     begin
       providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
 
+      if not defined? params[:channel] and defined? params[:channel][:provider]
+        raise Discourse::InvalidParameters, 'Provider is not valid'
+      end
+
       requested_provider = params[:channel][:provider]
 
       if not providers.include? requested_provider
@@ -109,21 +113,6 @@ class DiscourseChat::ChatController < ApplicationController
     rule.destroy
 
     render json: success_json
-  end
-
-
-  def list_rules
-    providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
-
-    requested_provider = params[:provider]
-
-    if not providers.include? requested_provider
-      raise Discourse::NotFound
-    end
-
-    rules = DiscourseChat::Rule.with_provider(requested_provider)
-
-    render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
   end
 
   def create_rule

@@ -11,7 +11,6 @@ module DiscourseChat
     put '/channels/:id' => "chat#update_channel"
     delete '/channels/:id' => "chat#destroy_channel"
 
-    get '/rules' => "chat#list_rules"
     post '/rules' => "chat#create_rule"
     put '/rules/:id' => "chat#update_rule"
     delete '/rules/:id' => "chat#destroy_rule"
