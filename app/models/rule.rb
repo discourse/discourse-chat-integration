@@ -80,4 +80,10 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
 
   scope :with_category_id, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s)}
 
+  scope :order_by_precedence, ->{ order("CASE
+                                          WHEN value::json->>'filter' = 'mute' THEN 1
+                                          WHEN value::json->>'filter' = 'watch' THEN 2
+                                          WHEN value::json->>'filter' = 'follow' THEN 3
+                                         END") }
+
 end

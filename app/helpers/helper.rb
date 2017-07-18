@@ -3,7 +3,7 @@ module DiscourseChat
 	
     # Produce a string with a list of all rules associated with a channel
   	def self.status_for_channel(channel)
-  		rules = channel.rules
+  		rules = channel.rules.order_by_precedence
       provider = channel.provider
 
   		text = I18n.t("chat_integration.provider.#{provider}.status.header") + "\n"
@@ -45,7 +45,7 @@ module DiscourseChat
     # Delete a rule based on its (1 based) index as seen in the 
     # status_for_channel function
     def self.delete_by_index(channel, index)
-      rules = DiscourseChat::Rule.with_channel(channel)
+      rules = channel.rules.order_by_precedence
 
       return false if index < 1 or index > rules.size
 

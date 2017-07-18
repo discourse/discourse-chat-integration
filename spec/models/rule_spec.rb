@@ -110,6 +110,16 @@ RSpec.describe DiscourseChat::Rule do
       expect(DiscourseChat::Rule.with_category_id(1).length).to eq(2)
       expect(DiscourseChat::Rule.with_category_id(nil).length).to eq(1)
     end
+
+    it 'can be sorted by precedence' do
+      rule2 = DiscourseChat::Rule.create(channel:channel, filter:'mute')
+      rule3 = DiscourseChat::Rule.create(channel:channel, filter:'follow')
+      rule4 = DiscourseChat::Rule.create(channel:channel, filter:'mute')
+
+      expect(DiscourseChat::Rule.all.length).to eq(4)
+
+      expect(DiscourseChat::Rule.all.order_by_precedence.map(&:filter)).to eq(["mute", "mute", "watch", "follow"])
+    end
   end
 
   describe 'validations' do
