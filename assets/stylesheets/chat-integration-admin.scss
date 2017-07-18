@@ -1,6 +1,7 @@
 #admin-plugin-chat{
 
 	table{
+		margin-top:0;
 		td:last-child{
 			white-space:nowrap;
 		}
@@ -25,10 +26,33 @@
     
   }
 
+  div.channel-details{
+  	margin: 20px 10px;
+  	
+  	border: 1px solid dark-light-diff($primary, $secondary, 90%, -75%);
+
+  	div.channel-header{
+			background: dark-light-diff($primary, $secondary, 90%, -75%);  		
+			padding: 10px;
+			overflow:auto;
+
+			.channel-title{
+				font-weight: bold;
+				font-size: 1.3em;
+			}
+
+
+  	}
+
+  	div.channel-footer{
+  		overflow:auto;
+  	}
+  }
+
 
 }
 
-#chat_integration_edit_rule_modal, #chat_integration_test_modal{
+#chat_integration_edit_channel_modal, #chat_integration_test_modal{
 		table{
 			width:100%;
 

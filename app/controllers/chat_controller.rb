@@ -15,21 +15,17 @@ class DiscourseChat::ChatController < ApplicationController
     render json:providers, root: 'providers'
   end
 
-  def test_provider
+  def test
     begin
-      requested_provider = params[:provider]
-      channel = params[:channel]
-      topic_id = params[:topic_id]
+      channel_id = params[:channel_id].to_i
+      topic_id = params[:topic_id].to_i
 
-      provider = ::DiscourseChat::Provider.get_by_name(requested_provider)
+      channel = DiscourseChat::Channel.find(channel_id)
 
-      if provider.nil? or not ::DiscourseChat::Provider.is_enabled(provider)
+      provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
+
+      if not ::DiscourseChat::Provider.is_enabled(provider)
         raise Discourse::NotFound
-      end
-
-      if defined? provider::PROVIDER_CHANNEL_REGEX
-        channel_regex = Regexp.new provider::PROVIDER_CHANNEL_REGEX
-        raise Discourse::InvalidParameters, 'Channel is not valid' if not channel_regex.match?(channel)
       end
 
       post = Topic.find(topic_id.to_i).posts.first
@@ -48,23 +44,91 @@ class DiscourseChat::ChatController < ApplicationController
     end
   end
 
+  def list_channels
+    providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
+
+    requested_provider = params[:provider]
+
+    if not providers.include? requested_provider
+      raise Discourse::NotFound
+    end
+
+    channels = DiscourseChat::Channel.with_provider(requested_provider)
+
+    render_serialized channels, DiscourseChat::ChannelSerializer, root: 'channels'
+  end
+
+  def create_channel
+    begin
+      providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
+
+      requested_provider = params[:channel][:provider]
+
+      if not providers.include? requested_provider
+        raise Discourse::InvalidParameters, 'Provider is not valid'
+      end
+
+      allowed_keys = DiscourseChat::Provider.get_by_name(requested_provider)::CHANNEL_PARAMETERS.map{|p| p[:key].to_sym}
+
+      hash = params.require(:channel).permit(:provider, data:allowed_keys)
+
+      channel = DiscourseChat::Channel.new(hash)
+      
+      if not channel.save(hash)
+        raise Discourse::InvalidParameters, 'Channel is not valid'
+      end
+
+      render_serialized channel, DiscourseChat::ChannelSerializer, root: 'channel'
+    rescue Discourse::InvalidParameters => e
+      render json: {errors: [e.message]}, status: 422
+    end
+  end
+
+  def update_channel
+    begin
+      channel = DiscourseChat::Channel.find(params[:id].to_i)
+      # rule.error_key = nil # Reset any error on the rule
+
+      allowed_keys = DiscourseChat::Provider.get_by_name(channel.provider)::CHANNEL_PARAMETERS.map{|p| p[:key].to_sym}
+
+      hash = params.require(:channel).permit(data:allowed_keys)
+      
+      if not channel.update(hash)
+        raise Discourse::InvalidParameters, 'Channel is not valid'
+      end
+
+      render_serialized channel, DiscourseChat::ChannelSerializer, root: 'channel'
+    rescue Discourse::InvalidParameters => e
+      render json: {errors: [e.message]}, status: 422
+    end
+  end
+
+  def destroy_channel
+    rule = DiscourseChat::Channel.find(params[:id].to_i)
+
+    rule.destroy
+
+    render json: success_json
+  end
+
+
   def list_rules
     providers = ::DiscourseChat::Provider.enabled_providers.map {|x| x::PROVIDER_NAME}
 
     requested_provider = params[:provider]
 
-    if providers.include? requested_provider
-      rules = DiscourseChat::Rule.with_provider(requested_provider)
-    else
+    if not providers.include? requested_provider
       raise Discourse::NotFound
     end
+
+    rules = DiscourseChat::Rule.with_provider(requested_provider)
 
     render_serialized rules, DiscourseChat::RuleSerializer, root: 'rules'
   end
 
   def create_rule
     begin
-      hash = params.require(:rule).permit(:provider, :channel, :filter, :category_id, tags:[])
+      hash = params.require(:rule).permit(:channel_id, :filter, :category_id, tags:[])
 
       rule = DiscourseChat::Rule.new(hash)
       
@@ -82,7 +146,7 @@ class DiscourseChat::ChatController < ApplicationController
     begin
       rule = DiscourseChat::Rule.find(params[:id].to_i)
       rule.error_key = nil # Reset any error on the rule
-      hash = params.require(:rule).permit(:provider, :channel, :filter, :category_id, tags:[])
+      hash = params.require(:rule).permit(:filter, :category_id, tags:[])
       
       if not rule.update(hash)
         raise Discourse::InvalidParameters, 'Rule is not valid'

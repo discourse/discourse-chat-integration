@@ -17,7 +17,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
 
   def channel_valid?
     # Validate category
-    if not (channel_id.nil? or DiscourseChat::Channel.where(id: channel_id).exists?)
+    if not (DiscourseChat::Channel.where(id: channel_id).exists?)
       errors.add(:channel_id, "#{channel_id} is not a valid channel id")
     end
   end

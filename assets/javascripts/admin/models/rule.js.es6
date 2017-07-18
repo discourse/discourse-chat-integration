@@ -11,9 +11,8 @@ export default RestModel.extend({
 
   category_id: null,
   tags: null,
-  provider: '',
-  channel: '',
-  filter: null,
+  channel_id: null,
+  filter: 'watch',
   error_key: null,
 
   @computed('category_id')
@@ -31,12 +30,13 @@ export default RestModel.extend({
   },
 
   updateProperties() {
-    var prop_names = ['category_id','provider','channel', 'tags','filter'];
+    var prop_names = ['category_id','tags','filter'];
     return this.getProperties(prop_names);
   },
 
   createProperties() {
-    return this.updateProperties();
+    var prop_names = ['channel_id', 'category_id','tags','filter'];
+    return this.getProperties(prop_names);
   }
 
 });

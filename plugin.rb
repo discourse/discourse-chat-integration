@@ -19,6 +19,7 @@ after_initialize do
   require_relative "app/models/rule"
   require_relative "app/models/channel"
 
+  require_relative "app/serializers/channel_serializer"
   require_relative "app/serializers/rule_serializer"
   
   require_relative "app/controllers/chat_controller"

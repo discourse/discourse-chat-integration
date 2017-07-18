@@ -1,0 +1,40 @@
+<div class='channel-header'>
+  <span class='channel-title'>{{channel.data.identifier}}</span>
+  <div class='pull-right'>
+    {{d-button action="edit" actionParam=channel icon="pencil" title="chat_integration.edit_channel" label="chat_integration.edit_channel"}}
+
+    {{d-button action="test" actionParam=channel icon="rocket" title="chat_integration.test_channel" label="chat_integration.test_channel"}}
+
+    {{d-button class='cancel' action="delete" actionParam=channel icon="trash" title="chat_integration.delete_channel" label="chat_integration.delete_channel"}}
+  </div>
+</div>
+<div class='channel-body'>
+<table>
+  <tr>
+    {{!-- <th></th> --}}
+    <th>{{i18n "chat_integration.rule_table.filter"}}</th>
+
+    <th>{{i18n "chat_integration.rule_table.category"}}</th>
+
+    {{#if siteSettings.tagging_enabled}}
+      <th>{{i18n "chat_integration.rule_table.tags"}}</th>
+    {{/if}}
+
+    
+    
+    <th></th>
+  </tr>
+
+  
+  {{#each channel.rules as |rule|}}
+    {{rule-row rule=rule refresh=refresh}}
+    
+  {{/each}}
+
+</table>
+</div>
+<div class='channel-footer'>
+  <div class='pull-right'>
+   {{d-button action="createRule" actionParam=channel icon="plus" title="chat_integration.create_rule" label="chat_integration.create_rule"}}
+  </div>
+</div>
