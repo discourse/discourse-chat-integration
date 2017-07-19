@@ -14,6 +14,129 @@ RSpec.describe DiscourseChat::Manager do
   let(:tag2){Fabricate(:tag)}
   let(:tag3){Fabricate(:tag)}
 
+  describe '.process_command' do
+
+    describe 'add new rule' do
+        # Not testing how filters are merged here, that's done in .smart_create_rule
+        # We just want to make sure the commands are being interpretted correctly
+
+        it 'should add a new rule correctly' do
+          response = DiscourseChat::Helper.process_command(chan1, ['watch',category.slug])
+          
+          expect(response).to eq(I18n.t("chat_integration.provider.dummy.create.created"))
+
+          rule = DiscourseChat::Rule.all.first
+          expect(rule.channel).to eq(chan1)
+          expect(rule.filter).to eq('watch')
+          expect(rule.category_id).to eq(category.id)
+          expect(rule.tags).to eq(nil)
+        end
+
+        it 'should work with all three filter types' do
+          response = DiscourseChat::Helper.process_command(chan1, ['watch',category.slug])
+
+          rule = DiscourseChat::Rule.all.first
+          expect(rule.filter).to eq('watch')
+
+          response = DiscourseChat::Helper.process_command(chan1, ['follow',category.slug])
+
+          rule = DiscourseChat::Rule.all.first
+          expect(rule.filter).to eq('follow')
+
+          response = DiscourseChat::Helper.process_command(chan1, ['mute',category.slug])
+
+          rule = DiscourseChat::Rule.all.first
+          expect(rule.filter).to eq('mute')
+        end
+
+        it 'errors on incorrect categories' do
+          response = DiscourseChat::Helper.process_command(chan1, ['watch','blah'])
+
+          expect(response).to eq(I18n.t("chat_integration.provider.dummy.not_found.category", name:'blah', list:'uncategorized'))
+        end
+      
+        context 'with tags enabled' do
+          before do
+            SiteSetting.tagging_enabled = true
+          end
+
+          it 'should add a new tag rule correctly' do
+            response = DiscourseChat::Helper.process_command(chan1, ['watch',"tag:#{tag1.name}"])
+
+            expect(response).to eq(I18n.t("chat_integration.provider.dummy.create.created"))
+
+            rule = DiscourseChat::Rule.all.first
+            expect(rule.channel).to eq(chan1)
+            expect(rule.filter).to eq('watch')
+            expect(rule.category_id).to eq(nil)
+            expect(rule.tags).to eq([tag1.name])
+          end
+
+          it 'should work with a category and multiple tags' do
+            
+            response = DiscourseChat::Helper.process_command(chan1, ['watch',category.slug, "tag:#{tag1.name}", "tag:#{tag2.name}"])
+            
+            expect(response).to eq(I18n.t("chat_integration.provider.dummy.create.created"))
+
+            rule = DiscourseChat::Rule.all.first
+            expect(rule.channel).to eq(chan1)
+            expect(rule.filter).to eq('watch')
+            expect(rule.category_id).to eq(category.id)
+            expect(rule.tags).to contain_exactly(tag1.name, tag2.name)
+          end
+
+          it 'errors on incorrect tags' do
+            response = DiscourseChat::Helper.process_command(chan1, ['watch',category.slug, "tag:blah"])
+            expect(response).to eq(I18n.t("chat_integration.provider.dummy.not_found.tag", name:"blah"))
+          end
+        end
+      end
+
+      describe 'remove rule' do
+        it 'removes the rule' do
+          rule1 = DiscourseChat::Rule.create(channel: chan1,
+                                            filter: 'watch',
+                                            category_id: category.id,
+                                            tags: [tag1.name, tag2.name]
+                                            )
+
+          expect(DiscourseChat::Rule.all.size).to eq(1)
+          
+          response = DiscourseChat::Helper.process_command(chan1, ['remove','1'])
+
+          expect(response).to eq(I18n.t("chat_integration.provider.dummy.delete.success"))
+
+          expect(DiscourseChat::Rule.all.size).to eq(0)
+        end
+
+        it 'errors correctly' do
+          response = DiscourseChat::Helper.process_command(chan1, ['remove','1'])
+          expect(response).to eq(I18n.t("chat_integration.provider.dummy.delete.error"))          
+        end
+      end
+
+      describe 'help command' do
+        it 'should return the right response' do
+          response = DiscourseChat::Helper.process_command(chan1, ["help"])
+          expect(response).to eq(I18n.t("chat_integration.provider.dummy.help"))
+        end
+      end
+
+      describe 'status command' do
+        it 'should return the right response' do
+          response = DiscourseChat::Helper.process_command(chan1, ['status'])
+          expect(response).to eq(DiscourseChat::Helper.status_for_channel(chan1))
+        end
+      end
+
+      describe 'unknown command' do
+        it 'should return the right response' do
+          response = DiscourseChat::Helper.process_command(chan1, ['somerandomtext'])
+          expect(response).to eq(I18n.t("chat_integration.provider.dummy.parse_error"))
+        end
+      end
+  end
+
   describe '.status_for_channel' do
     
     context 'with no rules' do
