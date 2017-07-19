@@ -62,10 +62,9 @@ module DiscourseChat::Provider::TelegramProvider
 
       tokens = message['text'].split(" ")
 
-      return "I don't understand how to do that yet"
+      tokens[0][0] = '' # Remove the slash from the first token
 
-
-
+      return ::DiscourseChat::Helper.process_command(channel, tokens)
     end
 
     def telegram_token_valid?

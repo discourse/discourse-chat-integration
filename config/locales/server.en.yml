@@ -47,7 +47,6 @@ en:
         not_found:
           tag: "The *%{name}* tag cannot be found."
           category: "The *%{name}* category cannot be found. Available categories: *%{list}*"
-
         help: |
           *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
           (you must specify a rule type and at least one category or tag)
@@ -69,3 +68,35 @@ en:
                 <b>%{user}</b> posted in <a href="%{post_url}">%{title}</a>
 
                 <pre>%{post_excerpt}</pre>
+
+        status:
+            header: |
+              <b>Rules for this channel</b>
+              (if multiple rules match a post, the topmost rule is executed)
+            no_rules: "There are no rules set up for this channel. Run <code>/help</code> for instructions."
+            rule_string: "<b>%{index})</b> <b>%{filter}</b> posts in <b>%{category}</b>"
+            rule_string_tags_suffix: " with tags: <b>%{tags}</b>"
+        parse_error: "Sorry, I didn't understand that. Run <code>/help</code> for instructions."
+        create:
+          created: "Rule created successfully"
+          updated: "Rule updated successfully"
+          error: "Sorry, an error occured while creating that rule."
+        delete:
+          success: "Rule deleted successfully"
+          error: "Sorry, an error occured while deleting that rule. Run <code>/status</code> for a list of rules."
+        not_found:
+          tag: "The <b>%{name}</b> tag cannot be found."
+          category: "The <b>%{name}</b> category cannot be found. Available categories: <b>%{list}</b>"
+        help: |
+          <b>New rule:</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
+          (you must specify a rule type and at least one category or tag)
+          - <b>watch</b> – notify this channel for new topics and new replies
+          - <b>follow</b> – notify this channel for new topics
+          - <b>mute</b> – block notifications to this channel
+
+          <b>Remove rule:</b> <code>/remove [rule number]</code>
+          (<code>[rule number]</code> can be found by running <code>/status</code>)
+
+          <b>List rules:</b> <code>/status</code>
+          
+          <b>Help:</b> <code>/help</code>
