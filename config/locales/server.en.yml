@@ -61,3 +61,11 @@ en:
           *List rules:* `/discourse status`
           
           *Help:* `/discourse help`
+
+      telegram:
+        unknown_chat: "This chat isn't setup on %{site_title}. Ask an administrator to add a channel with 'Chat ID' %{chat_id}."
+        known_chat: "This chat is setup on %{site_title}. Configure it in the admin panel. (Chat ID: %{chat_id})"
+        message: |-
+                <b>%{user}</b> posted in <a href="%{post_url}">%{title}</a>
+
+                <pre>%{post_excerpt}</pre>

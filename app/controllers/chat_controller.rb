@@ -36,6 +36,7 @@ class DiscourseChat::ChatController < ApplicationController
     rescue Discourse::InvalidParameters, ActiveRecord::RecordNotFound => e
       render json: {errors: [e.message]}, status: 422
     rescue DiscourseChat::ProviderError => e
+      Rails.logger.error("Test provider failed #{e.info}")
       if e.info.key?(:error_key) and !e.info[:error_key].nil?
         render json: {error_key: e.info[:error_key]}, status: 422
       else 
