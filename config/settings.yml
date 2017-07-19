@@ -30,3 +30,11 @@ plugins:
 #######################################
   chat_integration_telegram_enabled:
     default: false
+  chat_integration_telegram_access_token:
+    default: ''
+  chat_integration_telegram_excerpt_length:
+    default: 400
+  chat_integration_telegram_enable_slash_commands:
+    default: true
+  chat_integration_telegram_secret:
+    hidden: true

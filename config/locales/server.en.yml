@@ -10,7 +10,7 @@ en:
     #######################################
     chat_integration_slack_enabled: 'Enable the slack chat-integration provider'
     chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
-    chat_integration_slack_excerpt_length: 'Post excerpt length'
+    chat_integration_slack_excerpt_length: 'Slack post excerpt length'
     chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
     chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
 
@@ -20,7 +20,10 @@ en:
     #######################################
     ######### TELEGRAM SETTINGS ###########
     #######################################
-    chat_integration_telegram_enabled: "Enable the telegram chat-integration provider"
+    chat_integration_telegram_enabled: "Enable the Telegram chat-integration provider"
+    chat_integration_telegram_access_token: "Your bot's access token from the Telegram botfather"
+    chat_integration_telegram_excerpt_length: "Telegram post excerpt length"
+    chat_integration_telegram_enable_slash_commands: "Allow telegram subscriptions to be managed using 'slash commands'"
   
   chat_integration:
     
@@ -47,7 +50,6 @@ en:
         not_found:
           tag: "The *%{name}* tag cannot be found."
           category: "The *%{name}* category cannot be found. Available categories: *%{list}*"
-
         help: |
           *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
           (you must specify a rule type and at least one category or tag)
@@ -61,3 +63,43 @@ en:
           *List rules:* `/discourse status`
           
           *Help:* `/discourse help`
+
+      telegram:
+        unknown_chat: "This chat isn't setup on %{site_title}. Ask an administrator to add a channel with 'Chat ID' %{chat_id}."
+        known_chat: "This chat is setup on %{site_title}. Configure it in the admin panel. (Chat ID: %{chat_id})"
+        message: |-
+                <b>%{user}</b> posted in <a href="%{post_url}">%{title}</a>
+
+                <pre>%{post_excerpt}</pre>
+
+        status:
+            header: |
+              <b>Rules for this channel</b>
+              (if multiple rules match a post, the topmost rule is executed)
+            no_rules: "There are no rules set up for this channel. Run <code>/help</code> for instructions."
+            rule_string: "<b>%{index})</b> <b>%{filter}</b> posts in <b>%{category}</b>"
+            rule_string_tags_suffix: " with tags: <b>%{tags}</b>"
+        parse_error: "Sorry, I didn't understand that. Run <code>/help</code> for instructions."
+        create:
+          created: "Rule created successfully"
+          updated: "Rule updated successfully"
+          error: "Sorry, an error occured while creating that rule."
+        delete:
+          success: "Rule deleted successfully"
+          error: "Sorry, an error occured while deleting that rule. Run <code>/status</code> for a list of rules."
+        not_found:
+          tag: "The <b>%{name}</b> tag cannot be found."
+          category: "The <b>%{name}</b> category cannot be found. Available categories: <b>%{list}</b>"
+        help: |
+          <b>New rule:</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
+          (you must specify a rule type and at least one category or tag)
+          - <b>watch</b> – notify this channel for new topics and new replies
+          - <b>follow</b> – notify this channel for new topics
+          - <b>mute</b> – block notifications to this channel
+
+          <b>Remove rule:</b> <code>/remove [rule number]</code>
+          (<code>[rule number]</code> can be found by running <code>/status</code>)
+
+          <b>List rules:</b> <code>/status</code>
+          
+          <b>Help:</b> <code>/help</code>
