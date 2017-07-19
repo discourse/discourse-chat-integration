@@ -10,7 +10,7 @@ en:
     #######################################
     chat_integration_slack_enabled: 'Enable the slack chat-integration provider'
     chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
-    chat_integration_slack_excerpt_length: 'Post excerpt length'
+    chat_integration_slack_excerpt_length: 'Slack post excerpt length'
     chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
     chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
 
@@ -20,7 +20,10 @@ en:
     #######################################
     ######### TELEGRAM SETTINGS ###########
     #######################################
-    chat_integration_telegram_enabled: "Enable the telegram chat-integration provider"
+    chat_integration_telegram_enabled: "Enable the Telegram chat-integration provider"
+    chat_integration_telegram_access_token: "Your bot's access token from the Telegram botfather"
+    chat_integration_telegram_excerpt_length: "Telegram post excerpt length"
+    chat_integration_telegram_enable_slash_commands: "Allow telegram subscriptions to be managed using 'slash commands'"
   
   chat_integration:
     
