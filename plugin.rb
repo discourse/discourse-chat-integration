@@ -14,26 +14,6 @@ require_relative "lib/discourse_chat/provider/slack/slack_enabled_setting_valida
 after_initialize do
 
   require_relative "app/initializers/discourse_chat"
-
-  require_relative "app/models/plugin_model"
-  require_relative "app/models/rule"
-  require_relative "app/models/channel"
-
-  require_relative "app/serializers/channel_serializer"
-  require_relative "app/serializers/rule_serializer"
-  
-  require_relative "app/controllers/chat_controller"
-
-  require_relative "app/routes/discourse_chat"
-  require_relative "app/routes/discourse"
-
-  require_relative "app/helpers/helper"
-  
-  require_relative "app/services/manager"
-
-  require_relative "app/jobs/regular/notify_chats"
-
-  require_relative "lib/discourse_chat/provider"
   
   DiscourseEvent.on(:post_created) do |post| 
     if SiteSetting.chat_integration_enabled?
