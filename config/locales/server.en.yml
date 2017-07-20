@@ -12,6 +12,7 @@ en:
     chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
     chat_integration_slack_excerpt_length: 'Slack post excerpt length'
     chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
+    chat_integration_slack_incoming_webhook_token: 'Token sent in the payload from the Slack outoing webhook'
     chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
 
     errors:
@@ -31,6 +32,10 @@ en:
     deleted_category: "(deleted category)"
 
     provider:
+
+      #######################################
+      ########## SLACK STRINGS ##############
+      #######################################
       slack:
         status:
           header: |
@@ -64,6 +69,9 @@ en:
           
           *Help:* `/discourse help`
 
+      #######################################
+      ########## TELEGRAM STRINGS ###########
+      #######################################
       telegram:
         unknown_chat: "This chat isn't setup on %{site_title}. Ask an administrator to add a channel with 'Chat ID' %{chat_id}."
         known_chat: "This chat is setup on %{site_title}. Configure it in the admin panel. (Chat ID: %{chat_id})"

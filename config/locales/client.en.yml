@@ -16,8 +16,6 @@ en:
       channel_delete_confirm: "Are you sure you want to delete this channel? All associated rules will be deleted."
       test_modal:
         title: "Send a test message"
-        provider: "Provider"
-        channel: "Channel"
         topic: "Topic"
         send: "Send Test Message"
         close: "Close"
@@ -28,7 +26,6 @@ en:
         follow: 'First post only'
         watch: 'All posts and replies'
       rule_table:
-        channel: "Channel"
         filter: "Filter"
         category: "Category"
         tags: "Tags"
