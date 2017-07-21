@@ -101,6 +101,18 @@ describe 'Telegram Command Controller', type: :request do
           end
         end
       end
+
+      it "should respond only to a specific command in a broadcast channel" do
+        post '/chat-integration/telegram/command/shhh.json', channel_post: {chat: {id:123}, text: "something" }
+
+        expect(response.status).to eq(200)
+        expect(stub).to have_been_requested.times(0)
+
+        post '/chat-integration/telegram/command/shhh.json', channel_post: {chat: {id:123}, text: "/getchatid" }
+
+        expect(response.status).to eq(200)
+        expect(stub).to have_been_requested.times(1)
+      end
     end
   end
 end
