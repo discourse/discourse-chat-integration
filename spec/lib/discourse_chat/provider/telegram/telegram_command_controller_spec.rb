@@ -80,6 +80,19 @@ describe 'Telegram Command Controller', type: :request do
           expect(rule.tags).to eq(nil)
         end
 
+        it 'should add a new rule correctly using group chat syntax' do
+          post '/chat-integration/telegram/command/shhh.json', message: {chat: {id:123}, text: "/watch@my-awesome-bot #{category.slug}" }
+
+          expect(response.status).to eq(200)
+          expect(stub).to have_been_requested.once
+
+          rule = DiscourseChat::Rule.all.first
+          expect(rule.channel).to eq(chan1)
+          expect(rule.filter).to eq('watch')
+          expect(rule.category_id).to eq(category.id)
+          expect(rule.tags).to eq(nil)
+        end
+
         context 'from an unknown channel' do
           it 'does nothing' do
             post '/chat-integration/telegram/command/shhh.json', message: {chat: {id:456}, text: "/watch #{category.slug}" }

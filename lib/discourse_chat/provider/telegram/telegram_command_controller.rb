@@ -63,6 +63,7 @@ module DiscourseChat::Provider::TelegramProvider
       tokens = message['text'].split(" ")
 
       tokens[0][0] = '' # Remove the slash from the first token
+      tokens[0] = tokens[0].split('@')[0] # Remove the bot name from the command (necessary for group chats)
 
       return ::DiscourseChat::Helper.process_command(channel, tokens)
     end
