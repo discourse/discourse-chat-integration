@@ -38,3 +38,11 @@ plugins:
     default: true
   chat_integration_telegram_secret:
     hidden: true
+
+#######################################
+########## DISCORD SETTINGS ###########
+#######################################
+  chat_integration_discord_enabled:
+    default: false
+  chat_integration_discord_excerpt_length:
+    default: 400
