@@ -10,10 +10,10 @@ script:
   - >
     docker run
     -e "COMMIT_HASH=origin/tests-passed"
+    -e "SKIP_CORE=1"
     -e "LOAD_PLUGINS=1"
     -e SINGLE_PLUGIN=$plugin_name
     -e MODULE="Acceptance: Chat Integration"
     -v $(pwd):/var/www/discourse/plugins/$plugin_name
-    -v $(pwd)/docker_patched.rake:/var/www/discourse/lib/tasks/docker.rake
     discourse/discourse_test:release
   
