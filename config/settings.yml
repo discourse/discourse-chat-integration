@@ -13,17 +13,19 @@ plugins:
   chat_integration_slack_enabled:
     default: false
     validator: "ChatIntegrationSlackEnabledSettingValidator"
-  chat_integration_slack_outbound_webhook_url:
-    default: ''
-    regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
-  chat_integration_slack_excerpt_length:
-    default: 400
-  chat_integration_slack_icon_url:
+  chat_integration_slack_access_token:
     default: ''
   chat_integration_slack_incoming_webhook_token:
     default: ''
-  chat_integration_slack_access_token:
+  chat_integration_slack_excerpt_length:
+    default: 400
+  chat_integration_slack_outbound_webhook_url:
     default: ''
+    regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
+    hidden: true
+  chat_integration_slack_icon_url:
+    default: ''
+    hidden: true
 
 #######################################
 ######### TELEGRAM SETTINGS ###########

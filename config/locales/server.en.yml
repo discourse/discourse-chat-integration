@@ -9,11 +9,11 @@ en:
     ########## SLACK SETTINGS #############
     #######################################
     chat_integration_slack_enabled: 'Enable the slack chat-integration provider'
-    chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
+    chat_integration_slack_access_token: 'OAuth Access Token for authenticating with Slack'
+    chat_integration_slack_incoming_webhook_token: 'The verification token used to authenticate incoming requests'
     chat_integration_slack_excerpt_length: 'Slack post excerpt length'
     chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
-    chat_integration_slack_incoming_webhook_token: 'Token sent in the payload from the Slack outoing webhook'
-    chat_integration_slack_access_token: 'Token if you are using the Web API instead of webhooks'
+    chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
 
     errors:
       chat_integration_slack_api_configs_are_empty: "You must enter either an outbound webhook URL, or an access token"
