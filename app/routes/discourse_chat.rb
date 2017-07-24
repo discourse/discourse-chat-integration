@@ -17,4 +17,8 @@ module DiscourseChat
 
     get "/:provider" => "chat#respond"
   end
+
+  PublicEngine.routes.draw do
+    get '/:secret' => "public#post_transcript"
+  end
 end

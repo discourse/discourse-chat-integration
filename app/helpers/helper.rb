@@ -178,6 +178,14 @@ module DiscourseChat
 
     end
 
+    def self.save_transcript(transcript)
+      secret = SecureRandom.hex
+      redis_key = "chat_integration:transcript:" + secret
+      $redis.set(redis_key, transcript, {:ex => 3600}) # Expire in 1 hour
+
+      return secret
+    end
+
   end
 end
 

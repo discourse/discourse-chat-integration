@@ -6,6 +6,11 @@ module ::DiscourseChat
     isolate_namespace DiscourseChat
   end
 
+  class PublicEngine < ::Rails::Engine
+    engine_name DiscourseChat::PLUGIN_NAME+"-public"
+    isolate_namespace DiscourseChat
+  end
+
   def self.plugin_name
     DiscourseChat::PLUGIN_NAME
   end
@@ -31,6 +36,7 @@ require_relative "../serializers/channel_serializer"
 require_relative "../serializers/rule_serializer"
 
 require_relative "../controllers/chat_controller"
+require_relative "../controllers/public_controller"
 
 require_relative "../routes/discourse_chat"
 require_relative "../routes/discourse"

@@ -301,4 +301,14 @@ RSpec.describe DiscourseChat::Manager do
     end
   end
 
+  describe '.save_transcript' do
+
+    it 'saves a transcript to redis' do
+      key = DiscourseChat::Helper.save_transcript("Some content here")
+
+      expect($redis.get("chat_integration:transcript:#{key}")).to eq("Some content here")
+      expect($redis.pttl("chat_integration:transcript:#{key}")).to eq(3600*1000)
+    end
+  end
+
 end
