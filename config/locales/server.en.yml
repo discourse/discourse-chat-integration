@@ -73,7 +73,13 @@ en:
 
           *List rules:* `/discourse status`
           
+          *Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
           *Help:* `/discourse help`
+        transcript_error: "Something went wrong when building the transcript, sorry!"
+        post_to_discourse: "Click here to post on Discourse"
+        api_required: "Sorry, this integration isn't setup to support posting transcripts."
 
       #######################################
       ########## TELEGRAM STRINGS ###########

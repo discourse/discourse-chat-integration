@@ -38,8 +38,88 @@ module DiscourseChat::Provider::SlackProvider
       # Create channel if doesn't exist
       channel ||= DiscourseChat::Channel.create!(provider:provider, data:{identifier: channel_id})
 
+      if tokens[0] == 'post'
+        return process_post_request(channel, tokens, params[:channel_id])
+      end
+
       return ::DiscourseChat::Helper.process_command(channel, tokens)
       
+    end
+
+    def process_post_request(channel, tokens, slack_channel_id)
+      if SiteSetting.chat_integration_slack_access_token.empty?
+        return I18n.t("chat_integration.provider.slack.api_required")
+      end
+
+      http = Net::HTTP.new("slack.com", 443)
+      http.use_ssl = true
+
+      messages_to_load = 10
+
+      if tokens.size > 1
+        begin
+          messages_to_load = Integer(tokens[1], 10)
+        rescue ArgumentError
+          return I18n.t("chat_integration.provider.slack.parse_error")
+        end
+      end
+
+      error_text = I18n.t("chat_integration.provider.slack.transcript_error")
+
+      # Load the user data (we need this to change user IDs into usernames)
+      req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
+      req.set_form_data({token: SiteSetting.chat_integration_slack_access_token})
+      response = http.request(req)
+      return error_text unless response.kind_of? Net::HTTPSuccess
+      json = JSON.parse(response.body)
+      return error_text unless json['ok']
+      users = json["members"]
+
+      # Now load the chat message history
+      req = Net::HTTP::Post.new(URI('https://slack.com/api/channels.history'))
+
+      data = {
+        token: SiteSetting.chat_integration_slack_access_token,
+        channel: slack_channel_id,
+        count: messages_to_load
+      }
+
+      req.set_form_data(data)
+      response = http.request(req)
+      return error_text unless response.kind_of? Net::HTTPSuccess
+      json = JSON.parse(response.body)
+      return error_text unless json['ok']
+      post_content = ""
+
+      json["messages"].reverse.each do |message|
+        next unless message["type"] == "message"
+
+        username = ""
+        if message["user"]
+          username = users.find{|u| u["id"] == message["user"]}["name"]
+        elsif message.key?("username")
+          username = message["username"]
+        end
+
+        post_content << "[quote='@#{username}']\n"
+        post_content << message["text"]
+
+        if message.key?("attachments")
+          message["attachments"].each do |attachment|
+            next unless attachment.key?("fallback")
+            post_content << "\n[quote]\n#{attachment["fallback"]}\n[/quote]"
+          end
+        end
+
+        post_content << "\n[/quote]\n\n"
+      end
+
+      secret = DiscourseChat::Helper.save_transcript(post_content)
+
+      link = "#{Discourse.base_url}/chat-transcript/#{secret}"
+
+      return "<#{link}|#{I18n.t("chat_integration.provider.slack.post_to_discourse")}>"
+
     end
 
     def slack_token_valid?

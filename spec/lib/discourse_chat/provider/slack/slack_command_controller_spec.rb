@@ -109,6 +109,56 @@ describe 'Slack Command Controller', type: :request do
           end
         end
       end
+
+      describe 'post transcript' do
+        before do
+          SiteSetting.chat_integration_slack_access_token = 'abcde'
+        end
+
+        it 'generates a transcript properly' do
+          stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david"}]}')
+          stub2 = stub_request(:post, "https://slack.com/api/channels.history").to_return(body: '{"ok":true,"messages":[{"type":"message","user":"U5Z773QLS","text":"And this is a slack message with an attachment: <https:\/\/meta.discourse.org>","attachments":[{"title":"Discourse Meta","title_link":"https:\/\/meta.discourse.org","text":"Discussion about the next-generation open source Discourse forum software","fallback":"Discourse Meta","thumb_url":"https:\/\/discourse-meta.s3-us-west-1.amazonaws.com\/original\/3X\/c\/b\/cb4bec8901221d4a646e45e1fa03db3a65e17f59.png","from_url":"https:\/\/meta.discourse.org","thumb_width":350,"thumb_height":349,"service_icon":"https:\/\/discourse-meta.s3-us-west-1.amazonaws.com\/original\/3X\/c\/b\/cb4bec8901221d4a646e45e1fa03db3a65e17f59.png","service_name":"meta.discourse.org","id":1}],"ts":"1500910064.045243"},{"type":"message","user":"U5Z773QLS","text":"Hello world, this is a slack message","ts":"1500910051.036792"}],"has_more":true}')
+    
+          post "/chat-integration/slack/command.json",
+            text: "post 2",
+            channel_name: 'general',
+            channel_id:'C6029G78F',
+            token: token
+
+          json = JSON.parse(response.body)
+
+          expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.post_to_discourse"))
+        end
+
+        it 'deals with failed API calls correctly' do
+          stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(status: 403)
+
+          post "/chat-integration/slack/command.json",
+            text: "post 2",
+            channel_name: 'general',
+            channel_id:'C6029G78F',
+            token: token
+
+          json = JSON.parse(response.body)
+
+          expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.transcript_error"))
+        end
+
+        it 'errors correctly if there is no api key' do
+          SiteSetting.chat_integration_slack_access_token = ''
+          
+          post "/chat-integration/slack/command.json",
+            text: "post 2",
+            channel_name: 'general',
+            channel_id:'C6029G78F',
+            token: token
+
+          json = JSON.parse(response.body)
+
+          expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.api_required"))
+        end
+      end
+
     end
   end
 end
