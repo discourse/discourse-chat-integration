@@ -83,3 +83,19 @@ en:
             webhook_url:
               title: Webhook URL
               help: The webhook URL created in your Discord server settings
+
+        #######################################
+        ########### HIPCHAT STRINGS ###########
+        #######################################
+        hipchat:
+          title: "HipChat"
+          param:
+            name:
+              title: "Name"
+              help: "A name to describe the channel. It is not used for the connection to HipChat."
+            webhook_url:
+              title: Webhook URL
+              help: The webhook URL created in your HipChat integration
+            color:
+              title: Color
+              help: The colour of the message in HipChat. Must be one of yellow,green,red,purple,gray,random

@@ -92,3 +92,4 @@ end
 require_relative "provider/slack/slack_provider.rb"
 require_relative "provider/telegram/telegram_provider.rb"
 require_relative "provider/discord/discord_provider.rb"
+require_relative "provider/hipchat/hipchat_provider.rb"

@@ -31,6 +31,13 @@ en:
     #######################################
     chat_integration_discord_enabled: "Enable the Discord chat-integration provider"
     chat_integration_discord_excerpt_length: "Discord post excerpt length"
+
+    #######################################
+    ########## HIPCHAT SETTINGS ###########
+    #######################################
+    chat_integration_hipchat_enabled: "Enable the Hipchat chat-integration provider"
+    chat_integration_icon_url: "Icon for posts to hipchat (defaults to forum logo)"
+    chat_integration_hipchat_excerpt_length: "Hipchat post excerpt length"
   
   chat_integration:
     
@@ -123,3 +130,9 @@ en:
           <b>List rules:</b> <code>/status</code>
           
           <b>Help:</b> <code>/help</code>
+
+      #######################################
+      ########### HIPCHAT STRINGS ###########
+      #######################################
+      hipchat:
+        message: <b>%{user}</b> posted in <a href="%{post_url}">%{title}</a>
