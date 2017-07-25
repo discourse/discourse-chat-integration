@@ -99,3 +99,15 @@ en:
             color:
               title: Color
               help: The colour of the message in HipChat. Must be one of yellow,green,red,purple,gray,random
+
+        #######################################
+        ######### MATTERMOST STRINGS ##########
+        #######################################
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: Channel
+              help: "e.g. #channel, @username."
+          errors:
+            channel_not_found: "The specified channel does not exist on Mattermost"

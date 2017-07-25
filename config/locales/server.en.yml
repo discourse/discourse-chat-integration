@@ -36,8 +36,16 @@ en:
     ########## HIPCHAT SETTINGS ###########
     #######################################
     chat_integration_hipchat_enabled: "Enable the Hipchat chat-integration provider"
-    chat_integration_icon_url: "Icon for posts to hipchat (defaults to forum logo)"
+    chat_integration_hipchat_icon_url: "Icon for posts to hipchat (defaults to forum logo)"
     chat_integration_hipchat_excerpt_length: "Hipchat post excerpt length"
+
+    #######################################
+    ######## MATTERMOST SETTINGS ##########
+    #######################################
+    chat_integration_mattermost_enabled: "Enable the Mattermost chat-integration provider"
+    chat_integration_mattermost_webhook_url: 'URL for the Mattermost webhook'
+    chat_integration_mattermost_icon_url: "Icon for posts to mattermost (defaults to forum logo)"
+    chat_integration_mattermost_excerpt_length: "Mattermost post excerpt length"
   
   chat_integration:
     

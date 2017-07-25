@@ -58,3 +58,15 @@ plugins:
     default: ''
   chat_integration_hipchat_excerpt_length:
     default: 400
+
+#######################################
+######## MATTERMOST SETTINGS ##########
+#######################################
+  chat_integration_mattermost_enabled:
+    default: false
+  chat_integration_mattermost_webhook_url:
+    default: ''
+  chat_integration_mattermost_icon_url:
+    default: ''
+  chat_integration_mattermost_excerpt_length:
+    default: 400
