@@ -16,19 +16,20 @@ RSpec.describe PostCreator do
       end
 
       it 'should schedule a chat notification job' do
-        Timecop.freeze do
-          post = PostCreator.new(topic.user,
-            raw: 'Some post content',
-            topic_id: topic.id
-          ).create!
+        freeze_time
+        
+        post = PostCreator.new(topic.user,
+          raw: 'Some post content',
+          topic_id: topic.id
+        ).create!
 
-          job = Jobs::NotifyChats.jobs.last
+        job = Jobs::NotifyChats.jobs.last
 
-          expect(job['at'])
-            .to eq((Time.zone.now + SiteSetting.chat_integration_delay_seconds.seconds).to_f)
+        expect(job['at'])
+          .to eq((Time.zone.now + SiteSetting.chat_integration_delay_seconds.seconds).to_f)
 
-          expect(job['args'].first['post_id']).to eq(post.id)
-        end
+        expect(job['args'].first['post_id']).to eq(post.id)
+        
       end
     end
 
