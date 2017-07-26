@@ -91,27 +91,60 @@ module DiscourseChat::Provider::SlackProvider
       return error_text unless json['ok']
       post_content = ""
 
+      post_content << "[quote]\n"
+
+      users_in_transcript = []
+      last_user = ''
       json["messages"].reverse.each do |message|
         next unless message["type"] == "message"
 
         username = ""
-        if message["user"]
-          username = users.find{|u| u["id"] == message["user"]}["name"]
+        if user_id = message["user"]
+          user = users.find{|u| u["id"] == user_id}
+          users_in_transcript << user
+          username = user["name"]
         elsif message.key?("username")
           username = message["username"]
         end
 
-        post_content << "[quote='@#{username}']\n"
+        same_user = last_user == username
+        last_user = username
+
+        post_content << "\n![#{username}] " if message["user"] and not same_user
+        post_content << "**@#{username}:** " if not same_user
+        
+        text = message["text"]
+
+        # Format links (don't worry about special cases @ # !)
+        text.gsub!(/<(.*?)>/) do |match|
+          group = $1
+          parts = group.split('|')
+          link = parts[0].start_with?('@','#','!') ? '' : parts[0]
+          text = parts.length > 1 ? parts[1] : parts[0]
+          "[#{text}](#{link})"
+        end
+
+        # Add an extra * to each side for bold
+        text.gsub!(/\*(.*?)\*/) do |match|
+          "*#{match}*"
+        end
+
         post_content << message["text"]
 
         if message.key?("attachments")
           message["attachments"].each do |attachment|
             next unless attachment.key?("fallback")
-            post_content << "\n[quote]\n#{attachment["fallback"]}\n[/quote]"
+            post_content << "\n> #{attachment["fallback"]}\n"
           end
         end
 
-        post_content << "\n[/quote]\n\n"
+        post_content << "\n"
+      end
+
+      post_content << "[/quote]\n\n"
+
+      users_in_transcript.uniq.each do |user|
+        post_content << "[#{user["name"]}]: #{user["profile"]["image_24"]}\n" if user
       end
 
       secret = DiscourseChat::Helper.save_transcript(post_content)
