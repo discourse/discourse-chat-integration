@@ -89,9 +89,15 @@ module DiscourseChat::Provider::SlackProvider
       return error_text unless response.kind_of? Net::HTTPSuccess
       json = JSON.parse(response.body)
       return error_text unless json['ok']
+
+      first_post_link = "https://slack.com/archives/#{slack_channel_id}/p"
+      first_post_link += json["messages"].reverse.first["ts"].gsub('.','')
+
       post_content = ""
 
       post_content << "[quote]\n"
+
+      post_content << "[**#{I18n.t('chat_integration.provider.slack.view_on_slack')}**](#{first_post_link})\n"
 
       users_in_transcript = []
       last_user = ''
@@ -110,8 +116,11 @@ module DiscourseChat::Provider::SlackProvider
         same_user = last_user == username
         last_user = username
 
-        post_content << "\n![#{username}] " if message["user"] and not same_user
-        post_content << "**@#{username}:** " if not same_user
+        if not same_user
+          post_content << "\n"
+          post_content << "![#{username}] " if message["user"]
+          post_content << "**@#{username}:** "
+        end
         
         text = message["text"]
 

@@ -96,6 +96,7 @@ en:
         transcript_error: "Something went wrong when building the transcript, sorry!"
         post_to_discourse: "Click here to post on Discourse"
         api_required: "Sorry, this integration isn't setup to support posting transcripts."
+        view_on_slack: "View on Slack"
 
       #######################################
       ########## TELEGRAM STRINGS ###########
