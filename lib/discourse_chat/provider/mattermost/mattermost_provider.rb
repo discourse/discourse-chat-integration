@@ -82,3 +82,5 @@ module DiscourseChat
     end
   end
 end
+
+require_relative "mattermost_command_controller.rb"

@@ -66,6 +66,8 @@ plugins:
     default: false
   chat_integration_mattermost_webhook_url:
     default: ''
+  chat_integration_mattermost_incoming_webhook_token:
+    default: ''
   chat_integration_mattermost_icon_url:
     default: ''
   chat_integration_mattermost_excerpt_length:
