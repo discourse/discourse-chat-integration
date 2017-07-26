@@ -182,11 +182,11 @@ RSpec.describe DiscourseChat::Manager do
     let(:category3) {Fabricate(:category)}
 
     it 'deletes the correct rule' do
-      # Three identical rules, with different categories 
-      # Status will be sorted by category id, so they should
+      # Three identical rules, with different filters 
+      # Status will be sorted by precedence
       # be in this order
       rule1 = DiscourseChat::Rule.create(channel: chan1,
-                                      filter: 'watch',
+                                      filter: 'mute',
                                       category_id: category.id,
                                       tags: [tag1.name, tag2.name]
                                       )
@@ -196,7 +196,7 @@ RSpec.describe DiscourseChat::Manager do
                                       tags: [tag1.name, tag2.name]
                                       )
       rule3 = DiscourseChat::Rule.create(channel: chan1,
-                                      filter: 'watch',
+                                      filter: 'follow',
                                       category_id: category3.id,
                                       tags: [tag1.name, tag2.name]
                                       )
