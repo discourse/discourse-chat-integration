@@ -72,3 +72,15 @@ plugins:
     default: ''
   chat_integration_mattermost_excerpt_length:
     default: 400
+
+#######################################
+########## MATRIX SETTINGS ############
+#######################################
+  chat_integration_matrix_enabled:
+    default: false
+  chat_integration_matrix_homeserver:
+    default: 'https://matrix.org'
+  chat_integration_matrix_access_token:
+    default: ''
+  chat_integration_matrix_excerpt_length:
+    default: 400

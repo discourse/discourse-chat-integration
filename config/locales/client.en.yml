@@ -111,3 +111,19 @@ en:
               help: "e.g. #channel, @username."
           errors:
             channel_not_found: "The specified channel does not exist on Mattermost"
+
+        #######################################
+        ############ MATRIX STRINGS ###########
+        #######################################
+        matrix:
+          title: "Matrix"
+          param:
+            name:
+              title: "Name"
+              help: "A name to describe the channel. It is not used for the connection to Matrix."
+            room_id:
+              title: "Room ID"
+              help: "The 'private identifier' for the room. It should look something like !abcdefg:matrix.org"
+          errors:
+            unknown_token: "Access token is invalid"
+            unknown_room: "Room ID is invalid"

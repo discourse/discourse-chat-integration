@@ -47,7 +47,15 @@ en:
     chat_integration_mattermost_incoming_webhook_token: 'The verification token used to authenticate incoming requests'
     chat_integration_mattermost_icon_url: "Icon for posts to mattermost (defaults to forum logo)"
     chat_integration_mattermost_excerpt_length: "Mattermost post excerpt length"
-  
+
+    #######################################
+    ############ MATRIX SETTINGS ##########
+    #######################################
+    chat_integration_matrix_enabled: "Enable the Matrix chat integration provider"
+    chat_integration_matrix_homeserver: "Homeserver to connect to. Make sure to include the protocol"
+    chat_integration_matrix_access_token: "Access token for the bot's matrix account"
+    chat_integration_matrix_excerpt_length: "Matrix post excerpt length"
+
   chat_integration:
     
     all_categories: "(all categories)"
@@ -182,3 +190,15 @@ en:
           *List rules:* `/discourse status`
           
           *Help:* `/discourse help`
+
+      #######################################
+      ############ MATRIX STRINGS ###########
+      #######################################
+      matrix:
+        text_message: "%{user} posted in %{title} - %{post_url}"
+        formatted_message: |
+                    <b>%{user}</b> posted in <b><a href='%{post_url}'>%{title}</a></b>
+                    <blockquote>
+                    %{excerpt}
+                    </blockquote>
+
