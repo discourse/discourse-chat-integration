@@ -2,7 +2,17 @@ import ModalFunctionality from 'discourse/mixins/modal-functionality';
 import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Controller.extend(ModalFunctionality, {
-	sendDisabled: function(){
+	setupKeydown: function() {
+    Ember.run.schedule('afterRender', () => {
+      $('#chat_integration_test_modal').keydown(e => {
+        if (e.keyCode === 13) {
+          this.send('send');
+        }
+      });
+    });
+  }.on('init'),
+
+  sendDisabled: function(){
 		if(this.get('model').topic_id){
 			return false
 		}
@@ -12,6 +22,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 	actions: {
 
 		send: function(){
+      if(this.get('sendDisabled')){return};
 			self = this;
 			this.set('loading', true);
 			ajax("/admin/plugins/chat/test", {

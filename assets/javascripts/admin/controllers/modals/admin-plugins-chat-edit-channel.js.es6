@@ -6,6 +6,16 @@ import InputValidation from 'discourse/models/input-validation';
 
 export default Ember.Controller.extend(ModalFunctionality, {
 
+  setupKeydown: function() {
+    Ember.run.schedule('afterRender', () => {
+      $('#chat_integration_edit_channel_modal').keydown(e => {
+        if (e.keyCode === 13) {
+          this.send('save');
+        }
+      });
+    });
+  }.on('init'),
+
   // The validation property must be defined at runtime since the possible parameters vary by provider
   setupValidations: function(){
     if(this.get('model.provider')){
@@ -79,6 +89,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     save: function(){
+      if(this.get('saveDisabled')){return};
 
     	const self = this;
 
