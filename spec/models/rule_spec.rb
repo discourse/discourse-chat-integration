@@ -8,6 +8,8 @@ RSpec.describe DiscourseChat::Rule do
   let(:tag2){Fabricate(:tag)}
 
   let(:channel){DiscourseChat::Channel.create(provider:'dummy')}
+  let(:category) {Fabricate(:category)}
+  let(:group) {Fabricate(:group)}
 
   describe '.alloc_key' do
     it 'should return sequential numbers' do 
@@ -28,7 +30,7 @@ RSpec.describe DiscourseChat::Rule do
 
     rule = DiscourseChat::Rule.create({
           channel: channel,
-          category_id: 1,
+          category_id: category.id,
           tags: [tag1.name, tag2.name],
           filter: 'watch'
         })
@@ -38,7 +40,7 @@ RSpec.describe DiscourseChat::Rule do
     loadedRule = DiscourseChat::Rule.find(rule.id)
 
     expect(loadedRule.channel.id).to eq(channel.id)
-    expect(loadedRule.category_id).to eq(1)
+    expect(loadedRule.category_id).to eq(category.id)
     expect(loadedRule.tags).to contain_exactly(tag1.name,tag2.name)
     expect(loadedRule.filter).to eq('watch')
 
@@ -48,7 +50,7 @@ RSpec.describe DiscourseChat::Rule do
     before do
       rule = DiscourseChat::Rule.create({
           channel: channel,
-          category_id: 1,
+          category_id: category.id,
           tags: [tag1.name, tag2.name]
         })
     end
@@ -102,13 +104,27 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be filtered by category' do
-      rule2 = DiscourseChat::Rule.create(channel:channel, category_id: 1)
+      rule2 = DiscourseChat::Rule.create(channel:channel, category_id: category.id)
       rule3 = DiscourseChat::Rule.create(channel:channel, category_id: nil)
 
       expect(DiscourseChat::Rule.all.length).to eq(3)
 
-      expect(DiscourseChat::Rule.with_category_id(1).length).to eq(2)
+      expect(DiscourseChat::Rule.with_category_id(category.id).length).to eq(2)
       expect(DiscourseChat::Rule.with_category_id(nil).length).to eq(1)
+    end
+
+    it 'can be filtered by group' do
+      group1 = Fabricate(:group)
+      group2 = Fabricate(:group)
+      rule2 = DiscourseChat::Rule.create(channel:channel, group_id: group1.id)
+      rule3 = DiscourseChat::Rule.create(channel:channel, group_id: group2.id)
+
+      expect(DiscourseChat::Rule.all.length).to eq(3)
+
+      expect(DiscourseChat::Rule.with_category_id(category.id).length).to eq(1)
+      expect(DiscourseChat::Rule.with_group_ids([group1.id,group2.id]).length).to eq(2)
+      expect(DiscourseChat::Rule.with_group_ids([group1.id]).length).to eq(1)
+      expect(DiscourseChat::Rule.with_group_ids([group2.id]).length).to eq(1)
     end
 
     it 'can be sorted by precedence' do
@@ -128,7 +144,7 @@ RSpec.describe DiscourseChat::Rule do
       DiscourseChat::Rule.create({
           filter: 'watch',
           channel: channel,
-          category_id: 1,
+          category_id: category.id,
         })
     end
 
@@ -140,9 +156,25 @@ RSpec.describe DiscourseChat::Rule do
       expect(rule.valid?).to eq(false)
     end
 
+    it "doesn't allow both category and group to be set" do
+      expect(rule.valid?).to eq(true)
+      rule.group_id = group.id
+      expect(rule.valid?).to eq(false)
+      rule.category_id = nil
+      expect(rule.valid?).to eq(true)
+    end
+
+    it 'validates group correctly' do
+      rule.category_id = nil
+      rule.group_id = group.id
+      expect(rule.valid?).to eq(true)
+      rule.group_id = -99
+      expect(rule.valid?).to eq(false)
+    end
+
     it 'validates category correctly' do
       expect(rule.valid?).to eq(true)
-      rule.category_id = 99
+      rule.category_id = -99
       expect(rule.valid?).to eq(false)
     end
 
