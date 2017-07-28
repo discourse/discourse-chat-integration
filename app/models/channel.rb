@@ -36,12 +36,26 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
       return
     end
 
+    check_unique = false
+    matching_channels = DiscourseChat::Channel.all
+
     data.each do |key, value|
       regex_string = params.find{|p| p[:key] == key}[:regex]
       if !Regexp.new(regex_string).match?(value)
         errors.add(:data, "data.#{key} is invalid")
       end
+
+      unique = params.find{|p| p[:key] == key}[:unique]
+      if unique
+        check_unique = true
+        matching_channels = matching_channels.with_data_value(key, value)
+      end
     end
+    
+    if check_unique && matching_channels.exists?
+      errors.add(:data, "matches an existing channel")
+    end
+
   end
 
   def rules

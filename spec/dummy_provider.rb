@@ -48,7 +48,7 @@ RSpec.shared_context "validated dummy provider" do
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
       CHANNEL_PARAMETERS = [
-                            {key: "val", regex: '^\S+$'}
+                            {key: "val", regex: '^\S+$', unique: true}
                            ]
 
       @@sent_messages = []

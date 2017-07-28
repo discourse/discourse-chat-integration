@@ -24,7 +24,7 @@ RSpec.describe DiscourseChat::Channel do
   it 'can be filtered by provider' do
     channel1 = DiscourseChat::Channel.create!(provider:'dummy')
     channel2 = DiscourseChat::Channel.create!(provider:'dummy2', data:{val:"blah"})
-    channel3 = DiscourseChat::Channel.create!(provider:'dummy2', data:{val:"blah"})
+    channel3 = DiscourseChat::Channel.create!(provider:'dummy2', data:{val:"blah2"})
 
     expect(DiscourseChat::Channel.all.length).to eq(3)
 
@@ -64,7 +64,6 @@ RSpec.describe DiscourseChat::Channel do
   end
 
   describe 'validations' do
-    let(:channel) {  }
 
     it 'validates provider correctly' do
       channel = DiscourseChat::Channel.create!(provider:"dummy")
@@ -92,6 +91,15 @@ RSpec.describe DiscourseChat::Channel do
       channel2 = DiscourseChat::Channel.new(provider:"dummy2", data:{})
       expect(channel2.valid?).to eq(false)
     end
+
+    it 'disallows duplicate channels' do
+      channel1 = DiscourseChat::Channel.create(provider:"dummy2", data:{val:"hello"})
+      channel2 = DiscourseChat::Channel.new(provider:"dummy2", data:{val:"hello"})
+      expect(channel2.valid?).to eq(false)
+      channel2.data[:val] = "hello2"
+      expect(channel2.valid?).to eq(true)
+    end
+
 
   end
 end

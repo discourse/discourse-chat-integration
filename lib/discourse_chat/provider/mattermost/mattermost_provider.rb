@@ -4,7 +4,7 @@ module DiscourseChat
       PROVIDER_NAME = "mattermost".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_mattermost_enabled
       CHANNEL_PARAMETERS = [
-                          {key: "identifier", regex: '^[@#]\S*$'}
+                          {key: "identifier", regex: '^[@#]\S*$', unique: true}
                        ]
 
       def self.send_via_webhook(message)

@@ -5,7 +5,7 @@ module DiscourseChat
       PROVIDER_ENABLED_SETTING = :chat_integration_matrix_enabled
       CHANNEL_PARAMETERS = [
                         {key: "name", regex: '^\S+'},
-                        {key: "room_id", regex: '^\!\S+:\S+$', hidden:true}
+                        {key: "room_id", regex: '^\!\S+:\S+$', unique: true, hidden:true}
                        ]
 
       def self.send_message(room_id, message)

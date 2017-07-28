@@ -5,7 +5,7 @@ module DiscourseChat
       PROVIDER_ENABLED_SETTING = :chat_integration_telegram_enabled
       CHANNEL_PARAMETERS = [
                         {key: "name", regex: '^\S+'},
-                        {key: "chat_id", regex: '^(-?[0-9]+|@\S+)$'}
+                        {key: "chat_id", regex: '^(-?[0-9]+|@\S+)$', unique: true}
                        ]
 
       def self.setup_webhook 
