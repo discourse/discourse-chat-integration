@@ -13,9 +13,12 @@
 
 
     {{# each provider.channel_parameters as |param|}}
-        <b>{{i18n (concat 'chat_integration.provider.' channel.provider '.param.' param.key '.title')}}:</b>
-        {{get channel.data param.key}} <br/>
-      
+    
+      {{#if param.hidden}}{{else}}
+        <span class='field-name'>{{i18n (concat 'chat_integration.provider.' channel.provider '.param.' param.key '.title')}}:</span>
+        <span class='field-value'>{{get channel.data param.key}}</span> 
+        <br/>
+      {{/if}}
     {{/each}}
 
   </span>

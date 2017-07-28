@@ -5,7 +5,7 @@ module DiscourseChat
       PROVIDER_ENABLED_SETTING = :chat_integration_discord_enabled
       CHANNEL_PARAMETERS = [
                         {key: "name", regex: '^\S+'},
-                        {key: "webhook_url", regex: '^https:\/\/discordapp\.com\/api\/webhooks\/'}
+                        {key: "webhook_url", regex: '^https:\/\/discordapp\.com\/api\/webhooks\/', hidden: true}
                        ]
 
       def self.send_message(url, message)
