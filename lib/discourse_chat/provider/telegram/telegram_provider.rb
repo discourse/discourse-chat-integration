@@ -92,9 +92,9 @@ module DiscourseChat
         if not response['ok'] == true
           error_key = nil
           if response['description'].include? 'chat not found'
-            error_key = 'chat_integration.provider.telegram.channel_not_found'
+            error_key = 'chat_integration.provider.telegram.errors.channel_not_found'
           elsif response['description'].include? 'Forbidden'
-            error_key = 'chat_integration.provider.telegram.forbidden'
+            error_key = 'chat_integration.provider.telegram.errors.forbidden'
           end
           raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, message: message, response_body:response}  
         end
