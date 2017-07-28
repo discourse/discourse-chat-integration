@@ -67,9 +67,9 @@ en:
             chat_id:
               title: Chat ID
               help: A number given to you by the bot, or a broadcast channel identifier in the form @channelname
-            errors:
-              channel_not_found: "The specified channel does not exist on Telegram"
-              forbidden: "The bot does not have permission to post to this channel"
+          errors:
+            channel_not_found: "The specified channel does not exist on Telegram"
+            forbidden: "The bot does not have permission to post to this channel"
 
         #######################################
         ########### DISCORD STRINGS ###########
