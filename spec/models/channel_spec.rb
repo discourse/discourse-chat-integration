@@ -21,6 +21,12 @@ RSpec.describe DiscourseChat::Channel do
     
   end
 
+  it 'should edit successfully' do
+    channel = DiscourseChat::Channel.create!(provider:"dummy2", data:{val:"hello"})
+    expect(channel.valid?).to eq(true)
+    channel.save!
+  end
+
   it 'can be filtered by provider' do
     channel1 = DiscourseChat::Channel.create!(provider:'dummy')
     channel2 = DiscourseChat::Channel.create!(provider:'dummy2', data:{val:"blah"})
