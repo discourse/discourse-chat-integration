@@ -38,7 +38,7 @@ module DiscourseChat
             author:{
               name: display_name,
               url: Discourse.base_url+"/u/"+post.user.username,
-              icon_url: post.user.small_avatar_url
+              # icon_url: post.user.small_avatar_url
             }
           }]
         }
