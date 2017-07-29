@@ -78,7 +78,7 @@ RSpec.describe DiscourseChat::Channel do
     end
 
     it 'disallows invalid data' do
-      channel2 = DiscourseChat::Channel.new(provider:"dummy2", data:{val:''})
+      channel2 = DiscourseChat::Channel.new(provider:"dummy2", data:{val:'  '})
       expect(channel2.valid?).to eq(false)
     end
 

@@ -41,7 +41,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
 
     data.each do |key, value|
       regex_string = params.find{|p| p[:key] == key}[:regex]
-      if !Regexp.new(regex_string).match?(value)
+      if !Regexp.new(regex_string).match(value)
         errors.add(:data, "data.#{key} is invalid")
       end
 
