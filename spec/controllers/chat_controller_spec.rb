@@ -11,6 +11,7 @@ describe 'Chat Controller', type: :request do
   let(:channel) { DiscourseChat::Channel.create(provider:'dummy') }
 
   include_context "dummy provider"
+  include_context "validated dummy provider"
 
   before do
     SiteSetting.chat_integration_enabled = true
@@ -48,7 +49,7 @@ describe 'Chat Controller', type: :request do
 
         expect(json['providers'].size).to eq(2)
 
-        expect(json['providers'][0]).to eq('name'=> 'dummy',
+        expect(json['providers'].find{|h| h['name']=='dummy'}).to eq('name'=> 'dummy',
                               'id'=> 'dummy',
                               'channel_parameters'=> []
                               )
