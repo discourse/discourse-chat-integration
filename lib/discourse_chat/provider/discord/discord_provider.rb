@@ -21,6 +21,11 @@ module DiscourseChat
         return response
       end
 
+      def self.ensure_protocol(url)
+        return url if not url.start_with?('//')
+        return 'http:' + url
+      end
+
       def self.generate_discord_message(post)
 
         display_name = "@#{post.user.username}"
@@ -38,7 +43,7 @@ module DiscourseChat
             author:{
               name: display_name,
               url: Discourse.base_url+"/u/"+post.user.username,
-              # icon_url: post.user.small_avatar_url
+              icon_url: ensure_protocol(post.user.small_avatar_url)
             }
           }]
         }
