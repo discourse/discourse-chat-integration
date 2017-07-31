@@ -6,6 +6,7 @@ en:
       no_providers: "You need to enable some providers in the plugin settings"
       channels_with_errors: "Some channels for this provider failed last time messages were sent. Click the error icon(s) to learn more."
       channel_exception: "An unknown error occured when a message was last sent to this channel. Check the site logs for more information."
+      group_prefix: "Group:"
       all_categories: "(all categories)"
       all_tags: "(all tags)"
       create_rule: "Create Rule"
@@ -39,6 +40,19 @@ en:
         channel_validation:
           ok: "Valid"
           fail: "Invalid format"
+      edit_rule_modal:
+        title: Edit Rule
+        save: Save Rule
+        cancel: Cancel
+        provider: Provider
+        channel: Channel
+        filter: Filter
+        category: Category
+        tags: Tags
+        instructions:
+          filter: "Notification level. Mute overrides other matching rules."
+          category: "This rule will only apply to topics in the specified category."
+          tags: "If specified, this rule will only apply to topics which have at least one of these tags."
 
       provider:
 

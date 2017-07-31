@@ -1,0 +1,7 @@
+{{# each provider.channel_parameters as |param|}}
+  {{#if param.hidden}}{{else}}
+    <span class='field-name'>{{i18n (concat 'chat_integration.provider.' channel.provider '.param.' param.key '.title')}}:</span>
+    <span class='field-value'>{{get channel.data param.key}}</span> 
+    <br/>
+  {{/if}}
+{{/each}}

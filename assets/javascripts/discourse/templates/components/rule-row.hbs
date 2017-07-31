@@ -1,53 +1,31 @@
 
 <td>
-  {{#if editing}}
-    {{combo-box name="filter" content=rule.available_filters value=rule.filter}}
-  {{else}}
-    {{rule.filterName}}
-  {{/if}}
+  {{rule.filterName}}
 </td>
   
-
 <td>
-  {{#if editing}}
-    {{category-chooser
-      name="category"
-      value=rule.category_id
-      rootNoneLabel="chat_integration.all_categories"
-      rootNone=true
-      overrideWidths=false
-      }} 
+  {{#if rule.category}}
+    {{category-link rule.category allowUncategorized="true" link="false"}}
+  {{else if rule.group_id}}
+    {{i18n "chat_integration.group_prefix"}} {{rule.group_name}}
   {{else}}
-    {{#if rule.category}}
-      {{category-link rule.category allowUncategorized="true" link="false"}}
-    {{else}}
-      {{i18n "chat_integration.all_categories"}}
-    {{/if}}
+    {{i18n "chat_integration.all_categories"}}
   {{/if}}
 </td>
 
 
 {{#if siteSettings.tagging_enabled}}
   <td>
-    {{#if editing}}
-      {{tag-chooser placeholderKey="chat_integration.all_tags" name="tags" tags=rule.tags}}
+    {{#if rule.tags}}
+      {{rule.tags}}
     {{else}}
-      {{#if rule.tags}}
-        {{rule.tags}}
-      {{else}}
-        {{i18n "chat_integration.all_tags"}}
-      {{/if}}
+      {{i18n "chat_integration.all_tags"}}
     {{/if}}
   </td>
 {{/if}}
 
-
 <td>
-  {{#if editing}}
-    {{d-button action="save" actionParam=rule icon="check" class="ok" title="chat_integration.rule_table.save_rule"}}
-    {{d-button action="cancel" actionParam=rule icon="times" class="cancel" title="chat_integration.rule_table.cancel_edit"}}
-  {{else}}
-    {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat_integration.rule_table.edit_rule"}}
-    {{d-button action="delete" actionParam=rule icon="trash-o" class="delete" title="chat_integration.rule_table.delete_rule"}}
-  {{/if}}
+  {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat_integration.rule_table.edit_rule"}}
+  {{d-button action="delete" actionParam=rule icon="trash-o" class="delete" title="chat_integration.rule_table.delete_rule"}}
+
 </td>

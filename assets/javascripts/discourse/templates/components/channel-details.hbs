@@ -12,14 +12,7 @@
     {{/if}}
 
 
-    {{# each provider.channel_parameters as |param|}}
-    
-      {{#if param.hidden}}{{else}}
-        <span class='field-name'>{{i18n (concat 'chat_integration.provider.' channel.provider '.param.' param.key '.title')}}:</span>
-        <span class='field-value'>{{get channel.data param.key}}</span> 
-        <br/>
-      {{/if}}
-    {{/each}}
+    {{channel-data provider=provider channel=channel}}
 
   </span>
   
@@ -43,7 +36,7 @@
 
   
   {{#each channel.rules as |rule|}}
-    {{rule-row rule=rule refresh=refresh}}
+    {{rule-row rule=rule edit='editRule' refresh='refresh'}}
     
   {{/each}}
 

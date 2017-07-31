@@ -61,21 +61,14 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
     end
   end
 
-  # Don't want this to end up as anything other than an integer
-  def category_id=(val)
-    if val.nil? or val.blank?
-      super(nil)
-    else
-      super(val.to_i)
-    end
-  end
-
-  # Don't want this to end up as anything other than an integer
-  def channel_id=(val)
-    if val.nil? or val.blank?
-      super(nil)
-    else
-      super(val.to_i)
+  # These are only allowed to be integers
+  %w(channel_id category_id group_id).each do |name|
+    define_method "#{name}=" do |val|
+      if val.nil? or val.blank?
+        super(nil)
+      else
+        super(val.to_i)
+      end
     end
   end
 
