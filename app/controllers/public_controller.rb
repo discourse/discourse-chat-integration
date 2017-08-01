@@ -8,7 +8,7 @@ class DiscourseChat::PublicController < ApplicationController
     content = $redis.get(redis_key)
 
     if content
-      render json: {content: content}
+      render json: { content: content }
       return
     end
 

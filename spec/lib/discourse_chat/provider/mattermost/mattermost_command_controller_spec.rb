@@ -4,7 +4,7 @@ describe 'Mattermost Command Controller', type: :request do
   let(:category) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
-  let!(:chan1){DiscourseChat::Channel.create!(provider:'mattermost', data:{identifier: '#welcome'})}
+  let!(:chan1) { DiscourseChat::Channel.create!(provider: 'mattermost', data: { identifier: '#welcome' }) }
 
   describe 'with plugin disabled' do
     it 'should return a 404' do
@@ -24,7 +24,7 @@ describe 'Mattermost Command Controller', type: :request do
       expect(response.status).to eq(404)
     end
   end
-  
+
   describe 'slash commands endpoint' do
     before do
       SiteSetting.chat_integration_enabled = true
@@ -70,7 +70,7 @@ describe 'Mattermost Command Controller', type: :request do
       end
 
       describe 'add new rule' do
-        
+
         it 'should add a new rule correctly' do
           post "/chat-integration/mattermost/command.json",
             text: "watch #{category.slug}",
@@ -99,7 +99,7 @@ describe 'Mattermost Command Controller', type: :request do
 
             expect(json["text"]).to eq(I18n.t("chat_integration.provider.mattermost.create.created"))
 
-            chan = DiscourseChat::Channel.with_provider('mattermost').with_data_value('identifier','#general').first
+            chan = DiscourseChat::Channel.with_provider('mattermost').with_data_value('identifier', '#general').first
             expect(chan.provider).to eq('mattermost')
 
             rule = chan.rules.first

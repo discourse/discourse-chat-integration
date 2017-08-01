@@ -27,7 +27,7 @@ module DiscourseChat::Provider::TelegramProvider
 
         DiscourseChat::Provider::TelegramProvider.sendMessage(message)
 
-      elsif params.key?('channel_post') and params['channel_post']['text'].include? '/getchatid'
+      elsif params.key?('channel_post') && params['channel_post']['text'].include?('/getchatid')
         chat_id = params['channel_post']['chat']['id']
 
         message_text = I18n.t(
@@ -46,7 +46,7 @@ module DiscourseChat::Provider::TelegramProvider
         DiscourseChat::Provider::TelegramProvider.sendMessage(message)
       end
 
-    	# Always give telegram a success message, otherwise we'll stop receiving webhooks
+      # Always give telegram a success message, otherwise we'll stop receiving webhooks
       data = {
         success: true
       }
@@ -58,7 +58,7 @@ module DiscourseChat::Provider::TelegramProvider
 
       provider = DiscourseChat::Provider::TelegramProvider::PROVIDER_NAME
 
-      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('chat_id',chat_id).first
+      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('chat_id', chat_id).first
 
       if channel.nil?
         return  I18n.t(
@@ -67,7 +67,7 @@ module DiscourseChat::Provider::TelegramProvider
           chat_id: chat_id,
         )
       end
-      
+
       # If slash commands disabled, send a generic message
       if !SiteSetting.chat_integration_telegram_enable_slash_commands
         return  I18n.t(
@@ -97,11 +97,11 @@ module DiscourseChat::Provider::TelegramProvider
   end
 
   class TelegramEngine < ::Rails::Engine
-    engine_name DiscourseChat::PLUGIN_NAME+"-telegram"
+    engine_name DiscourseChat::PLUGIN_NAME + "-telegram"
     isolate_namespace DiscourseChat::Provider::TelegramProvider
   end
 
   TelegramEngine.routes.draw do
-  	post "command/:token" => "telegram_command#command"
+    post "command/:token" => "telegram_command#command"
   end
 end

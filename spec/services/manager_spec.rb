@@ -4,29 +4,29 @@ require_relative '../dummy_provider'
 
 RSpec.describe DiscourseChat::Manager do
 
-  let(:manager) {::DiscourseChat::Manager}  
-  let(:category) {Fabricate(:category)}
-  let(:group) {Fabricate(:group)}
-  let(:topic){Fabricate(:topic, category_id: category.id )}
-  let(:first_post) {Fabricate(:post, topic: topic)}
-  let(:second_post) {Fabricate(:post, topic: topic, post_number:2)}
+  let(:manager) { ::DiscourseChat::Manager }
+  let(:category) { Fabricate(:category) }
+  let(:group) { Fabricate(:group) }
+  let(:topic) { Fabricate(:topic, category_id: category.id) }
+  let(:first_post) { Fabricate(:post, topic: topic) }
+  let(:second_post) { Fabricate(:post, topic: topic, post_number: 2) }
 
   describe '.trigger_notifications' do
     include_context "dummy provider"
 
-    let(:chan1){DiscourseChat::Channel.create!(provider:'dummy')}
-    let(:chan2){DiscourseChat::Channel.create!(provider:'dummy')}
-    let(:chan3){DiscourseChat::Channel.create!(provider:'dummy')}
+    let(:chan1) { DiscourseChat::Channel.create!(provider: 'dummy') }
+    let(:chan2) { DiscourseChat::Channel.create!(provider: 'dummy') }
+    let(:chan3) { DiscourseChat::Channel.create!(provider: 'dummy') }
 
     before do
       SiteSetting.chat_integration_enabled = true
     end
 
     it "should fail gracefully when a provider throws an exception" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id)
 
       # Triggering a ProviderError should set the error_key to the error message
-      provider.set_raise_exception(DiscourseChat::ProviderError.new info: {error_key:"hello"})
+      provider.set_raise_exception(DiscourseChat::ProviderError.new info: { error_key: "hello" })
       manager.trigger_notifications(first_post.id)
       expect(provider.sent_to_channel_ids).to contain_exactly()
       expect(DiscourseChat::Channel.all.first.error_key).to eq('hello')
@@ -40,12 +40,12 @@ RSpec.describe DiscourseChat::Manager do
       provider.set_raise_exception(nil)
 
       manager.trigger_notifications(first_post.id)
-      expect(DiscourseChat::Channel.all.first.error_key.nil?).to be true      
+      expect(DiscourseChat::Channel.all.first.error_key.nil?).to be true
     end
 
     it "should not send notifications when provider is disabled" do
       SiteSetting.chat_integration_enabled = false
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id)
 
       manager.trigger_notifications(first_post.id)
 
@@ -53,9 +53,9 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should send a notification to watched and following channels for new topic" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
-      DiscourseChat::Rule.create!(channel: chan2, filter: 'follow', category_id:category.id )
-      DiscourseChat::Rule.create!(channel: chan3, filter: 'mute', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id)
+      DiscourseChat::Rule.create!(channel: chan2, filter: 'follow', category_id: category.id)
+      DiscourseChat::Rule.create!(channel: chan3, filter: 'mute', category_id: category.id)
 
       manager.trigger_notifications(first_post.id)
 
@@ -63,9 +63,9 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should send a notification only to watched for reply" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id:category.id )
-      DiscourseChat::Rule.create!(channel: chan2, filter: 'follow', category_id:category.id )
-      DiscourseChat::Rule.create!(channel: chan3, filter: 'mute', category_id:category.id )
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id)
+      DiscourseChat::Rule.create!(channel: chan2, filter: 'follow', category_id: category.id)
+      DiscourseChat::Rule.create!(channel: chan3, filter: 'mute', category_id: category.id)
 
       manager.trigger_notifications(second_post.id)
 
@@ -73,7 +73,7 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should respect wildcard category settings" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil )
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil)
 
       manager.trigger_notifications(first_post.id)
 
@@ -81,8 +81,8 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should respect mute over watch" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil ) # Wildcard watch
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'mute', category_id: category.id  ) # Specific mute
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'mute', category_id: category.id) # Specific mute
 
       manager.trigger_notifications(first_post.id)
 
@@ -90,8 +90,8 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should respect watch over follow" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id  ) # Specific watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id) # Specific watch
 
       manager.trigger_notifications(second_post.id)
 
@@ -99,8 +99,8 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should not notify about private messages" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
-      
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil) # Wildcard watch
+
       private_post = Fabricate(:private_message_post)
 
       manager.trigger_notifications(private_post.id)
@@ -109,9 +109,9 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should work for group pms" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch' ) # Wildcard watch
-      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group.id ) # Group watch
-      
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch') # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group.id) # Group watch
+
       private_post = Fabricate(:private_message_post)
       private_post.topic.invite_group(Fabricate(:user), group)
 
@@ -122,8 +122,8 @@ RSpec.describe DiscourseChat::Manager do
 
     it "should work for pms with multiple groups" do
       group2 = Fabricate(:group)
-      DiscourseChat::Rule.create!(channel: chan1, type: 'group_message', filter: 'watch', group_id: group.id )
-      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group2.id )
+      DiscourseChat::Rule.create!(channel: chan1, type: 'group_message', filter: 'watch', group_id: group.id)
+      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group2.id)
 
       private_post = Fabricate(:private_message_post)
       private_post.topic.invite_group(Fabricate(:user), group)
@@ -146,7 +146,7 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should not notify about posts the chat_user cannot see" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil) # Wildcard watch
 
       # Create a group & user
       group = Fabricate(:group, name: "friends")
@@ -180,16 +180,16 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     describe 'with tags enabled' do
-      let(:tag){Fabricate(:tag, name:'gsoc')}
-      let(:tagged_topic){Fabricate(:topic, category_id: category.id, tags: [tag])}
-      let(:tagged_first_post) {Fabricate(:post, topic: tagged_topic)}
+      let(:tag) { Fabricate(:tag, name: 'gsoc') }
+      let(:tagged_topic) { Fabricate(:topic, category_id: category.id, tags: [tag]) }
+      let(:tagged_first_post) { Fabricate(:post, topic: tagged_topic) }
 
       before(:each) do
         SiteSetting.tagging_enabled = true
       end
 
       it 'should still work for rules without any tags specified' do
-        DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
+        DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil) # Wildcard watch
 
         manager.trigger_notifications(first_post.id)
         manager.trigger_notifications(tagged_first_post.id)
@@ -198,7 +198,7 @@ RSpec.describe DiscourseChat::Manager do
       end
 
       it 'should only match tagged topics when rule has tags' do
-        DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: category.id, tags:[tag.name] )
+        DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: category.id, tags: [tag.name])
 
         manager.trigger_notifications(first_post.id)
         manager.trigger_notifications(tagged_first_post.id)

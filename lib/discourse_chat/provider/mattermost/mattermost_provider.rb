@@ -4,7 +4,7 @@ module DiscourseChat
       PROVIDER_NAME = "mattermost".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_mattermost_enabled
       CHANNEL_PARAMETERS = [
-                          {key: "identifier", regex: '^[@#]\S*$', unique: true}
+                          { key: "identifier", regex: '^[@#]\S*$', unique: true }
                        ]
 
       def self.send_via_webhook(message)
@@ -13,7 +13,7 @@ module DiscourseChat
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = (uri.scheme == 'https')
-        req = Net::HTTP::Post.new(uri, 'Content-Type' =>'application/json')
+        req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
         req.body = message.to_json
         response = http.request(req)
 
@@ -23,9 +23,9 @@ module DiscourseChat
           else
             error_key = nil
           end
-          raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, request: req.body, response_code:response.code, response_body:response.body}
+          raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
         end
-        
+
       end
 
       def self.mattermost_message(post, channel)
@@ -40,7 +40,7 @@ module DiscourseChat
 
         category = ''
         if topic.category
-          category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]": "[#{topic.category.name}]"
+          category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
         end
 
         icon_url =
@@ -63,7 +63,7 @@ module DiscourseChat
           author_icon: post.user.small_avatar_url,
           color: topic.category ? "##{topic.category.color}" : nil,
           text: post.excerpt(SiteSetting.chat_integration_mattermost_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
-          title: "#{topic.title} #{(category == '[uncategorized]')? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
+          title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
           title_link: post.full_url,
           thumb_url: post.full_url,
         }
@@ -75,7 +75,7 @@ module DiscourseChat
       def self.trigger_notification(post, channel)
         channel_id = channel.data['identifier']
         message = mattermost_message(post, channel_id)
-  
+
         self.send_via_webhook(message)
       end
 

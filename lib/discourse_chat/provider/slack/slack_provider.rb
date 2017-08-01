@@ -4,7 +4,7 @@ module DiscourseChat::Provider::SlackProvider
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
   CHANNEL_PARAMETERS = [
-                        {key: "identifier", regex: '^[@#]\S*$', unique: true}
+                        { key: "identifier", regex: '^[@#]\S*$', unique: true }
                        ]
 
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
@@ -28,7 +28,7 @@ module DiscourseChat::Provider::SlackProvider
 
     category = ''
     if topic.category
-      category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]": "[#{topic.category.name}]"
+      category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
     end
 
     icon_url =
@@ -56,8 +56,8 @@ module DiscourseChat::Provider::SlackProvider
 
     record = DiscourseChat.pstore_get("topic_#{post.topic.id}_#{channel}")
 
-    if (SiteSetting.chat_integration_slack_access_token.empty? || post.is_first_post? || record.blank? || (record.present? &&  ((Time.now.to_i - record[:ts].split('.')[0].to_i)/ 60) >= 5 ))
-      summary[:title] = "#{topic.title} #{(category == '[uncategorized]')? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}"
+    if (SiteSetting.chat_integration_slack_access_token.empty? || post.is_first_post? || record.blank? || (record.present? && ((Time.now.to_i - record[:ts].split('.')[0].to_i) / 60) >= 5))
+      summary[:title] = "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}"
       summary[:title_link] = post.full_url
       summary[:thumb_url] = post.full_url
     end
@@ -67,14 +67,14 @@ module DiscourseChat::Provider::SlackProvider
   end
 
   def self.send_via_api(post, channel, message)
-  	http = Net::HTTP.new("slack.com", 443)
+    http = Net::HTTP.new("slack.com", 443)
     http.use_ssl = true
-  	
-  	response = nil
+
+    response = nil
     uri = ""
     record = DiscourseChat.pstore_get("slack_topic_#{post.topic.id}_#{channel}")
 
-    if (record.present? && ((Time.now.to_i - record[:ts].split('.')[0].to_i)/ 60) < 5 && record[:message][:attachments].length < 5)
+    if (record.present? && ((Time.now.to_i - record[:ts].split('.')[0].to_i) / 60) < 5 && record[:message][:attachments].length < 5)
       attachments = record[:message][:attachments]
       attachments.concat message[:attachments]
 
@@ -98,55 +98,54 @@ module DiscourseChat::Provider::SlackProvider
 
     response = http.request(Net::HTTP::Post.new(uri))
 
-    unless response.kind_of? Net::HTTPSuccess 
-      raise ::DiscourseChat::ProviderError.new info: {request: uri, response_code:response.code, response_body:response.body}
+    unless response.kind_of? Net::HTTPSuccess
+      raise ::DiscourseChat::ProviderError.new info: { request: uri, response_code: response.code, response_body: response.body }
     end
 
     json = JSON.parse(response.body)
 
     unless json["ok"] == true
-      if json.key?("error") and (json["error"] == 'channel_not_found' or json["error"] == 'is_archived')
+      if json.key?("error") && (json["error"] == ('channel_not_found') || json["error"] == ('is_archived'))
         error_key = 'chat_integration.provider.slack.errors.channel_not_found'
       else
         error_key = json.to_s
       end
-      raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, request: uri, response_code:response.code, response_body:response.body}
+      raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: uri, response_code: response.code, response_body: response.body }
     end
 
-    DiscourseChat.pstore_set("slack_topic_#{post.topic.id}_#{channel}", JSON.parse(response.body) )
+    DiscourseChat.pstore_set("slack_topic_#{post.topic.id}_#{channel}", JSON.parse(response.body))
     response
   end
 
   def self.send_via_webhook(message)
-  	http = Net::HTTP.new("hooks.slack.com", 443)
+    http = Net::HTTP.new("hooks.slack.com", 443)
     http.use_ssl = true
-  	req = Net::HTTP::Post.new(URI(SiteSetting.chat_integration_slack_outbound_webhook_url), 'Content-Type' =>'application/json')
+    req = Net::HTTP::Post.new(URI(SiteSetting.chat_integration_slack_outbound_webhook_url), 'Content-Type' => 'application/json')
     req.body = message.to_json
     response = http.request(req)
 
     unless response.kind_of? Net::HTTPSuccess
       if response.code.to_s == '403'
         error_key = 'chat_integration.provider.slack.errors.action_prohibited'
-      elsif response.body == 'channel_not_found' or response.body == 'channel_is_archived'
+      elsif response.body == ('channel_not_found') || response.body == ('channel_is_archived')
         error_key = 'chat_integration.provider.slack.errors.channel_not_found'
       else
         error_key = nil
       end
-      raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, request: req.body, response_code:response.code, response_body:response.body}
+      raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
     end
 
-    
   end
 
   def self.trigger_notification(post, channel)
     channel_id = channel.data['identifier']
-  	message = slack_message(post, channel_id)
+    message = slack_message(post, channel_id)
 
-		if SiteSetting.chat_integration_slack_access_token.empty?
-			self.send_via_webhook(message)
-		else
-			self.send_via_api(post, channel_id, message)
-		end
+    if SiteSetting.chat_integration_slack_access_token.empty?
+      self.send_via_webhook(message)
+    else
+      self.send_via_api(post, channel_id, message)
+    end
 
   end
 end

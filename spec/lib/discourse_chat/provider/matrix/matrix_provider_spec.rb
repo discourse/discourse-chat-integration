@@ -9,7 +9,7 @@ RSpec.describe DiscourseChat::Provider::MatrixProvider do
       SiteSetting.chat_integration_matrix_access_token = 'abcd'
     end
 
-    let(:chan1){DiscourseChat::Channel.create!(provider:'matrix', data:{name: "Awesome Channel", room_id: '!blah:matrix.org'})}
+    let(:chan1) { DiscourseChat::Channel.create!(provider: 'matrix', data: { name: "Awesome Channel", room_id: '!blah:matrix.org' }) }
 
     it 'sends the message' do
       stub1 = stub_request(:put, %r{https://matrix.org/_matrix/client/r0/rooms/!blah:matrix.org/send/m.room.message/*}).to_return(status: 200)
@@ -17,10 +17,10 @@ RSpec.describe DiscourseChat::Provider::MatrixProvider do
       expect(stub1).to have_been_requested.once
     end
 
-    it 'handles errors correctly' do 
-      stub1 = stub_request(:put, %r{https://matrix.org/_matrix/client/r0/rooms/!blah:matrix.org/send/m.room.message/*}).to_return(status: 400, body:'{"errmsg":"M_UNKNOWN"}')
+    it 'handles errors correctly' do
+      stub1 = stub_request(:put, %r{https://matrix.org/_matrix/client/r0/rooms/!blah:matrix.org/send/m.room.message/*}).to_return(status: 400, body: '{"errmsg":"M_UNKNOWN"}')
       expect(stub1).to have_been_requested.times(0)
-      expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 

@@ -17,7 +17,7 @@ RSpec.describe PostCreator do
 
       it 'should schedule a chat notification job' do
         freeze_time
-        
+
         post = PostCreator.new(topic.user,
           raw: 'Some post content',
           topic_id: topic.id
@@ -29,7 +29,7 @@ RSpec.describe PostCreator do
           .to eq((Time.zone.now + SiteSetting.chat_integration_delay_seconds.seconds).to_f)
 
         expect(job['args'].first['post_id']).to eq(post.id)
-        
+
       end
     end
 

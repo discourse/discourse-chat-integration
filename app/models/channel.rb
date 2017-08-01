@@ -31,7 +31,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
 
     params = ::DiscourseChat::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
 
-    unless params.map {|p| p[:key]}.sort == data.keys.sort
+    unless params.map { |p| p[:key] }.sort == data.keys.sort
       errors.add(:data, "data does not match the required structure for provider #{provider}")
       return
     end
@@ -40,18 +40,18 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
     matching_channels = DiscourseChat::Channel.where.not(id: id)
 
     data.each do |key, value|
-      regex_string = params.find{|p| p[:key] == key}[:regex]
+      regex_string = params.find { |p| p[:key] == key }[:regex]
       if !Regexp.new(regex_string).match(value)
         errors.add(:data, "data.#{key} is invalid")
       end
 
-      unique = params.find{|p| p[:key] == key}[:unique]
+      unique = params.find { |p| p[:key] == key }[:unique]
       if unique
         check_unique = true
         matching_channels = matching_channels.with_data_value(key, value)
       end
     end
-    
+
     if check_unique && matching_channels.exists?
       errors.add(:data, "matches an existing channel")
     end
@@ -62,8 +62,8 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
     DiscourseChat::Rule.with_channel_id(id).order_by_precedence
   end
 
-  scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider)} 
+  scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider) }
 
-  scope :with_data_value, ->(key, value) { where("(value::json->>'data')::json->>?=?", key.to_s, value.to_s)} 
+  scope :with_data_value, ->(key, value) { where("(value::json->>'data')::json->>?=?", key.to_s, value.to_s) }
 
 end

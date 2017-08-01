@@ -21,7 +21,7 @@ RSpec.shared_context "dummy provider" do
       end
 
       def self.sent_to_channel_ids
-        @@sent_messages.map{|x| x[:channel].id}
+        @@sent_messages.map { |x| x[:channel].id }
       end
 
       def self.set_raise_exception(bool)
@@ -34,7 +34,7 @@ RSpec.shared_context "dummy provider" do
     ::DiscourseChat::Provider.send(:remove_const, :DummyProvider)
   end
 
-  let(:provider){::DiscourseChat::Provider::DummyProvider}
+  let(:provider) { ::DiscourseChat::Provider::DummyProvider }
 end
 
 RSpec.shared_context "validated dummy provider" do
@@ -43,7 +43,7 @@ RSpec.shared_context "validated dummy provider" do
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
       CHANNEL_PARAMETERS = [
-                            {key: "val", regex: '^\S+$', unique: true}
+                            { key: "val", regex: '^\S+$', unique: true }
                            ]
 
       @@sent_messages = []
@@ -56,7 +56,7 @@ RSpec.shared_context "validated dummy provider" do
         @@sent_messages
       end
     end
-    
+
   end
 
   after(:each) do

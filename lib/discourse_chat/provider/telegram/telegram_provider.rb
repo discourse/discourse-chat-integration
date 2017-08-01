@@ -4,16 +4,16 @@ module DiscourseChat
       PROVIDER_NAME = "telegram".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_telegram_enabled
       CHANNEL_PARAMETERS = [
-                        {key: "name", regex: '^\S+'},
-                        {key: "chat_id", regex: '^(-?[0-9]+|@\S+)$', unique: true}
+                        { key: "name", regex: '^\S+' },
+                        { key: "chat_id", regex: '^(-?[0-9]+|@\S+)$', unique: true }
                        ]
 
-      def self.setup_webhook 
+      def self.setup_webhook
         newSecret = SecureRandom.hex
         SiteSetting.chat_integration_telegram_secret = newSecret
 
         message = {
-          url: Discourse.base_url+'/chat-integration/telegram/command/'+newSecret,
+          url: Discourse.base_url + '/chat-integration/telegram/command/' + newSecret,
         }
 
         response = self.do_api_request('setWebhook', message)
@@ -21,7 +21,7 @@ module DiscourseChat
         if not response['ok'] == true
           # If setting up webhook failed, disable provider
           SiteSetting.chat_integration_telegram_enabled = false
-          Rails.logger.error("Failed to setup telegram webhook. Message data= "+message.to_json+ " response="+response.to_json)
+          Rails.logger.error("Failed to setup telegram webhook. Message data= " + message.to_json + " response=" + response.to_json)
         end
 
       end
@@ -38,7 +38,7 @@ module DiscourseChat
 
         uri = URI("https://api.telegram.org/bot#{access_token}/#{methodName}")
 
-        req = Net::HTTP::Post.new(uri, 'Content-Type' =>'application/json')
+        req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
         req.body = message.to_json
         response = http.request(req)
 
@@ -59,7 +59,7 @@ module DiscourseChat
 
         category = ''
         if topic.category
-          category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]": "[#{topic.category.name}]"
+          category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
         end
 
         tags = ''
@@ -96,7 +96,7 @@ module DiscourseChat
           elsif response['description'].include? 'Forbidden'
             error_key = 'chat_integration.provider.telegram.errors.forbidden'
           end
-          raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, message: message, response_body:response}  
+          raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, message: message, response_body: response }
         end
 
       end

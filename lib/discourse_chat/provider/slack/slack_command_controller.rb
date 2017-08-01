@@ -33,17 +33,17 @@ module DiscourseChat::Provider::SlackProvider
 
       provider = DiscourseChat::Provider::SlackProvider::PROVIDER_NAME
 
-      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('identifier',channel_id).first
+      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('identifier', channel_id).first
 
       # Create channel if doesn't exist
-      channel ||= DiscourseChat::Channel.create!(provider:provider, data:{identifier: channel_id})
+      channel ||= DiscourseChat::Channel.create!(provider: provider, data: { identifier: channel_id })
 
       if tokens[0] == 'post'
         return process_post_request(channel, tokens, params[:channel_id])
       end
 
       return ::DiscourseChat::Helper.process_command(channel, tokens)
-      
+
     end
 
     def process_post_request(channel, tokens, slack_channel_id)
@@ -68,7 +68,7 @@ module DiscourseChat::Provider::SlackProvider
 
       # Load the user data (we need this to change user IDs into usernames)
       req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
-      req.set_form_data({token: SiteSetting.chat_integration_slack_access_token})
+      req.set_form_data(token: SiteSetting.chat_integration_slack_access_token)
       response = http.request(req)
       return error_text unless response.kind_of? Net::HTTPSuccess
       json = JSON.parse(response.body)
@@ -91,7 +91,7 @@ module DiscourseChat::Provider::SlackProvider
       return error_text unless json['ok']
 
       first_post_link = "https://slack.com/archives/#{slack_channel_id}/p"
-      first_post_link += json["messages"].reverse.first["ts"].gsub('.','')
+      first_post_link += json["messages"].reverse.first["ts"].gsub('.', '')
 
       post_content = ""
 
@@ -106,7 +106,7 @@ module DiscourseChat::Provider::SlackProvider
 
         username = ""
         if user_id = message["user"]
-          user = users.find{|u| u["id"] == user_id}
+          user = users.find { |u| u["id"] == user_id }
           users_in_transcript << user
           username = user["name"]
         elsif message.key?("username")
@@ -121,14 +121,14 @@ module DiscourseChat::Provider::SlackProvider
           post_content << "![#{username}] " if message["user"]
           post_content << "**@#{username}:** "
         end
-        
+
         text = message["text"]
 
         # Format links (don't worry about special cases @ # !)
         text.gsub!(/<(.*?)>/) do |match|
           group = $1
           parts = group.split('|')
-          link = parts[0].start_with?('@','#','!') ? '' : parts[0]
+          link = parts[0].start_with?('@', '#', '!') ? '' : parts[0]
           text = parts.length > 1 ? parts[1] : parts[0]
           "[#{text}](#{link})"
         end
@@ -176,7 +176,7 @@ module DiscourseChat::Provider::SlackProvider
   end
 
   class SlackEngine < ::Rails::Engine
-    engine_name DiscourseChat::PLUGIN_NAME+"-slack"
+    engine_name DiscourseChat::PLUGIN_NAME + "-slack"
     isolate_namespace DiscourseChat::Provider::SlackProvider
   end
 
@@ -185,6 +185,3 @@ module DiscourseChat::Provider::SlackProvider
   end
 
 end
-
-
-

@@ -5,7 +5,7 @@ module DiscourseChat
     get "" => "chat#respond"
     get '/providers' => "chat#list_providers"
     post '/test' => "chat#test"
-    
+
     get '/channels' => "chat#list_channels"
     post '/channels' => "chat#create_channel"
     put '/channels/:id' => "chat#update_channel"

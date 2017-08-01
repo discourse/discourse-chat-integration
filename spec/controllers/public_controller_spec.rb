@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe 'Public Controller', type: :request do
-  
+
   before do
     SiteSetting.chat_integration_enabled = true
   end
 
   describe 'loading a transcript' do
-    
+
     it 'should be able to load a transcript' do
       key = DiscourseChat::Helper.save_transcript("Some content here")
 
@@ -24,7 +24,7 @@ describe 'Public Controller', type: :request do
 
       expect(response).not_to be_success
     end
-    
+
   end
 
 end

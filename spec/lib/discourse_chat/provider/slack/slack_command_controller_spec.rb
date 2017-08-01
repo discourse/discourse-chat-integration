@@ -4,7 +4,7 @@ describe 'Slack Command Controller', type: :request do
   let(:category) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
-  let!(:chan1){DiscourseChat::Channel.create!(provider:'slack', data:{identifier: '#welcome'})}
+  let!(:chan1) { DiscourseChat::Channel.create!(provider: 'slack', data: { identifier: '#welcome' }) }
 
   describe 'with plugin disabled' do
     it 'should return a 404' do
@@ -24,7 +24,7 @@ describe 'Slack Command Controller', type: :request do
       expect(response.status).to eq(404)
     end
   end
-  
+
   describe 'slash commands endpoint' do
     before do
       SiteSetting.chat_integration_enabled = true
@@ -70,7 +70,7 @@ describe 'Slack Command Controller', type: :request do
       end
 
       describe 'add new rule' do
-        
+
         it 'should add a new rule correctly' do
           post "/chat-integration/slack/command.json",
             text: "watch #{category.slug}",
@@ -99,7 +99,7 @@ describe 'Slack Command Controller', type: :request do
 
             expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
 
-            chan = DiscourseChat::Channel.with_provider('slack').with_data_value('identifier','#general').first
+            chan = DiscourseChat::Channel.with_provider('slack').with_data_value('identifier', '#general').first
             expect(chan.provider).to eq('slack')
 
             rule = chan.rules.first
@@ -118,11 +118,11 @@ describe 'Slack Command Controller', type: :request do
         it 'generates a transcript properly' do
           stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david","profile":{"icon_24":"https://example.com/avatar"}}]}')
           stub2 = stub_request(:post, "https://slack.com/api/channels.history").to_return(body: '{"ok":true,"messages":[{"type":"message","user":"U5Z773QLS","text":"And this is a slack message with an attachment: <https:\/\/meta.discourse.org>","attachments":[{"title":"Discourse Meta","title_link":"https:\/\/meta.discourse.org","text":"Discussion about the next-generation open source Discourse forum software","fallback":"Discourse Meta","thumb_url":"https:\/\/discourse-meta.s3-us-west-1.amazonaws.com\/original\/3X\/c\/b\/cb4bec8901221d4a646e45e1fa03db3a65e17f59.png","from_url":"https:\/\/meta.discourse.org","thumb_width":350,"thumb_height":349,"service_icon":"https:\/\/discourse-meta.s3-us-west-1.amazonaws.com\/original\/3X\/c\/b\/cb4bec8901221d4a646e45e1fa03db3a65e17f59.png","service_name":"meta.discourse.org","id":1}],"ts":"1500910064.045243"},{"type":"message","user":"U5Z773QLS","text":"Hello world, this is a slack message","ts":"1500910051.036792"}],"has_more":true}')
-    
+
           post "/chat-integration/slack/command.json",
             text: "post 2",
             channel_name: 'general',
-            channel_id:'C6029G78F',
+            channel_id: 'C6029G78F',
             token: token
 
           json = JSON.parse(response.body)
@@ -136,7 +136,7 @@ describe 'Slack Command Controller', type: :request do
           post "/chat-integration/slack/command.json",
             text: "post 2",
             channel_name: 'general',
-            channel_id:'C6029G78F',
+            channel_id: 'C6029G78F',
             token: token
 
           json = JSON.parse(response.body)
@@ -146,11 +146,11 @@ describe 'Slack Command Controller', type: :request do
 
         it 'errors correctly if there is no api key' do
           SiteSetting.chat_integration_slack_access_token = ''
-          
+
           post "/chat-integration/slack/command.json",
             text: "post 2",
             channel_name: 'general',
-            channel_id:'C6029G78F',
+            channel_id: 'C6029G78F',
             token: token
 
           json = JSON.parse(response.body)

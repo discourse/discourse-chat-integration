@@ -57,7 +57,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
       SiteSetting.chat_integration_slack_enabled = true
     end
 
-    let(:chan1){DiscourseChat::Channel.create!(provider:'slack', data:{identifier: '#general'})}
+    let(:chan1) { DiscourseChat::Channel.create!(provider: 'slack', data: { identifier: '#general' }) }
 
     it 'sends a webhook request' do
       stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
@@ -65,10 +65,10 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
       expect(stub1).to have_been_requested.once
     end
 
-    it 'handles errors correctly' do 
+    it 'handles errors correctly' do
       stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(status: 400, body: "error")
       expect(stub1).to have_been_requested.times(0)
-      expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 
@@ -76,29 +76,29 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
       before do
         SiteSetting.chat_integration_slack_access_token = "magic"
         @stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
-        @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":true, \"ts\": \"#{Time.now.to_i}.012345\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: {'Content-Type' => 'application/json'})
-        @stub3 = stub_request(:post, %r{https://slack.com/api/chat.update}).to_return(body: '{"ok":true, "ts": "some_message_id"}', headers: {'Content-Type' => 'application/json'})
+        @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":true, \"ts\": \"#{Time.now.to_i}.012345\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
+        @stub3 = stub_request(:post, %r{https://slack.com/api/chat.update}).to_return(body: '{"ok":true, "ts": "some_message_id"}', headers: { 'Content-Type' => 'application/json' })
       end
-      
+
       it 'sends an api request' do
         expect(@stub2).to have_been_requested.times(0)
-        
+
         described_class.trigger_notification(post, chan1)
         expect(@stub1).to have_been_requested.times(0)
         expect(@stub2).to have_been_requested.once
       end
 
       it 'handles errors correctly' do
-        @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":false }", headers: {'Content-Type' => 'application/json'})
-        expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
+        @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":false }", headers: { 'Content-Type' => 'application/json' })
+        expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
         expect(@stub2).to have_been_requested.once
       end
 
       it 'correctly merges replies' do
-        second_post = Fabricate(:post, topic: post.topic, post_number:2)
+        second_post = Fabricate(:post, topic: post.topic, post_number: 2)
         expect(@stub2).to have_been_requested.times(0)
         expect(@stub3).to have_been_requested.times(0)
-        
+
         described_class.trigger_notification(post, chan1)
         described_class.trigger_notification(second_post, chan1)
         expect(@stub1).to have_been_requested.times(0)

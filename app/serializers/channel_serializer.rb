@@ -5,7 +5,7 @@ class DiscourseChat::ChannelSerializer < ApplicationSerializer
 
   def rules
     object.rules.order_by_precedence.map do |rule|
-      DiscourseChat::RuleSerializer.new(rule, root:false)
+      DiscourseChat::RuleSerializer.new(rule, root: false)
     end
   end
 end

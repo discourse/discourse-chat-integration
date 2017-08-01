@@ -4,36 +4,34 @@ require_relative '../dummy_provider'
 RSpec.describe DiscourseChat::Rule do
   include_context "dummy provider"
 
-  let(:tag1){Fabricate(:tag)}
-  let(:tag2){Fabricate(:tag)}
+  let(:tag1) { Fabricate(:tag) }
+  let(:tag2) { Fabricate(:tag) }
 
-  let(:channel){DiscourseChat::Channel.create(provider:'dummy')}
-  let(:category) {Fabricate(:category)}
-  let(:group) {Fabricate(:group)}
+  let(:channel) { DiscourseChat::Channel.create(provider: 'dummy') }
+  let(:category) { Fabricate(:category) }
+  let(:group) { Fabricate(:group) }
 
   describe '.alloc_key' do
-    it 'should return sequential numbers' do 
-      expect( DiscourseChat::Rule.create(channel: channel).key ).to eq("rule:1")
-      expect( DiscourseChat::Rule.create(channel: channel).key ).to eq("rule:2")
-      expect( DiscourseChat::Rule.create(channel: channel).key ).to eq("rule:3")
+    it 'should return sequential numbers' do
+      expect(DiscourseChat::Rule.create(channel: channel).key).to eq("rule:1")
+      expect(DiscourseChat::Rule.create(channel: channel).key).to eq("rule:2")
+      expect(DiscourseChat::Rule.create(channel: channel).key).to eq("rule:3")
     end
   end
 
   it 'should convert between channel and channel_id successfully' do
     rule = DiscourseChat::Rule.create(channel: channel)
-    expect( rule.channel_id ).to eq(channel.id)
-    expect( rule.channel.id ).to eq(channel.id)
+    expect(rule.channel_id).to eq(channel.id)
+    expect(rule.channel.id).to eq(channel.id)
   end
 
   it 'should save and load successfully' do
     expect(DiscourseChat::Rule.all.length).to eq(0)
 
-    rule = DiscourseChat::Rule.create({
-          channel: channel,
-          category_id: category.id,
-          tags: [tag1.name, tag2.name],
-          filter: 'watch'
-        })
+    rule = DiscourseChat::Rule.create(channel: channel,
+                                      category_id: category.id,
+                                      tags: [tag1.name, tag2.name],
+                                      filter: 'watch')
 
     expect(DiscourseChat::Rule.all.length).to eq(1)
 
@@ -41,18 +39,16 @@ RSpec.describe DiscourseChat::Rule do
 
     expect(loadedRule.channel.id).to eq(channel.id)
     expect(loadedRule.category_id).to eq(category.id)
-    expect(loadedRule.tags).to contain_exactly(tag1.name,tag2.name)
+    expect(loadedRule.tags).to contain_exactly(tag1.name, tag2.name)
     expect(loadedRule.filter).to eq('watch')
 
   end
 
   describe 'general operations' do
     before do
-      rule = DiscourseChat::Rule.create({
-          channel: channel,
-          category_id: category.id,
-          tags: [tag1.name, tag2.name]
-        })
+      rule = DiscourseChat::Rule.create(channel: channel,
+                                        category_id: category.id,
+                                        tags: [tag1.name, tag2.name])
     end
 
     it 'can be modified' do
@@ -66,7 +62,7 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be deleted' do
-      DiscourseChat::Rule.new(channel:channel).save!
+      DiscourseChat::Rule.new(channel: channel).save!
       expect(DiscourseChat::Rule.all.length).to eq(2)
 
       rule = DiscourseChat::Rule.all.first
@@ -76,11 +72,11 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can delete all' do
-      DiscourseChat::Rule.create({channel:channel})
-      DiscourseChat::Rule.create({channel:channel})
-      DiscourseChat::Rule.create({channel:channel})
-      DiscourseChat::Rule.create({channel:channel})
-      
+      DiscourseChat::Rule.create(channel: channel)
+      DiscourseChat::Rule.create(channel: channel)
+      DiscourseChat::Rule.create(channel: channel)
+      DiscourseChat::Rule.create(channel: channel)
+
       expect(DiscourseChat::Rule.all.length).to eq(5)
 
       DiscourseChat::Rule.destroy_all
@@ -89,14 +85,14 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be filtered by channel' do
-      channel2 = DiscourseChat::Channel.create(provider:'dummy')
-      channel3 = DiscourseChat::Channel.create(provider:'dummy')
+      channel2 = DiscourseChat::Channel.create(provider: 'dummy')
+      channel3 = DiscourseChat::Channel.create(provider: 'dummy')
 
-      rule2 = DiscourseChat::Rule.create(channel:channel)
-      rule3 = DiscourseChat::Rule.create(channel:channel)
-      rule4 = DiscourseChat::Rule.create(channel:channel2)
-      rule5 = DiscourseChat::Rule.create(channel:channel3)
-      
+      rule2 = DiscourseChat::Rule.create(channel: channel)
+      rule3 = DiscourseChat::Rule.create(channel: channel)
+      rule4 = DiscourseChat::Rule.create(channel: channel2)
+      rule5 = DiscourseChat::Rule.create(channel: channel3)
+
       expect(DiscourseChat::Rule.all.length).to eq(5)
 
       expect(DiscourseChat::Rule.with_channel(channel).length).to eq(3)
@@ -104,8 +100,8 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be filtered by category' do
-      rule2 = DiscourseChat::Rule.create(channel:channel, category_id: category.id)
-      rule3 = DiscourseChat::Rule.create(channel:channel, category_id: nil)
+      rule2 = DiscourseChat::Rule.create(channel: channel, category_id: category.id)
+      rule3 = DiscourseChat::Rule.create(channel: channel, category_id: nil)
 
       expect(DiscourseChat::Rule.all.length).to eq(3)
 
@@ -116,13 +112,13 @@ RSpec.describe DiscourseChat::Rule do
     it 'can be filtered by group' do
       group1 = Fabricate(:group)
       group2 = Fabricate(:group)
-      rule2 = DiscourseChat::Rule.create!(channel:channel, type:'group_message', group_id: group1.id)
-      rule3 = DiscourseChat::Rule.create!(channel:channel, type:'group_message', group_id: group2.id)
+      rule2 = DiscourseChat::Rule.create!(channel: channel, type: 'group_message', group_id: group1.id)
+      rule3 = DiscourseChat::Rule.create!(channel: channel, type: 'group_message', group_id: group2.id)
 
       expect(DiscourseChat::Rule.all.length).to eq(3)
 
       expect(DiscourseChat::Rule.with_category_id(category.id).length).to eq(1)
-      expect(DiscourseChat::Rule.with_group_ids([group1.id,group2.id]).length).to eq(2)
+      expect(DiscourseChat::Rule.with_group_ids([group1.id, group2.id]).length).to eq(2)
       expect(DiscourseChat::Rule.with_group_ids([group1.id]).length).to eq(1)
       expect(DiscourseChat::Rule.with_group_ids([group2.id]).length).to eq(1)
     end
@@ -141,9 +137,9 @@ RSpec.describe DiscourseChat::Rule do
     end
 
     it 'can be sorted by precedence' do
-      rule2 = DiscourseChat::Rule.create(channel:channel, filter:'mute')
-      rule3 = DiscourseChat::Rule.create(channel:channel, filter:'follow')
-      rule4 = DiscourseChat::Rule.create(channel:channel, filter:'mute')
+      rule2 = DiscourseChat::Rule.create(channel: channel, filter: 'mute')
+      rule3 = DiscourseChat::Rule.create(channel: channel, filter: 'follow')
+      rule4 = DiscourseChat::Rule.create(channel: channel, filter: 'mute')
 
       expect(DiscourseChat::Rule.all.length).to eq(4)
 
@@ -152,13 +148,11 @@ RSpec.describe DiscourseChat::Rule do
   end
 
   describe 'validations' do
-    
+
     let(:rule) do
-      DiscourseChat::Rule.create({
-          filter: 'watch',
-          channel: channel,
-          category_id: category.id,
-        })
+      DiscourseChat::Rule.create(filter: 'watch',
+                                 channel: channel,
+                                 category_id: category.id)
     end
 
     it 'validates channel correctly' do

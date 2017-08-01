@@ -14,8 +14,8 @@ require_relative "lib/discourse_chat/provider/slack/slack_enabled_setting_valida
 after_initialize do
 
   require_relative "app/initializers/discourse_chat"
-  
-  DiscourseEvent.on(:post_created) do |post| 
+
+  DiscourseEvent.on(:post_created) do |post|
     if SiteSetting.chat_integration_enabled?
       # This will run for every post, even PMs. Don't worry, they're filtered out later.
       time = SiteSetting.chat_integration_delay_seconds.seconds

@@ -3,7 +3,7 @@ class DiscourseChat::RuleSerializer < ApplicationSerializer
 
   def group_name
     if object.group_id
-      groups = Group.where(id:object.group_id)
+      groups = Group.where(id: object.group_id)
       if groups.exists?
         return groups.first.name
       else

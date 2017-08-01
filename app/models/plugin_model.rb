@@ -6,18 +6,18 @@ class DiscourseChat::PluginModel < PluginStoreRow
 
   def init_plugin_model
     self.type_name ||= 'JSON'
-    self.plugin_name  ||= PLUGIN_NAME
+    self.plugin_name ||= PLUGIN_NAME
   end
-  
+
   # Restrict the scope to JSON PluginStoreRows which are for this plugin, and this model
-  def self.default_scope 
+  def self.default_scope
     where(type_name: 'JSON')
-   .where(plugin_name: self::PLUGIN_NAME)
-   .where("key like?", "#{self::KEY_PREFIX}%")
+      .where(plugin_name: self::PLUGIN_NAME)
+      .where("key like?", "#{self::KEY_PREFIX}%")
   end
-  
+
   before_save :set_key
-  private 
+  private
     def set_key
       self.key ||= self.class.alloc_key
     end

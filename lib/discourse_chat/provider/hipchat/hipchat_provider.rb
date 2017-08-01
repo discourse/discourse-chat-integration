@@ -4,9 +4,9 @@ module DiscourseChat
       PROVIDER_NAME = "hipchat".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_hipchat_enabled
       CHANNEL_PARAMETERS = [
-                        {key: "name", regex: '^\S+'},
-                        {key: "webhook_url", regex: 'hipchat\.com', unique: true, hidden:true},
-                        {key: "color", regex: '(yellow|green|red|purple|gray|random)'}
+                        { key: "name", regex: '^\S+' },
+                        { key: "webhook_url", regex: 'hipchat\.com', unique: true, hidden: true },
+                        { key: "color", regex: '(yellow|green|red|purple|gray|random)' }
                        ]
 
       def self.send_message(url, message)
@@ -15,7 +15,7 @@ module DiscourseChat
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
 
-        req = Net::HTTP::Post.new(uri, 'Content-Type' =>'application/json')
+        req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
         req.body = message.to_json
         response = http.request(req)
 
@@ -40,7 +40,7 @@ module DiscourseChat
             title: CGI::escapeHTML(topic.title),
           )
 
-        icon_url = 
+        icon_url =
           if !SiteSetting.chat_integration_hipchat_icon_url.blank?
             UrlHelper.absolute(SiteSetting.chat_integration_hipchat_icon_url)
           elsif !SiteSetting.logo_small_url.blank?
@@ -62,7 +62,7 @@ module DiscourseChat
               url: icon_url,
             },
             activity: {
-              html: message_text       
+              html: message_text
             }
           }
 
@@ -72,7 +72,7 @@ module DiscourseChat
       end
 
       def self.trigger_notification(post, channel)
-        
+
         webhook_url = channel.data['webhook_url']
 
         message = generate_hipchat_message(post)
@@ -83,7 +83,7 @@ module DiscourseChat
 
         if not response.kind_of? Net::HTTPSuccess
           error_key = nil
-          raise ::DiscourseChat::ProviderError.new info: {error_key: error_key, message: message, response_body:response.body}  
+          raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, message: message, response_body: response.body }
         end
 
       end

@@ -11,7 +11,7 @@ module DiscourseChat
       post = Post.find_by(id: post_id)
 
       # Abort if the chat_user doesn't have permission to see the post
-      return if !guardian.can_see?(post) 
+      return if !guardian.can_see?(post)
 
       # Abort if the post is blank, or is non-regular (e.g. a "topic closed" notification)
       return if post.blank? || post.post_type != Post.types[:regular]
@@ -46,14 +46,14 @@ module DiscourseChat
       if SiteSetting.tagging_enabled
         topic_tags = topic.tags.present? ? topic.tags.pluck(:name) : []
         matching_rules = matching_rules.select do |rule|
-          next true if rule.tags.nil? or rule.tags.empty? # Filter has no tags specified
+          next true if rule.tags.nil? || rule.tags.empty? # Filter has no tags specified
           any_tags_match = !((rule.tags & topic_tags).empty?)
           next any_tags_match # If any tags match, keep this filter, otherwise throw away
         end
       end
 
       # Sort by order of precedence (mute always wins; watch beats follow)
-      precedence = { 'mute' => 0, 'watch' => 1, 'follow' => 2}
+      precedence = { 'mute' => 0, 'watch' => 1, 'follow' => 2 }
       sort_func = proc { |a, b| precedence[a.filter] <=> precedence[b.filter] }
       matching_rules = matching_rules.sort(&sort_func)
 
@@ -84,10 +84,10 @@ module DiscourseChat
           provider.trigger_notification(post, channel)
           channel.update_attribute('error_key', nil) if channel.error_key
         rescue => e
-          if e.class == DiscourseChat::ProviderError and e.info.key?(:error_key) and !e.info[:error_key].nil?
+          if e.class == (DiscourseChat::ProviderError) && e.info.key?(:error_key) && !e.info[:error_key].nil?
             channel.update_attribute('error_key', e.info[:error_key])
           else
-            channel.update_attribute('error_key','chat_integration.channel_exception')
+            channel.update_attribute('error_key', 'chat_integration.channel_exception')
           end
 
           # Log the error
@@ -99,11 +99,10 @@ module DiscourseChat
                      error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
           )
         end
-        
+
       end
 
     end
-
 
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe DiscourseChat::Provider::HipchatProvider do
       SiteSetting.chat_integration_hipchat_enabled = true
     end
 
-    let(:chan1){DiscourseChat::Channel.create!(provider:'hipchat', data:{name: "Awesome Channel", webhook_url: 'https://blah.hipchat.com/abcd', color: "red"})}
+    let(:chan1) { DiscourseChat::Channel.create!(provider: 'hipchat', data: { name: "Awesome Channel", webhook_url: 'https://blah.hipchat.com/abcd', color: "red" }) }
 
     it 'sends a webhook request' do
       stub1 = stub_request(:post, 'https://blah.hipchat.com/abcd').to_return(status: 200)
@@ -16,10 +16,10 @@ RSpec.describe DiscourseChat::Provider::HipchatProvider do
       expect(stub1).to have_been_requested.once
     end
 
-    it 'handles errors correctly' do 
+    it 'handles errors correctly' do
       stub1 = stub_request(:post, "https://blah.hipchat.com/abcd").to_return(status: 400)
       expect(stub1).to have_been_requested.times(0)
-      expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 

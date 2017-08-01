@@ -22,19 +22,19 @@ module DiscourseChat
     end
 
     def self.provider_names
-      self.providers.map {|x| x::PROVIDER_NAME}
+      self.providers.map { |x| x::PROVIDER_NAME }
     end
 
     def self.enabled_provider_names
-      self.enabled_providers.map {|x| x::PROVIDER_NAME}
+      self.enabled_providers.map { |x| x::PROVIDER_NAME }
     end
 
     def self.get_by_name(name)
-      self.providers.find{|p| p::PROVIDER_NAME == name}
+      self.providers.find { |p| p::PROVIDER_NAME == name }
     end
 
     def self.is_enabled(provider)
-      if defined? provider::PROVIDER_ENABLED_SETTING 
+      if defined? provider::PROVIDER_ENABLED_SETTING
         SiteSetting.send(provider::PROVIDER_ENABLED_SETTING)
       else
         false
@@ -42,7 +42,7 @@ module DiscourseChat
     end
 
     class HookEngine < ::Rails::Engine
-      engine_name DiscourseChat::PLUGIN_NAME+"-hooks"
+      engine_name DiscourseChat::PLUGIN_NAME + "-hooks"
       isolate_namespace DiscourseChat::Provider
     end
 
@@ -62,7 +62,7 @@ module DiscourseChat
       end
 
       def respond
-        render 
+        render
       end
     end
 
@@ -71,12 +71,12 @@ module DiscourseChat
       engines = []
       DiscourseChat::Provider.providers.each do |provider|
         engine = provider.constants.select do |constant|
-          constant.to_s =~ /Engine$/ and not constant.to_s == "HookEngine"
+          constant.to_s =~ (/Engine$/) && (not constant.to_s == "HookEngine")
         end.map(&provider.method(:const_get)).first
 
         if engine
-          engines.push({engine: engine, name: provider::PROVIDER_NAME})
-        end  
+          engines.push(engine: engine, name: provider::PROVIDER_NAME)
+        end
       end
 
       DiscourseChat::Provider::HookEngine.routes.draw do

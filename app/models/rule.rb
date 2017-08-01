@@ -7,15 +7,15 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   after_initialize :init_filter
 
   def init_filter
-    self.filter  ||= 'watch'
-    self.type  ||= 'normal'
+    self.filter ||= 'watch'
+    self.type ||= 'normal'
   end
 
-  validates :filter, :inclusion => { :in => %w(watch follow mute),
-    :message => "%{value} is not a valid filter" }
+  validates :filter, inclusion: { in: %w(watch follow mute),
+                                  message: "%{value} is not a valid filter" }
 
-  validates :type, :inclusion => { :in => %w(normal group_message group_mention),
-    :message => "%{value} is not a valid filter" }
+  validates :type, inclusion: { in: %w(normal group_message group_mention),
+                                message: "%{value} is not a valid filter" }
 
   validate :channel_valid?, :category_valid?, :group_valid?, :tags_valid?
 
@@ -34,7 +34,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
     return unless type == 'normal'
 
     # Validate category
-    if not (category_id.nil? or Category.where(id: category_id).exists?)
+    if not (category_id.nil? || Category.where(id: category_id).exists?)
       errors.add(:category_id, "#{category_id} is not a valid category id")
     end
   end
@@ -64,7 +64,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
 
   # We never want an empty array, set it to nil instead
   def tags=(array)
-    if array.nil? or array.empty?
+    if array.nil? || array.empty?
       super(nil)
     else
       super(array)
@@ -74,7 +74,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   # These are only allowed to be integers
   %w(channel_id category_id group_id).each do |name|
     define_method "#{name}=" do |val|
-      if val.nil? or val.blank?
+      if val.nil? || val.blank?
         super(nil)
       else
         super(val.to_i)
@@ -86,21 +86,21 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   # Mock foreign key
   # Could return nil
   def channel
-    DiscourseChat::Channel.find_by(id:channel_id)
+    DiscourseChat::Channel.find_by(id: channel_id)
   end
   def channel=(val)
     self.channel_id = val.id
   end
 
-  scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s)} 
+  scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s) }
 
-  scope :with_channel, ->(channel) { with_channel_id(channel.id) } 
-  scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s)} 
+  scope :with_channel, ->(channel) { with_channel_id(channel.id) }
+  scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s) }
 
-  scope :with_category_id, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s)}
-  scope :with_group_ids, ->(group_id) { where("value::json->>'group_id' IN (?)", group_id.map(&:to_s))}
+  scope :with_category_id, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s) }
+  scope :with_group_ids, ->(group_id) { where("value::json->>'group_id' IN (?)", group_id.map(&:to_s)) }
 
-  scope :order_by_precedence, ->{ order("CASE
+  scope :order_by_precedence, -> { order("CASE
                                           WHEN value::json->>'type' = 'group_mention' THEN 1
                                           WHEN value::json->>'type' = 'group_message' THEN 2
                                           ELSE 3

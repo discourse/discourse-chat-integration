@@ -12,10 +12,10 @@ module DiscourseChat::Provider::MattermostProvider
 
     def command
       text = process_command(params)
-      
-      render json: { 
+
+      render json: {
         response_type: 'ephemeral',
-        text: text 
+        text: text
       }
     end
 
@@ -36,13 +36,13 @@ module DiscourseChat::Provider::MattermostProvider
 
       provider = DiscourseChat::Provider::MattermostProvider::PROVIDER_NAME
 
-      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('identifier',channel_id).first
+      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('identifier', channel_id).first
 
       # Create channel if doesn't exist
-      channel ||= DiscourseChat::Channel.create!(provider:provider, data:{identifier: channel_id})
+      channel ||= DiscourseChat::Channel.create!(provider: provider, data: { identifier: channel_id })
 
       return ::DiscourseChat::Helper.process_command(channel, tokens)
-      
+
     end
 
     def mattermost_token_valid?
@@ -57,7 +57,7 @@ module DiscourseChat::Provider::MattermostProvider
   end
 
   class MattermostEngine < ::Rails::Engine
-    engine_name DiscourseChat::PLUGIN_NAME+"-mattermost"
+    engine_name DiscourseChat::PLUGIN_NAME + "-mattermost"
     isolate_namespace DiscourseChat::Provider::MattermostProvider
   end
 
@@ -66,6 +66,3 @@ module DiscourseChat::Provider::MattermostProvider
   end
 
 end
-
-
-

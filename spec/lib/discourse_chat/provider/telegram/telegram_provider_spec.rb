@@ -10,7 +10,7 @@ RSpec.describe DiscourseChat::Provider::TelegramProvider do
       SiteSetting.chat_integration_telegram_enabled = true
     end
 
-    let(:chan1){DiscourseChat::Channel.create!(provider:'telegram', data:{name: "Awesome Channel", chat_id: '123'})}
+    let(:chan1) { DiscourseChat::Channel.create!(provider: 'telegram', data: { name: "Awesome Channel", chat_id: '123' }) }
 
     it 'sends a webhook request' do
       stub1 = stub_request(:post, 'https://api.telegram.org/botTOKEN/sendMessage').to_return(body: "{\"ok\":true}")
@@ -18,10 +18,10 @@ RSpec.describe DiscourseChat::Provider::TelegramProvider do
       expect(stub1).to have_been_requested.once
     end
 
-    it 'handles errors correctly' do 
+    it 'handles errors correctly' do
       stub1 = stub_request(:post, 'https://api.telegram.org/botTOKEN/sendMessage').to_return(body: "{\"ok\":false, \"description\":\"chat not found\"}")
       expect(stub1).to have_been_requested.times(0)
-      expect{described_class.trigger_notification(post, chan1)}.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 
