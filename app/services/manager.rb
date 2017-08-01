@@ -31,14 +31,14 @@ module DiscourseChat
         if topic.category # Also load the rules for the wildcard category
           matching_rules += DiscourseChat::Rule.with_type('normal').with_category_id(nil)
         end
-      end
 
-      # If groups are mentioned, check for any matching rules and append them
-      mentions = post.raw_mentions
-      if mentions && mentions.length > 0
-        groups = Group.where('LOWER(name) IN (?)', mentions)
-        if groups.exists?
-          matching_rules += DiscourseChat::Rule.with_type('group_mention').with_group_ids(groups.map(&:id))
+        # If groups are mentioned, check for any matching rules and append them
+        mentions = post.raw_mentions
+        if mentions && mentions.length > 0
+          groups = Group.where('LOWER(name) IN (?)', mentions)
+          if groups.exists?
+            matching_rules += DiscourseChat::Rule.with_type('group_mention').with_group_ids(groups.map(&:id))
+          end
         end
       end
 

@@ -7,6 +7,7 @@ RSpec.describe DiscourseChat::Manager do
   let(:manager) { ::DiscourseChat::Manager }
   let(:category) { Fabricate(:category) }
   let(:group) { Fabricate(:group) }
+  let(:group2) { Fabricate(:group) }
   let(:topic) { Fabricate(:topic, category_id: category.id) }
   let(:first_post) { Fabricate(:post, topic: topic) }
   let(:second_post) { Fabricate(:post, topic: topic, post_number: 2) }
@@ -121,7 +122,6 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should work for pms with multiple groups" do
-      group2 = Fabricate(:group)
       DiscourseChat::Rule.create!(channel: chan1, type: 'group_message', filter: 'watch', group_id: group.id)
       DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group2.id)
 
@@ -145,8 +145,6 @@ RSpec.describe DiscourseChat::Manager do
       expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id, chan3.id)
     end
 
-    
-
     it "should give group rule precedence over normal rules" do
       third_post = Fabricate(:post, topic: topic, post_number: 3, raw: "let's mention @#{group.name}")
 
@@ -156,6 +154,24 @@ RSpec.describe DiscourseChat::Manager do
 
       DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', type: 'group_mention', group_id: group.id) # Watch mentions
       manager.trigger_notifications(third_post.id)
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
+    end
+
+    it "should not notify about mentions in private messages" do
+      # Group 1 watching for messages on channel 1
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', type: 'group_message', group_id: group.id)
+      # Group 2 watching for mentions on channel 2
+      DiscourseChat::Rule.create!(channel: chan2, filter: 'watch', type: 'group_mention', group_id: group2.id)
+
+      # Make a private message only accessible to group 1
+      private_message = Fabricate(:private_message_post)
+      private_message.topic.invite_group(Fabricate(:user), group)
+
+      # Mention group 2 in the message
+      mention_post = Fabricate(:post, topic: private_message.topic, post_number: 2, raw: "let's mention @#{group2.name}")
+
+      # We expect that only group 1 receives a notification
+      manager.trigger_notifications(mention_post.id)
       expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
     end
 
