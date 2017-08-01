@@ -48,3 +48,5 @@ require_relative "../services/manager"
 require_relative "../jobs/regular/notify_chats"
 
 require_relative "../../lib/discourse_chat/provider"
+
+require_relative "../jobs/onceoff/add_type_field"
