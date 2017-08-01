@@ -52,9 +52,10 @@ module DiscourseChat
         end
       end
 
-      # Sort by order of precedence (mute always wins; watch beats follow)
-      precedence = { 'mute' => 0, 'watch' => 1, 'follow' => 2 }
-      sort_func = proc { |a, b| precedence[a.filter] <=> precedence[b.filter] }
+      # Sort by order of precedence
+      t_prec = { 'group_message' => 0, 'group_mention' => 1, 'normal' => 2 } # Group things win
+      f_prec = { 'mute' => 0, 'watch' => 1, 'follow' => 2 } #(mute always wins; watch beats follow)
+      sort_func = proc { |a, b| [t_prec[a.type], f_prec[a.filter]] <=> [t_prec[b.type], f_prec[b.filter]] }
       matching_rules = matching_rules.sort(&sort_func)
 
       # Take the first rule for each channel
