@@ -37,6 +37,9 @@ acceptance("Chat Integration", {
     server.post('/admin/plugins/chat/test', () => {
       return response({ });
     });
+    server.get('/groups/search.json', () => {
+      return response([]);
+    });
 
   }
 

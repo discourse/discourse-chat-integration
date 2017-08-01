@@ -9,11 +9,28 @@ export default RestModel.extend({
     { id: 'mute', name: I18n.t('chat_integration.filter.mute'), icon: 'times-circle' }
   ],
 
+  available_types: [
+    { id: 'normal', name: I18n.t('chat_integration.type.normal')},
+    { id: 'group_message', name: I18n.t('chat_integration.type.group_message')},
+    { id: 'group_mention', name: I18n.t('chat_integration.type.group_mention')}
+  ],
+
   category_id: null,
   tags: null,
   channel_id: null,
   filter: 'watch',
+  type: 'normal',
   error_key: null,
+
+  
+  removeUnneededInfo: function(){
+    const type=this.get('type');
+    if(type=='normal'){
+      this.set('group_id', null);
+    }else{
+      this.set('category_id', null);
+    }
+  }.observes('type'),
 
   @computed('category_id')
   category(categoryId) {
@@ -30,12 +47,12 @@ export default RestModel.extend({
   },
 
   updateProperties() {
-    var prop_names = ['category_id','tags','filter'];
+    var prop_names = ['type','category_id','group_id','tags','filter'];
     return this.getProperties(prop_names);
   },
 
   createProperties() {
-    var prop_names = ['channel_id', 'category_id','tags','filter'];
+    var prop_names = ['type','channel_id', 'category_id','group_id','tags','filter'];
     return this.getProperties(prop_names);
   }
 

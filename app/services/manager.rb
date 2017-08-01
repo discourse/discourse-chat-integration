@@ -18,14 +18,28 @@ module DiscourseChat
 
       topic = post.topic
 
-      # Abort if a private message (possible TODO: Add support for notifying about group PMs)
-      return if topic.blank? || topic.archetype == Archetype.private_message
+      # Abort if topic is blank... this should never be the case
+      return if topic.blank?
 
-      # Load all the rules that apply to this topic's category
-      matching_rules = DiscourseChat::Rule.with_category_id(topic.category_id)
+      # If it's a private message, filter rules by groups, otherwise filter rules by category
+      if topic.archetype == Archetype.private_message
+        group_ids_with_access = topic.topic_allowed_groups.pluck(:group_id)
+        return if group_ids_with_access.empty?
+        matching_rules = DiscourseChat::Rule.with_type('group_message').with_group_ids(group_ids_with_access)
+      else
+        matching_rules = DiscourseChat::Rule.with_type('normal').with_category_id(topic.category_id)
+        if topic.category # Also load the rules for the wildcard category
+          matching_rules += DiscourseChat::Rule.with_type('normal').with_category_id(nil)
+        end
+      end
 
-      if topic.category # Also load the rules for the wildcard category
-        matching_rules += DiscourseChat::Rule.with_category_id(nil)
+      # If groups are mentioned, check for any matching rules and append them
+      mentions = post.raw_mentions
+      if mentions && mentions.length > 0
+        groups = Group.where('LOWER(name) IN (?)', mentions)
+        if groups.exists?
+          matching_rules += DiscourseChat::Rule.with_type('group_mention').with_group_ids(groups.map(&:id))
+        end
       end
 
       # If tagging is enabled, thow away rules that don't apply to this topic

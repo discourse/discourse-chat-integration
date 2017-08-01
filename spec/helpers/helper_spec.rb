@@ -152,16 +152,18 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     context 'with some rules' do
+      let(:group){Fabricate(:group)}
       before do
         DiscourseChat::Rule.create!(channel: chan1, filter:'watch', category_id:category.id, tags:nil)
         DiscourseChat::Rule.create!(channel: chan1, filter:'mute', category_id:nil, tags:nil)
         DiscourseChat::Rule.create!(channel: chan1, filter:'follow', category_id:nil, tags:[tag1.name])
+        DiscourseChat::Rule.create!(channel: chan1, filter:'watch', type: 'group_message', group_id:group.id)
         DiscourseChat::Rule.create!(channel: chan2, filter:'watch', category_id:1, tags:nil)
       end
 
       it 'displays the correct rules' do
         string = DiscourseChat::Helper.status_for_channel(chan1)
-        expect(string.scan('status.rule_string').size).to eq(3)
+        expect(string.scan('status.rule_string').size).to eq(4)
       end
 
       it 'only displays tags for rules with tags' do

@@ -59,7 +59,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
   end
 
   def rules
-    DiscourseChat::Rule.with_channel_id(id)
+    DiscourseChat::Rule.with_channel_id(id).order_by_precedence
   end
 
   scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider)} 

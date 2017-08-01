@@ -26,8 +26,11 @@ export default Ember.Component.extend({
     },
 
     createRule(channel){
-      var newRule = this.get('store').createRecord('rule',{channel_id: channel.id});
-      channel.rules.pushObject(newRule)
+      this.sendAction('createRule', channel)
+    },
+
+    editRule(rule){
+      this.sendAction('editRule', rule, this.get('channel'))
     },
 
     showError(error_key){

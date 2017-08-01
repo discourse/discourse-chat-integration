@@ -105,7 +105,7 @@ describe 'Chat Controller', type: :request do
           "provider" => 'dummy',
           "data" => {},
           "error_key" => nil,
-          "rules" => [{"id" => rule.id, "filter" => "follow", "channel_id" => channel.id, "category_id" => category.id, "tags" => [tag.name]}]
+          "rules" => [{"id" => rule.id, "type" => 'normal', "group_name" => nil, "group_id" => nil, "filter" => "follow", "channel_id" => channel.id, "category_id" => category.id, "tags" => [tag.name]}]
         )
       end
 
