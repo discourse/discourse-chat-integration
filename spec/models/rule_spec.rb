@@ -127,6 +127,19 @@ RSpec.describe DiscourseChat::Rule do
       expect(DiscourseChat::Rule.with_group_ids([group2.id]).length).to eq(1)
     end
 
+    it 'can be filtered by type' do
+      group1 = Fabricate(:group)
+
+      rule2 = DiscourseChat::Rule.create!(channel: channel, type: 'group_message', group_id: group1.id)
+      rule3 = DiscourseChat::Rule.create!(channel: channel, type: 'group_mention', group_id: group1.id)
+
+      expect(DiscourseChat::Rule.all.length).to eq(3)
+
+      expect(DiscourseChat::Rule.with_type('group_message').length).to eq(1)
+      expect(DiscourseChat::Rule.with_type('group_mention').length).to eq(1)
+      expect(DiscourseChat::Rule.with_type('normal').length).to eq(1)
+    end
+
     it 'can be sorted by precedence' do
       rule2 = DiscourseChat::Rule.create(channel:channel, filter:'mute')
       rule3 = DiscourseChat::Rule.create(channel:channel, filter:'follow')

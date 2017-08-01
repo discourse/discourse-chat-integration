@@ -134,6 +134,17 @@ RSpec.describe DiscourseChat::Manager do
       expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id, chan2.id)
     end
 
+    it "should work for group mentions" do
+      third_post = Fabricate(:post, topic: topic, post_number: 3, raw: "let's mention @#{group.name}")
+
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch') # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group.id)
+      DiscourseChat::Rule.create!(channel: chan3, type: 'group_mention', filter: 'watch', group_id: group.id)
+
+      manager.trigger_notifications(third_post.id)
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id, chan3.id)
+    end
+
     it "should not notify about posts the chat_user cannot see" do
       DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil ) # Wildcard watch
 

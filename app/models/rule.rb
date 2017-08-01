@@ -14,7 +14,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   validates :filter, :inclusion => { :in => %w(watch follow mute),
     :message => "%{value} is not a valid filter" }
 
-  validates :type, :inclusion => { :in => %w(normal group_message),
+  validates :type, :inclusion => { :in => %w(normal group_message group_mention),
     :message => "%{value} is not a valid filter" }
 
   validate :channel_valid?, :category_valid?, :group_valid?, :tags_valid?
@@ -80,6 +80,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
         super(val.to_i)
       end
     end
+
   end
 
   # Mock foreign key
