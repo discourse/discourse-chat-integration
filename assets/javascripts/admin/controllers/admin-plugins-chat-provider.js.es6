@@ -37,12 +37,12 @@ export default Ember.Controller.extend({
 
     createRule(channel){
       this.set('modalShowing', true);
-      var model = {rule: this.store.createRecord('rule',{channel_id: channel.id}), channel:channel, provider:this.get('model.provider')};
+      var model = {rule: this.store.createRecord('rule',{channel_id: channel.id}), channel:channel, provider:this.get('model.provider'), groups:this.get('model.groups')};
       showModal('admin-plugins-chat-edit-rule', { model: model, admin: true });
     },
     editRule(rule, channel){
       this.set('modalShowing', true);
-      var model = {rule: rule, channel:channel, provider:this.get('model.provider')};
+      var model = {rule: rule, channel:channel, provider:this.get('model.provider'), groups:this.get('model.groups')};
       showModal('admin-plugins-chat-edit-rule', { model: model, admin: true });
     },
 

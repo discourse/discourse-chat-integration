@@ -25,7 +25,7 @@ module DiscourseChat
       if topic.archetype == Archetype.private_message
         group_ids_with_access = topic.topic_allowed_groups.pluck(:group_id)
         return if group_ids_with_access.empty?
-        matching_rules = DiscourseChat::Rule.with_group_ids(group_ids_with_access)
+        matching_rules = DiscourseChat::Rule.with_type('group_message').with_group_ids(group_ids_with_access)
       else
         matching_rules = DiscourseChat::Rule.with_category_id(topic.category_id)
         if topic.category # Also load the rules for the wildcard category

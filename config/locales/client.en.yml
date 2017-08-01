@@ -22,6 +22,10 @@ en:
         close: "Close"
         error: "An unknown error occured while sending the message. Check the site logs for more information."
         success: "Message sent successfully"
+      type:
+        normal: Normal
+        group_message: Group Message
+        group_mention: Group Mention
       filter:
         mute: 'Mute'
         follow: 'First post only'
@@ -45,13 +49,16 @@ en:
         save: Save Rule
         cancel: Cancel
         provider: Provider
+        type: Type
         channel: Channel
         filter: Filter
         category: Category
+        group: Group
         tags: Tags
         instructions:
           filter: "Notification level. Mute overrides other matching rules."
           category: "This rule will only apply to topics in the specified category."
+          group: "This rule will apply to posts referencing this group"
           tags: "If specified, this rule will only apply to topics which have at least one of these tags."
 
       provider:

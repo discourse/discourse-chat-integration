@@ -26,6 +26,17 @@
         </tr>
 
         <tr class="input">
+          <td class="label"><label for='filter'>{{i18n "chat_integration.edit_rule_modal.type"}}</label></td>
+          <td>
+            {{combo-box name="type" content=model.rule.available_types value=model.rule.type}}
+          </td>
+        </tr>
+        <tr class="instructions">
+          <td></td>
+          <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.type'}}</label></td>
+        </tr>
+
+        <tr class="input">
           <td class="label"><label for='filter'>{{i18n "chat_integration.edit_rule_modal.filter"}}</label></td>
           <td>
             {{combo-box name="filter" content=model.rule.available_filters value=model.rule.filter}}
@@ -36,22 +47,37 @@
           <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.filter'}}</label></td>
         </tr>
 
-        <tr class="input">
-          <td class="label"><label for='category'>{{i18n "chat_integration.edit_rule_modal.category"}}</label></td>
-          <td>
-            {{category-chooser
-              name="category"
-              value=model.rule.category_id
-              rootNoneLabel="chat_integration.all_categories"
-              rootNone=true
-              overrideWidths=false
-              }} 
-          </td>
-        </tr>
-        <tr class="instructions">
-          <td></td>
-          <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.category'}}</label></td>
-        </tr>
+        {{#if showCategory}}
+          <tr class="input">
+            <td class="label"><label for='category'>{{i18n "chat_integration.edit_rule_modal.category"}}</label></td>
+            <td>
+              {{category-chooser
+                name="category"
+                value=model.rule.category_id
+                rootNoneLabel="chat_integration.all_categories"
+                rootNone=true
+                overrideWidths=false
+                }} 
+            </td>
+          </tr>
+          <tr class="instructions">
+            <td></td>
+            <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.category'}}</label></td>
+          </tr>
+        {{else}}
+          <tr class="input">
+            <td class="label"><label for='group'>{{i18n "chat_integration.edit_rule_modal.group"}}</label></td>
+            <td>
+              {{combo-box content=model.groups valueAttribute="id" value=model.rule.group_id none="chat_integration.choose_group"}}
+            </td>
+          </tr>
+          <tr class="instructions">
+            <td></td>
+            <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.group'}}</label></td>
+          </tr>
+        {{/if}}
+
+
 
         {{#if siteSettings.tagging_enabled}}
           <tr class="input">

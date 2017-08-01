@@ -2,18 +2,22 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   KEY_PREFIX = 'rule:'
 
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :channel_id, :group_id, :category_id, :tags, :filter ], coder: JSON
+  store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter ], coder: JSON
 
   after_initialize :init_filter
 
   def init_filter
     self.filter  ||= 'watch'
+    self.type  ||= 'normal'
   end
 
   validates :filter, :inclusion => { :in => %w(watch follow mute),
     :message => "%{value} is not a valid filter" }
 
-  validate :channel_valid?, :category_and_group_valid?, :tags_valid?
+  validates :type, :inclusion => { :in => %w(normal group_message),
+    :message => "%{value} is not a valid filter" }
+
+  validate :channel_valid?, :category_valid?, :group_valid?, :tags_valid?
 
   def channel_valid?
     # Validate channel
@@ -22,23 +26,29 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
     end
   end
 
-  def category_and_group_valid?
-    if category_id and group_id
-      errors.add(:category_id, "cannot be specified in addition to group_id")
-      return
+  def category_valid?
+    if type != 'normal' && !category_id.nil?
+      errors.add(:category_id, "cannot be specified for that type of rule")
     end
 
-    if group_id
-      # Validate group
-      if not Group.where(id: group_id).exists?
-        errors.add(:group_id, "#{group_id} is not a valid group id")
-      end
-      return
-    end
+    return unless type == 'normal'
 
     # Validate category
     if not (category_id.nil? or Category.where(id: category_id).exists?)
       errors.add(:category_id, "#{category_id} is not a valid category id")
+    end
+  end
+
+  def group_valid?
+    if type == 'normal' && !group_id.nil?
+      errors.add(:group_id, "cannot be specified for that type of rule")
+    end
+
+    return if type == 'normal'
+
+    # Validate group
+    if not Group.where(id: group_id).exists?
+      errors.add(:group_id, "#{group_id} is not a valid group id")
     end
   end
 
@@ -81,6 +91,8 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
     self.channel_id = val.id
   end
 
+  scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s)} 
+
   scope :with_channel, ->(channel) { with_channel_id(channel.id) } 
   scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s)} 
 
@@ -88,6 +100,11 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   scope :with_group_ids, ->(group_id) { where("value::json->>'group_id' IN (?)", group_id.map(&:to_s))}
 
   scope :order_by_precedence, ->{ order("CASE
+                                          WHEN value::json->>'type' = 'group_mention' THEN 1
+                                          WHEN value::json->>'type' = 'group_message' THEN 2
+                                          ELSE 3
+                                         END",
+                                        "CASE
                                           WHEN value::json->>'filter' = 'mute' THEN 1
                                           WHEN value::json->>'filter' = 'watch' THEN 2
                                           WHEN value::json->>'filter' = 'follow' THEN 3

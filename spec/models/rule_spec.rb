@@ -116,8 +116,8 @@ RSpec.describe DiscourseChat::Rule do
     it 'can be filtered by group' do
       group1 = Fabricate(:group)
       group2 = Fabricate(:group)
-      rule2 = DiscourseChat::Rule.create(channel:channel, group_id: group1.id)
-      rule3 = DiscourseChat::Rule.create(channel:channel, group_id: group2.id)
+      rule2 = DiscourseChat::Rule.create!(channel:channel, type:'group_message', group_id: group1.id)
+      rule3 = DiscourseChat::Rule.create!(channel:channel, type:'group_message', group_id: group2.id)
 
       expect(DiscourseChat::Rule.all.length).to eq(3)
 
@@ -161,12 +161,14 @@ RSpec.describe DiscourseChat::Rule do
       rule.group_id = group.id
       expect(rule.valid?).to eq(false)
       rule.category_id = nil
+      rule.type = "group_message"
       expect(rule.valid?).to eq(true)
     end
 
     it 'validates group correctly' do
       rule.category_id = nil
       rule.group_id = group.id
+      rule.type = "group_message"
       expect(rule.valid?).to eq(true)
       rule.group_id = -99
       expect(rule.valid?).to eq(false)

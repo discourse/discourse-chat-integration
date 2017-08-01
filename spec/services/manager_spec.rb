@@ -110,7 +110,7 @@ RSpec.describe DiscourseChat::Manager do
 
     it "should work for group pms" do
       DiscourseChat::Rule.create!(channel: chan1, filter: 'watch' ) # Wildcard watch
-      DiscourseChat::Rule.create!(channel: chan2, filter: 'watch', group_id: group.id ) # Group watch
+      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group.id ) # Group watch
       
       private_post = Fabricate(:private_message_post)
       private_post.topic.invite_group(Fabricate(:user), group)
@@ -122,8 +122,8 @@ RSpec.describe DiscourseChat::Manager do
 
     it "should work for pms with multiple groups" do
       group2 = Fabricate(:group)
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', group_id: group.id )
-      DiscourseChat::Rule.create!(channel: chan2, filter: 'watch', group_id: group2.id )
+      DiscourseChat::Rule.create!(channel: chan1, type: 'group_message', filter: 'watch', group_id: group.id )
+      DiscourseChat::Rule.create!(channel: chan2, type: 'group_message', filter: 'watch', group_id: group2.id )
 
       private_post = Fabricate(:private_message_post)
       private_post.topic.invite_group(Fabricate(:user), group)

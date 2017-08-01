@@ -1,5 +1,5 @@
 class DiscourseChat::RuleSerializer < ApplicationSerializer
-  attributes :id, :channel_id, :group_id, :group_name, :category_id, :tags, :filter
+  attributes :id, :channel_id, :type, :group_id, :group_name, :category_id, :tags, :filter
 
   def group_name
     if object.group_id
