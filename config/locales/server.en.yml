@@ -62,6 +62,9 @@ en:
     deleted_category: "(deleted category)"
     deleted_group: "(deleted group)"
 
+    group_mention_template: "mentions of: @%{name}"
+    group_message_template: "messages to: @%{name}"
+
     provider:
 
       #######################################

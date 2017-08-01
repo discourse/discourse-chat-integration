@@ -82,14 +82,25 @@ module DiscourseChat
   		i = 1
   		rules.each do |rule|
         category_id = rule.category_id
-        if category_id.nil?
-          category_name = I18n.t("chat_integration.all_categories")
-        else
-          category = Category.find_by(id: category_id)
-          if category
-            category_name = category.slug
+
+        case rule.type
+        when "normal"
+          if category_id.nil?
+            category_name = I18n.t("chat_integration.all_categories")
           else
-            category_name = I18n.t("chat_integration.deleted_category")
+            category = Category.find_by(id: category_id)
+            if category
+              category_name = category.slug
+            else
+              category_name = I18n.t("chat_integration.deleted_category")
+            end
+          end
+        when "group_mention", "group_message"
+          group = Group.find_by(id: rule.group_id)
+          if group
+            category_name = I18n.t("chat_integration.#{rule.type}_template", name: group.name)
+          else
+            category_name = I18n.t("chat_integration.deleted_group")
           end
         end
 
