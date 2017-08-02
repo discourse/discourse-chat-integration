@@ -1,9 +1,4 @@
-import Rule from 'discourse/plugins/discourse-chat-integration/admin/models/rule'
-import { ajax } from 'discourse/lib/ajax';
-import computed from "ember-addons/ember-computed-decorators";
 import showModal from 'discourse/lib/show-modal';
-import { popupAjaxError } from 'discourse/lib/ajax-error';
-
 
 export default Ember.Controller.extend({
 	modalShowing: false,
@@ -31,7 +26,7 @@ export default Ember.Controller.extend({
   	},
     testChannel(channel){
       this.set('modalShowing', true);
-      var model = {channel:channel}
+      var model = {channel:channel};
       showModal('admin-plugins-chat-test', { model: model, admin: true });
     },
 

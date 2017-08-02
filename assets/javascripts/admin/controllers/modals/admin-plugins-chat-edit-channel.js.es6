@@ -1,6 +1,4 @@
-import Rule from 'discourse/plugins/discourse-chat-integration/admin/models/rule'
 import ModalFunctionality from 'discourse/mixins/modal-functionality';
-import { ajax } from 'discourse/lib/ajax';
 import { extractError } from 'discourse/lib/ajax-error';
 import InputValidation from 'discourse/models/input-validation';
 
@@ -29,11 +27,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     var regex = new RegExp(regString);
     var val = this.get('model.channel.data.'+parameter.key);
 
-    if(val==undefined){
+    if(val===undefined){
       val = "";
     }
 
-    if(val == ""){ // Fail silently if field blank
+    if(val === ""){ // Fail silently if field blank
       return InputValidation.create({
         failed: true,
       });
@@ -56,7 +54,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   },
 
   _paramValidation: function(){
-    var response = {}
+    var response = {};
     var parameters = this.get('model.provider.channel_parameters');
     parameters.forEach(parameter => {
       response[parameter.key] = this.validate(parameter);
@@ -67,7 +65,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   saveDisabled: function(){
     var validations = this.get('paramValidation');
     
-    if(!validations){ return true }
+    if(!validations){ return true; }
 
     var invalid = false;
 
@@ -89,11 +87,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     save: function(){
-      if(this.get('saveDisabled')){return};
+      if(this.get('saveDisabled')){return;};
 
     	const self = this;
 
-    	this.get('model.channel').save().then(function(result) {
+    	this.get('model.channel').save().then(function() {
         self.send('closeModal');
       }).catch(function(error) {
         self.flash(extractError(error), 'error');

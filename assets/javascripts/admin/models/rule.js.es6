@@ -25,7 +25,7 @@ export default RestModel.extend({
   
   removeUnneededInfo: function(){
     const type=this.get('type');
-    if(type=='normal'){
+    if(type==='normal'){
       this.set('group_id', null);
     }else{
       this.set('category_id', null);

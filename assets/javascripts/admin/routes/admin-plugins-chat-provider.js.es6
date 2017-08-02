@@ -1,9 +1,8 @@
-import { ajax } from 'discourse/lib/ajax';
 import Group from 'discourse/models/group';
 
 export default Discourse.Route.extend({
 
-  model(params, transition) {
+  model(params) {
     return Ember.RSVP.hash({
       channels: this.store.findAll('channel', {provider: params.provider}),
       provider: this.modelFor("admin-plugins-chat").findBy('id',params.provider),
@@ -22,12 +21,12 @@ export default Discourse.Route.extend({
     });
   },
 
-  serialize: function(model, params) {
+  serialize: function(model) {
     return { provider: model['provider'].get('id')};
   },
 
   actions: {
-    closeModal: function(data){
+    closeModal: function(){
       if(this.get('controller.modalShowing')){
         this.refresh();
         this.set('controller.modalShowing', false);
@@ -36,7 +35,7 @@ export default Discourse.Route.extend({
       return true; // Continue bubbling up, so the modal actually closes
     },
 
-    refresh: function(data){
+    refresh: function(){
       this.refresh();
     }
 

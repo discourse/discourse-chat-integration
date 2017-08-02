@@ -10,34 +10,34 @@ acceptance("Chat Integration", {
         object
       ];
     };
-    server.get('/admin/plugins/chat/providers', () => {
+    server.get('/admin/plugins/chat/providers', () => { // eslint-disable-line no-undef
       return response({ providers: [{name: 'dummy', id:'dummy',channel_parameters:[{key:'somekey', regex:"^\\S+$"}]}] });
     });
-    server.get('/admin/plugins/chat/channels', () => {
+    server.get('/admin/plugins/chat/channels', () => { // eslint-disable-line no-undef
       return response({"channels":[{"id":97,"provider":"dummy","data":{val:"#general"},"rules":[{"id":98,"channel_id":97,"category_id":null,"tags":[],"filter":"watch","error_key":null}]}]});
     });
-    server.post('/admin/plugins/chat/channels', () => {
+    server.post('/admin/plugins/chat/channels', () => { // eslint-disable-line no-undef
       return response({ });
     });
-    server.put('/admin/plugins/chat/channels/:id', () => {
+    server.put('/admin/plugins/chat/channels/:id', () => { // eslint-disable-line no-undef
+      return response({ });
+    }); 
+    server.delete('/admin/plugins/chat/channels/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
-    server.delete('/admin/plugins/chat/channels/:id', () => {
+    server.post('/admin/plugins/chat/rules', () => { // eslint-disable-line no-undef
       return response({ });
     });
-    server.post('/admin/plugins/chat/rules', () => {
+    server.put('/admin/plugins/chat/rules/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
-    server.put('/admin/plugins/chat/rules/:id', () => {
+    server.delete('/admin/plugins/chat/rules/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
-    server.delete('/admin/plugins/chat/rules/:id', () => {
+    server.post('/admin/plugins/chat/test', () => { // eslint-disable-line no-undef
       return response({ });
     });
-    server.post('/admin/plugins/chat/test', () => {
-      return response({ });
-    });
-    server.get('/groups/search.json', () => {
+    server.get('/groups/search.json', () => { // eslint-disable-line no-undef
       return response([]);
     });
 
@@ -69,7 +69,7 @@ test("Create channel works", assert => {
 
   andThen(() => {
     assert.ok(!find('#save_channel').prop('disabled'), 'it enables the save button');
-  })
+  });
 
   andThen(() => {
     click('#save_channel');
@@ -77,7 +77,7 @@ test("Create channel works", assert => {
 
   andThen(() => {
     assert.ok(!exists('#chat_integration_edit_channel_modal'), 'modal closes on save');
-  })
+  });
 
 });
 
@@ -166,6 +166,6 @@ test("Test provider works", assert => {
   andThen(() => {
     assert.ok(exists('#chat_integration_test_modal'), 'modal doesn\'t close on send');
     assert.ok(exists('#modal-alert.alert-success'), 'success message displayed');
-  })
+  });
 
 });
