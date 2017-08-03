@@ -39,6 +39,7 @@ plugins:
   chat_integration_telegram_enable_slash_commands:
     default: true
   chat_integration_telegram_secret:
+    default: ''
     hidden: true
 
 #######################################
