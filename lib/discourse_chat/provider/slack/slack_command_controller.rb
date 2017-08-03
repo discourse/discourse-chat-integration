@@ -42,7 +42,7 @@ module DiscourseChat::Provider::SlackProvider
         return process_post_request(channel, tokens, params[:channel_id])
       end
 
-      return { text: ::DiscourseChat::Helper.process_command(channel, tokens)}
+      return { text: ::DiscourseChat::Helper.process_command(channel, tokens) }
 
     end
 
@@ -51,56 +51,21 @@ module DiscourseChat::Provider::SlackProvider
         return I18n.t("chat_integration.provider.slack.api_required")
       end
 
-      http = Net::HTTP.new("slack.com", 443)
-      http.use_ssl = true
-
       messages_to_load = 10
 
       if tokens.size > 1
         begin
           messages_to_load = Integer(tokens[1], 10)
         rescue ArgumentError
-          return I18n.t("chat_integration.provider.slack.parse_error")
+          return { text: I18n.t("chat_integration.provider.slack.parse_error") }
         end
       end
 
-      error_text = I18n.t("chat_integration.provider.slack.transcript_error")
+      transcript = SlackTranscript.load_transcript(slack_channel_id, messages_to_load)
 
-      # Load the user data (we need this to change user IDs into usernames)
-      req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
-      req.set_form_data(token: SiteSetting.chat_integration_slack_access_token)
-      response = http.request(req)
-      return error_text unless response.kind_of? Net::HTTPSuccess
-      json = JSON.parse(response.body)
-      return error_text unless json['ok']
-      raw_users = json
+      return { text: I18n.t("chat_integration.provider.slack.transcript_error") } unless transcript
 
-      # Now load the chat message history
-      req = Net::HTTP::Post.new(URI('https://slack.com/api/channels.history'))
-
-      data = {
-        token: SiteSetting.chat_integration_slack_access_token,
-        channel: slack_channel_id,
-        count: messages_to_load
-      }
-
-      req.set_form_data(data)
-      response = http.request(req)
-      return error_text unless response.kind_of? Net::HTTPSuccess
-      json = JSON.parse(response.body)
-      return error_text unless json['ok']
-      raw_history = json
-
-      transcript = SlackTranscript.new(raw_history, raw_users, slack_channel_id)
-
-      post_content = transcript.build_transcript
-
-      secret = DiscourseChat::Helper.save_transcript(post_content)
-
-      link = "#{Discourse.base_url}/chat-transcript/#{secret}"
-
-      return { text: "<#{link}|#{I18n.t("chat_integration.provider.slack.post_to_discourse")}>",
-             }
+      return transcript.build_slack_ui
 
     end
 

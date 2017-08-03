@@ -122,6 +122,54 @@ module DiscourseChat::Provider::SlackProvider
       return post_content
     end
 
+    def build_slack_ui
+      post_content = build_transcript
+      secret = DiscourseChat::Helper.save_transcript(post_content)
+      link = "#{Discourse.base_url}/chat-transcript/#{secret}"
+
+      return { text: "<#{link}|#{I18n.t("chat_integration.provider.slack.post_to_discourse")}>",
+             }
+    end
+
+    def self.load_user_data
+      http = Net::HTTP.new("slack.com", 443)
+      http.use_ssl = true
+
+      req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
+      req.set_form_data(token: SiteSetting.chat_integration_slack_access_token)
+      response = http.request(req)
+      return false unless response.kind_of? Net::HTTPSuccess
+      json = JSON.parse(response.body)
+      return false unless json['ok']
+      return json
+    end
+
+    def self.load_chat_history(slack_channel_id, messages_to_load)
+      http = Net::HTTP.new("slack.com", 443)
+      http.use_ssl = true
+
+      req = Net::HTTP::Post.new(URI('https://slack.com/api/channels.history'))
+
+      data = {
+        token: SiteSetting.chat_integration_slack_access_token,
+        channel: slack_channel_id,
+        count: messages_to_load
+      }
+
+      req.set_form_data(data)
+      response = http.request(req)
+      return false unless response.kind_of? Net::HTTPSuccess
+      json = JSON.parse(response.body)
+      return false unless json['ok']
+      return json
+    end
+
+    def self.load_transcript(slack_channel_id, messages_to_load)
+      return false unless raw_users = self.load_user_data
+      return false unless raw_history = self.load_chat_history(slack_channel_id, messages_to_load)
+
+      self.new(raw_history, raw_users, slack_channel_id)
+    end
   end
 
 end
