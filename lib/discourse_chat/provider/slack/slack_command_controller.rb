@@ -49,7 +49,7 @@ module DiscourseChat::Provider::SlackProvider
 
     def process_post_request(channel, tokens, slack_channel_id, channel_name)
       if SiteSetting.chat_integration_slack_access_token.empty?
-        return I18n.t("chat_integration.provider.slack.api_required")
+        return { text: I18n.t("chat_integration.provider.slack.transcript.api_required") }
       end
 
       requested_messages = 10
@@ -66,7 +66,7 @@ module DiscourseChat::Provider::SlackProvider
                                                    channel_name: channel_name,
                                                    requested_messages: requested_messages)
 
-      return { text: I18n.t("chat_integration.provider.slack.transcript_error") } unless transcript
+      return { text: I18n.t("chat_integration.provider.slack.transcript.error") } unless transcript
 
       return transcript.build_slack_ui
 
@@ -92,7 +92,7 @@ module DiscourseChat::Provider::SlackProvider
                                                    first_message_ts: first_message,
                                                    last_message_ts: last_message)
 
-      return { text: I18n.t("chat_integration.provider.slack.transcript_error") } unless transcript
+      return { text: I18n.t("chat_integration.provider.slack.transcript.error") } unless transcript
 
       message = transcript.build_slack_ui
 
