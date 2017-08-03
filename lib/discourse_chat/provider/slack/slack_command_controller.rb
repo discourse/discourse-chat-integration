@@ -11,9 +11,9 @@ module DiscourseChat::Provider::SlackProvider
                        only: :command
 
     def command
-      text = process_command(params)
+      message = process_command(params)
 
-      render json: { text: text }
+      render json: message
     end
 
     def process_command(params)
@@ -42,7 +42,7 @@ module DiscourseChat::Provider::SlackProvider
         return process_post_request(channel, tokens, params[:channel_id])
       end
 
-      return ::DiscourseChat::Helper.process_command(channel, tokens)
+      return { text: ::DiscourseChat::Helper.process_command(channel, tokens)}
 
     end
 
@@ -73,7 +73,7 @@ module DiscourseChat::Provider::SlackProvider
       return error_text unless response.kind_of? Net::HTTPSuccess
       json = JSON.parse(response.body)
       return error_text unless json['ok']
-      users = json["members"]
+      raw_users = json
 
       # Now load the chat message history
       req = Net::HTTP::Post.new(URI('https://slack.com/api/channels.history'))
@@ -89,78 +89,18 @@ module DiscourseChat::Provider::SlackProvider
       return error_text unless response.kind_of? Net::HTTPSuccess
       json = JSON.parse(response.body)
       return error_text unless json['ok']
+      raw_history = json
 
-      first_post_link = "https://slack.com/archives/#{slack_channel_id}/p"
-      first_post_link += json["messages"].reverse.first["ts"].gsub('.', '')
+      transcript = SlackTranscript.new(raw_history, raw_users, slack_channel_id)
 
-      post_content = ""
-
-      post_content << "[quote]\n"
-
-      post_content << "[**#{I18n.t('chat_integration.provider.slack.view_on_slack')}**](#{first_post_link})\n"
-
-      users_in_transcript = []
-      last_user = ''
-      json["messages"].reverse.each do |message|
-        next unless message["type"] == "message"
-
-        username = ""
-        if user_id = message["user"]
-          user = users.find { |u| u["id"] == user_id }
-          users_in_transcript << user
-          username = user["name"]
-        elsif message.key?("username")
-          username = message["username"]
-        end
-
-        same_user = last_user == username
-        last_user = username
-
-        if not same_user
-          post_content << "\n"
-          post_content << "![#{username}] " if message["user"]
-          post_content << "**@#{username}:** "
-        end
-
-        text = message["text"]
-
-        # Format links (don't worry about special cases @ # !)
-        text.gsub!(/<(.*?)>/) do |match|
-          group = $1
-          parts = group.split('|')
-          link = parts[0].start_with?('@', '#', '!') ? '' : parts[0]
-          text = parts.length > 1 ? parts[1] : parts[0]
-          "[#{text}](#{link})"
-        end
-
-        # Add an extra * to each side for bold
-        text.gsub!(/\*(.*?)\*/) do |match|
-          "*#{match}*"
-        end
-
-        post_content << message["text"]
-
-        if message.key?("attachments")
-          message["attachments"].each do |attachment|
-            next unless attachment.key?("fallback")
-            post_content << "\n> #{attachment["fallback"]}\n"
-          end
-        end
-
-        post_content << "\n"
-      end
-
-      post_content << "[/quote]\n\n"
-
-      users_in_transcript.uniq.each do |user|
-        post_content << "[#{user["name"]}]: #{user["profile"]["image_24"]}\n" if user
-      end
+      post_content = transcript.build_transcript
 
       secret = DiscourseChat::Helper.save_transcript(post_content)
 
       link = "#{Discourse.base_url}/chat-transcript/#{secret}"
 
-      return "<#{link}|#{I18n.t("chat_integration.provider.slack.post_to_discourse")}>"
+      return { text: "<#{link}|#{I18n.t("chat_integration.provider.slack.post_to_discourse")}>",
+             }
 
     end
 
