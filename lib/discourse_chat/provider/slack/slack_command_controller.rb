@@ -54,7 +54,11 @@ module DiscourseChat::Provider::SlackProvider
 
       requested_messages = 10
 
-      if tokens.size > 1
+      first_message_ts = nil
+      slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
+      if tokens.size > 1 && match = slack_url_regex.match(tokens[1])
+        first_message_ts = match.captures[0].insert(10, '.')
+      elsif tokens.size > 1
         begin
           requested_messages = Integer(tokens[1], 10)
         rescue ArgumentError
@@ -64,7 +68,8 @@ module DiscourseChat::Provider::SlackProvider
 
       transcript = SlackTranscript.load_transcript(slack_channel_id: slack_channel_id,
                                                    channel_name: channel_name,
-                                                   requested_messages: requested_messages)
+                                                   requested_messages: requested_messages,
+                                                   first_message_ts: first_message_ts)
 
       return { text: I18n.t("chat_integration.provider.slack.transcript.error") } unless transcript
 

@@ -101,10 +101,8 @@ module DiscourseChat::Provider::SlackProvider
         @last_message = this_message if index == raw_messages.length - 1
       end
 
-      if first_message_ts && last_message_ts
-        @first_message = @messages.find { |m| m.ts == first_message_ts }
-        @last_message = @messages.find { |m| m.ts == last_message_ts }
-      end
+      @first_message = @messages.find { |m| m.ts == first_message_ts } || @first_message if first_message_ts
+      @last_message = @messages.find { |m| m.ts == last_message_ts } || @last_message if last_message_ts
 
       @first_message_index = @messages.index(@first_message)
       @last_message_index = @messages.index(@last_message)
