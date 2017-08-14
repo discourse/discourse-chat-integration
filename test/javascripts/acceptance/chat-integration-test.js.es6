@@ -14,7 +14,9 @@ acceptance("Chat Integration", {
       return response({ providers: [{name: 'dummy', id:'dummy',channel_parameters:[{key:'somekey', regex:"^\\S+$"}]}] });
     });
     server.get('/admin/plugins/chat/channels', () => { // eslint-disable-line no-undef
-      return response({"channels":[{"id":97,"provider":"dummy","data":{val:"#general"},"rules":[{"id":98,"channel_id":97,"category_id":null,"tags":[],"filter":"watch","error_key":null}]}]});
+      return response({"channels":[{"id":97,"provider":"dummy","data":{somekey:"#general"},"rules":[
+        {"id":98,"channel_id":97,"category_id":null,"team_id":null,"type":"normal","tags":[],"filter":"watch","error_key":null}
+        ]}]});
     });
     server.post('/admin/plugins/chat/channels', () => { // eslint-disable-line no-undef
       return response({ });
@@ -68,7 +70,7 @@ test("Create channel works", assert => {
   });
 
   andThen(() => {
-    assert.ok(!find('#save_channel').prop('disabled'), 'it enables the save button');
+    assert.ok(find('#save_channel').prop('disabled') === false, 'it enables the save button');
   });
 
   andThen(() => {
@@ -81,64 +83,107 @@ test("Create channel works", assert => {
 
 });
 
-// test("Edit channel works", assert => {
-//   visit("/admin/plugins/chat");
+test("Edit channel works", assert => {
+  visit("/admin/plugins/chat");
 
-//   andThen(() => {
-//     click('#create_channel');
-//   });
+  andThen(() => {
+    click('.channel-header button:first');
+  });
 
-//   andThen(() => {
-//     assert.ok(exists('#chat_integration_edit_channel_modal'), 'it displays the modal');
-//     assert.ok(find('#save_channel').prop('disabled'), 'it disables the save button');
-//     fillIn('#chat_integration_edit_channel_modal input', '#general');
-//   });
+  andThen(() => {
+    assert.ok(exists('#chat_integration_edit_channel_modal'), 'it displays the modal');
+    assert.ok(!find('#save_channel').prop('disabled'), 'save is enabled');
+    fillIn('#chat_integration_edit_channel_modal input', ' general');
+  });
 
-//   andThen(() => {
-//     assert.ok(!find('#save_channel').prop('disabled'), 'it enables the save button');
-//   })
+  andThen(() => {
+    assert.ok(find('#save_channel').prop('disabled'), 'it disables the save button');
+  });
 
-//   andThen(() => {
-//     click('#save_channel');
-//   });
+  andThen(() => {
+    fillIn('#chat_integration_edit_channel_modal input', '#random');
+  });
 
-//   andThen(() => {
-//     assert.ok(!exists('#chat_integration_edit_channel_modal'), 'modal closes on save');
-//   })
+  andThen(() => {
+    $("#chat_integration_edit_channel_modal input").trigger( $.Event( "keydown", { keyCode: 13 } ) ); // Press enter
+  });
 
-// });
+  andThen(() => {
+    assert.ok(!exists('#chat_integration_edit_channel_modal'), 'modal saves on enter');
+  });
 
-// test("Edit rule works", assert => {
-//   visit("/admin/plugins/chat");
+});
 
-//   andThen(() => {
-//     assert.ok(exists('.edit:first'), 'edit button is displayed');
-//   });
+test("Create rule works", assert => {
+  visit("/admin/plugins/chat");
 
-//   click('.edit:first');
+  andThen(() => {
+    assert.ok(exists('.channel-footer button:first'), 'create button is displayed');
+  });
 
-//   andThen(() => {
-//     assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
-//     assert.ok(!find('#save_rule').prop('disabled'), 'it enables the save button');
-//   });
+  click('.channel-footer button:first');
 
-//   click('#save_rule');
+  andThen(() => {
+    assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
+    assert.ok(find('#save_rule').prop('disabled') === false, 'save is enabled');
+  });
 
-//   andThen(() => {
-//     assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');
-//   });
-// });
+  click('#save_rule');
 
-// test("Delete rule works", function(assert) {
-//   visit("/admin/plugins/chat");
+  andThen(() => {
+    assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');
+  });
+});
 
-//   andThen(() => {
-//     assert.ok(exists('.delete:first'));
-//     click('.delete:first');
-//   });
-// });
+test("Edit rule works", assert => {
+  visit("/admin/plugins/chat");
 
-test("Test provider works", assert => {
+  andThen(() => {
+    assert.ok(exists('.edit:first'), 'edit button is displayed');
+  });
+
+  click('.edit:first');
+
+  andThen(() => {
+    assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
+    assert.ok(find('#save_rule').prop('disabled') === false, 'it enables the save button');
+  });
+
+  click('#save_rule');
+
+  andThen(() => {
+    assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');
+  });
+});
+
+test("Delete channel works", function(assert) {
+  visit("/admin/plugins/chat");
+
+  andThen(() => {
+    assert.ok(exists('.channel-header button:last'), "delete button exists");
+    click('.channel-header button:last');
+  });
+
+  andThen(() => {
+    assert.ok(exists('div.bootbox'), "modal is displayed");
+    click('div.bootbox .btn-primary');
+  });
+
+  andThen(() => {
+    assert.ok(exists('div.bootbox')===false, "modal has closed");
+  });
+});
+
+test("Delete rule works", function(assert) {
+  visit("/admin/plugins/chat");
+
+  andThen(() => {
+    assert.ok(exists('.delete:first'));
+    click('.delete:first');
+  });
+});
+
+test("Test channel works", assert => {
   visit("/admin/plugins/chat");
 
   andThen(() => {
@@ -156,7 +201,7 @@ test("Test provider works", assert => {
   });
 
   andThen(() => {
-    assert.ok(!find('#send_test').prop('disabled'), 'it enables the send button');
+    assert.ok(find('#send_test').prop('disabled') === false, 'it enables the send button');
   });
 
   andThen(() => {
