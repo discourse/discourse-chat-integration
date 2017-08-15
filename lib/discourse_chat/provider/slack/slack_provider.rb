@@ -151,5 +151,5 @@ module DiscourseChat::Provider::SlackProvider
 end
 
 require_relative "slack_message_formatter.rb"
-require_relative "slack_transcript_helper.rb"
+require_relative "slack_transcript.rb"
 require_relative "slack_command_controller.rb"

@@ -68,14 +68,14 @@ module DiscourseChat::Provider::SlackProvider
 
       error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-      return error_message unless transcript = SlackTranscript.new(channel_name: channel_name)
+      return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id)
       return error_message unless transcript.load_user_data
-      return error_message unless transcript.load_chat_history(slack_channel_id: slack_channel_id)
+      return error_message unless transcript.load_chat_history
 
       if first_message_ts
         return error_message unless transcript.set_first_message_by_ts(first_message_ts)
       else
-        return error_message unless transcript.set_first_message_by_index(-requested_messages)
+        transcript.set_first_message_by_index(-requested_messages) # Don't fail if this doesn't work, just use the default
       end
 
       return transcript.build_slack_ui
@@ -99,9 +99,9 @@ module DiscourseChat::Provider::SlackProvider
 
       error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-      return error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}")
+      return error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
       return error_message unless transcript.load_user_data
-      return error_message unless transcript.load_chat_history(slack_channel_id: json[:channel][:id])
+      return error_message unless transcript.load_chat_history
 
       return error_message unless transcript.set_first_message_by_ts(first_message)
       return error_message unless transcript.set_last_message_by_ts(last_message)

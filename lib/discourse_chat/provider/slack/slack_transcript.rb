@@ -10,6 +10,8 @@ module DiscourseChat::Provider::SlackProvider
         return user['name']
       elsif @raw.key?("username")
         return @raw["username"]
+      else
+        return nil
       end
     end
 
@@ -82,10 +84,11 @@ module DiscourseChat::Provider::SlackProvider
   end
 
   class SlackTranscript
-    attr_reader :users, :channel_id
+    attr_reader :users, :channel_id, :messages
 
-    def initialize(channel_name:)
+    def initialize(channel_name:, channel_id:)
       @channel_name = channel_name
+      @channel_id = channel_id
 
       @first_message_index = 0
       @last_message_index = -1 # We can use negative array indicies to select the last message - fancy!
@@ -234,7 +237,7 @@ module DiscourseChat::Provider::SlackProvider
 
     end
 
-    def load_chat_history(slack_channel_id:, count: 500)
+    def load_chat_history(count: 500)
       http = Net::HTTP.new("slack.com", 443)
       http.use_ssl = true
 
@@ -242,7 +245,7 @@ module DiscourseChat::Provider::SlackProvider
 
       data = {
         token: SiteSetting.chat_integration_slack_access_token,
-        channel: slack_channel_id,
+        channel: @channel_id,
         count: count
       }
 
