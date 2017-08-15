@@ -177,7 +177,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       end
 
       it 'can guess the first message' do
-        expect(transcript.guess_first_message(skip_messages:1)).to eq(true)
+        expect(transcript.guess_first_message(skip_messages: 1)).to eq(true)
         expect(transcript.first_message.ts).to eq('1501801629.052212')
       end
 
