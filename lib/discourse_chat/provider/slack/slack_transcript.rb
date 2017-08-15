@@ -112,6 +112,36 @@ module DiscourseChat::Provider::SlackProvider
       @last_message_index = val if @messages[val]
     end
 
+    # Apply a heuristic to decide which is the first message in the current conversation
+    def guess_first_message(skip_messages: 5) # Can skip the last n messages
+
+      possible_first_messages = @messages[0..-skip_messages]
+
+      # Work through the messages in order. If a gap is found, this could be the first message
+      new_first_message_index = nil
+      previous_message_ts = @messages[-skip_messages].ts.split('.').first.to_i
+      possible_first_messages.each_with_index do |message, index|
+
+        # Calculate the time since the last message
+        this_ts = message.ts.split('.').first.to_i
+        time_since_previous_message = this_ts - previous_message_ts
+
+        # If greater than 3 minutes, this could be the first message
+        if time_since_previous_message > 3.minutes
+          new_first_message_index = index
+        end
+
+        previous_message_ts = this_ts
+      end
+
+      if new_first_message_index
+        @first_message_index = new_first_message_index
+        return true
+      else
+        return false
+      end
+    end
+
     def first_message
       return @messages[@first_message_index]
     end

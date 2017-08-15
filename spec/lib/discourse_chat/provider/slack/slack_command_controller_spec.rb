@@ -213,6 +213,18 @@ describe 'Slack Command Controller', type: :request do
             expect(json["attachments"].length).to eq(2)
             expect(json["attachments"][0]["ts"]).to eq("1501801629.052212")
           end
+
+          it 'can auto select' do
+            post "/chat-integration/slack/command.json",
+              text: "post",
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
+
+            json = JSON.parse(response.body)
+            expect(json["attachments"].length).to eq(2)
+            expect(json["attachments"][0]["ts"]).to eq("1501615820.949638")
+          end
         end
 
         it 'deals with failed API calls correctly' do

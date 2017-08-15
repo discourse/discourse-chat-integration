@@ -176,6 +176,11 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         expect(transcript.last_message_number).to eq(2)
       end
 
+      it 'can guess the first message' do
+        expect(transcript.guess_first_message(skip_messages:1)).to eq(true)
+        expect(transcript.first_message.ts).to eq('1501801629.052212')
+      end
+
       it 'handles usernames correctly' do
         expect(transcript.first_message.username).to eq('awesomeguy') # Normal user
         expect(transcript.messages[2].username).to eq(nil) # Unknown normal user

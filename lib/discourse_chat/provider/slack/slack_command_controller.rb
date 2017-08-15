@@ -52,9 +52,9 @@ module DiscourseChat::Provider::SlackProvider
         return { text: I18n.t("chat_integration.provider.slack.transcript.api_required") }
       end
 
-      requested_messages = 10
-
+      requested_messages = nil
       first_message_ts = nil
+
       slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
       if tokens.size > 1 && match = slack_url_regex.match(tokens[1])
         first_message_ts = match.captures[0].insert(10, '.')
@@ -74,8 +74,10 @@ module DiscourseChat::Provider::SlackProvider
 
       if first_message_ts
         return error_message unless transcript.set_first_message_by_ts(first_message_ts)
+      elsif requested_messages
+        transcript.set_first_message_by_index(-requested_messages)
       else
-        transcript.set_first_message_by_index(-requested_messages) # Don't fail if this doesn't work, just use the default
+        transcript.set_first_message_by_index(-10) unless transcript.guess_first_message
       end
 
       return transcript.build_slack_ui
