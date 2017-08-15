@@ -111,23 +111,120 @@ describe 'Slack Command Controller', type: :request do
       end
 
       describe 'post transcript' do
+        let(:messages_fixture) {
+          [
+            {
+              "type": "message",
+              "user": "U6JSSESES",
+              "text": "Yeah, should make posting slack transcripts much easier",
+              "ts": "1501801665.062694"
+            },
+            {
+                "type": "message",
+                "user": "U5Z773QLS",
+                "text": "Oooh a new discourse plugin???",
+                "ts": "1501801643.056375"
+            },
+            {
+                "type": "message",
+                "user": "U6E2W7R8C",
+                "text": "Which one?",
+                "ts": "1501801634.053761"
+            },
+            {
+                "type": "message",
+                "user": "U6JSSESES",
+                "text": "So, who's interested in the new <https://meta.discourse.org|discourse plugin>?",
+                "ts": "1501801629.052212"
+            },
+            {
+                  "text": "",
+                  "username": "Test Community",
+                  "bot_id": "B6C6JNUDN",
+                  "attachments": [
+                      {
+                          "author_name": "@david",
+                          "fallback": "Discourse can now be integrated with Mattermost! - @david",
+                          "text": "Hey <http://localhost/groups/team|@team>, what do you think about this?",
+                          "title": "Discourse can now be integrated with Mattermost! [Announcements] ",
+                          "id": 1,
+                          "title_link": "http://localhost:3000/t/discourse-can-now-be-integrated-with-mattermost/51/4",
+                          "color": "283890",
+                          "mrkdwn_in": [
+                              "text"
+                          ]
+                      }
+                  ],
+                  "type": "message",
+                  "subtype": "bot_message",
+                  "ts": "1501615820.949638"
+              },
+              {
+                  "type": "message",
+                  "user": "U5Z773QLS",
+                  "text": "Let’s try some *bold text*",
+                  "ts": "1501093331.439776"
+              },
+
+          ]
+        }
+
         before do
           SiteSetting.chat_integration_slack_access_token = 'abcde'
         end
 
-        it 'generates a transcript properly' do
-          stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david","profile":{"icon_24":"https://example.com/avatar"}}]}')
-          stub2 = stub_request(:post, "https://slack.com/api/channels.history").to_return(body: '{"ok":true,"messages":[{"type":"message","user":"U5Z773QLS","text":"And this is a slack message with an attachment: <https:\/\/meta.discourse.org>","attachments":[{"title":"Discourse Meta","title_link":"https:\/\/meta.discourse.org","text":"Discussion about the next-generation open source Discourse forum software","fallback":"Discourse Meta","thumb_url":"https:\/\/discourse-meta.s3-us-west-1.amazonaws.com\/original\/3X\/c\/b\/cb4bec8901221d4a646e45e1fa03db3a65e17f59.png","from_url":"https:\/\/meta.discourse.org","thumb_width":350,"thumb_height":349,"service_icon":"https:\/\/discourse-meta.s3-us-west-1.amazonaws.com\/original\/3X\/c\/b\/cb4bec8901221d4a646e45e1fa03db3a65e17f59.png","service_name":"meta.discourse.org","id":1}],"ts":"1500910064.045243"},{"type":"message","user":"U5Z773QLS","text":"Hello world, this is a slack message","ts":"1500910051.036792"}],"has_more":true}')
+        context "with valid slack responses" do
+          before do
+            stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david","profile":{"icon_24":"https://example.com/avatar"}}]}')
+            stub2 = stub_request(:post, "https://slack.com/api/channels.history").to_return(body: { ok: true, messages: messages_fixture }.to_json)
+          end
 
-          post "/chat-integration/slack/command.json",
-            text: "post 2",
-            channel_name: 'general',
-            channel_id: 'C6029G78F',
-            token: token
+          it 'generates the transcript UI properly' do
+            post "/chat-integration/slack/command.json",
+              text: "post",
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
 
-          json = JSON.parse(response.body)
+            json = JSON.parse(response.body)
+            expect(json["attachments"].length).to eq(2)
+          end
 
-          # expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.post_to_discourse"))
+          it 'can select by url' do
+            post "/chat-integration/slack/command.json",
+              text: "post https://sometestslack.slack.com/archives/C6029G78F/p1501801629052212",
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
+
+            json = JSON.parse(response.body)
+            expect(json["attachments"].length).to eq(2)
+            expect(json["attachments"][0]["ts"]).to eq("1501801629.052212")
+          end
+
+          it 'can select by count' do
+            post "/chat-integration/slack/command.json",
+              text: "post 4",
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
+
+            json = JSON.parse(response.body)
+            expect(json["attachments"].length).to eq(2)
+            expect(json["attachments"][0]["ts"]).to eq("1501801629.052212")
+          end
+
+          it 'can auto select' do
+            post "/chat-integration/slack/command.json",
+              text: "post",
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
+
+            json = JSON.parse(response.body)
+            expect(json["attachments"].length).to eq(2)
+            expect(json["attachments"][0]["ts"]).to eq("1501615820.949638")
+          end
         end
 
         it 'deals with failed API calls correctly' do

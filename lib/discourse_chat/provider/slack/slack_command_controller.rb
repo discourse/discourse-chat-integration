@@ -52,9 +52,9 @@ module DiscourseChat::Provider::SlackProvider
         return { text: I18n.t("chat_integration.provider.slack.transcript.api_required") }
       end
 
-      requested_messages = 10
-
+      requested_messages = nil
       first_message_ts = nil
+
       slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
       if tokens.size > 1 && match = slack_url_regex.match(tokens[1])
         first_message_ts = match.captures[0].insert(10, '.')
@@ -66,12 +66,19 @@ module DiscourseChat::Provider::SlackProvider
         end
       end
 
-      transcript = SlackTranscript.load_transcript(slack_channel_id: slack_channel_id,
-                                                   channel_name: channel_name,
-                                                   requested_messages: requested_messages,
-                                                   first_message_ts: first_message_ts)
+      error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-      return { text: I18n.t("chat_integration.provider.slack.transcript.error") } unless transcript
+      return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id)
+      return error_message unless transcript.load_user_data
+      return error_message unless transcript.load_chat_history
+
+      if first_message_ts
+        return error_message unless transcript.set_first_message_by_ts(first_message_ts)
+      elsif requested_messages
+        transcript.set_first_message_by_index(-requested_messages)
+      else
+        transcript.set_first_message_by_index(-10) unless transcript.guess_first_message
+      end
 
       return transcript.build_slack_ui
 
@@ -92,16 +99,16 @@ module DiscourseChat::Provider::SlackProvider
       first_message = (action_name == 'first_message') ? changed_val : constant_val
       last_message = (action_name == 'first_message') ? constant_val : changed_val
 
-      transcript = SlackTranscript.load_transcript(slack_channel_id: json[:channel][:id],
-                                                   channel_name: "##{json[:channel][:name]}",
-                                                   first_message_ts: first_message,
-                                                   last_message_ts: last_message)
+      error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-      return { text: I18n.t("chat_integration.provider.slack.transcript.error") } unless transcript
+      return error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
+      return error_message unless transcript.load_user_data
+      return error_message unless transcript.load_chat_history
 
-      message = transcript.build_slack_ui
+      return error_message unless transcript.set_first_message_by_ts(first_message)
+      return error_message unless transcript.set_last_message_by_ts(last_message)
 
-      return message
+      return transcript.build_slack_ui
     end
 
     def slack_token_valid?
