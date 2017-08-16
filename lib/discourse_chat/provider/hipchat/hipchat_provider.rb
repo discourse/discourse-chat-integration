@@ -6,7 +6,7 @@ module DiscourseChat
       CHANNEL_PARAMETERS = [
                         { key: "name", regex: '^\S+' },
                         { key: "webhook_url", regex: 'hipchat\.com', unique: true, hidden: true },
-                        { key: "color", regex: '(yellow|green|red|purple|gray|random)' }
+                        { key: "color", regex: '^(yellow|green|red|purple|gray|random)$' }
                        ]
 
       def self.send_message(url, message)
