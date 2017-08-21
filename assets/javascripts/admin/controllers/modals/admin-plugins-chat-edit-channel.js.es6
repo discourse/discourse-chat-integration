@@ -64,7 +64,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   saveDisabled: function(){
     var validations = this.get('paramValidation');
-    
+
     if(!validations){ return true; }
 
     var invalid = false;
@@ -77,7 +77,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
        invalid = true;
       }
     });
-      
+
     return invalid;
   }.property('paramValidation'),
 
@@ -89,9 +89,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     save: function(){
       if(this.get('saveDisabled')){return;};
 
-    	const self = this;
+      const self = this;
 
-    	this.get('model.channel').save().then(function() {
+      this.get('model.channel').save().then(function() {
         self.send('closeModal');
       }).catch(function(error) {
         self.flash(extractError(error), 'error');

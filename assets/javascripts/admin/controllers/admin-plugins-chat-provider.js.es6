@@ -1,7 +1,7 @@
 import showModal from 'discourse/lib/show-modal';
 
 export default Ember.Controller.extend({
-	modalShowing: false,
+  modalShowing: false,
 
   anyErrors: function(){
     var anyErrors = false;
@@ -14,16 +14,16 @@ export default Ember.Controller.extend({
   }.property('model.channels'),
 
   actions:{
-  	createChannel(){
-  		this.set('modalShowing', true);
+    createChannel(){
+      this.set('modalShowing', true);
       var model = {channel: this.store.createRecord('channel',{provider: this.get('model.provider').id, data:{}},), provider:this.get('model.provider')};
-  		showModal('admin-plugins-chat-edit-channel', { model: model, admin: true });
-  	},
-  	editChannel(channel){
-  		this.set('modalShowing', true);
+      showModal('admin-plugins-chat-edit-channel', { model: model, admin: true });
+    },
+    editChannel(channel){
+      this.set('modalShowing', true);
       var model = {channel: channel, provider: this.get('model.provider')};
-  		showModal('admin-plugins-chat-edit-channel', { model: model, admin: true });
-  	},
+      showModal('admin-plugins-chat-edit-channel', { model: model, admin: true });
+    },
     testChannel(channel){
       this.set('modalShowing', true);
       var model = {channel:channel};

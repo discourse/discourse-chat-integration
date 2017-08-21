@@ -22,7 +22,7 @@ export default RestModel.extend({
   type: 'normal',
   error_key: null,
 
-  
+
   removeUnneededInfo: function(){
     const type=this.get('type');
     if(type==='normal'){

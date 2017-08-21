@@ -1,5 +1,5 @@
 import { acceptance } from "helpers/qunit-helpers";
-acceptance("Chat Integration", { 
+acceptance("Chat Integration", {
   loggedIn: true,
 
   beforeEach() {
@@ -23,7 +23,7 @@ acceptance("Chat Integration", {
     });
     server.put('/admin/plugins/chat/channels/:id', () => { // eslint-disable-line no-undef
       return response({ });
-    }); 
+    });
     server.delete('/admin/plugins/chat/channels/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });

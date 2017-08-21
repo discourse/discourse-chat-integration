@@ -30,9 +30,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     save: function(){
       if(this.get('saveDisabled')){return;};
 
-    	const self = this;
+      const self = this;
 
-    	this.get('model.rule').save().then(function() {
+      this.get('model.rule').save().then(function() {
         self.send('closeModal');
       }).catch(function(error) {
         self.flash(extractError(error), 'error');
