@@ -22,7 +22,6 @@ plugins:
   chat_integration_slack_outbound_webhook_url:
     default: ''
     regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
-    hidden: true
   chat_integration_slack_icon_url:
     default: ''
     hidden: true

@@ -13,7 +13,7 @@ en:
     chat_integration_slack_incoming_webhook_token: 'The verification token used to authenticate incoming requests'
     chat_integration_slack_excerpt_length: 'Slack post excerpt length'
     chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
-    chat_integration_slack_outbound_webhook_url: 'URL for outbound slack requests'
+    chat_integration_slack_outbound_webhook_url: "For using Slack's 'Incoming Webhook' system instead of of the OAuth API. Not recommended."
 
     errors:
       chat_integration_slack_api_configs_are_empty: "You must enter either an outbound webhook URL, or an access token"

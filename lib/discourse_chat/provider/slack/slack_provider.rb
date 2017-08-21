@@ -51,19 +51,15 @@ module DiscourseChat::Provider::SlackProvider
       author_icon: post.user.small_avatar_url,
       color: topic.category ? "##{topic.category.color}" : nil,
       text: excerpt(post),
-      mrkdwn_in: ["text"]
+      mrkdwn_in: ["text"],
+      title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
+      title_link: post.full_url,
+      thumb_url: post.full_url
     }
 
-    record = DiscourseChat.pstore_get("topic_#{post.topic.id}_#{channel}")
-
-    if (SiteSetting.chat_integration_slack_access_token.empty? || post.is_first_post? || record.blank? || (record.present? && ((Time.now.to_i - record[:ts].split('.')[0].to_i) / 60) >= 5))
-      summary[:title] = "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}"
-      summary[:title_link] = post.full_url
-      summary[:thumb_url] = post.full_url
-    end
-
     message[:attachments].push(summary)
-    message
+
+    return message
   end
 
   def self.send_via_api(post, channel, message)
@@ -74,29 +70,23 @@ module DiscourseChat::Provider::SlackProvider
     uri = ""
     record = DiscourseChat.pstore_get("slack_topic_#{post.topic.id}_#{channel}")
 
-    if (record.present? && ((Time.now.to_i - record[:ts].split('.')[0].to_i) / 60) < 5 && record[:message][:attachments].length < 5)
-      attachments = record[:message][:attachments]
-      attachments.concat message[:attachments]
+    data = {
+      token: SiteSetting.chat_integration_slack_access_token,
+    }
 
-      uri = URI("https://slack.com/api/chat.update" +
-        "?token=#{SiteSetting.chat_integration_slack_access_token}" +
-        "&username=#{CGI::escape(record[:message][:username])}" +
-        "&text=#{CGI::escape(record[:message][:text])}" +
-        "&channel=#{record[:channel]}" +
-        "&attachments=#{CGI::escape(attachments.to_json)}" +
-        "&ts=#{record[:ts]}"
-      )
-    else
-      uri = URI("https://slack.com/api/chat.postMessage" +
-        "?token=#{SiteSetting.chat_integration_slack_access_token}" +
-        "&username=#{CGI::escape(message[:username])}" +
-        "&icon_url=#{CGI::escape(message[:icon_url])}" +
-        "&channel=#{ message[:channel].gsub('#', '') }" +
-        "&attachments=#{CGI::escape(message[:attachments].to_json)}"
-      )
-    end
+    req = Net::HTTP::Post.new(URI('https://slack.com/api/chat.postMessage'))
 
-    response = http.request(Net::HTTP::Post.new(uri))
+    data = {
+      token: SiteSetting.chat_integration_slack_access_token,
+      username: message[:username],
+      icon_url: message[:icon_url],
+      channel: message[:channel].gsub('#', ''),
+      attachments: message[:attachments].to_json
+    }
+
+    req.set_form_data(data)
+
+    response = http.request(req)
 
     unless response.kind_of? Net::HTTPSuccess
       raise ::DiscourseChat::ProviderError.new info: { request: uri, response_code: response.code, response_body: response.body }
@@ -108,12 +98,11 @@ module DiscourseChat::Provider::SlackProvider
       if json.key?("error") && (json["error"] == ('channel_not_found') || json["error"] == ('is_archived'))
         error_key = 'chat_integration.provider.slack.errors.channel_not_found'
       else
-        error_key = json.to_s
+        error_key = nil
       end
       raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: uri, response_code: response.code, response_body: response.body }
     end
 
-    DiscourseChat.pstore_set("slack_topic_#{post.topic.id}_#{channel}", JSON.parse(response.body))
     response
   end
 

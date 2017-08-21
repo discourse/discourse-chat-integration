@@ -94,18 +94,6 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
         expect(@stub2).to have_been_requested.once
       end
 
-      it 'correctly merges replies' do
-        second_post = Fabricate(:post, topic: post.topic, post_number: 2)
-        expect(@stub2).to have_been_requested.times(0)
-        expect(@stub3).to have_been_requested.times(0)
-
-        described_class.trigger_notification(post, chan1)
-        described_class.trigger_notification(second_post, chan1)
-        expect(@stub1).to have_been_requested.times(0)
-        expect(@stub2).to have_been_requested.once # Initial creation of message
-        expect(@stub3).to have_been_requested.once # Requests to update the existing message
-      end
-
     end
 
   end
