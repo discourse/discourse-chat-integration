@@ -9,13 +9,14 @@ module DiscourseChat
                        ]
 
       def self.send_message(message)
-        uri = URI("#{SiteSetting.chat_integration_zulip_server}/api/v1/external/discourse?api_key=#{SiteSetting.chat_integration_zulip_bot_api_key}")
+        uri = URI("#{SiteSetting.chat_integration_zulip_server}/api/v1/messages")
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = (uri.scheme == 'https')
 
-        req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
-        req.body = message.to_json
+        req = Net::HTTP::Post.new(uri)
+        req.basic_auth(SiteSetting.chat_integration_zulip_bot_email_address, SiteSetting.chat_integration_zulip_bot_api_key)
+        req.set_form_data(message)
 
         response = http.request(req)
 
@@ -36,9 +37,10 @@ module DiscourseChat
                                                                     excerpt: post.excerpt(SiteSetting.chat_integration_zulip_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true))
 
         data = {
-          stream: stream,
+          type: 'stream',
+          to: stream,
           subject: subject,
-          message: message
+          content: message
         }
       end
 

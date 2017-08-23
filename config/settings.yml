@@ -92,6 +92,8 @@ plugins:
     default: false
   chat_integration_zulip_server:
     default: ''
+  chat_integration_zulip_bot_email_address:
+    default: ''
   chat_integration_zulip_bot_api_key:
     default: ''
   chat_integration_zulip_excerpt_length:
