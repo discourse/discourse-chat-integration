@@ -98,3 +98,13 @@ plugins:
     default: ''
   chat_integration_zulip_excerpt_length:
     default: 400
+
+#######################################
+######## ROCKET CHAT SETTINGS #########
+#######################################
+  chat_integration_rocketchat_enabled:
+    default: false
+  chat_integration_rocketchat_webhook_url:
+    default: ''
+  chat_integration_rocketchat_excerpt_length:
+    default: 400

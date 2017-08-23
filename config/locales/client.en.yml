@@ -166,3 +166,15 @@ en:
               help: "The subject that these messages sent by the bot should be given"
           errors:
             does_not_exist: "That stream does not exist on Zulip"
+
+        #######################################
+        ######## ROCKET CHAT STRINGS ##########
+        #######################################
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Channel
+              help: "e.g. #channel, @username."
+          errors:
+            invalid_channel: "That channel does not exist on Rocket Chat"

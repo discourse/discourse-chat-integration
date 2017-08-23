@@ -59,11 +59,18 @@ en:
     #######################################
     ########### ZULIP SETTINGS ############
     #######################################
-    chat_integration_zulip_enabled: "Enable the Matrix chat integration provider"
+    chat_integration_zulip_enabled: "Enable the Zulip chat integration provider"
     chat_integration_zulip_server: "The base URL for your Zulip server. Make sure to include http(s)://"
     chat_integration_zulip_bot_email_address: "The email address associated with your Zulip bot"
     chat_integration_zulip_bot_api_key: "The API key for your Zulip bot"
     chat_integration_zulip_excerpt_length: "Zulip post excerpt length"
+
+    #######################################
+    ###### ROCKET CHAT SETTINGS ###########
+    #######################################
+    chat_integration_rocketchat_enabled: "Enable the Rocket Chat chat integration provider"
+    chat_integration_rocketchat_webhook_url: "The URL for the Rocket Chat integration webhook"
+    chat_integration_rocketchat_excerpt_length: "Rocket Chat post excerpt length"
 
   chat_integration:
     
