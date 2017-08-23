@@ -37,7 +37,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
     end
 
     check_unique = false
-    matching_channels = DiscourseChat::Channel.where.not(id: id)
+    matching_channels = DiscourseChat::Channel.with_provider(provider).where.not(id: id)
 
     data.each do |key, value|
       regex_string = params.find { |p| p[:key] == key }[:regex]
