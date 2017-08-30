@@ -108,3 +108,9 @@ plugins:
     default: ''
   chat_integration_rocketchat_excerpt_length:
     default: 400
+
+#######################################
+########## GITTER SETTINGS ############
+#######################################
+  chat_integration_gitter_enabled:
+    default: false

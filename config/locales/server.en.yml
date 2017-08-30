@@ -72,8 +72,13 @@ en:
     chat_integration_rocketchat_webhook_url: "The URL for the Rocket Chat integration webhook"
     chat_integration_rocketchat_excerpt_length: "Rocket Chat post excerpt length"
 
+    #######################################
+    ############ GITTER SETTINGS ##########
+    #######################################
+    chat_integration_gitter_enabled: "Enable the Gitter chat integration provider"
+
   chat_integration:
-    
+
     all_categories: "(all categories)"
     deleted_category: "(deleted category)"
     deleted_group: "(deleted group)"
@@ -116,7 +121,7 @@ en:
           (`[rule number]` can be found by running `/discourse status`)
 
           *List rules:* `/discourse status`
-          
+
           *Post transcript:* `/discourse post [n]`
           Create a draft topic on discourse containing the last `n` posts in this channel
 
@@ -172,7 +177,7 @@ en:
           (<code>[rule number]</code> can be found by running <code>/status</code>)
 
           <b>List rules:</b> <code>/status</code>
-          
+
           <b>Help:</b> <code>/help</code>
 
       #######################################
@@ -214,7 +219,7 @@ en:
           (`[rule number]` can be found by running `/discourse status`)
 
           *List rules:* `/discourse status`
-          
+
           *Help:* `/discourse help`
 
       #######################################
