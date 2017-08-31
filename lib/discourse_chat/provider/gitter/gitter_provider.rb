@@ -5,7 +5,7 @@ module DiscourseChat
       PROVIDER_ENABLED_SETTING = :chat_integration_gitter_enabled
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+$', unique: true },
-        { key: "webhook_url", regex: '^https://webhooks.gitter.im/e/\S+$', unique: true, hidden: true }
+        { key: "webhook_url", regex: '^https://webhooks\.gitter\.im/e/\S+$', unique: true, hidden: true }
       ]
 
       def self.trigger_notification(post, channel)
