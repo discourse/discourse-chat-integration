@@ -78,7 +78,7 @@ en:
           errors:
             action_prohibited: "The bot does not have permission to post to that channel"
             channel_not_found: "The specified channel does not exist on slack"
-      
+
         #######################################
         ########## TELEGRAM STRINGS ###########
         #######################################
@@ -178,3 +178,16 @@ en:
               help: "e.g. #channel, @username."
           errors:
             invalid_channel: "That channel does not exist on Rocket Chat"
+
+        #######################################
+        ############ GITTER STRINGS ###########
+        #######################################
+        gitter:
+          title: "Gitter"
+          param:
+            name:
+              title: "Name"
+              help: "A Gitter room's name e.g. gitterHQ/services."
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new integration in a Gitter room."
