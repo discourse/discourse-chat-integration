@@ -36,6 +36,7 @@ module DiscourseChat
         end
 
         message = {
+          content: SiteSetting.chat_integration_discord_message_content,
           embeds: [{
             title: post.topic.title,
             description: post.excerpt(SiteSetting.chat_integration_discord_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),

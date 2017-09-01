@@ -30,6 +30,7 @@ en:
     ########## DISCORD SETTINGS ###########
     #######################################
     chat_integration_discord_enabled: "Enable the Discord chat-integration provider"
+    chat_integration_discord_message_content: "The message to include above the summary when sending a notification to Discord"
     chat_integration_discord_excerpt_length: "Discord post excerpt length"
 
     #######################################

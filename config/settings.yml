@@ -46,6 +46,8 @@ plugins:
 #######################################
   chat_integration_discord_enabled:
     default: false
+  chat_integration_discord_message_content:
+    default: ""
   chat_integration_discord_excerpt_length:
     default: 400
 
