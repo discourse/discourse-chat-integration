@@ -2,9 +2,9 @@ module DiscourseChat::Provider::MattermostProvider
   class MattermostCommandController < DiscourseChat::Provider::HookController
     requires_provider ::DiscourseChat::Provider::MattermostProvider::PROVIDER_NAME
 
-    before_filter :mattermost_token_valid?, only: :command
+    before_action :mattermost_token_valid?, only: :command
 
-    skip_before_filter :check_xhr,
+    skip_before_action :check_xhr,
                        :preload_json,
                        :verify_authenticity_token,
                        :redirect_to_login_if_required,

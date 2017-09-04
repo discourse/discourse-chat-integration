@@ -2,10 +2,10 @@ module DiscourseChat::Provider::SlackProvider
   class SlackCommandController < DiscourseChat::Provider::HookController
     requires_provider ::DiscourseChat::Provider::SlackProvider::PROVIDER_NAME
 
-    before_filter :slack_token_valid?, only: :command
-    before_filter :slack_payload_token_valid?, only: :interactive
+    before_action :slack_token_valid?, only: :command
+    before_action :slack_payload_token_valid?, only: :interactive
 
-    skip_before_filter :check_xhr,
+    skip_before_action :check_xhr,
                        :preload_json,
                        :verify_authenticity_token,
                        :redirect_to_login_if_required,

@@ -56,7 +56,7 @@ module DiscourseChat
       end
 
       def self.requires_provider(provider_name)
-        before_filter do
+        before_action do
           raise ProviderDisabled.new unless Provider.enabled_provider_names.include?(provider_name)
         end
       end
