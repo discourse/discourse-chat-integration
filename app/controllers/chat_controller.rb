@@ -6,11 +6,13 @@ class DiscourseChat::ChatController < ApplicationController
   end
 
   def list_providers
-    providers = ::DiscourseChat::Provider.enabled_providers.map { |x| {
-                                      name: x::PROVIDER_NAME,
-                                      id: x::PROVIDER_NAME,
-                                      channel_parameters: (defined? x::CHANNEL_PARAMETERS) ? x::CHANNEL_PARAMETERS : []
-                                      }}
+    providers = ::DiscourseChat::Provider.enabled_providers.map do |x|
+      {
+        name: x::PROVIDER_NAME,
+        id: x::PROVIDER_NAME,
+        channel_parameters: (defined? x::CHANNEL_PARAMETERS) ? x::CHANNEL_PARAMETERS : []
+      }
+    end
 
     render json: providers, root: 'providers'
   end

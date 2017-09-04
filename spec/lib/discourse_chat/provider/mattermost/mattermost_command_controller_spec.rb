@@ -38,7 +38,9 @@ describe 'Mattermost Command Controller', type: :request do
         token = 'sometoken'
         SiteSetting.chat_integration_mattermost_incoming_webhook_token = token
 
-        post '/chat-integration/mattermost/command.json', text: 'help', token: token
+        post '/chat-integration/mattermost/command.json', params: {
+          text: 'help', token: token
+        }
 
         expect(response.status).to eq(200)
       end
@@ -46,14 +48,16 @@ describe 'Mattermost Command Controller', type: :request do
 
     describe 'when the token is invalid' do
       it 'should raise the right error' do
-        expect { post '/chat-integration/mattermost/command.json', text: 'help' }
+        expect { post '/chat-integration/mattermost/command.json', params: {  text: 'help' } }
           .to raise_error(ActionController::ParameterMissing)
       end
     end
 
     describe 'when incoming webhook token has not been set' do
       it 'should raise the right error' do
-        post '/chat-integration/mattermost/command.json', text: 'help', token: 'some token'
+        post '/chat-integration/mattermost/command.json', params: {
+          text: 'help', token: 'some token'
+        }
 
         expect(response.status).to eq(403)
       end
@@ -72,10 +76,11 @@ describe 'Mattermost Command Controller', type: :request do
       describe 'add new rule' do
 
         it 'should add a new rule correctly' do
-          post "/chat-integration/mattermost/command.json",
+          post "/chat-integration/mattermost/command.json", params: {
             text: "watch #{category.slug}",
             channel_name: 'welcome',
             token: token
+          }
 
           json = JSON.parse(response.body)
 
@@ -90,10 +95,11 @@ describe 'Mattermost Command Controller', type: :request do
 
         context 'from an unknown channel' do
           it 'creates the channel' do
-            post "/chat-integration/mattermost/command.json",
-            text: "watch #{category.slug}",
-            channel_name: 'general',
-            token: token
+            post "/chat-integration/mattermost/command.json", params: {
+              text: "watch #{category.slug}",
+              channel_name: 'general',
+              token: token
+            }
 
             json = JSON.parse(response.body)
 

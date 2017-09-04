@@ -38,7 +38,9 @@ describe 'Slack Command Controller', type: :request do
         token = 'sometoken'
         SiteSetting.chat_integration_slack_incoming_webhook_token = token
 
-        post '/chat-integration/slack/command.json', text: 'help', token: token
+        post '/chat-integration/slack/command.json', params: {
+          text: 'help', token: token
+        }
 
         expect(response.status).to eq(200)
       end
@@ -46,14 +48,16 @@ describe 'Slack Command Controller', type: :request do
 
     describe 'when the token is invalid' do
       it 'should raise the right error' do
-        expect { post '/chat-integration/slack/command.json', text: 'help' }
+        expect { post '/chat-integration/slack/command.json', params: { text: 'help' } }
           .to raise_error(ActionController::ParameterMissing)
       end
     end
 
     describe 'when incoming webhook token has not been set' do
       it 'should raise the right error' do
-        post '/chat-integration/slack/command.json', text: 'help', token: 'some token'
+        post '/chat-integration/slack/command.json', params: {
+          text: 'help', token: 'some token'
+        }
 
         expect(response.status).to eq(403)
       end
@@ -72,10 +76,11 @@ describe 'Slack Command Controller', type: :request do
       describe 'add new rule' do
 
         it 'should add a new rule correctly' do
-          post "/chat-integration/slack/command.json",
+          post "/chat-integration/slack/command.json", params: {
             text: "watch #{category.slug}",
             channel_name: 'welcome',
             token: token
+          }
 
           json = JSON.parse(response.body)
 
@@ -90,10 +95,11 @@ describe 'Slack Command Controller', type: :request do
 
         context 'from an unknown channel' do
           it 'creates the channel' do
-            post "/chat-integration/slack/command.json",
-            text: "watch #{category.slug}",
-            channel_name: 'general',
-            token: token
+            post "/chat-integration/slack/command.json", params: {
+              text: "watch #{category.slug}",
+              channel_name: 'general',
+              token: token
+            }
 
             json = JSON.parse(response.body)
 
@@ -180,22 +186,24 @@ describe 'Slack Command Controller', type: :request do
           end
 
           it 'generates the transcript UI properly' do
-            post "/chat-integration/slack/command.json",
+            post "/chat-integration/slack/command.json", params: {
               text: "post",
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
+            }
 
             json = JSON.parse(response.body)
             expect(json["attachments"].length).to eq(2)
           end
 
           it 'can select by url' do
-            post "/chat-integration/slack/command.json",
+            post "/chat-integration/slack/command.json", params: {
               text: "post https://sometestslack.slack.com/archives/C6029G78F/p1501801629052212",
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
+            }
 
             json = JSON.parse(response.body)
             expect(json["attachments"].length).to eq(2)
@@ -203,11 +211,12 @@ describe 'Slack Command Controller', type: :request do
           end
 
           it 'can select by count' do
-            post "/chat-integration/slack/command.json",
+            post "/chat-integration/slack/command.json", params: {
               text: "post 4",
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
+            }
 
             json = JSON.parse(response.body)
             expect(json["attachments"].length).to eq(2)
@@ -215,11 +224,12 @@ describe 'Slack Command Controller', type: :request do
           end
 
           it 'can auto select' do
-            post "/chat-integration/slack/command.json",
+            post "/chat-integration/slack/command.json", params: {
               text: "post",
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
+            }
 
             json = JSON.parse(response.body)
             expect(json["attachments"].length).to eq(2)
@@ -230,11 +240,12 @@ describe 'Slack Command Controller', type: :request do
         it 'deals with failed API calls correctly' do
           stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(status: 403)
 
-          post "/chat-integration/slack/command.json",
+          post "/chat-integration/slack/command.json", params: {
             text: "post 2",
             channel_name: 'general',
             channel_id: 'C6029G78F',
             token: token
+          }
 
           json = JSON.parse(response.body)
 
@@ -244,11 +255,12 @@ describe 'Slack Command Controller', type: :request do
         it 'errors correctly if there is no api key' do
           SiteSetting.chat_integration_slack_access_token = ''
 
-          post "/chat-integration/slack/command.json",
+          post "/chat-integration/slack/command.json", params: {
             text: "post 2",
             channel_name: 'general',
             channel_id: 'C6029G78F',
             token: token
+          }
 
           json = JSON.parse(response.body)
 
