@@ -4,17 +4,19 @@ module Jobs
       # Check if slack plugin is installed by testing if the sitesetting exists
       slack_installed = defined? DiscourseSlack
 
-      already_setup_rules = DiscourseChat::Channel.with_provider('slack').exists?
+      if slack_installed
+        already_setup_rules = DiscourseChat::Channel.with_provider('slack').exists?
 
-      already_setup_sitesettings =
-        SiteSetting.chat_integration_slack_enabled ||
-        !SiteSetting.chat_integration_slack_access_token.blank? ||
-        !SiteSetting.chat_integration_slack_incoming_webhook_token.blank? ||
-        !SiteSetting.chat_integration_slack_outbound_webhook_url.blank?
+        already_setup_sitesettings =
+          SiteSetting.chat_integration_slack_enabled ||
+          !SiteSetting.chat_integration_slack_access_token.blank? ||
+          !SiteSetting.chat_integration_slack_incoming_webhook_token.blank? ||
+          !SiteSetting.chat_integration_slack_outbound_webhook_url.blank?
 
-      if !already_setup_rules && !already_setup_sitesettings
-        migrate_settings()
-        migrate_data()
+        if !already_setup_rules && !already_setup_sitesettings
+          migrate_settings()
+          migrate_data()
+        end
       end
 
     end
