@@ -53,7 +53,8 @@ module DiscourseChat::Provider::SlackProvider
       text: excerpt(post),
       mrkdwn_in: ["text"],
       title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
-      title_link: post.full_url
+      title_link: post.full_url,
+      thumb_url: post.full_url
     }
 
     message[:attachments].push(summary)

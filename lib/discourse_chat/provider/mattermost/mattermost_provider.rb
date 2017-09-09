@@ -65,7 +65,6 @@ module DiscourseChat
           text: post.excerpt(SiteSetting.chat_integration_mattermost_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
           title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
           title_link: post.full_url,
-          thumb_url: post.full_url,
         }
 
         message[:attachments].push(summary)
