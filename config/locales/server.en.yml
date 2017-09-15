@@ -137,6 +137,7 @@ en:
           posted_in: "posted in %{name}"
           change_first_message: "Change first message..."
           change_last_message: "Change last message..."
+          loading: "Loading the transcript..."
 
       #######################################
       ########## TELEGRAM STRINGS ###########

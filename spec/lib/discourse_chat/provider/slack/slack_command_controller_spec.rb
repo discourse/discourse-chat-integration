@@ -180,50 +180,63 @@ describe 'Slack Command Controller', type: :request do
           end
 
           it 'generates the transcript UI properly' do
+            command_stub = stub_request(:post, "https://slack.com/commands/1234")
+              .with(body: /attachments/)
+              .to_return(body: { ok: true }.to_json)
+
             post "/chat-integration/slack/command.json",
               text: "post",
+              response_url: 'https://hooks.slack.com/commands/1234',
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
 
-            json = JSON.parse(response.body)
-            expect(json["attachments"].length).to eq(2)
+            expect(command_stub).to have_been_requested
           end
 
           it 'can select by url' do
+            command_stub = stub_request(:post, "https://slack.com/commands/1234")
+              .with(body: /1501801629\.052212/)
+              .to_return(body: { ok: true }.to_json)
+
             post "/chat-integration/slack/command.json",
               text: "post https://sometestslack.slack.com/archives/C6029G78F/p1501801629052212",
+              response_url: 'https://hooks.slack.com/commands/1234',
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
 
-            json = JSON.parse(response.body)
-            expect(json["attachments"].length).to eq(2)
-            expect(json["attachments"][0]["ts"]).to eq("1501801629.052212")
+            expect(command_stub).to have_been_requested
           end
 
           it 'can select by count' do
+            command_stub = stub_request(:post, "https://slack.com/commands/1234")
+              .with(body: /1501801629\.052212/)
+              .to_return(body: { ok: true }.to_json)
+
             post "/chat-integration/slack/command.json",
               text: "post 4",
+              response_url: 'https://hooks.slack.com/commands/1234',
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
 
-            json = JSON.parse(response.body)
-            expect(json["attachments"].length).to eq(2)
-            expect(json["attachments"][0]["ts"]).to eq("1501801629.052212")
+            expect(command_stub).to have_been_requested
           end
 
           it 'can auto select' do
+            command_stub = stub_request(:post, "https://slack.com/commands/1234")
+              .with(body: /1501615820\.949638/)
+              .to_return(body: { ok: true }.to_json)
+
             post "/chat-integration/slack/command.json",
               text: "post",
+              response_url: 'https://hooks.slack.com/commands/1234',
               channel_name: 'general',
               channel_id: 'C6029G78F',
               token: token
 
-            json = JSON.parse(response.body)
-            expect(json["attachments"].length).to eq(2)
-            expect(json["attachments"][0]["ts"]).to eq("1501615820.949638")
+            expect(command_stub).to have_been_requested
           end
         end
 
@@ -232,6 +245,7 @@ describe 'Slack Command Controller', type: :request do
 
           post "/chat-integration/slack/command.json",
             text: "post 2",
+            response_url: 'https://hooks.slack.com/commands/1234',
             channel_name: 'general',
             channel_id: 'C6029G78F',
             token: token
@@ -246,6 +260,7 @@ describe 'Slack Command Controller', type: :request do
 
           post "/chat-integration/slack/command.json",
             text: "post 2",
+            response_url: 'https://hooks.slack.com/commands/1234',
             channel_name: 'general',
             channel_id: 'C6029G78F',
             token: token
