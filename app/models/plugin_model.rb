@@ -3,6 +3,7 @@ class DiscourseChat::PluginModel < PluginStoreRow
   KEY_PREFIX = 'unimplemented'
 
   after_initialize :init_plugin_model
+  default_scope { self.default_scope }
 
   def init_plugin_model
     self.type_name ||= 'JSON'
@@ -13,11 +14,13 @@ class DiscourseChat::PluginModel < PluginStoreRow
   def self.default_scope
     where(type_name: 'JSON')
       .where(plugin_name: self::PLUGIN_NAME)
-      .where("key like?", "#{self::KEY_PREFIX}%")
+      .where("key LIKE ?", "#{self::KEY_PREFIX}%")
   end
 
   before_save :set_key
+
   private
+
     def set_key
       self.key ||= self.class.alloc_key
     end

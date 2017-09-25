@@ -36,7 +36,10 @@ describe 'Telegram Command Controller', type: :request do
     describe 'when forum is private' do
       it 'should not redirect to login page' do
         SiteSetting.login_required = true
-        post '/chat-integration/telegram/command/shhh.json', message: { chat: { id: 123 }, text: '/help' }
+
+        post '/chat-integration/telegram/command/shhh.json', params: {
+          message: { chat: { id: 123 }, text: '/help' }
+        }
 
         expect(response.status).to eq(200)
       end
@@ -44,7 +47,10 @@ describe 'Telegram Command Controller', type: :request do
 
     describe 'when the token is invalid' do
       it 'should raise the right error' do
-        post '/chat-integration/telegram/command/blah.json', message: { chat: { id: 123 }, text: '/help' }
+        post '/chat-integration/telegram/command/blah.json', params: {
+           message: { chat: { id: 123 }, text: '/help' }
+        }
+
         expect(response.status).to eq(403)
       end
     end
@@ -52,7 +58,9 @@ describe 'Telegram Command Controller', type: :request do
     describe 'when token has not been set' do
       it 'should raise the right error' do
         SiteSetting.chat_integration_telegram_access_token = ""
-        post '/chat-integration/telegram/command/blah.json', message: { chat: { id: 123 }, text: '/help' }
+        post '/chat-integration/telegram/command/blah.json', params: {
+           message: { chat: { id: 123 }, text: '/help' }
+        }
 
         expect(response.status).to eq(403)
       end
@@ -68,7 +76,9 @@ describe 'Telegram Command Controller', type: :request do
       describe 'add new rule' do
 
         it 'should add a new rule correctly' do
-          post '/chat-integration/telegram/command/shhh.json', message: { chat: { id: 123 }, text: "/watch #{category.slug}" }
+          post '/chat-integration/telegram/command/shhh.json', params: {
+            message: { chat: { id: 123 }, text: "/watch #{category.slug}" }
+          }
 
           expect(response.status).to eq(200)
           expect(stub).to have_been_requested.once
@@ -81,7 +91,9 @@ describe 'Telegram Command Controller', type: :request do
         end
 
         it 'should add a new rule correctly using group chat syntax' do
-          post '/chat-integration/telegram/command/shhh.json', message: { chat: { id: 123 }, text: "/watch@my-awesome-bot #{category.slug}" }
+          post '/chat-integration/telegram/command/shhh.json', params: {
+            message: { chat: { id: 123 }, text: "/watch@my-awesome-bot #{category.slug}" }
+          }
 
           expect(response.status).to eq(200)
           expect(stub).to have_been_requested.once
@@ -95,7 +107,10 @@ describe 'Telegram Command Controller', type: :request do
 
         context 'from an unknown channel' do
           it 'does nothing' do
-            post '/chat-integration/telegram/command/shhh.json', message: { chat: { id: 456 }, text: "/watch #{category.slug}" }
+            post '/chat-integration/telegram/command/shhh.json', params: {
+              message: { chat: { id: 456 }, text: "/watch #{category.slug}" }
+            }
+
             expect(DiscourseChat::Rule.all.size).to eq(0)
             expect(DiscourseChat::Channel.all.size).to eq(1)
           end
@@ -103,12 +118,16 @@ describe 'Telegram Command Controller', type: :request do
       end
 
       it "should respond only to a specific command in a broadcast channel" do
-        post '/chat-integration/telegram/command/shhh.json', channel_post: { chat: { id: 123 }, text: "something" }
+        post '/chat-integration/telegram/command/shhh.json', params: {
+          channel_post: { chat: { id: 123 }, text: "something" }
+        }
 
         expect(response.status).to eq(200)
         expect(stub).to have_been_requested.times(0)
 
-        post '/chat-integration/telegram/command/shhh.json', channel_post: { chat: { id: 123 }, text: "/getchatid" }
+        post '/chat-integration/telegram/command/shhh.json', params: {
+          channel_post: { chat: { id: 123 }, text: "/getchatid" }
+        }
 
         expect(response.status).to eq(200)
         expect(stub).to have_been_requested.times(1)
