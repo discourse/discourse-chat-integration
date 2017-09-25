@@ -142,7 +142,7 @@ module DiscourseChat
     #     :created if a new rule has been created
     #     false if there was an error
     def self.smart_create_rule(channel:, filter:, category_id: nil, tags: nil)
-      existing_rules = DiscourseChat::Rule.with_channel(channel)
+      existing_rules = DiscourseChat::Rule.with_channel(channel).with_type('normal')
 
       # Select the ones that have the same category
       same_category = existing_rules.select { |rule| rule.category_id == category_id }

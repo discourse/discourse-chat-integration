@@ -40,54 +40,63 @@ module DiscourseChat::Provider::SlackProvider
       channel ||= DiscourseChat::Channel.create!(provider: provider, data: { identifier: channel_id })
 
       if tokens[0] == 'post'
-        return process_post_request(channel, tokens, params[:channel_id], channel_id)
+        return process_post_request(channel, tokens, params[:channel_id], channel_id, params[:response_url])
       end
 
       return { text: ::DiscourseChat::Helper.process_command(channel, tokens) }
 
     end
 
-    def process_post_request(channel, tokens, slack_channel_id, channel_name)
+    def process_post_request(channel, tokens, slack_channel_id, channel_name, response_url)
       if SiteSetting.chat_integration_slack_access_token.empty?
         return { text: I18n.t("chat_integration.provider.slack.transcript.api_required") }
       end
 
-      requested_messages = nil
-      first_message_ts = nil
+      Scheduler::Defer.later "Processing slack transcript request" do
+        requested_messages = nil
+        first_message_ts = nil
 
-      slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
-      if tokens.size > 1 && match = slack_url_regex.match(tokens[1])
-        first_message_ts = match.captures[0].insert(10, '.')
-      elsif tokens.size > 1
-        begin
-          requested_messages = Integer(tokens[1], 10)
-        rescue ArgumentError
-          return { text: I18n.t("chat_integration.provider.slack.parse_error") }
+        slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
+        if tokens.size > 1 && match = slack_url_regex.match(tokens[1])
+          first_message_ts = match.captures[0].insert(10, '.')
+        elsif tokens.size > 1
+          begin
+            requested_messages = Integer(tokens[1], 10)
+          rescue ArgumentError
+            return { text: I18n.t("chat_integration.provider.slack.parse_error") }
+          end
         end
+
+        error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
+
+        return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id)
+        return error_message unless transcript.load_user_data
+        return error_message unless transcript.load_chat_history
+
+        if first_message_ts
+          return error_message unless transcript.set_first_message_by_ts(first_message_ts)
+        elsif requested_messages
+          transcript.set_first_message_by_index(-requested_messages)
+        else
+          transcript.set_first_message_by_index(-10) unless transcript.guess_first_message
+        end
+
+        http = Net::HTTP.new("slack.com", 443)
+        http.use_ssl = true
+        req = Net::HTTP::Post.new(URI(response_url), 'Content-Type' => 'application/json')
+        req.body = transcript.build_slack_ui.to_json
+        response = http.request(req)
       end
 
-      error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
-
-      return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id)
-      return error_message unless transcript.load_user_data
-      return error_message unless transcript.load_chat_history
-
-      if first_message_ts
-        return error_message unless transcript.set_first_message_by_ts(first_message_ts)
-      elsif requested_messages
-        transcript.set_first_message_by_index(-requested_messages)
-      else
-        transcript.set_first_message_by_index(-10) unless transcript.guess_first_message
-      end
-
-      return transcript.build_slack_ui
+      return { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
 
     end
 
     def interactive
       json = JSON.parse(params[:payload], symbolize_names: true)
+      process_interactive(json)
 
-      render json: process_interactive(json)
+      render nothing: true, status: 200
     end
 
     def process_interactive(json)
@@ -101,14 +110,20 @@ module DiscourseChat::Provider::SlackProvider
 
       error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-      return error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
-      return error_message unless transcript.load_user_data
-      return error_message unless transcript.load_chat_history
+      Scheduler::Defer.later "Processing slack transcript update" do
+        return error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
+        return error_message unless transcript.load_user_data
+        return error_message unless transcript.load_chat_history
 
-      return error_message unless transcript.set_first_message_by_ts(first_message)
-      return error_message unless transcript.set_last_message_by_ts(last_message)
+        return error_message unless transcript.set_first_message_by_ts(first_message)
+        return error_message unless transcript.set_last_message_by_ts(last_message)
 
-      return transcript.build_slack_ui
+        http = Net::HTTP.new("slack.com", 443)
+        http.use_ssl = true
+        req = Net::HTTP::Post.new(URI(json[:response_url]), 'Content-Type' => 'application/json')
+        req.body = transcript.build_slack_ui.to_json
+        response = http.request(req)
+      end
     end
 
     def slack_token_valid?
