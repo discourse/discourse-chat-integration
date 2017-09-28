@@ -2,20 +2,25 @@ module Jobs
   class DiscourseChatMigrateFromSlackOfficial < Jobs::Onceoff
     def execute_onceoff(args)
       # Check if slack plugin is installed by testing if the sitesetting exists
-      slack_installed = defined? DiscourseSlack
+      slack_installed = defined?(DiscourseSlack)
 
       if slack_installed
         already_setup_rules = DiscourseChat::Channel.with_provider('slack').exists?
 
         already_setup_sitesettings =
           SiteSetting.chat_integration_slack_enabled ||
-          !SiteSetting.chat_integration_slack_access_token.blank? ||
-          !SiteSetting.chat_integration_slack_incoming_webhook_token.blank? ||
-          !SiteSetting.chat_integration_slack_outbound_webhook_url.blank?
+          SiteSetting.chat_integration_slack_access_token.present? ||
+          SiteSetting.chat_integration_slack_incoming_webhook_token.present? ||
+          SiteSetting.chat_integration_slack_outbound_webhook_url.present?
 
         if !already_setup_rules && !already_setup_sitesettings
-          migrate_settings()
-          migrate_data()
+          ActiveRecord::Base.transaction do
+            migrate_settings
+            migrate_data
+            SiteSetting.slack_enabled = false
+            SiteSetting.chat_integration_slack_enabled = true
+            SiteSetting.chat_integration_enabled = true
+          end
         end
       end
 
