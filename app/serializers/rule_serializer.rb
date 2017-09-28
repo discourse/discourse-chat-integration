@@ -3,11 +3,10 @@ class DiscourseChat::RuleSerializer < ApplicationSerializer
 
   def group_name
     if object.group_id
-      groups = Group.where(id: object.group_id)
-      if groups.exists?
-        return groups.first.name
+      if group = Group.find_by(id: object.group_id)
+        group.name
       else
-        return I18n.t("chat_integration.deleted_group")
+        I18n.t("chat_integration.deleted_group")
       end
     end
   end

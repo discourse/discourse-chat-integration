@@ -2,13 +2,10 @@ class DiscourseChat::PluginModel < PluginStoreRow
   PLUGIN_NAME = 'discourse-chat-integration'
   KEY_PREFIX = 'unimplemented'
 
-  after_initialize :init_plugin_model
   default_scope { self.default_scope }
 
-  def init_plugin_model
-    self.type_name ||= 'JSON'
-    self.plugin_name ||= PLUGIN_NAME
-  end
+  after_initialize :init_plugin_model
+  before_save :set_key
 
   # Restrict the scope to JSON PluginStoreRows which are for this plugin, and this model
   def self.default_scope
@@ -17,12 +14,15 @@ class DiscourseChat::PluginModel < PluginStoreRow
       .where("key LIKE ?", "#{self::KEY_PREFIX}%")
   end
 
-  before_save :set_key
-
   private
 
     def set_key
       self.key ||= self.class.alloc_key
+    end
+
+    def init_plugin_model
+      self.type_name ||= 'JSON'
+      self.plugin_name ||= PLUGIN_NAME
     end
 
     def self.alloc_key
