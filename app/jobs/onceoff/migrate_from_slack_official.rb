@@ -43,11 +43,14 @@ module Jobs
               row.key.to_i
             end
 
+          valid_tags = []
+          valid_tags = Tag.where(name: rule[:tags]).pluck(:name) if rule[:tags]
+
           rows << {
             category_id: category_id,
             channel: rule[:channel],
             filter: rule[:filter],
-            tags: rule[:tags]
+            tags: valid_tags
           }
         end
       end
