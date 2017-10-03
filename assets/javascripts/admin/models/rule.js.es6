@@ -1,6 +1,6 @@
 import RestModel from 'discourse/models/rest';
 import Category from 'discourse/models/category';
-import computed from "ember-addons/ember-computed-decorators";
+import { default as computed, observes } from "ember-addons/ember-computed-decorators";
 
 export default RestModel.extend({
   available_filters: [
@@ -22,21 +22,22 @@ export default RestModel.extend({
   type: 'normal',
   error_key: null,
 
+  @observes('type')
+  removeUnneededInfo() {
+    const type = this.get('type');
 
-  removeUnneededInfo: function(){
-    const type=this.get('type');
-    if(type==='normal'){
+    if (type === 'normal') {
       this.set('group_id', null);
-    }else{
+    } else {
       this.set('category_id', null);
     }
-  }.observes('type'),
+  },
 
   @computed('category_id')
   category(categoryId) {
     if (categoryId){
       return Category.findById(categoryId);
-    }else {
+    } else {
       return false;
     }
   },
@@ -47,13 +48,10 @@ export default RestModel.extend({
   },
 
   updateProperties() {
-    var prop_names = ['type','category_id','group_id','tags','filter'];
-    return this.getProperties(prop_names);
+    return this.getProperties(['type','category_id','group_id','tags','filter']);
   },
 
   createProperties() {
-    var prop_names = ['type','channel_id', 'category_id','group_id','tags','filter'];
-    return this.getProperties(prop_names);
+    return this.getProperties(['type','channel_id', 'category_id','group_id','tags','filter']);
   }
-
 });

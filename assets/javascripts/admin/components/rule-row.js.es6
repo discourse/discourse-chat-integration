@@ -1,32 +1,37 @@
 import { popupAjaxError } from 'discourse/lib/ajax-error';
+import computed from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
   tagName: 'tr',
 
-  isCategory: function(){
-    return this.get('rule.type') === 'normal';
-  }.property('rule.type'),
+  @computed('rule.type')
+  isCategory(type) {
+    return type === 'normal';
+  },
 
-  isMessage: function(){
-    return this.get('rule.type') === 'group_message';
-  }.property('rule.type'),
+  @computed('rule.type')
+  isMessage(type) {
+    return type === 'group_message';
+  },
 
-  isMention: function(){
-    return this.get('rule.type') === 'group_mention';
-  }.property('rule.type'),
+  @computed('rule.type')
+  isMention(type) {
+    return type === 'group_mention';
+  },
 
   actions: {
-    edit: function(){
+    edit() {
       this.sendAction('edit', this.get('rule'));
     },
-    delete(rule){
+
+    delete(rule) {
       rule.destroyRecord().then(() => {
         this.send('refresh');
       }).catch(popupAjaxError);
     },
-    refresh: function(){
+
+    refresh() {
       this.sendAction('refresh');
     }
-
   }
 });

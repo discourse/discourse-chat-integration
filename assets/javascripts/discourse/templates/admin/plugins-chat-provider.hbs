@@ -1,27 +1,29 @@
-
-  {{#if anyErrors}}
-    <div class="error">
-      <i class="fa fa-exclamation-triangle"></i>
-      <span class="error-message">{{i18n "chat_integration.channels_with_errors"}}</span>
-    </div>
-  {{/if}}
-
-  {{# each model.channels as |channel|}}
-    {{channel-details 
-        channel=channel 
-        provider=model.provider 
-        store=store 
-        refresh='refresh' 
-        edit='editChannel' 
-        test='testChannel' 
-        createRule='createRule'
-        editRule='editRule'
-        }}
-    
-  {{/each}}
-  
-  <div class="table-footer">
-    <div class="pull-right">
-       {{d-button id="create_channel" action="createChannel" actionParam=model.provider icon="plus" title="chat_integration.create_channel" label="chat_integration.create_channel"}}
-    </div>
+{{#if anyErrors}}
+  <div class="error">
+    <i class="fa fa-exclamation-triangle"></i>
+    <span class="error-message">{{i18n "chat_integration.channels_with_errors"}}</span>
   </div>
+{{/if}}
+
+{{#each model.channels as |channel|}}
+  {{channel-details
+      channel=channel
+      provider=model.provider
+      store=store
+      refresh='refresh'
+      edit='editChannel'
+      test='testChannel'
+      createRule='createRule'
+      editRule='editRule'}}
+{{/each}}
+
+<div class="table-footer">
+  <div class="pull-right">
+     {{d-button id="create-channel"
+        action="createChannel"
+        actionParam=model.provider
+        icon="plus"
+        title="chat_integration.create_channel"
+        label="chat_integration.create_channel"}}
+  </div>
+</div>

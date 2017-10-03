@@ -10,41 +10,49 @@ acceptance("Chat Integration", {
         object
       ];
     };
+
     server.get('/admin/plugins/chat/providers', () => { // eslint-disable-line no-undef
       return response({ providers: [{name: 'dummy', id:'dummy',channel_parameters:[{key:'somekey', regex:"^\\S+$"}]}] });
     });
+
     server.get('/admin/plugins/chat/channels', () => { // eslint-disable-line no-undef
       return response({"channels":[{"id":97,"provider":"dummy","data":{somekey:"#general"},"rules":[
         {"id":98,"channel_id":97,"category_id":null,"team_id":null,"type":"normal","tags":[],"filter":"watch","error_key":null}
         ]}]});
     });
+
     server.post('/admin/plugins/chat/channels', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.put('/admin/plugins/chat/channels/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.delete('/admin/plugins/chat/channels/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.post('/admin/plugins/chat/rules', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.put('/admin/plugins/chat/rules/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.delete('/admin/plugins/chat/rules/:id', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.post('/admin/plugins/chat/test', () => { // eslint-disable-line no-undef
       return response({ });
     });
+
     server.get('/groups/search.json', () => { // eslint-disable-line no-undef
       return response([]);
     });
-
   }
-
 });
 
 test("Rules load successfully", assert => {
@@ -60,21 +68,21 @@ test("Create channel works", assert => {
   visit("/admin/plugins/chat");
 
   andThen(() => {
-    click('#create_channel');
+    click('#create-channel');
   });
 
   andThen(() => {
     assert.ok(exists('#chat_integration_edit_channel_modal'), 'it displays the modal');
-    assert.ok(find('#save_channel').prop('disabled'), 'it disables the save button');
+    assert.ok(find('#save-channel').prop('disabled'), 'it disables the save button');
     fillIn('#chat_integration_edit_channel_modal input', '#general');
   });
 
   andThen(() => {
-    assert.ok(find('#save_channel').prop('disabled') === false, 'it enables the save button');
+    assert.ok(find('#save-channel').prop('disabled') === false, 'it enables the save button');
   });
 
   andThen(() => {
-    click('#save_channel');
+    click('#save-channel');
   });
 
   andThen(() => {
@@ -92,12 +100,12 @@ test("Edit channel works", assert => {
 
   andThen(() => {
     assert.ok(exists('#chat_integration_edit_channel_modal'), 'it displays the modal');
-    assert.ok(!find('#save_channel').prop('disabled'), 'save is enabled');
+    assert.ok(!find('#save-channel').prop('disabled'), 'save is enabled');
     fillIn('#chat_integration_edit_channel_modal input', ' general');
   });
 
   andThen(() => {
-    assert.ok(find('#save_channel').prop('disabled'), 'it disables the save button');
+    assert.ok(find('#save-channel').prop('disabled'), 'it disables the save button');
   });
 
   andThen(() => {
@@ -125,10 +133,10 @@ test("Create rule works", assert => {
 
   andThen(() => {
     assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
-    assert.ok(find('#save_rule').prop('disabled') === false, 'save is enabled');
+    assert.ok(find('#save-rule').prop('disabled') === false, 'save is enabled');
   });
 
-  click('#save_rule');
+  click('#save-rule');
 
   andThen(() => {
     assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');
@@ -146,10 +154,10 @@ test("Edit rule works", assert => {
 
   andThen(() => {
     assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
-    assert.ok(find('#save_rule').prop('disabled') === false, 'it enables the save button');
+    assert.ok(find('#save-rule').prop('disabled') === false, 'it enables the save button');
   });
 
-  click('#save_rule');
+  click('#save-rule');
 
   andThen(() => {
     assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');

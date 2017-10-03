@@ -1,97 +1,96 @@
-#admin-plugin-chat{
+#admin-plugin-chat {
 
-	table{
-		margin-top:0;
-		td:last-child{
-			white-space:nowrap;
-		}
-		td:not(:last-child){
-			width: 30%;
-		}
-	}
+  table {
+    margin-top:0;
 
-	div.table-footer{
-		margin: 10px;
-	}
+    td:last-child {
+      white-space:nowrap;
+    }
 
-	div.error {
-		font-size: 1.1em;
-		font-weight:bold;
-		max-width: 100%;
+    td:not(:last-child) {
+      width: 30%;
+    }
+  }
+
+  div.table-footer {
+    margin: 10px;
+  }
+
+  div.error {
+    font-size: 1.1em;
+    font-weight:bold;
+    max-width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: $danger-low;
     padding: 15px;
   }
 
-  div.channel-details{
-  	margin: 20px 10px;
-  	
-  	border: 1px solid $primary-low;
+  div.channel-details {
+    margin: 20px 10px;
+    border: 1px solid $primary-low;
 
-  	div.channel-header{
-			background: $primary-low;
-			padding: 10px;
-			overflow:auto;
+    div.channel-header {
+      background: $primary-low;
+      padding: 10px;
+      overflow:auto;
 
-			.channel-title{
+      .channel-title {
         font-size: 1.3em;
-        .field-name{
-				  font-weight: bold;
+
+        .field-name {
+          font-weight: bold;
         }
-
-			}
-
-
-  	}
-
-  	div.channel-footer{
-  		overflow:auto;
-  	}
-  }
-
-
-}
-
-#chat_integration_edit_channel_modal, #chat_integration_test_modal, #chat_integration_edit_rule_modal{
-		table{
-			width:100%;
-
-			tr.input td{
-				padding-top: 10px;
-
-				&.label{
-					width: 100px;
-					label{
-						margin-bottom: 0px;
-						font-weight: bold;
-					}
-				}
-			}
-
-			tr.instructions label{
-				color: $primary-medium;
-			}
-
-
-		}
-
-		#channel-field{
-			width: 200px;
-			margin-bottom: 0px;
-			box-shadow: none;
-		}
-		.tag-chooser{
-			ul.select2-choices{
-				border: none;
-				background:none; 
-			}
-			margin-bottom: 0px;
-			margin-top: 0px;
-		}
-
-    .field-name{
-      font-weight: bold;
+      }
     }
 
-	}
+    div.channel-footer {
+      overflow:auto;
+    }
+  }
+}
+
+#chat_integration_edit_channel_modal,
+#chat_integration_test_modal,
+#chat_integration_edit_rule_modal {
+  table {
+    width:100%;
+
+    tr.input td {
+      padding-top: 10px;
+
+      &.label {
+        width: 100px;
+
+        label {
+          margin-bottom: 0px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    tr.instructions label {
+      color: $primary-medium;
+    }
+  }
+
+  #channel-field {
+    width: 200px;
+    margin-bottom: 0px;
+    box-shadow: none;
+  }
+
+  .tag-chooser {
+    ul.select2-choices {
+      border: none;
+      background:none;
+    }
+
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+
+  .field-name {
+    font-weight: bold;
+  }
+}

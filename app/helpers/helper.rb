@@ -33,11 +33,12 @@ module DiscourseChat
           if token.start_with?('tag:')
             tag_name = token.sub(/^tag:/, '')
           else
-            return error_text # Abort and send help text
+            return error_text
           end
 
           tag = Tag.find_by(name: tag_name)
-          unless tag # If tag doesn't exist, abort
+
+          unless tag
             return I18n.t("chat_integration.provider.#{provider}.not_found.tag", name: tag_name)
           end
           tags.push(tag.name)
@@ -46,11 +47,11 @@ module DiscourseChat
         category_id = category.nil? ? nil : category.id
         case DiscourseChat::Helper.smart_create_rule(channel: channel, filter: cmd, category_id: category_id, tags: tags)
         when :created
-          return I18n.t("chat_integration.provider.#{provider}.create.created")
+          I18n.t("chat_integration.provider.#{provider}.create.created")
         when :updated
-          return I18n.t("chat_integration.provider.#{provider}.create.updated")
+          I18n.t("chat_integration.provider.#{provider}.create.updated")
         else
-          return I18n.t("chat_integration.provider.#{provider}.create.error")
+          I18n.t("chat_integration.provider.#{provider}.create.error")
         end
       when "remove"
         return error_text unless tokens.size == 1
@@ -59,16 +60,16 @@ module DiscourseChat
         return error_text unless rule_number.to_s == tokens[0] # Check we were given a number
 
         if DiscourseChat::Helper.delete_by_index(channel, rule_number)
-          return I18n.t("chat_integration.provider.#{provider}.delete.success")
+          I18n.t("chat_integration.provider.#{provider}.delete.success")
         else
-          return I18n.t("chat_integration.provider.#{provider}.delete.error")
+          I18n.t("chat_integration.provider.#{provider}.delete.error")
         end
       when "status"
         return DiscourseChat::Helper.status_for_channel(channel)
       when "help"
-        return I18n.t("chat_integration.provider.#{provider}.help")
+        I18n.t("chat_integration.provider.#{provider}.help")
       else
-        return error_text
+        error_text
       end
     end
 
@@ -105,12 +106,12 @@ module DiscourseChat
         end
 
         text << I18n.t("chat_integration.provider.#{provider}.status.rule_string",
-                          index: i,
-                          filter: rule.filter,
-                          category: category_name
-                      )
+          index: i,
+          filter: rule.filter,
+          category: category_name
+        )
 
-        if SiteSetting.tagging_enabled && (not rule.tags.nil?)
+        if SiteSetting.tagging_enabled && (!rule.tags.nil?)
           text << I18n.t("chat_integration.provider.#{provider}.status.rule_string_tags_suffix", tags: rule.tags.join(', '))
         end
 
@@ -121,16 +122,15 @@ module DiscourseChat
       if rules.size == 0
         text << I18n.t("chat_integration.provider.#{provider}.status.no_rules")
       end
-      return text
+
+      text
     end
 
     # Delete a rule based on its (1 based) index as seen in the
     # status_for_channel function
     def self.delete_by_index(channel, index)
       rules = channel.rules.order_by_precedence
-
       return false if index < (1) || index > (rules.size)
-
       return :deleted if rules[index - 1].destroy
     end
 
@@ -184,17 +184,14 @@ module DiscourseChat
 
       # This rule is unique! Create a new one:
       return :created if Rule.new(channel: channel, filter: filter, category_id: category_id, tags: tags).save
-
-      return false # Error
-
+      false
     end
 
     def self.save_transcript(transcript)
       secret = SecureRandom.hex
-      redis_key = "chat_integration:transcript:" + secret
-      $redis.set(redis_key, transcript,  ex: 3600) # Expire in 1 hour
-
-      return secret
+      redis_key = "chat_integration:transcript:#{secret}"
+      $redis.setex(redis_key, 3600, transcript)
+      secret
     end
 
   end

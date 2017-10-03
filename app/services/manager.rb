@@ -17,8 +17,6 @@ module DiscourseChat
       return if post.blank? || post.post_type != Post.types[:regular]
 
       topic = post.topic
-
-      # Abort if topic is blank... this should never be the case
       return if topic.blank?
 
       # If it's a private message, filter rules by groups, otherwise filter rules by category
@@ -66,7 +64,7 @@ module DiscourseChat
       matching_rules = matching_rules.select { |rule| rule.filter != "mute" }
 
       # If this is not the first post, discard all "follow" rules
-      if not post.is_first_post?
+      if !post.is_first_post?
         matching_rules = matching_rules.select { |rule| rule.filter != "follow" }
       end
 

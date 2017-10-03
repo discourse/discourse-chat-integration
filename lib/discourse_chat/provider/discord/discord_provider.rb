@@ -3,10 +3,11 @@ module DiscourseChat
     module DiscordProvider
       PROVIDER_NAME = "discord".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_discord_enabled
+
       CHANNEL_PARAMETERS = [
-                        { key: "name", regex: '^\S+' },
-                        { key: "webhook_url", regex: '^https:\/\/discordapp\.com\/api\/webhooks\/', unique: true, hidden: true }
-                       ]
+        { key: "name", regex: '^\S+' },
+        { key: "webhook_url", regex: '^https:\/\/discordapp\.com\/api\/webhooks\/', unique: true, hidden: true }
+      ].freeze
 
       def self.send_message(url, message)
         http = Net::HTTP.new("discordapp.com", 443)
@@ -18,12 +19,12 @@ module DiscourseChat
         req.body = message.to_json
         response = http.request(req)
 
-        return response
+        response
       end
 
       def self.ensure_protocol(url)
-        return url if not url.start_with?('//')
-        return 'http:' + url
+        return url if !url.start_with?('//')
+        "http:#{url}"
       end
 
       def self.generate_discord_message(post)
@@ -49,22 +50,20 @@ module DiscourseChat
           }]
         }
 
-        return message
+        message
       end
 
       def self.trigger_notification(post, channel)
         # Adding ?wait=true means that we actually get a success/failure response, rather than returning asynchronously
-        webhook_url = channel.data['webhook_url'] + '?wait=true'
-
+        webhook_url = "#{channel.data['webhook_url']}?wait=true"
         message = generate_discord_message(post)
-
         response = send_message(webhook_url, message)
 
-        if not response.kind_of? Net::HTTPSuccess
-          error_key = nil
-          raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, message: message, response_body: response.body }
+        if !response.kind_of?(Net::HTTPSuccess)
+          raise ::DiscourseChat::ProviderError.new(info: {
+            error_key: nil, message: message, response_body: response.body
+          })
         end
-
       end
 
     end

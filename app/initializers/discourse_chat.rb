@@ -2,12 +2,12 @@ module ::DiscourseChat
   PLUGIN_NAME = "discourse-chat-integration".freeze
 
   class AdminEngine < ::Rails::Engine
-    engine_name DiscourseChat::PLUGIN_NAME + "-admin"
+    engine_name "#{DiscourseChat::PLUGIN_NAME}-admin"
     isolate_namespace DiscourseChat
   end
 
   class PublicEngine < ::Rails::Engine
-    engine_name DiscourseChat::PLUGIN_NAME + "-public"
+    engine_name "#{DiscourseChat::PLUGIN_NAME}-public"
     isolate_namespace DiscourseChat
   end
 

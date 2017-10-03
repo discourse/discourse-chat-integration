@@ -17,17 +17,18 @@ export default Discourse.Route.extend({
           return rule;
         }));
       });
+
       return value;
     });
   },
 
-  serialize: function(model) {
-    return { provider: model['provider'].get('id')};
+  serialize(model) {
+    return { provider: model['provider'].get('id') };
   },
 
   actions: {
-    closeModal: function(){
-      if(this.get('controller.modalShowing')){
+    closeModal() {
+      if (this.get('controller.modalShowing')) {
         this.refresh();
         this.set('controller.modalShowing', false);
       }
@@ -35,9 +36,8 @@ export default Discourse.Route.extend({
       return true; // Continue bubbling up, so the modal actually closes
     },
 
-    refresh: function(){
+    refresh() {
       this.refresh();
     }
-
   }
 });

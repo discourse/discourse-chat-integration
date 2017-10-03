@@ -1,5 +1,3 @@
 import buildPluginAdapter from 'admin/adapters/build-plugin';
 
-export default buildPluginAdapter('chat').extend({
-
-});
+export default buildPluginAdapter('chat');

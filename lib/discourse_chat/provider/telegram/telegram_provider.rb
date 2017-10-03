@@ -18,7 +18,7 @@ module DiscourseChat
 
         response = self.do_api_request('setWebhook', message)
 
-        if not response['ok'] == true
+        if response['ok'] != true
           # If setting up webhook failed, disable provider
           SiteSetting.chat_integration_telegram_enabled = false
           Rails.logger.error("Failed to setup telegram webhook. Message data= " + message.to_json + " response=" + response.to_json)
@@ -89,7 +89,7 @@ module DiscourseChat
 
         response = sendMessage(message)
 
-        if not response['ok'] == true
+        if response['ok'] != true
           error_key = nil
           if response['description'].include? 'chat not found'
             error_key = 'chat_integration.provider.telegram.errors.channel_not_found'

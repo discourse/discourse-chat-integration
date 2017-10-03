@@ -53,7 +53,7 @@ module DiscourseChat
 
         response = send_message(message)
 
-        if not response.kind_of? Net::HTTPSuccess
+        if !response.kind_of?(Net::HTTPSuccess)
           error_key = nil
           error_key = 'chat_integration.provider.zulip.errors.does_not_exist' if response.body.include?('does not exist')
           raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, message: message, response_code: response.code, response_body: response.body }

@@ -3,10 +3,10 @@
     <form {{action "save" on="submit"}}>
       <table>
 
-      	<tr class="input">
+        <tr class="input">
           <td class="label"><label for='provider'>{{i18n "chat_integration.edit_rule_modal.provider"}}</label></td>
           <td>
-          	{{i18n (concat 'chat_integration.provider.' model.channel.provider '.title')}}
+            {{i18n (concat 'chat_integration.provider.' model.channel.provider '.title')}}
           </td>
         </tr>
         <tr class="instructions">
@@ -57,7 +57,7 @@
                 rootNoneLabel="chat_integration.all_categories"
                 rootNone=true
                 overrideWidths=false
-                }} 
+                }}
             </td>
           </tr>
           <tr class="instructions">
@@ -95,13 +95,19 @@
       </table>
 
     </form>
-  </div>	
+  </div>
 {{/d-modal-body}}
 
 <div class="modal-footer">
+  {{d-button id="save-rule"
+      class='btn-primary btn-large'
+      action="save"
+      title="chat_integration.edit_rule_modal.save"
+      label="chat_integration.edit_rule_modal.save"
+      disabled=saveDisabled}}
 
-	{{d-button id="save_rule" class='btn-primary btn-large' action="save" title="chat_integration.edit_rule_modal.save" label="chat_integration.edit_rule_modal.save" disabled=saveDisabled}}
-
-	{{d-button class="btn-large" action="cancel" title="chat_integration.edit_rule_modal.cancel" label="chat_integration.edit_rule_modal.cancel"}}
-
+  {{d-button class="btn-large"
+      action="cancel"
+      title="chat_integration.edit_rule_modal.cancel"
+      label="chat_integration.edit_rule_modal.cancel"}}
 </div>

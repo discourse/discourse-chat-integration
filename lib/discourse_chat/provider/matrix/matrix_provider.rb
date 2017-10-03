@@ -59,7 +59,7 @@ module DiscourseChat
 
         response = send_message(channel.data['room_id'], message)
 
-        if not response.kind_of? Net::HTTPSuccess
+        if !response.kind_of?(Net::HTTPSuccess)
           error_key = nil
           begin
             responseData = JSON.parse(response.body)

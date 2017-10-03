@@ -1,9 +1,9 @@
 module Jobs
   class NotifyChats < Jobs::Base
-    sidekiq_options retry: false # Don't retry, could result in duplicate notifications for some providers
-    def execute(args)
-      return if not SiteSetting.chat_integration_enabled? # Plugin may have been disabled since job triggered
+    sidekiq_options retry: false
 
+    def execute(args)
+      return if !SiteSetting.chat_integration_enabled?
       ::DiscourseChat::Manager.trigger_notifications(args[:post_id])
     end
   end

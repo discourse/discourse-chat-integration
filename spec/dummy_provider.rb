@@ -13,6 +13,7 @@ RSpec.shared_context "dummy provider" do
         if @@raise_exception
           raise @@raise_exception
         end
+
         @@sent_messages.push(post: post.id, channel: channel)
       end
 

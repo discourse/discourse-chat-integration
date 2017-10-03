@@ -29,10 +29,8 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
     end
 
     def provider_valid?
-      # Validate provider
-      if not ::DiscourseChat::Provider.provider_names.include? provider
+      if !DiscourseChat::Provider.provider_names.include?(provider)
         errors.add(:provider, "#{provider} is not a valid provider")
-        return
       end
     end
 
@@ -66,6 +64,5 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
       if check_unique && matching_channels.exists?
         errors.add(:data, "matches an existing channel")
       end
-
     end
 end

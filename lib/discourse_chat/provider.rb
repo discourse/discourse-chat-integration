@@ -22,11 +22,11 @@ module DiscourseChat
     end
 
     def self.provider_names
-      self.providers.map { |x| x::PROVIDER_NAME }
+      self.providers.map! { |x| x::PROVIDER_NAME }
     end
 
     def self.enabled_provider_names
-      self.enabled_providers.map { |x| x::PROVIDER_NAME }
+      self.enabled_providers.map! { |x| x::PROVIDER_NAME }
     end
 
     def self.get_by_name(name)
@@ -71,7 +71,7 @@ module DiscourseChat
       engines = []
       DiscourseChat::Provider.providers.each do |provider|
         engine = provider.constants.select do |constant|
-          constant.to_s =~ (/Engine$/) && (not constant.to_s == "HookEngine")
+          constant.to_s =~ (/Engine$/) && (constant.to_s != "HookEngine")
         end.map(&provider.method(:const_get)).first
 
         if engine

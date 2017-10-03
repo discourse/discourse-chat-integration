@@ -33,8 +33,8 @@ export default Ember.Component.extend({
       this.sendAction('editRule', rule, this.get('channel'));
     },
 
-    showError(error_key){
-      bootbox.alert(I18n.t(error_key));
+    showError(errorKey){
+      bootbox.alert(I18n.t(errorKey));
     },
 
   }

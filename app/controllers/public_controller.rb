@@ -4,15 +4,13 @@ class DiscourseChat::PublicController < ApplicationController
   def post_transcript
     params.require(:secret)
 
-    redis_key = "chat_integration:transcript:" + params[:secret]
+    redis_key = "chat_integration:transcript:#{params[:secret]}"
     content = $redis.get(redis_key)
 
     if content
       render json: { content: content }
-      return
+    else
+      raise Discourse::NotFound
     end
-
-    raise Discourse::NotFound
-
   end
 end

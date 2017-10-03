@@ -81,7 +81,7 @@ module DiscourseChat
 
         response = send_message(webhook_url, message)
 
-        if not response.kind_of? Net::HTTPSuccess
+        if !response.kind_of?(Net::HTTPSuccess)
           error_key = nil
           raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, message: message, response_body: response.body }
         end

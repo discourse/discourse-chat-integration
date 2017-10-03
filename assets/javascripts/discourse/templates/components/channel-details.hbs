@@ -6,44 +6,41 @@
 
     {{d-button class='cancel' action="delete" actionParam=channel icon="trash" title="chat_integration.delete_channel" label="chat_integration.delete_channel"}}
   </div>
+
   <span class='channel-title'>
     {{#if channel.error_key}}
       {{d-button action="showError" actionParam=channel.error_key class="delete btn-danger" icon="exclamation-triangle"}}
     {{/if}}
 
-
     {{channel-data provider=provider channel=channel}}
-
   </span>
-  
 </div>
+
 <div class='channel-body'>
-<table>
-  <tr>
-    {{!-- <th></th> --}}
-    <th>{{i18n "chat_integration.rule_table.filter"}}</th>
+  <table>
+    <tr>
+      <th>{{i18n "chat_integration.rule_table.filter"}}</th>
+      <th>{{i18n "chat_integration.rule_table.category"}}</th>
 
-    <th>{{i18n "chat_integration.rule_table.category"}}</th>
+      {{#if siteSettings.tagging_enabled}}
+        <th>{{i18n "chat_integration.rule_table.tags"}}</th>
+      {{/if}}
 
-    {{#if siteSettings.tagging_enabled}}
-      <th>{{i18n "chat_integration.rule_table.tags"}}</th>
-    {{/if}}
+      <th></th>
+    </tr>
 
-    
-    
-    <th></th>
-  </tr>
-
-  
-  {{#each channel.rules as |rule|}}
-    {{rule-row rule=rule edit='editRule' refresh='refresh'}}
-    
-  {{/each}}
-
-</table>
+    {{#each channel.rules as |rule|}}
+      {{rule-row rule=rule edit='editRule' refresh='refresh'}}
+    {{/each}}
+  </table>
 </div>
+
 <div class='channel-footer'>
   <div class='pull-right'>
-   {{d-button action="createRule" actionParam=channel icon="plus" title="chat_integration.create_rule" label="chat_integration.create_rule"}}
+   {{d-button action="createRule"
+      actionParam=channel
+      icon="plus"
+      title="chat_integration.create_rule"
+      label="chat_integration.create_rule"}}
   </div>
 </div>

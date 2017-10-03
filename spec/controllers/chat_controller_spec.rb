@@ -114,9 +114,9 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid provider' do
-        get '/admin/plugins/chat/channels.json', params: { provider: 'someprovider' }
-
-        expect(response).not_to be_success
+        expect do
+          get '/admin/plugins/chat/channels.json', params: { provider: 'someprovider' }
+        end.to raise_error(Discourse::InvalidParameters)
       end
 
     end
