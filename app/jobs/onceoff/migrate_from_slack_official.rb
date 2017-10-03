@@ -27,8 +27,6 @@ module Jobs
     end
 
     def migrate_data
-      in_console = Rails.const_defined? 'Console'
-
       rows = []
       PluginStoreRow.where(plugin_name: 'discourse-slack-official')
         .where("key ~* :pat", pat: "^category_.*")
@@ -61,24 +59,18 @@ module Jobs
         if !channel
           channel = DiscourseChat::Channel.create(provider: 'slack', data: { identifier: row[:channel] })
           if !channel.id
-            puts "Error creating channel for #{row}" if in_console
+            Rails.logger.warn("Error creating channel for #{row}")
             next
           end
         end
 
         # Create the rule, with clever logic for avoiding duplicates
         success = DiscourseChat::Helper.smart_create_rule(channel: channel, filter: row[:filter], category_id: row[:category_id], tags: row[:tags])
-
-        if in_console
-          puts (success ? "Success creating #{row}" : "Error creating #{row}")
-        end
       end
 
     end
 
     def migrate_settings
-      in_console = Rails.const_defined? 'Console'
-
       SiteSetting.chat_integration_slack_access_token = SiteSetting.slack_access_token
       SiteSetting.chat_integration_slack_incoming_webhook_token = SiteSetting.slack_incoming_webhook_token
       SiteSetting.chat_integration_slack_excerpt_length = SiteSetting.slack_discourse_excerpt_length
@@ -86,8 +78,6 @@ module Jobs
       SiteSetting.chat_integration_slack_icon_url = SiteSetting.slack_icon_url
       SiteSetting.chat_integration_delay_seconds = SiteSetting.post_to_slack_window_secs
       SiteSetting.chat_integration_discourse_username = SiteSetting.slack_discourse_username
-
-      puts "Site Settings migrated" if in_console
     end
 
   end
