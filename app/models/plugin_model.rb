@@ -7,7 +7,6 @@ class DiscourseChat::PluginModel < PluginStoreRow
   after_initialize :init_plugin_model
   before_save :set_key
 
-  # Restrict the scope to JSON PluginStoreRows which are for this plugin, and this model
   def self.default_scope
     where(type_name: 'JSON')
       .where(plugin_name: self::PLUGIN_NAME)
