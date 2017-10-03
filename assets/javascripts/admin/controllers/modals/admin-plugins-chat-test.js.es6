@@ -1,8 +1,9 @@
 import ModalFunctionality from 'discourse/mixins/modal-functionality';
 import { ajax } from 'discourse/lib/ajax';
-import computed from "ember-addons/ember-computed-decorators";
+import { default as computed, on } from "ember-addons/ember-computed-decorators";
 
 export default Ember.Controller.extend(ModalFunctionality, {
+  @on('init')
   setupKeydown() {
     Ember.run.schedule('afterRender', () => {
       $('#chat_integration_test_modal').keydown(e => {
@@ -11,7 +12,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
       });
     });
-  }.on('init'),
+  },
 
   @computed('model.topic_id')
   sendDisabled(topicId) {
@@ -21,8 +22,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
   actions: {
     send() {
       if (this.get('sendDisabled')) return;
-
       this.set('loading', true);
+
       ajax("/admin/plugins/chat/test", {
         data: {
           channel_id: this.get('model.channel.id'),
@@ -32,7 +33,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
       }).then(() => {
         this.set('loading', false);
         this.flash(I18n.t('chat_integration.test_modal.success'), 'success');
-      }.catch(popupAjaxError);
+      }).catch(popupAjaxError);
     }
-
+  }
 });

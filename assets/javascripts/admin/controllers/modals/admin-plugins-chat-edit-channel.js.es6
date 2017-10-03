@@ -1,10 +1,11 @@
 import ModalFunctionality from 'discourse/mixins/modal-functionality';
 import { popupAjaxError } from 'discourse/lib/ajax-error';
 import InputValidation from 'discourse/models/input-validation';
-import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { default as computed, observes, on } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend(ModalFunctionality, {
 
+  @on('init')
   setupKeydown() {
     Ember.run.schedule('afterRender', () => {
       $('#chat_integration_edit_channel_modal').keydown(e => {
@@ -13,7 +14,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
       });
     });
-  }.on('init'),
+  },
 
   // The validation property must be defined at runtime since the possible parameters vary by provider
   @observes('model')

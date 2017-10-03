@@ -200,7 +200,7 @@ test("Test channel works", assert => {
 
   andThen(() => {
     assert.ok(exists('#chat_integration_test_modal'), 'it displays the modal');
-    assert.ok(find('#send_test').prop('disabled'), 'it disables the send button');
+    assert.ok(find('#send-test').prop('disabled'), 'it disables the send button');
     fillIn('#choose-topic-title', '9318');
   });
 
@@ -209,11 +209,11 @@ test("Test channel works", assert => {
   });
 
   andThen(() => {
-    assert.ok(find('#send_test').prop('disabled') === false, 'it enables the send button');
+    assert.ok(find('#send-test').prop('disabled') === false, 'it enables the send button');
   });
 
   andThen(() => {
-    click('#send_test');
+    click('#send-test');
   });
 
   andThen(() => {

@@ -1,10 +1,11 @@
 import ModalFunctionality from 'discourse/mixins/modal-functionality';
 import { popupAjaxError } from 'discourse/lib/ajax-error';
-import computed from "ember-addons/ember-computed-decorators";
+import { default as computed, on } from "ember-addons/ember-computed-decorators";
 
 export default Ember.Controller.extend(ModalFunctionality, {
   saveDisabled: false,
 
+  @on('init')
   setupKeydown() {
     Ember.run.schedule('afterRender', () => {
       $('#chat_integration_edit_channel_modal').keydown(e => {
@@ -13,7 +14,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
       });
     });
-  }.on('init'),
+  },
 
   @computed('model.rule.type')
   showCategory(type) {
