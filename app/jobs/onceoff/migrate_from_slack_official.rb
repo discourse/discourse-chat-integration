@@ -1,8 +1,7 @@
 module Jobs
   class DiscourseChatMigrateFromSlackOfficial < Jobs::Onceoff
     def execute_onceoff(args)
-      # Check if slack plugin is installed by testing if the sitesetting exists
-      slack_installed = defined?(DiscourseSlack)
+      slack_installed = PluginStoreRow.where(plugin_name: 'discourse-slack-official').exists?
 
       if slack_installed
         already_setup_rules = DiscourseChat::Channel.with_provider('slack').exists?
@@ -17,9 +16,13 @@ module Jobs
           ActiveRecord::Base.transaction do
             migrate_settings
             migrate_data
-            SiteSetting.slack_enabled = false
-            SiteSetting.chat_integration_slack_enabled = true
-            SiteSetting.chat_integration_enabled = true
+            is_slack_enabled = SiteSetting.slack_enabled
+
+            if is_slack_enabled
+              SiteSetting.slack_enabled = false
+              SiteSetting.chat_integration_slack_enabled = true
+              SiteSetting.chat_integration_enabled = true
+            end
           end
         end
       end
