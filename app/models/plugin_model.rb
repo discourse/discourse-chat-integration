@@ -1,6 +1,5 @@
 class DiscourseChat::PluginModel < PluginStoreRow
   PLUGIN_NAME = 'discourse-chat-integration'
-  KEY_PREFIX = 'unimplemented'
 
   default_scope { self.default_scope }
 
@@ -10,7 +9,11 @@ class DiscourseChat::PluginModel < PluginStoreRow
   def self.default_scope
     where(type_name: 'JSON')
       .where(plugin_name: self::PLUGIN_NAME)
-      .where("key LIKE ?", "#{self::KEY_PREFIX}%")
+      .where("key LIKE ?", "#{self.key_prefix}%")
+  end
+
+  def self.key_prefix
+    raise 'Not implemented'
   end
 
   private
@@ -25,12 +28,11 @@ class DiscourseChat::PluginModel < PluginStoreRow
     end
 
     def self.alloc_key
-      raise "KEY_PREFIX must be defined" if self::KEY_PREFIX == 'unimplemented'
-      DistributedMutex.synchronize("#{self::PLUGIN_NAME}_#{self::KEY_PREFIX}_id") do
-        max_id = PluginStore.get(self::PLUGIN_NAME, "#{self::KEY_PREFIX}_id")
+      DistributedMutex.synchronize("#{self::PLUGIN_NAME}_#{self.key_prefix}_id") do
+        max_id = PluginStore.get(self::PLUGIN_NAME, "#{self.key_prefix}_id")
         max_id = 1 unless max_id
-        PluginStore.set(self::PLUGIN_NAME, "#{self::KEY_PREFIX}_id", max_id + 1)
-        "#{self::KEY_PREFIX}#{max_id}"
+        PluginStore.set(self::PLUGIN_NAME, "#{self.key_prefix}_id", max_id + 1)
+        "#{self.key_prefix}#{max_id}"
       end
     end
 

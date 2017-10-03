@@ -1,6 +1,4 @@
 class DiscourseChat::Channel < DiscourseChat::PluginModel
-  KEY_PREFIX = 'channel:'
-
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :provider, :error_key, :data ], coder: JSON
 
@@ -11,6 +9,10 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
   after_destroy :destroy_rules
 
   validate :provider_valid?, :data_valid?
+
+  def self.key_prefix
+    'channel:'.freeze
+  end
 
   def rules
     DiscourseChat::Rule.with_channel_id(id).order_by_precedence

@@ -1,6 +1,4 @@
 class DiscourseChat::Rule < DiscourseChat::PluginModel
-  KEY_PREFIX = 'rule:'
-
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter ], coder: JSON
 
@@ -46,6 +44,10 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
                                 message: "%{value} is not a valid filter" }
 
   validate :channel_valid?, :category_valid?, :group_valid?, :tags_valid?
+
+  def self.key_prefix
+    'rule:'.freeze
+  end
 
   # We never want an empty array, set it to nil instead
   def tags=(array)
