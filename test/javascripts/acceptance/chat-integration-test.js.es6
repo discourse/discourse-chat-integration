@@ -72,9 +72,9 @@ test("Create channel works", assert => {
   });
 
   andThen(() => {
-    assert.ok(exists('#chat_integration_edit_channel_modal'), 'it displays the modal');
+    assert.ok(exists('#chat-integration-edit-channel-modal'), 'it displays the modal');
     assert.ok(find('#save-channel').prop('disabled'), 'it disables the save button');
-    fillIn('#chat_integration_edit_channel_modal input', '#general');
+    fillIn('#chat-integration-edit-channel-modal input', '#general');
   });
 
   andThen(() => {
@@ -86,7 +86,7 @@ test("Create channel works", assert => {
   });
 
   andThen(() => {
-    assert.ok(!exists('#chat_integration_edit_channel_modal'), 'modal closes on save');
+    assert.ok(!exists('#chat-integration-edit-channel-modal'), 'modal closes on save');
   });
 
 });
@@ -99,9 +99,9 @@ test("Edit channel works", assert => {
   });
 
   andThen(() => {
-    assert.ok(exists('#chat_integration_edit_channel_modal'), 'it displays the modal');
+    assert.ok(exists('#chat-integration-edit-channel-modal'), 'it displays the modal');
     assert.ok(!find('#save-channel').prop('disabled'), 'save is enabled');
-    fillIn('#chat_integration_edit_channel_modal input', ' general');
+    fillIn('#chat-integration-edit-channel-modal input', ' general');
   });
 
   andThen(() => {
@@ -109,15 +109,15 @@ test("Edit channel works", assert => {
   });
 
   andThen(() => {
-    fillIn('#chat_integration_edit_channel_modal input', '#random');
+    fillIn('#chat-integration-edit-channel-modal input', '#random');
   });
 
   andThen(() => {
-    $("#chat_integration_edit_channel_modal input").trigger( $.Event( "keydown", { keyCode: 13 } ) ); // Press enter
+    $("#chat-integration-edit-channel-modal input").trigger( $.Event( "keydown", { keyCode: 13 } ) ); // Press enter
   });
 
   andThen(() => {
-    assert.ok(!exists('#chat_integration_edit_channel_modal'), 'modal saves on enter');
+    assert.ok(!exists('#chat-integration-edit-channel-modal'), 'modal saves on enter');
   });
 
 });
@@ -132,14 +132,14 @@ test("Create rule works", assert => {
   click('.channel-footer button:first');
 
   andThen(() => {
-    assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
+    assert.ok(exists('#chat-integration-edit-rule_modal'), 'modal opens on edit');
     assert.ok(find('#save-rule').prop('disabled') === false, 'save is enabled');
   });
 
   click('#save-rule');
 
   andThen(() => {
-    assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');
+    assert.ok(!exists('#chat-integration-edit-rule_modal'), 'modal closes on save');
   });
 });
 
@@ -153,14 +153,14 @@ test("Edit rule works", assert => {
   click('.edit:first');
 
   andThen(() => {
-    assert.ok(exists('#chat_integration_edit_rule_modal'), 'modal opens on edit');
+    assert.ok(exists('#chat-integration-edit-rule_modal'), 'modal opens on edit');
     assert.ok(find('#save-rule').prop('disabled') === false, 'it enables the save button');
   });
 
   click('#save-rule');
 
   andThen(() => {
-    assert.ok(!exists('#chat_integration_edit_rule_modal'), 'modal closes on save');
+    assert.ok(!exists('#chat-integration-edit-rule_modal'), 'modal closes on save');
   });
 });
 

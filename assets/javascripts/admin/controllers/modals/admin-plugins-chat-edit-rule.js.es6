@@ -8,7 +8,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   @on('init')
   setupKeydown() {
     Ember.run.schedule('afterRender', () => {
-      $('#chat_integration_edit_channel_modal').keydown(e => {
+      $('#chat-integration-edit-channel-modal').keydown(e => {
         if (e.keyCode === 13) {
           this.send('save');
         }

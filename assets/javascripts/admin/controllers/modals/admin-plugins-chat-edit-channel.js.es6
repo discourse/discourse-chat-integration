@@ -4,11 +4,10 @@ import InputValidation from 'discourse/models/input-validation';
 import { default as computed, observes, on } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend(ModalFunctionality, {
-
   @on('init')
   setupKeydown() {
     Ember.run.schedule('afterRender', () => {
-      $('#chat_integration_edit_channel_modal').keydown(e => {
+      $('#chat-integration-edit-channel-modal').keydown(e => {
         if (e.keyCode === 13) {
           this.send('save');
         }
@@ -19,9 +18,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
   // The validation property must be defined at runtime since the possible parameters vary by provider
   @observes('model')
   setupValidations() {
-    if(this.get('model.provider')){
+    if (this.get('model.provider')) {
       const theKeys = this.get('model.provider.channel_parameters').map( ( param ) => param['key'] );
-      Ember.defineProperty(this,'paramValidation', Ember.computed(`model.channel.data.{${theKeys.join(',')}},this._paramValidation`));
+      Ember.defineProperty(this,'paramValidation', Ember.computed(`model.channel.data.${theKeys.join(',')}`, this._paramValidation));
     }
   },
 
@@ -74,11 +73,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     let invalid = false;
 
     Object.keys(paramValidation).forEach(key =>{
-      if (!validations[key]) {
+      if (!paramValidation[key]) {
         invalid = true;
       }
 
-      if (!validations[key]['ok']) {
+      if (!paramValidation[key]['ok']) {
        invalid = true;
       }
     });
