@@ -44,6 +44,8 @@ module Jobs
               row.key.to_i
             end
 
+          next if !category_id.nil? && !Category.exists?(id: category_id)
+
           valid_tags = []
           valid_tags = Tag.where(name: rule[:tags]).pluck(:name) if rule[:tags]
 
