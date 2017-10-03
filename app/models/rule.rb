@@ -7,19 +7,35 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s) }
   scope :with_channel, ->(channel) { with_channel_id(channel.id) }
   scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s) }
-  scope :with_category_id, ->(category_id) { category_id.nil? ? where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'") : where("value::json->>'category_id'=?", category_id.to_s) }
-  scope :with_group_ids, ->(group_id) { where("value::json->>'group_id' IN (?)", group_id.map(&:to_s)) }
 
-  scope :order_by_precedence, -> { order("CASE
-                                          WHEN value::json->>'type' = 'group_mention' THEN 1
-                                          WHEN value::json->>'type' = 'group_message' THEN 2
-                                          ELSE 3
-                                         END",
-                                        "CASE
-                                          WHEN value::json->>'filter' = 'mute' THEN 1
-                                          WHEN value::json->>'filter' = 'watch' THEN 2
-                                          WHEN value::json->>'filter' = 'follow' THEN 3
-                                         END") }
+  scope :with_category_id, ->(category_id) do
+    if category_id.nil?
+      where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'")
+    else
+      where("value::json->>'category_id'=?", category_id.to_s)
+    end
+  end
+
+  scope :with_group_ids, ->(group_id) do
+    where("value::json->>'group_id' IN (?)", group_id.map!(&:to_s))
+  end
+
+  scope :order_by_precedence, -> {
+    order("
+      CASE
+      WHEN value::json->>'type' = 'group_mention' THEN 1
+      WHEN value::json->>'type' = 'group_message' THEN 2
+      ELSE 3
+      END
+    ",
+    "
+      CASE
+      WHEN value::json->>'filter' = 'mute' THEN 1
+      WHEN value::json->>'filter' = 'watch' THEN 2
+      WHEN value::json->>'filter' = 'follow' THEN 3
+     END
+    ")
+  }
 
   after_initialize :init_filter
 
@@ -49,7 +65,6 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
         super(val.to_i)
       end
     end
-
   end
 
   # Mock foreign key
@@ -57,6 +72,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   def channel
     DiscourseChat::Channel.find_by(id: channel_id)
   end
+
   def channel=(val)
     self.channel_id = val.id
   end
@@ -95,6 +111,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
 
     def tags_valid?
       return if tags.nil?
+
       tags.each do |tag|
         if !Tag.where(name: tag).exists?
           errors.add(:tags, "#{tag} is not a valid tag")
