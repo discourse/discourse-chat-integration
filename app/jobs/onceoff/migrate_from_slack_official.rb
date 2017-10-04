@@ -16,10 +16,12 @@ module Jobs
           ActiveRecord::Base.transaction do
             migrate_settings
             migrate_data
-            is_slack_enabled = SiteSetting.slack_enabled
+            is_slack_enabled = site_settings_value('slack_enabled')
 
             if is_slack_enabled
-              SiteSetting.slack_enabled = false
+              slack_enabled = SiteSetting.find_by(name: 'slack_enabled')
+              slack_enabled.update!(value: 'f')
+
               SiteSetting.chat_integration_slack_enabled = true
               SiteSetting.chat_integration_enabled = true
             end
@@ -75,15 +77,48 @@ module Jobs
 
     end
 
+    private
+
     def migrate_settings
-      SiteSetting.chat_integration_slack_access_token = SiteSetting.slack_access_token
-      SiteSetting.chat_integration_slack_incoming_webhook_token = SiteSetting.slack_incoming_webhook_token
-      SiteSetting.chat_integration_slack_excerpt_length = SiteSetting.slack_discourse_excerpt_length
-      SiteSetting.chat_integration_slack_outbound_webhook_url = SiteSetting.slack_outbound_webhook_url
-      SiteSetting.chat_integration_slack_icon_url = SiteSetting.slack_icon_url
-      SiteSetting.chat_integration_delay_seconds = SiteSetting.post_to_slack_window_secs
-      SiteSetting.chat_integration_discourse_username = SiteSetting.slack_discourse_username
+      if !(slack_access_token = site_settings_value('slack_access_token')).nil?
+        SiteSetting.chat_integration_slack_access_token = slack_access_token
+      end
+
+      if !(slack_incoming_webhook_token = site_settings_value('slack_incoming_webhook_token')).nil?
+        SiteSetting.chat_integration_slack_incoming_webhook_token = slack_incoming_webhook_token
+      end
+
+      if !(slack_discourse_excerpt_length = site_settings_value('slack_discourse_excerpt_length')).nil?
+        SiteSetting.chat_integration_slack_excerpt_length = slack_discourse_excerpt_length
+      end
+
+      if !(slack_outbound_webhook_url = site_settings_value('slack_outbound_webhook_url')).nil?
+        SiteSetting.chat_integration_slack_outbound_webhook_url = slack_outbound_webhook_url
+      end
+
+      if !(slack_icon_url = site_settings_value('slack_icon_url')).nil?
+        SiteSetting.chat_integration_slack_icon_url = slack_icon_url
+      end
+
+      if !(post_to_slack_window_secs = site_settings_value('post_to_slack_window_secs')).nil?
+        SiteSetting.chat_integration_delay_seconds = post_to_slack_window_secs
+      end
+
+      if !(slack_discourse_username = site_settings_value('slack_discourse_username')).nil?
+        SiteSetting.chat_integration_discourse_username = slack_discourse_username
+      end
     end
 
+    def site_settings_value(name)
+      value = SiteSetting.find_by(name: name)&.value
+
+      if value == 't'
+        value = true
+      elsif value == 'f'
+        value = false
+      end
+
+      value
+    end
   end
 end
