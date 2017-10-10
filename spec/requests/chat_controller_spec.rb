@@ -49,10 +49,11 @@ describe 'Chat Controller', type: :request do
 
         expect(json['providers'].size).to eq(2)
 
-        expect(json['providers'].find { |h| h['name'] == 'dummy' }).to eq('name' => 'dummy',
-                                                                          'id' => 'dummy',
-                                                                          'channel_parameters' => []
-                              )
+        expect(json['providers'].find { |h| h['name'] == 'dummy' }).to eq(
+          'name' => 'dummy',
+          'id' => 'dummy',
+          'channel_parameters' => []
+        )
       end
     end
   end
@@ -94,7 +95,12 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        rule = DiscourseChat::Rule.create(channel: channel, filter: 'follow', category_id: category.id, tags: [tag.name])
+        rule = DiscourseChat::Rule.create(
+          channel: channel,
+          filter: 'follow',
+          category_id: category.id,
+          tags: [tag.name]
+        )
 
         get '/admin/plugins/chat/channels.json', params: { provider: 'dummy' }
 
@@ -155,7 +161,6 @@ describe 'Chat Controller', type: :request do
         }
 
         expect(response).not_to be_success
-
       end
     end
   end
@@ -304,7 +309,14 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'deleting a rule' do
-    let(:rule) { DiscourseChat::Rule.create!(channel_id: channel.id, filter: 'follow', category_id: category.id, tags: [tag.name]) }
+    let(:rule) do
+      DiscourseChat::Rule.create!(
+        channel_id: channel.id,
+        filter: 'follow',
+        category_id: category.id,
+        tags: [tag.name]
+      )
+    end
 
     include_examples 'admin constraints', 'delete', "/admin/plugins/chat/rules/1.json"
 
