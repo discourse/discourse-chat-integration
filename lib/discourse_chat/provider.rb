@@ -89,12 +89,12 @@ module DiscourseChat
   end
 end
 
-require_relative "provider/slack/slack_provider.rb"
-require_relative "provider/telegram/telegram_provider.rb"
-require_relative "provider/discord/discord_provider.rb"
-require_relative "provider/hipchat/hipchat_provider.rb"
-require_relative "provider/mattermost/mattermost_provider.rb"
-require_relative "provider/matrix/matrix_provider.rb"
-require_relative "provider/zulip/zulip_provider.rb"
-require_relative "provider/rocketchat/rocketchat_provider.rb"
-require_relative "provider/gitter/gitter_provider.rb"
+require_relative "provider/slack/slack_provider"
+require_relative "provider/telegram/telegram_provider"
+require_relative "provider/discord/discord_provider"
+require_relative "provider/hipchat/hipchat_provider"
+require_relative "provider/mattermost/mattermost_provider"
+require_relative "provider/matrix/matrix_provider"
+require_relative "provider/zulip/zulip_provider"
+require_relative "provider/rocketchat/rocketchat_provider"
+require_relative "provider/gitter/gitter_provider"
