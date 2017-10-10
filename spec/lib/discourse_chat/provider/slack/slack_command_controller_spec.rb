@@ -53,6 +53,20 @@ describe 'Slack Command Controller', type: :request do
       end
     end
 
+    describe 'backwards compatibility with discourse-slack-official' do
+      it 'should return the right response' do
+        token = 'secret sauce'
+        SiteSetting.chat_integration_slack_incoming_webhook_token = token
+
+        post '/slack/command.json', params: {
+          text: 'help', token: token
+        }
+
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)["text"]).to be_present
+      end
+    end
+
     describe 'when incoming webhook token has not been set' do
       it 'should raise the right error' do
         post '/chat-integration/slack/command.json', params: {
