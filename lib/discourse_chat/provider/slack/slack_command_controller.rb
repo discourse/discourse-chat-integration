@@ -34,17 +34,20 @@ module DiscourseChat::Provider::SlackProvider
 
       provider = DiscourseChat::Provider::SlackProvider::PROVIDER_NAME
 
-      channel = DiscourseChat::Channel.with_provider(provider).with_data_value('identifier', channel_id).first
+      channel = DiscourseChat::Channel.with_provider(provider)
+        .with_data_value('identifier', channel_id)
+        .first
 
-      # Create channel if doesn't exist
-      channel ||= DiscourseChat::Channel.create!(provider: provider, data: { identifier: channel_id })
+      channel ||= DiscourseChat::Channel.create!(
+        provider: provider,
+        data: { identifier: channel_id }
+      )
 
       if tokens[0] == 'post'
-        return process_post_request(channel, tokens, params[:channel_id], channel_id, params[:response_url])
+        process_post_request(channel, tokens, params[:channel_id], channel_id, params[:response_url])
+      else
+        { text: ::DiscourseChat::Helper.process_command(channel, tokens) }
       end
-
-      return { text: ::DiscourseChat::Helper.process_command(channel, tokens) }
-
     end
 
     def process_post_request(channel, tokens, slack_channel_id, channel_name, response_url)
@@ -89,7 +92,6 @@ module DiscourseChat::Provider::SlackProvider
       end
 
       return { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
-
     end
 
     def interactive
