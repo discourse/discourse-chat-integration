@@ -41,6 +41,19 @@ RSpec.describe Jobs::DiscourseChatMigrateFromSlackOfficial do
       expect(SiteSetting.chat_integration_slack_enabled).to eq(true)
       expect(SiteSetting.chat_integration_enabled).to eq(true)
     end
+
+    describe 'when slack_discourse_username is not valid' do
+      before do
+        SiteSetting.find_by(name: 'slack_discourse_username').update!(value: 'someguy')
+      end
+
+      it 'should default to the system user' do
+        described_class.new.execute_onceoff({})
+
+        expect(SiteSetting.chat_integration_discourse_username)
+          .to eq(Discourse.system_user.username)
+      end
+    end
   end
 
   describe 'when a uncategorized filter is present' do
