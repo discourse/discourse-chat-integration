@@ -24,7 +24,6 @@ plugins:
     regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
   chat_integration_slack_icon_url:
     default: ''
-    hidden: true
 
 #######################################
 ######### TELEGRAM SETTINGS ###########
