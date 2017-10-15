@@ -20,7 +20,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   setupValidations() {
     if (this.get('model.provider')) {
       const theKeys = this.get('model.provider.channel_parameters').map( ( param ) => param['key'] );
-      Ember.defineProperty(this,'paramValidation', Ember.computed(`model.channel.data.${theKeys.join(',')}`, this._paramValidation));
+      Ember.defineProperty(this,'paramValidation', Ember.computed(`model.channel.data.{${theKeys.join(',')}}`, this._paramValidation));
     }
   },
 
