@@ -30,11 +30,11 @@ module DiscourseChat::Provider::FlowdockProvider
     message = {
       flow_token: flow_token,
       event: "discussion",
-      author: { 
-        name: display_name, 
+      author: {
+        name: display_name,
         avatar: post.user.small_avatar_url
-      }, 
-      title: I18n.t("chat_integration.provider.flowdock.message_title"), 
+      },
+      title: I18n.t("chat_integration.provider.flowdock.message_title"),
       external_thread_id: post.topic.id,
       body: post.excerpt(SiteSetting.chat_integration_flowdock_excerpt_length, text_entities: true, strip_links: false, remap_emoji: true),
       thread: {
@@ -56,4 +56,4 @@ module DiscourseChat::Provider::FlowdockProvider
       raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, message: message, response_body: response.body }
     end
   end
-end      
+end

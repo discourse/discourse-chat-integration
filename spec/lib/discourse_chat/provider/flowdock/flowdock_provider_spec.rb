@@ -8,7 +8,7 @@ RSpec.describe DiscourseChat::Provider::FlowdockProvider do
       SiteSetting.chat_integration_flowdock_enabled = true
     end
 
-    let(:chan1) { DiscourseChat::Channel.create!(provider: 'flowdock', data: { flow_token: '5d1fe04cf66e078d6a2b579ddb8a465b'}) }
+    let(:chan1) { DiscourseChat::Channel.create!(provider: 'flowdock', data: { flow_token: '5d1fe04cf66e078d6a2b579ddb8a465b' }) }
 
     it 'sends a request' do
       stub1 = stub_request(:post, "https://api.flowdock.com/messages").to_return(status: 200)
