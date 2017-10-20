@@ -62,6 +62,7 @@ module Jobs
 
       rows.each do |row|
         # Load an existing channel with this identifier. If none, create it
+        row[:channel] = "##{row[:channel]}" unless row[:channel].start_with?("#")
         channel = DiscourseChat::Channel.with_provider('slack').with_data_value('identifier', row[:channel]).first
         if !channel
           channel = DiscourseChat::Channel.create(provider: 'slack', data: { identifier: row[:channel] })

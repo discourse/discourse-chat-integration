@@ -62,7 +62,7 @@ RSpec.describe Jobs::DiscourseChatMigrateFromSlackOfficial do
         plugin_name: 'discourse-slack-official',
         key: "category_*",
         type_name: "JSON",
-        value: "[{\"channel\":\"#channel1\",\"filter\":\"watch\"},{\"channel\":\"#channel2\",\"filter\":\"follow\"},{\"channel\":\"#channel1\",\"filter\":\"mute\"}]"
+        value: "[{\"channel\":\"#channel1\",\"filter\":\"watch\"},{\"channel\":\"channel2\",\"filter\":\"follow\"},{\"channel\":\"#channel1\",\"filter\":\"mute\"}]"
       )
     end
 
