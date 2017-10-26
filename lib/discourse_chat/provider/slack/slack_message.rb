@@ -49,8 +49,22 @@ module DiscourseChat::Provider::SlackProvider
       text
     end
 
+    def processed_text_with_attachments
+      string = self.text
+      string += "\n" if !attachments.empty?
+      attachments.each do |attachment|
+        string += " - #{attachment}\n"
+      end
+      string
+    end
+
     def raw_text
-      @raw['text']
+      string = @raw['text']
+      string += "\n" if !attachments.empty?
+      attachments.each do |attachment|
+        string += " - #{attachment}\n"
+      end
+      string
     end
 
     def attachments

@@ -148,7 +148,7 @@ module DiscourseChat::Provider::SlackProvider
                 ),
                 type: "select",
                 options: first_message_options = @messages[ [(first_message_number - 20), 0].max .. last_message_number]
-                  .map { |m| { text: "#{m.username}: #{m.text}", value: m.ts } }
+                  .map { |m| { text: "#{m.username}: #{m.processed_text_with_attachments}", value: m.ts } }
               }
             ],
           },
@@ -176,7 +176,7 @@ module DiscourseChat::Provider::SlackProvider
                 ),
                 type: "select",
                 options: @messages[first_message_number..(last_message_number + 20)]
-                  .map { |m| { text: "#{m.username}: #{m.text}", value: m.ts } }
+                  .map { |m| { text: "#{m.username}: #{m.processed_text_with_attachments}", value: m.ts } }
               }
             ],
           }
