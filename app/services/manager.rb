@@ -6,8 +6,6 @@ module DiscourseChat
     end
 
     def self.trigger_notifications(post_id)
-      Rails.logger.info("Triggering chat notifications for post #{post_id}")
-
       post = Post.find_by(id: post_id)
 
       # Abort if the chat_user doesn't have permission to see the post
