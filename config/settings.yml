@@ -115,3 +115,11 @@ plugins:
 #######################################
   chat_integration_gitter_enabled:
     default: false
+
+#######################################
+########## FLOWDOCK SETTINGS ##########
+#######################################
+  chat_integration_flowdock_enabled:
+    default: false
+  chat_integration_flowdock_excerpt_length:
+    default: 400

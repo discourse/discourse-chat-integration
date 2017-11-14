@@ -78,6 +78,12 @@ en:
     #######################################
     chat_integration_gitter_enabled: "Enable the Gitter chat integration provider"
 
+    #######################################
+    ########## FLOWDOCK SETTINGS ##########
+    #######################################
+    chat_integration_flowdock_enabled: "Enable the Flowdock chat integration provider"
+    chat_integration_flowdock_excerpt_length: "Flowdock post excerpt length"
+
   chat_integration:
 
     all_categories: "(all categories)"
@@ -244,3 +250,9 @@ en:
                     ~~~quote
                     %{excerpt}
                     ~~~
+
+      #######################################
+      ########### FLOWDOCK STRINGS ##########
+      #######################################
+      flowdock:
+        message_title: "posted"
