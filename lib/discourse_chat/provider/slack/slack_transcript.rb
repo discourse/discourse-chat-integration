@@ -224,7 +224,7 @@ module DiscourseChat::Provider::SlackProvider
         next unless message["type"] == "message"
         # Don't load responses to threads (if ts==thread_ts then it's the thread parent)
         next if message["thread_ts"] && message["thread_ts"] != message["ts"]
-        
+
         this_message = SlackMessage.new(message, self)
         @messages << this_message
       end
