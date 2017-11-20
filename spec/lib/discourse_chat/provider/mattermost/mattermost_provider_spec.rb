@@ -17,6 +17,18 @@ RSpec.describe DiscourseChat::Provider::MattermostProvider do
       expect(stub1).to have_been_requested.once
     end
 
+    it 'uses correct logo' do
+      # Defaults to small logo url
+      SiteSetting.logo_small_url = "https://some_small_logo"
+      message = described_class.mattermost_message(post, chan1)
+      expect(message[:icon_url]).to eq(SiteSetting.logo_small_url)
+
+      # If specific logo provided, use that
+      SiteSetting.chat_integration_mattermost_icon_url = "https://specific_logo"
+      message = described_class.mattermost_message(post, chan1)
+      expect(message[:icon_url]).to eq(SiteSetting.chat_integration_mattermost_icon_url)
+    end
+
     it 'handles errors correctly' do
       stub1 = stub_request(:post, "https://mattermost.blah/hook/abcd").to_return(status: 500, body: "error")
       expect(stub1).to have_been_requested.times(0)
