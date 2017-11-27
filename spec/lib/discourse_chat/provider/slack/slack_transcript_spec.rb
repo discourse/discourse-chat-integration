@@ -29,6 +29,13 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
           "ts": "1501801629.052212"
       },
       {
+          "type": "message",
+          "user": "U6E2W7R8C",
+          "text": "I'm interested!!",
+          "ts": "1501801634.053761",
+          "thread_ts": "1501801629.052212"
+      },
+      {
             "text": "",
             "username": "Test Community",
             "bot_id": "B6C6JNUDN",
@@ -126,6 +133,10 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
           .with(body: hash_including(token: "abcde", channel: 'G1234'))
           .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
         transcript.load_chat_history
+      end
+
+      it 'ignores messages in a thread' do
+        expect(transcript.messages.length).to eq(6)
       end
 
       it 'loads in chronological order' do # API presents in reverse chronological

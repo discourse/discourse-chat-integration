@@ -220,7 +220,11 @@ module DiscourseChat::Provider::SlackProvider
       # Build some message objects
       @messages = []
       raw_messages.each_with_index do |message, index|
+        # Only load messages
         next unless message["type"] == "message"
+        # Don't load responses to threads (if ts==thread_ts then it's the thread parent)
+        next if message["thread_ts"] && message["thread_ts"] != message["ts"]
+
         this_message = SlackMessage.new(message, self)
         @messages << this_message
       end
