@@ -98,7 +98,7 @@ module DiscourseChat::Provider::SlackProvider
       json = JSON.parse(params[:payload], symbolize_names: true)
       process_interactive(json)
 
-      render nothing: true, status: 200
+      render json: { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
     end
 
     def process_interactive(json)
