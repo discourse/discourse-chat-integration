@@ -1,5 +1,9 @@
 en:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Chat Integrations"
     chat_integration:
       menu_title: "Chat Integrations"
       settings: "Settings"
@@ -201,4 +205,3 @@ en:
             flow_token:
               title: "Flow Token"
               help: "The flow token provided after creating a source for a flow into which you want to send messages."
-

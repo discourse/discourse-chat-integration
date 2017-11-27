@@ -1,4 +1,4 @@
-plugins:
+chat_integration:
   chat_integration_enabled:
     default: false
   chat_integration_discourse_username:
