@@ -44,7 +44,7 @@ module DiscourseChat
         end
 
         icon_url =
-          if !SiteSetting.chat_integration_slack_icon_url.blank?
+          if !SiteSetting.chat_integration_mattermost_icon_url.blank?
             UrlHelper.absolute(SiteSetting.chat_integration_mattermost_icon_url)
           elsif !SiteSetting.logo_small_url.blank?
             UrlHelper.absolute(SiteSetting.logo_small_url)
