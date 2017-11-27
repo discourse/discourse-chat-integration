@@ -159,6 +159,11 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         expect(transcript.messages.first.url).to eq("https://slack.com/archives/G1234/p1501093331439776")
       end
 
+      it 'includes attachments in raw text' do
+        transcript.set_first_message_by_ts('1501615820.949638')
+        expect(transcript.first_message.raw_text).to eq("\n - Discourse can now be integrated with Mattermost! - @david\n")
+      end
+
       it 'gives correct first and last messages' do
         expect(transcript.first_message_number).to eq(0)
         expect(transcript.last_message_number).to eq(transcript.messages.length - 1)
@@ -242,6 +247,9 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         # The timestamps should match up to the actual messages
         expect(first_ui[:ts]).to eq(transcript.first_message.ts)
         expect(last_ui[:ts]).to eq(transcript.last_message.ts)
+
+        # Raw text should be used
+        expect(first_ui[:text]).to eq(transcript.first_message.raw_text)
       end
     end
   end

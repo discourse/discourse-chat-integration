@@ -24,7 +24,7 @@ module DiscourseChat::Provider::SlackProvider
     end
 
     def text
-      text = @raw["text"]
+      text = @raw['text'].nil? ? "" : @raw['text']
 
       # Format links (don't worry about special cases @ # !)
       text = text.gsub(/<(.*?)>/) do |match|
@@ -49,8 +49,23 @@ module DiscourseChat::Provider::SlackProvider
       text
     end
 
+    def attachments_string
+      string = ""
+      string += "\n" if !attachments.empty?
+      attachments.each do |attachment|
+        string += " - #{attachment}\n"
+      end
+      string
+    end
+
+    def processed_text_with_attachments
+      self.text + attachments_string
+    end
+
     def raw_text
-      @raw['text']
+      raw_text = @raw['text'].nil? ? "" : @raw['text']
+      raw_text += attachments_string
+      raw_text
     end
 
     def attachments
