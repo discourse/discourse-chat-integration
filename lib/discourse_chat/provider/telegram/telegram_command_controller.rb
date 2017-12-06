@@ -60,18 +60,14 @@ module DiscourseChat::Provider::TelegramProvider
 
       channel = DiscourseChat::Channel.with_provider(provider).with_data_value('chat_id', chat_id).first
 
-      if channel.nil?
-        return  I18n.t(
-          "chat_integration.provider.telegram.unknown_chat",
-          site_title: CGI::escapeHTML(SiteSetting.title),
-          chat_id: chat_id,
-        )
-      end
-
+      text_key = "unknown_chat" if channel.nil?
       # If slash commands disabled, send a generic message
-      if !SiteSetting.chat_integration_telegram_enable_slash_commands
+      text_key = "known_chat" if !SiteSetting.chat_integration_telegram_enable_slash_commands
+      text_key = "help" if message['text'].blank?
+
+      if text_key.present?
         return  I18n.t(
-          "chat_integration.provider.telegram.known_chat",
+          "chat_integration.provider.telegram.#{text_key}",
           site_title: CGI::escapeHTML(SiteSetting.title),
           chat_id: chat_id,
         )
