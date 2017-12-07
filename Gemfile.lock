@@ -1,0 +1,17 @@
+GIT
+  remote: https://github.com/discourse/translations-manager.git
+  revision: 7c265df4e60c75f7bea6aa978f79e7364c2c4ac7
+  specs:
+    translations-manager (0.1.1)
+
+GEM
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  translations-manager!
+
+BUNDLED WITH
+   1.13.6
