@@ -1,0 +1,76 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+ar:
+  js:
+    chat_integration:
+      settings: "إعدادات"
+      choose_group: "(اختر مجموعة)"
+      all_categories: "(جميع الأقسام)"
+      all_tags: "(جميع الوسوم)"
+      delete_channel: "حذف"
+      test_channel: "اختبار"
+      edit_channel: "تعديل"
+      test_modal:
+        title: "أرسل رسالة اختبار"
+        topic: "موضوع"
+        close: "إغلاق"
+        success: "الرسالة أُرسلت بنجاح"
+      type:
+        normal: طبيعي
+      filter:
+        mute: 'صامت'
+        follow: 'أوّل منشور فقط'
+      rule_table:
+        filter: "رشّح"
+        category: "قسم"
+        tags: "وسوم"
+        edit_rule: "تعديل"
+        delete_rule: "حذف"
+      edit_channel_modal:
+        title: "تعديل القناة"
+        save: "حفظ القناة"
+        cancel: "إلغاء"
+      edit_rule_modal:
+        cancel: إلغاء
+        type: نوع
+        channel: قناة
+        filter: رشّح
+        category: قسم
+        group: مجموعة
+        tags: وسوم
+      provider:
+        slack:
+          param:
+            identifier:
+              title: قناة
+        telegram:
+          param:
+            name:
+              title: "الاسم"
+        discord:
+          param:
+            name:
+              title: "الاسم"
+        hipchat:
+          param:
+            name:
+              title: "الاسم"
+            color:
+              title: لون
+        matrix:
+          param:
+            name:
+              title: "الاسم"
+        rocketchat:
+          param:
+            identifier:
+              title: قناة
+        gitter:
+          param:
+            name:
+              title: "الاسم"

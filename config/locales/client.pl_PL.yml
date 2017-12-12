@@ -1,0 +1,57 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+pl_PL:
+  js:
+    chat_integration:
+      settings: "Ustawienia"
+      choose_group: "(wybierz grupę)"
+      all_categories: "(wszystkie kategorie)"
+      create_rule: "Stwórz Regułę"
+      create_channel: "Stwórz Kanał"
+      delete_channel: "Usuń"
+      test_channel: "Sprawdź"
+      edit_channel: "Edytuj"
+      channel_delete_confirm: "Jesteś pewien, że chcesz usunąć ten kanał? Wszystkie połączone reguły zostaną usunięte."
+      test_modal:
+        title: "Wyślij wiadomość testową"
+        topic: "Temat"
+        send: "Wyślij Wiadomość Testową"
+        close: "Zamknij"
+        success: "Wiadomość wysłana poprawnie"
+      type:
+        normal: Normalny
+        group_message: Wiadomość Grupowa
+      filter:
+        mute: 'Wycisz'
+        follow: 'Tylko pierwszy wpis'
+        watch: 'Wszystkie wpisy i odpowiedzi'
+      rule_table:
+        filter: "Filtr"
+        category: "Kategoria"
+        tags: "Tagi"
+        edit_rule: "Edytuj"
+        delete_rule: "Usuń"
+      edit_channel_modal:
+        title: "Edytuj Kanał"
+        save: "Zapisz Kanał"
+        cancel: "Anuluj"
+        provider: "Dostawca"
+        channel_validation:
+          ok: "Poprawny"
+          fail: "Niepoprawny format"
+      edit_rule_modal:
+        title: Edytuj Regułę
+        save: Zapisz Regułę
+        cancel: Anuluj
+        provider: Dostawca
+        type: Typ
+        channel: Kanał
+        filter: Filtr
+        category: Kategoria
+        group: Grupa
+        tags: Tagi

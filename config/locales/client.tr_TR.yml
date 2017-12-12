@@ -1,0 +1,91 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+tr_TR:
+  js:
+    chat_integration:
+      settings: "Ayarlar"
+      choose_group: "(bir grup seçin)"
+      all_categories: "(tüm kategoriler)"
+      all_tags: "(tüm etiketler)"
+      create_rule: "Kural Oluştur"
+      create_channel: "Kanal Oluştur"
+      delete_channel: "Sil"
+      test_channel: "Deneme"
+      edit_channel: "Düzenle"
+      test_modal:
+        title: "Bir ileti gönderin"
+        topic: "Konu"
+        send: "İleti gönderin"
+        close: "Kapat"
+        success: "İleti başarıyla gönderildi"
+      type:
+        normal: Normal
+        group_message: Grup İletisi
+        group_mention: Grup Bahsetme
+      filter:
+        mute: 'Sustur'
+        follow: 'Yalnızca ilk gönderi'
+      rule_table:
+        filter: "Süzgeç"
+        category: "Kategori"
+        tags: "Etiketler"
+        edit_rule: "Düzenle"
+        delete_rule: "Sil"
+      edit_channel_modal:
+        title: "Kanal Düzenle"
+        save: "Kanal Kaydet"
+        cancel: "İptal"
+        provider: "Sağlayan"
+        channel_validation:
+          ok: "Geçerli"
+          fail: "Geçersiz biçim"
+      edit_rule_modal:
+        title: Kural Düzenle
+        save: Kural Kaydet
+        cancel: İptal
+        provider: Sağlayan
+        type: Tür
+        channel: Kanal
+        filter: Süzgeç
+        category: Kategori
+        group: Grup
+        tags: Etiketler
+      provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: Kanal
+        telegram:
+          title: "Telegram"
+          param:
+            name:
+              title: "İsim"
+        discord:
+          title: "Discord"
+          param:
+            name:
+              title: "İsim"
+        hipchat:
+          title: "HipChat"
+          param:
+            color:
+              title: Renk
+        mattermost:
+          param:
+            identifier:
+              title: Kanal
+        matrix:
+          param:
+            name:
+              title: "İsim"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Kanal
