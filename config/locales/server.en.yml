@@ -37,7 +37,7 @@ en:
     ########## HIPCHAT SETTINGS ###########
     #######################################
     chat_integration_hipchat_enabled: "Enable the Hipchat chat-integration provider"
-    chat_integration_hipchat_icon_url: "Icon for posts to hipchat (defaults to forum logo)"
+    chat_integration_hipchat_icon_url: "Icon for posts to Hipchat (defaults to forum logo)"
     chat_integration_hipchat_excerpt_length: "Hipchat post excerpt length"
 
     #######################################
@@ -46,7 +46,7 @@ en:
     chat_integration_mattermost_enabled: "Enable the Mattermost chat-integration provider"
     chat_integration_mattermost_webhook_url: 'URL for the Mattermost webhook'
     chat_integration_mattermost_incoming_webhook_token: 'The verification token used to authenticate incoming requests'
-    chat_integration_mattermost_icon_url: "Icon for posts to mattermost (defaults to forum logo)"
+    chat_integration_mattermost_icon_url: "Icon for posts to Mattermost (defaults to forum logo)"
     chat_integration_mattermost_excerpt_length: "Mattermost post excerpt length"
 
     #######################################
@@ -54,7 +54,7 @@ en:
     #######################################
     chat_integration_matrix_enabled: "Enable the Matrix chat integration provider"
     chat_integration_matrix_homeserver: "Homeserver to connect to. Make sure to include the protocol"
-    chat_integration_matrix_access_token: "Access token for the bot's matrix account"
+    chat_integration_matrix_access_token: "Access token for the bot's Matrix account"
     chat_integration_matrix_excerpt_length: "Matrix post excerpt length"
 
     #######################################
