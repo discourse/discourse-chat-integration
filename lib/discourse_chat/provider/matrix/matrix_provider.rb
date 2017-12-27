@@ -47,7 +47,7 @@ module DiscourseChat
           formatted_body: I18n.t('chat_integration.provider.matrix.formatted_message',                           user: display_name,
                                                                                                                  post_url: post.full_url,
                                                                                                                  title: post.topic.title,
-                                                                                                                 excerpt: post.excerpt(SiteSetting.chat_integration_discord_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true))
+                                                                                                                 excerpt: post.excerpt(SiteSetting.chat_integration_matrix_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true))
 
         }
 
