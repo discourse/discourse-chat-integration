@@ -31,11 +31,11 @@ de:
     chat_integration_mattermost_enabled: "Aktiviere den Chat-Integration-Provider für Mattermost"
     chat_integration_mattermost_webhook_url: 'URL für den Mattermost-Webhook'
     chat_integration_mattermost_incoming_webhook_token: 'Das Verifizierungstoken zur Authentisierung eingehender Anfragen'
-    chat_integration_mattermost_icon_url: "Icon für Beiträge an Mattermost (standardmäßig das Seitenlogo)"
+    chat_integration_mattermost_icon_url: "Icons für Beiträge an Mattermost (standardmäßig das Seitenlogo)"
     chat_integration_mattermost_excerpt_length: "Auszugslänge für Mattermost-Beiträge"
     chat_integration_matrix_enabled: "Aktiviere den Chat-Integration für Matrix"
     chat_integration_matrix_homeserver: "Server, der verwendet werden soll. Stelle sicher, dass du das Protokoll nicht vergisst."
-    chat_integration_matrix_access_token: "Zugriffsschlüssel für das Matrix-Konto des Bots"
+    chat_integration_matrix_access_token: "Zugriffschlüssel für das Matrix-Konto des Bots"
     chat_integration_matrix_excerpt_length: "Auszugslänge für Matrix-Beiträge."
     chat_integration_zulip_enabled: "Aktiviere den Chat-Integration-Provider für Zulip"
     chat_integration_zulip_server: "Die Basis-URL für deinen Zulip-Server. Stelle sicher, dass du http(s):// nicht vergisst."

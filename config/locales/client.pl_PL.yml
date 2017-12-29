@@ -9,8 +9,14 @@ pl_PL:
   js:
     chat_integration:
       settings: "Ustawienia"
+      no_providers: "Musisz włączyć niektórych dostawców w ustawieniach wtyczki"
+      channels_with_errors: "Niektóre kanały dla tego dostawcy nie powiodły się, gdy zostały wysłane ostatnie wiadomości. Kliknij ikonę błędu, aby dowiedzieć się więcej."
+      channel_exception: "Wystąpił nieznany błąd, gdy wiadomość została ostatnio wysłana na ten kanał. Sprawdź logi witryny, aby uzyskać więcej informacji."
+      group_mention_template: "Wzmianki o: @{{name}}"
+      group_message_template: "Wiadomości do: @{{name}}"
       choose_group: "(wybierz grupę)"
       all_categories: "(wszystkie kategorie)"
+      all_tags: "(wszystkie tagi)"
       create_rule: "Stwórz Regułę"
       create_channel: "Stwórz Kanał"
       delete_channel: "Usuń"
@@ -55,3 +61,84 @@ pl_PL:
         category: Kategoria
         group: Grupa
         tags: Tagi
+        instructions:
+          type: "Zmień typ, aby wyświetlał powiadomienia o grupowych wiadomościach lub wzmiankach"
+          filter: "Poziom powiadomień. Wyciszenie zastępuje inne pasujące reguły"
+          category: "Ta reguła dotyczy tylko tematów w określonej kategorii"
+          group: "Ta reguła będzie miała zastosowanie do postów odnoszących się do tej grupy"
+          tags: "Jeśli zostanie określona, ta reguła będzie dotyczyć tylko tematów, które zawierają co najmniej jeden z tych tagów"
+      provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: Kanał
+              help: "np. #kanał, @użytkownik."
+          errors:
+            action_prohibited: "Bot nie ma uprawnień do publikowania na tym kanale"
+            channel_not_found: "Określony kanał nie istnieje na slacku"
+        telegram:
+          title: "Telegram"
+          param:
+            name:
+              title: "Nazwa"
+            chat_id:
+              title: ID czatu
+          errors:
+            channel_not_found: "Określony kanał nie istnieje w Telegramie"
+            forbidden: "Bot nie ma uprawnień do publikowania na tym kanale"
+        discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Nazwa"
+              help: "Nazwa opisująca kanał. Nie służy do połączenia z Discord."
+            webhook_url:
+              title: Adres URL webhooka
+        hipchat:
+          title: "HipChat"
+          param:
+            name:
+              title: "Nazwa"
+              help: "Nazwa opisująca kanał. Nie jest używana do połączenia z HipChat."
+            webhook_url:
+              title: Adres URL webhooka
+            color:
+              title: Kolor
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: Kanał
+              help: "np. #kanał, @użytkownik."
+        matrix:
+          param:
+            name:
+              title: "Nazwa"
+            room_id:
+              title: "ID pokoju"
+          errors:
+            unknown_token: "Token dostępu jest nieprawidłowy"
+            unknown_room: "ID pokoju jest nieprawidłowy"
+        zulip:
+          param:
+            stream:
+              title: "Stream"
+            subject:
+              title: "Temat"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Kanał
+              help: "np. #kanał, @użytkownik."
+          errors:
+            invalid_channel: "Ten kanał nie istnieje na Rocket Chat"
+        gitter:
+          title: "Gitter"
+          param:
+            name:
+              title: "Nazwa"
+            webhook_url:
+              title: "Adres URL webhooka"
+              help: "Adres URL podany podczas tworzenia nowej integracji w pokoju Gitter."
