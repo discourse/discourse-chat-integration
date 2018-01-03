@@ -5,4 +5,91 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-es: {}
+es:
+  site_settings:
+    chat_integration_enabled: 'Habilitar el plugin de integración discourse-chat'
+    chat_integration_discourse_username: 'Nombre de usuario del usuario del que actuar como cuando se esté cogiendo contenido.'
+    chat_integration_delay_seconds: 'Número de segundos a esperar después de la creación de un post antes de empezar a enviar notificaciones de chat.'
+    chat_integration_slack_enabled: 'Habilitar el proveedor de integración con Slack'
+    chat_integration_slack_access_token: 'Token de acceso de OAuth para autenticación con Slack'
+    chat_integration_slack_incoming_webhook_token: 'El token de verificación usado para autentificar solicitudes entrantes'
+    chat_integration_slack_excerpt_length: 'Longitud del extracto de posts de Slack'
+    chat_integration_slack_icon_url: 'Icono para publicaciones en Slack (por defecto el logo del foro)'
+    chat_integration_slack_outbound_webhook_url: "Para usar el sistema de Slack 'Incoming Webhook' en vez de la API OAuth. No recomendado."
+    errors:
+      chat_integration_slack_api_configs_are_empty: "Debes introducir o bien una URL de webhook saliente o un token de acceso"
+    chat_integration_telegram_enabled: "Habilitar el proveedor de integración con Telegram"
+    chat_integration_telegram_access_token: "El token de acceso del bot dado por el bot de Telegram botfather"
+    chat_integration_telegram_excerpt_length: "Longitud del extracto de posts para Telegram"
+    chat_integration_telegram_enable_slash_commands: "Permitir que se gestionen las suscripciones por Telegram usando comandos"
+    chat_integration_discord_enabled: "Habilitar el proveedor de integración con Discord"
+    chat_integration_discord_message_content: "El mensaje a incluir sobre el resumen al enviar una notificación a Discord"
+    chat_integration_discord_excerpt_length: "Longitud del extracto de posts"
+    chat_integration_hipchat_enabled: "Habilitar el proveedor de integración con Hipchat"
+    chat_integration_hipchat_icon_url: "Icono para publicaciones en Hipchat (por defecto el logo del foro)"
+    chat_integration_hipchat_excerpt_length: "Longitud del extracto de posts en Hipchat"
+    chat_integration_mattermost_enabled: "Habilitar el proveedor de integración con Mattermost"
+    chat_integration_mattermost_webhook_url: 'URL del webhook de Mattermost'
+    chat_integration_mattermost_incoming_webhook_token: 'El token de verificación usando para autentificar solicitudes entrantes'
+    chat_integration_mattermost_icon_url: "Icono para publicaciones en Mattermost (por defecto el logo del foro)"
+    chat_integration_mattermost_excerpt_length: "Longitud del extracto de posts en Mattermost"
+    chat_integration_matrix_enabled: "Habilitar el proveedor de integración con Matrix"
+    chat_integration_matrix_homeserver: "Homeserver al que conectarse. Asegúrate de incluir el protocolo"
+    chat_integration_matrix_access_token: "Token de acceso para el bot de la cuenta de Matrix"
+    chat_integration_matrix_excerpt_length: "Longitud del extracto para posts en Matrix"
+    chat_integration_zulip_enabled: "Habilitar el proveedor de integración con Zulip"
+    chat_integration_zulip_server: "La URL base de tu servidor de Zulip. Asegúrate de incluir http(s)://"
+    chat_integration_zulip_bot_email_address: "La dirección de email asociada con tu bot de Zuli"
+    chat_integration_zulip_bot_api_key: "La clave de API para tu bot de Zulip"
+    chat_integration_zulip_excerpt_length: "Longitud del extracto para posts en Zulip"
+    chat_integration_rocketchat_enabled: "Habilitar el proveedor de integración con Rocket Chat"
+    chat_integration_rocketchat_webhook_url: "La URL del webhook de integración de Rocket Chat"
+    chat_integration_rocketchat_excerpt_length: "Longitud del extracto para posts en Rocket Chat"
+    chat_integration_gitter_enabled: "Habilitar el proveedor de integración de Gitter"
+    chat_integration_flowdock_enabled: "Habilitar el proveedor de integración de Flowdock"
+    chat_integration_flowdock_excerpt_length: "Longitud del extracto para posts en Flowdock"
+  chat_integration:
+    all_categories: "(todas las categorías)"
+    deleted_category: "(categoría borrada)"
+    deleted_group: "(grupo borrado)"
+    group_mention_template: "menciones de: @%{name}"
+    group_message_template: "mensajes a: @%{name}"
+    provider:
+      slack:
+        status:
+          header: |
+            *Reglas para este canal*
+            (si múltiples reglas saltan para un post, saltará la de más arriba)
+          no_rules: "No hay reglas establecidas para este canal. Escribe `/discourse help` para instrucciones."
+          rule_string: "*%{index})* *%{filter}* posts en *%{category}*"
+          rule_string_tags_suffix: "con las etiquetas: *%{tags}*"
+        parse_error: "Lo siento, no lo he entendido. Escribe `/discourse help` para instrucciones."
+        create:
+          created: "Regla creada con éxito"
+          updated: "Regla actualizada con éxito"
+          error: "Lo siento, ha ocurrido un error al crear esa regla."
+        delete:
+          success: "Regla creada con éxito"
+          error: "Lo siento, ha ocurrido un error al eliminar esa regla. Escribe `/discourse status` para una lista de todas las reglas."
+        not_found:
+          tag: "La etiqueta *%{name}* no ha sido encontrada."
+          category: "La categoría *%{name}* no ha sido encontrada. Categorías disponibles: *%{list}*"
+        help: |
+          *Nueva regla:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (debes especificar un tipo de regla y al menos una categoría o etiqueta)
+          - *watch* – notificar a este canal nuevos temas y respuestas
+          - *follow* – notificar a este canal nuevos temas
+          - *mute* – bloquear notificaciones a este canal
+
+          *Eliminar regla:* `/discourse remove [número de la regla]`
+          (el `[número de la regla] puede ser encontrado ejecutando `/discourse status`)
+
+          *Lista de reglas:* `/discourse status`
+          *[Experimental] Transcripción de temas:* `/discourse post [n]`
+          Crea un tema-borrador en discourse conteniendo al menos los últimos `n` temas en este canal
+
+          *Ayuda:* `/discourse help`
+        transcript:
+          error: "Algo ha salido mal al generar la transcripción, ¡lo siento!"
+          post_to_discourse: "Haz clic aquí para generar un post-borrador en Discourse con una transcripción"
+          api_required: "Lo siento, esta integración no está configurada para publicar transcripciones."
