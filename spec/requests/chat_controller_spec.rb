@@ -20,14 +20,16 @@ describe 'Chat Controller', type: :request do
   shared_examples 'admin constraints' do |action, route|
     context 'when user is not signed in' do
       it 'should raise the right error' do
-        expect { public_send(action, route) }.to raise_error(ActionController::RoutingError)
+        public_send(action, route)
+        expect(response.status).to eq(404)
       end
     end
 
     context 'when user is not an admin' do
       it 'should raise the right error' do
         sign_in(Fabricate(:user))
-        expect { public_send(action, route) }.to raise_error(ActionController::RoutingError)
+        public_send(action, route)
+        expect(response.status).to eq(404)
       end
     end
   end
@@ -73,7 +75,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response).to be_success
 
-        json = JSON.parse(response.body)
+        JSON.parse(response.body)
       end
 
       it 'should fail for invalid channel' do
@@ -120,9 +122,8 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid provider' do
-        expect do
-          get '/admin/plugins/chat/channels.json', params: { provider: 'someprovider' }
-        end.to raise_error(Discourse::InvalidParameters)
+        get '/admin/plugins/chat/channels.json', params: { provider: 'someprovider' }
+        expect(response.status).to eq(400)
       end
 
     end

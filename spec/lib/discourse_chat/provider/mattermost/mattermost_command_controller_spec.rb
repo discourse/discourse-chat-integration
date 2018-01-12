@@ -48,8 +48,8 @@ describe 'Mattermost Command Controller', type: :request do
 
     describe 'when the token is invalid' do
       it 'should raise the right error' do
-        expect { post '/chat-integration/mattermost/command.json', params: {  text: 'help' } }
-          .to raise_error(ActionController::ParameterMissing)
+        post '/chat-integration/mattermost/command.json', params: {  text: 'help' }
+        expect(response.status).to eq(400)
       end
     end
 
