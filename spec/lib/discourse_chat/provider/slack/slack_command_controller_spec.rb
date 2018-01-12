@@ -48,8 +48,8 @@ describe 'Slack Command Controller', type: :request do
 
     describe 'when the token is invalid' do
       it 'should raise the right error' do
-        expect { post '/chat-integration/slack/command.json', params: { text: 'help' } }
-          .to raise_error(ActionController::ParameterMissing)
+        post '/chat-integration/slack/command.json', params: { text: 'help' }
+        expect(response.status).to eq(400)
       end
     end
 
@@ -195,8 +195,8 @@ describe 'Slack Command Controller', type: :request do
 
         context "with valid slack responses" do
           before do
-            stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david","profile":{"icon_24":"https://example.com/avatar"}}]}')
-            stub2 = stub_request(:post, "https://slack.com/api/channels.history").to_return(body: { ok: true, messages: messages_fixture }.to_json)
+            stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david","profile":{"icon_24":"https://example.com/avatar"}}]}')
+            stub_request(:post, "https://slack.com/api/channels.history").to_return(body: { ok: true, messages: messages_fixture }.to_json)
           end
 
           it 'generates the transcript UI properly' do
@@ -265,7 +265,7 @@ describe 'Slack Command Controller', type: :request do
         end
 
         it 'deals with failed API calls correctly' do
-          stub1 = stub_request(:post, "https://slack.com/api/users.list").to_return(status: 403)
+          stub_request(:post, "https://slack.com/api/users.list").to_return(status: 403)
 
           post "/chat-integration/slack/command.json", params: {
             text: "post 2",
