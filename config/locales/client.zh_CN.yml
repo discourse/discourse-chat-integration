@@ -5,4 +5,36 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-zh_CN: {}
+zh_CN:
+  js:
+    chat_integration:
+      settings: "设置"
+      choose_group: "(选择一个群组)"
+      all_categories: "(所有分类)"
+      all_tags: "(所有标签)"
+      create_rule: "创建规则"
+      create_channel: "创建频道"
+      delete_channel: "删除"
+      test_channel: "测试"
+      edit_channel: "编辑"
+      test_modal:
+        title: "发送一个测试信息"
+        topic: "主题"
+        send: "发送测试信息"
+        close: "关闭"
+        success: "消息发送成功"
+      type:
+        group_message: 群组信息
+      filter:
+        mute: '禁言'
+        follow: '第一帖'
+        watch: '所有帖子和回复'
+      rule_table:
+        filter: "过滤器"
+        category: "分类"
+        tags: "标签"
+        edit_rule: "编辑"
+        delete_rule: "删除"
+      edit_channel_modal:
+        title: "编辑频道"
+        save: "保存频道"

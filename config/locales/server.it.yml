@@ -5,4 +5,6 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-it: {}
+it:
+  site_settings:
+    chat_integration_delay_seconds: 'Dopo la creazione di un messaggio, numero di secondi di attesa prima di inviare una notifica chat'

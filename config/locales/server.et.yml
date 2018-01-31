@@ -5,4 +5,11 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-et: {}
+et:
+  chat_integration:
+    all_categories: "(kõik kategooriad)"
+    deleted_group: "(kustutatud grupp)"
+    provider:
+      slack:
+        delete:
+          success: "Reegel on kustutatud"

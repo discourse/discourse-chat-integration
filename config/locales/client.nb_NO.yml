@@ -29,7 +29,7 @@ nb_NO:
       channel_delete_confirm: "Er du sikker på at du ønsker å slette denne kanalen? Alle tilknyttede regler vil bli slettet."
       test_modal:
         title: "Send en testmelding"
-        topic: "Emne"
+        topic: "Tråd"
         send: "Send testmelding"
         close: "Lukk"
         error: "En ukjent feil inntraff under forsendelse av meldingen. Sjekk sideloggen for mer informasjon."
@@ -39,7 +39,7 @@ nb_NO:
         group_message: Gruppemelding
         group_mention: Gruppeomtale
       filter:
-        mute: 'Forstum'
+        mute: 'Ignorer'
         follow: 'Kun første innlegg'
         watch: 'Alle innlegg og svar'
       rule_table:
@@ -113,7 +113,7 @@ nb_NO:
             subject:
               title: "Emne"
           errors:
-            does_not_exist: "Denne strømmen finnes ikke på Zulip"
+            does_not_exist: "Den strømmen finnes ikke på Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
@@ -121,7 +121,7 @@ nb_NO:
               title: Kanal
               help: "f.eks. #kanal, @brukernavn."
           errors:
-            invalid_channel: "Denne kanalen finnes ikke på Rocket Chat"
+            invalid_channel: "Den kanalen finnes ikke på Rocket Chat"
         gitter:
           title: "Gitter"
           param:

@@ -5,4 +5,13 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-fi: {}
+fi:
+  js:
+    chat_integration:
+      settings: "Asetukset"
+      no_providers: "Sinun täytyy sallia jotkut palveluntarjoajat lisäosien asetuksissa"
+      create_rule: "Luo sääntö"
+      create_channel: "Luo kanava"
+      delete_channel: "Poista"
+      test_modal:
+        title: "Lähetä testiviesti"

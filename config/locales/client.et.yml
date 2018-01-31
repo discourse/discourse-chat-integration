@@ -5,4 +5,47 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-et: {}
+et:
+  js:
+    chat_integration:
+      settings: "Seaded"
+      choose_group: "(vali grupp)"
+      all_categories: "(kõik kategooriad)"
+      all_tags: "(kõik sildid)"
+      create_rule: "Loo reegel"
+      create_channel: "Loo kanal"
+      delete_channel: "Kustuta"
+      test_channel: "Proovi"
+      edit_channel: "Muuda"
+      test_modal:
+        title: "Saada proovisõnum"
+        topic: "Teema"
+        send: "Saada proovisõnum"
+        close: "Sulge"
+        success: "Sõnum on saadetud"
+      type:
+        normal: Tavaline
+        group_message: Grupisõnumid
+      filter:
+        mute: 'Vaigista'
+        follow: 'Ainult esimene postitus'
+      rule_table:
+        filter: "Filter"
+        category: "Kategooria"
+        tags: "Sildid"
+        edit_rule: "Muuda"
+        delete_rule: "Kustuta"
+      edit_channel_modal:
+        title: "Muuda kanalit"
+        save: "Salvesta kanal"
+        cancel: "Loobu"
+      edit_rule_modal:
+        title: Muuda reeglit
+        save: Salvesta reegel
+        cancel: Tühista
+        type: Tüüp
+        channel: Kanal
+        filter: Filter
+        category: Kategooria
+        group: Grupp
+        tags: Sildid
