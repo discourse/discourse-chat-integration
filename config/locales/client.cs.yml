@@ -5,4 +5,13 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-cs: {}
+cs:
+  js:
+    chat_integration:
+      settings: "Nastavení"
+      provider:
+        discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Název"

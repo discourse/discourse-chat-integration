@@ -5,4 +5,63 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-ro: {}
+ro:
+  js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Integrări pentru Chat"
+    chat_integration:
+      menu_title: "Integrări pentru Chat"
+      settings: "Setări"
+      no_providers: "Trebuie să activezi niște furnizori în setările pluginului"
+      channels_with_errors: "Unele canale pentru acest furnizor au eșuat când au fost trimise mesaje ultima dată. Apăsați pictograma(ele) de eroare pentru a afla mai mult."
+      channel_exception: "O eroare necunoscută a apărut atunci când un mesaj a fost trimis ultima dată pe acest canal. Verificați jurnalele site-ului pentru mai multe informații."
+      group_mention_template: "Mențiuni despre: @{{name}}"
+      group_message_template: "Mesaj pentru:  @{{name}}"
+      choose_group: "(selectează un grup)"
+      all_categories: "(toate categoriile)"
+      all_tags: "(toate etichetele)"
+      create_rule: "Creează regulă"
+      create_channel: "Creează canal"
+      delete_channel: "Șterge"
+      test_channel: "Test"
+      edit_channel: "Editează"
+      channel_delete_confirm: "Ești sigur că vrei să ștergi acest canal? Toate regulile asociate vor fi șterse."
+      test_modal:
+        title: "Trimiteți un mesaj de test"
+        topic: "Subiect"
+        send: "Trimiteți un mesaj de test"
+        close: "Închide"
+        error: "O eroare necunoscută a apărut atunci când mesajul era în curs de trimitere. Verifică jurnalele site-ului pentru mai multe informații."
+        success: "Mesajul a fost trimis cu succes"
+      type:
+        normal: Normal
+        group_message: Mesaj de grup
+        group_mention: Mențiune de grup
+      filter:
+        mute: 'Silențios'
+        follow: 'Doar prima postare'
+        watch: 'Toate postările și răspunsurile'
+      rule_table:
+        filter: "Filtrează"
+        category: "Categorie"
+        tags: "Etichete"
+        edit_rule: "Editează"
+        delete_rule: "Șterge"
+      edit_channel_modal:
+        title: "Editează canal"
+        save: "Salvează canal"
+        cancel: "Anulează"
+        provider: "Furnizor"
+        channel_validation:
+          ok: "Corect"
+          fail: "Format incorect"
+      edit_rule_modal:
+        title: Editează regulă
+        save: Salvează regulă
+        cancel: Anulează
+        provider: Furnizor
+        type: Tip
+        channel: Canal
+        filter: Filtru
