@@ -36,10 +36,18 @@ module DiscourseChat
           display_name = "#{full_name} @#{post.user.username}"
         end
 
+        topic = post.topic
+
+        category = ''
+        if topic.category
+          category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
+        end
+
         message = {
           content: SiteSetting.chat_integration_discord_message_content,
           embeds: [{
-            title: post.topic.title,
+            title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
+            color: topic.category ? topic.category.color.to_i(16) : nil,
             description: post.excerpt(SiteSetting.chat_integration_discord_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
             url: post.full_url,
             author: {
