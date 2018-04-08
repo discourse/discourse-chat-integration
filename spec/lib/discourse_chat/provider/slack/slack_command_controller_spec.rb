@@ -231,6 +231,46 @@ describe 'Slack Command Controller', type: :request do
             expect(command_stub).to have_been_requested
           end
 
+          it 'can select by url with thread parameter' do
+            replies_stub = stub_request(:post, "https://slack.com/api/conversations.replies")
+              .with(body: /1501801629\.052212/)
+              .to_return(body: { ok: true, messages: messages_fixture }.to_json)
+
+            command_stub = stub_request(:post, "https://slack.com/commands/1234")
+              .to_return(body: { ok: true }.to_json)
+
+            post "/chat-integration/slack/command.json", params: {
+              text: "post https://sometestslack.slack.com/archives/C6029G78F/p1501201669054212?thread_ts=1501801629.052212",
+              response_url: 'https://hooks.slack.com/commands/1234',
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
+            }
+
+            expect(command_stub).to have_been_requested
+            expect(replies_stub).to have_been_requested
+          end
+
+          it 'can select by thread' do
+            replies_stub = stub_request(:post, "https://slack.com/api/conversations.replies")
+              .with(body: /1501801629\.052212/)
+              .to_return(body: { ok: true, messages: messages_fixture }.to_json)
+
+            command_stub = stub_request(:post, "https://slack.com/commands/1234")
+              .to_return(body: { ok: true }.to_json)
+
+            post "/chat-integration/slack/command.json", params: {
+              text: "post thread https://sometestslack.slack.com/archives/C6029G78F/p1501801629052212",
+              response_url: 'https://hooks.slack.com/commands/1234',
+              channel_name: 'general',
+              channel_id: 'C6029G78F',
+              token: token
+            }
+
+            expect(command_stub).to have_been_requested
+            expect(replies_stub).to have_been_requested
+          end
+
           it 'can select by count' do
             command_stub = stub_request(:post, "https://slack.com/commands/1234")
               .with(body: /1501801629\.052212/)
