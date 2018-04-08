@@ -201,12 +201,12 @@ module DiscourseChat::Provider::SlackProvider
       http = Net::HTTP.new("slack.com", 443)
       http.use_ssl = true
 
-      req = Net::HTTP::Post.new(URI('https://slack.com/api/channels.history'))
+      req = Net::HTTP::Post.new(URI('https://slack.com/api/conversations.history'))
 
       data = {
         token: SiteSetting.chat_integration_slack_access_token,
         channel: @channel_id,
-        count: count
+        limit: count
       }
 
       req.set_form_data(data)

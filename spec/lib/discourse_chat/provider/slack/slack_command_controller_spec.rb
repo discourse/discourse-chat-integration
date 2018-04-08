@@ -196,7 +196,7 @@ describe 'Slack Command Controller', type: :request do
         context "with valid slack responses" do
           before do
             stub_request(:post, "https://slack.com/api/users.list").to_return(body: '{"ok":true,"members":[{"id":"U5Z773QLS","name":"david","profile":{"icon_24":"https://example.com/avatar"}}]}')
-            stub_request(:post, "https://slack.com/api/channels.history").to_return(body: { ok: true, messages: messages_fixture }.to_json)
+            stub_request(:post, "https://slack.com/api/conversations.history").to_return(body: { ok: true, messages: messages_fixture }.to_json)
           end
 
           it 'generates the transcript UI properly' do

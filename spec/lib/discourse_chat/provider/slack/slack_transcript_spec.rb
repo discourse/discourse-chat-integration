@@ -105,7 +105,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
     describe 'loading history' do
       it 'loads messages correctly' do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .with(body: hash_including(token: "abcde", channel: 'G1234'))
           .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
 
@@ -113,14 +113,14 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       end
 
       it 'handles failed connection' do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .to_return(status: 500, body: {}.to_json)
 
           expect(transcript.load_chat_history).to be_falsey
       end
 
       it 'handles slack failure' do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .to_return(status: 200, body: { ok: false }.to_json)
 
           expect(transcript.load_chat_history).to be_falsey
@@ -129,7 +129,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
     context 'with loaded messages' do
       before do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .with(body: hash_including(token: "abcde", channel: 'G1234'))
           .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
         transcript.load_chat_history
