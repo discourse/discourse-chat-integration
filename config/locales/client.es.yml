@@ -16,7 +16,7 @@ es:
       settings: "Ajustes"
       no_providers: "Necesitas habilitar algún proveedor en los ajustes del plugin"
       channels_with_errors: "Algunos canales de este proveedores fallaron la última vez que se enviaron mensajes. Haz clic en los iconos de error para saber más."
-      channel_exception: "Un error desconocido ha ocurrido la última vez que se mandó un mensaje a este canal. Comprueba los logs de la página para más información."
+      channel_exception: "Un error desconocido ha ocurrido la última vez que se mandó un mensaje a este canal. Comprueba los registros de la página para más información."
       group_mention_template: "Menciones de: @{{name}}"
       group_message_template: "Mensajes a: @{{name}}"
       choose_group: "(escoge un grupo)"
@@ -56,7 +56,7 @@ es:
         provider: "Proveedor"
         channel_validation:
           ok: "Válido"
-          fail: "Formato inválido"
+          fail: "Formato no válido"
       edit_rule_modal:
         title: Editar regla
         save: Guardar regla
@@ -79,10 +79,10 @@ es:
           title: "Slack"
           param:
             identifier:
-              title: anal
+              title: Canal
               help: "ej.: #canal, @usuario."
           errors:
-            action_prohibited: "Este bot no tiene permisos para enviar a ese canal."
+            action_prohibited: "Este bot no tiene permiso para enviar a ese canal."
             channel_not_found: "El canal especificado no existe en Slack"
         telegram:
           title: "Telegram"

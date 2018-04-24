@@ -7,7 +7,12 @@
 
 zh_CN:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "聊天功能整合"
     chat_integration:
+      menu_title: "聊天功能整合"
       settings: "设置"
       choose_group: "(选择一个群组)"
       all_categories: "(所有分类)"
@@ -24,6 +29,7 @@ zh_CN:
         close: "关闭"
         success: "消息发送成功"
       type:
+        normal: 正常
         group_message: 群组信息
       filter:
         mute: '禁言'
@@ -38,3 +44,20 @@ zh_CN:
       edit_channel_modal:
         title: "编辑频道"
         save: "保存频道"
+      provider:
+        zulip:
+          param:
+            subject:
+              title: "主题"
+        rocketchat:
+          param:
+            identifier:
+              title: 频道
+          errors:
+            invalid_channel: "这个频道在 Rocket Chat 上不存在"
+        gitter:
+          param:
+            name:
+              title: "名字"
+            webhook_url:
+              title: "Webhook 地址"
