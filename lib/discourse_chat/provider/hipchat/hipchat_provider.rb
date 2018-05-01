@@ -5,7 +5,7 @@ module DiscourseChat
       PROVIDER_ENABLED_SETTING = :chat_integration_hipchat_enabled
       CHANNEL_PARAMETERS = [
                         { key: "name", regex: '^\S+' },
-                        { key: "webhook_url", regex: 'hipchat\.com', unique: true, hidden: true },
+                        { key: "webhook_url", regex: '^\S+$', unique: true, hidden: true },
                         { key: "color", regex: '^(yellow|green|red|purple|gray|random)$' }
                        ]
 
