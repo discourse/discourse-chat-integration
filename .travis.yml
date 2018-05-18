@@ -6,6 +6,8 @@ services:
 before_install: 
   - plugin_name=${PWD##*/} && echo $plugin_name
 
+install: true # Prevent travis doing bundle install
+
 script: 
   - >
     docker run

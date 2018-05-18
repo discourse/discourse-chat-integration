@@ -105,7 +105,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
     describe 'loading history' do
       it 'loads messages correctly' do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .with(body: hash_including(token: "abcde", channel: 'G1234'))
           .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
 
@@ -113,23 +113,43 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       end
 
       it 'handles failed connection' do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .to_return(status: 500, body: {}.to_json)
 
           expect(transcript.load_chat_history).to be_falsey
       end
 
       it 'handles slack failure' do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .to_return(status: 200, body: { ok: false }.to_json)
 
           expect(transcript.load_chat_history).to be_falsey
       end
     end
 
+    context 'with thread_ts specified' do
+      let(:thread_transcript) { described_class.new(channel_name: "#general", channel_id: "G1234", requested_thread_ts: "1501801629.052212") }
+
+      before do
+        stub_request(:post, "https://slack.com/api/conversations.replies")
+          .with(body: hash_including(token: "abcde", channel: 'G1234', ts: "1501801629.052212"))
+          .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
+        thread_transcript.load_chat_history
+      end
+
+      it 'includes messages in a thread' do
+        expect(thread_transcript.messages.length).to eq(7)
+      end
+
+      it 'loads in chronological order' do # replies API presents messages in actual chronological order
+        expect(thread_transcript.messages.first.ts).to eq('1501801665.062694')
+      end
+
+    end
+
     context 'with loaded messages' do
       before do
-        stub_request(:post, "https://slack.com/api/channels.history")
+        stub_request(:post, "https://slack.com/api/conversations.history")
           .with(body: hash_including(token: "abcde", channel: 'G1234'))
           .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
         transcript.load_chat_history

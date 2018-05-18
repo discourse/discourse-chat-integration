@@ -26,8 +26,6 @@ module DiscourseChat::Provider::SlackProvider
         case params[:channel_name]
         when 'directmessage'
           "@#{params[:user_name]}"
-        when 'privategroup'
-          params[:channel_id]
         else
           "##{params[:channel_name]}"
         end
@@ -58,9 +56,16 @@ module DiscourseChat::Provider::SlackProvider
       Scheduler::Defer.later "Processing slack transcript request" do
         requested_messages = nil
         first_message_ts = nil
+        requested_thread_ts = nil
 
+        thread_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p[0-9]{16}\?thread_ts=([0-9]{10}.[0-9]{6})\S*$/
         slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
-        if tokens.size > 1 && match = slack_url_regex.match(tokens[1])
+
+        if tokens.size > 2 && tokens[1] == "thread" && match = slack_url_regex.match(tokens[2])
+          requested_thread_ts = match.captures[0].insert(10, '.')
+        elsif tokens.size > 1 && match = thread_url_regex.match(tokens[1])
+          requested_thread_ts = match.captures[0]
+        elsif tokens.size > 1 && match = slack_url_regex.match(tokens[1])
           first_message_ts = match.captures[0].insert(10, '.')
         elsif tokens.size > 1
           begin
@@ -72,7 +77,7 @@ module DiscourseChat::Provider::SlackProvider
 
         error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-        return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id)
+        return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id, requested_thread_ts: requested_thread_ts)
         return error_message unless transcript.load_user_data
         return error_message unless transcript.load_chat_history
 

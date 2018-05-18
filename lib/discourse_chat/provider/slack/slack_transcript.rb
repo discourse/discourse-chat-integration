@@ -2,9 +2,10 @@ module DiscourseChat::Provider::SlackProvider
   class SlackTranscript
     attr_reader :users, :channel_id, :messages
 
-    def initialize(channel_name:, channel_id:)
+    def initialize(channel_name:, channel_id:, requested_thread_ts: nil)
       @channel_name = channel_name
       @channel_id = channel_id
+      @requested_thread_ts = requested_thread_ts
 
       @first_message_index = 0
       @last_message_index = -1 # We can use negative array indicies to select the last message - fancy!
@@ -30,6 +31,7 @@ module DiscourseChat::Provider::SlackProvider
 
     # Apply a heuristic to decide which is the first message in the current conversation
     def guess_first_message(skip_messages: 5) # Can skip the last n messages
+      return true if @requested_thread_ts # Always start thread on first message
 
       possible_first_messages = @messages[0..-skip_messages]
 
@@ -121,6 +123,8 @@ module DiscourseChat::Provider::SlackProvider
       secret = DiscourseChat::Helper.save_transcript(post_content)
       link = "#{Discourse.base_url}/chat-transcript/#{secret}"
 
+      return { text: "<#{link}|#{I18n.t("chat_integration.provider.slack.transcript.post_to_discourse")}>" } if @requested_thread_ts
+
       {
         text: "<#{link}|#{I18n.t("chat_integration.provider.slack.transcript.post_to_discourse")}>",
         attachments: [
@@ -201,13 +205,17 @@ module DiscourseChat::Provider::SlackProvider
       http = Net::HTTP.new("slack.com", 443)
       http.use_ssl = true
 
-      req = Net::HTTP::Post.new(URI('https://slack.com/api/channels.history'))
+      endpoint = @requested_thread_ts ? "replies" : "history"
+
+      req = Net::HTTP::Post.new(URI("https://slack.com/api/conversations.#{endpoint}"))
 
       data = {
         token: SiteSetting.chat_integration_slack_access_token,
         channel: @channel_id,
-        count: count
+        limit: count
       }
+
+      data[:ts] = @requested_thread_ts if @requested_thread_ts
 
       req.set_form_data(data)
       response = http.request(req)
@@ -215,15 +223,17 @@ module DiscourseChat::Provider::SlackProvider
       json = JSON.parse(response.body)
       return false unless json['ok']
 
-      raw_messages = json['messages'].reverse
+      raw_messages = json['messages']
+      raw_messages = raw_messages.reverse unless @requested_thread_ts
 
       # Build some message objects
       @messages = []
       raw_messages.each_with_index do |message, index|
         # Only load messages
         next unless message["type"] == "message"
-        # Don't load responses to threads (if ts==thread_ts then it's the thread parent)
-        next if message["thread_ts"] && message["thread_ts"] != message["ts"]
+
+        # Don't load responses to threads unless specifically requested (if ts==thread_ts then it's the thread parent)
+        next if !@requested_thread_ts && message["thread_ts"] && message["thread_ts"] != message["ts"]
 
         this_message = SlackMessage.new(message, self)
         @messages << this_message
