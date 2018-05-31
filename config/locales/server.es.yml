@@ -58,8 +58,8 @@ es:
       slack:
         status:
           header: |
-              *Reglas para este canal*
-              (si múltiples reglas saltan para un post, saltará la de más arriba)
+            *Reglas para este canal*
+            (si múltiples reglas saltan para un post, saltará la de más arriba)
           no_rules: "No hay reglas establecidas para este canal. Escribe `/discourse help` para instrucciones."
           rule_string: "*%{index})* *%{filter}* posts en *%{category}*"
           rule_string_tags_suffix: "con las etiquetas: *%{tags}*"
@@ -75,20 +75,20 @@ es:
           tag: "La etiqueta *%{name}* no ha sido encontrada."
           category: "La categoría *%{name}* no ha sido encontrada. Categorías disponibles: *%{list}*"
         help: |
-            *Nueva regla:* `/discourse [watch|follow|mute] [category] [tag:name]`
-            (debes especificar un tipo de regla y al menos una categoría o etiqueta)
-            - *watch* – notificar a este canal nuevos temas y respuestas
-            - *follow* – notificar a este canal nuevos temas
-            - *mute* – bloquear notificaciones a este canal
+          *Nueva regla:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (debes especificar un tipo de regla y al menos una categoría o etiqueta)
+          - *watch* – notificar a este canal nuevos temas y respuestas
+          - *follow* – notificar a este canal nuevos temas
+          - *mute* – bloquear notificaciones a este canal
 
-            *Eliminar regla:* `/discourse remove [número de la regla]`
-            (el `[número de la regla] puede ser encontrado ejecutando `/discourse status`)
+          *Eliminar regla:* `/discourse remove [número de la regla]`
+          (el `[número de la regla] puede ser encontrado ejecutando `/discourse status`)
 
-            *Lista de reglas:* `/discourse status`
-            *[Experimental] Transcripción de temas:* `/discourse post [n]`
-            Crea un tema-borrador en discourse conteniendo al menos los últimos `n` temas en este canal
+          *Lista de reglas:* `/discourse status`
+          *[Experimental] Transcripción de temas:* `/discourse post [n]`
+          Crea un tema-borrador en discourse conteniendo al menos los últimos `n` temas en este canal
 
-            *Ayuda:* `/discourse help`
+          *Ayuda:* `/discourse help`
         transcript:
           error: "Algo ha salido mal al generar la transcripción, ¡lo siento!"
           post_to_discourse: "Haz clic aquí para generar un post-borrador en Discourse con una transcripción"
@@ -104,13 +104,13 @@ es:
         unknown_chat: "Este chat no ha sido configurado en %{site_title}. Dile a un administrador que añada un canal con el 'Chat ID' %{chat_id}."
         known_chat: "Este chat está configurado en %{site_title}. Configúralo en el panel del administrador. (ID del chat: %{chat_id})"
         message: |-
-            <b>%{user}</b> publicó en <a href="%{post_url}">%{title}</a>
+          <b>%{user}</b> publicó en <a href="%{post_url}">%{title}</a>
 
-            <pre>%{post_excerpt}</pre>
+          <pre>%{post_excerpt}</pre>
         status:
           header: |
-              <b>Reglas para este canal</b>
-              (si varias reglas saltan para un post, la primera será ejecutada)
+            <b>Reglas para este canal</b>
+            (si varias reglas saltan para un post, la primera será ejecutada)
           no_rules: "No hay reglas configuradas para este canal. Ejecuta <code>/help</code> para instrucciones."
           rule_string: "<b>%{index})</b> <b>%{filter}</b> posts en <b>%{category}</b>"
           rule_string_tags_suffix: "con etiquetas: <b>%{tags}</b>"
@@ -126,25 +126,25 @@ es:
           tag: "La etiqueta <b>%{name}</b> no ha sido encontrada."
           category: "La categoría <b>%{name}</b> no ha sido encontrada. Categorías disponibles: <b>%{list}</b>"
         help: |
-            <b>Nueva regla:</b> <code>/[watch|follow|mute] [categoría] [tag:nombre]</code>
-            (debes especificar un tipo de regla y al menos una categoría o etiqueta)
-            - <b>watch</b> – notifica a este canal para cada nuevo tema y nuevas respuestas
-            - <b>follow</b>– notifica a este canal para cada nuevo tema
-            - <b>mute</b>– bloquea las notificaciones a este canal
+          <b>Nueva regla:</b> <code>/[watch|follow|mute] [categoría] [tag:nombre]</code>
+          (debes especificar un tipo de regla y al menos una categoría o etiqueta)
+          - <b>watch</b> – notifica a este canal para cada nuevo tema y nuevas respuestas
+          - <b>follow</b>– notifica a este canal para cada nuevo tema
+          - <b>mute</b>– bloquea las notificaciones a este canal
 
-            <b>Quitar regla:</b> <code>/remove [número de la regla]</code>
-            (el <code>[número de la regla]  puede obtenerse ejecutando <code>/status</code>)
+          <b>Quitar regla:</b> <code>/remove [número de la regla]</code>
+          (el <code>[número de la regla]  puede obtenerse ejecutando <code>/status</code>)
 
-            <b>Lista de reglas:</b> <code>/status</code>
+          <b>Lista de reglas:</b> <code>/status</code>
 
-            <b>Ayuda:</b> <code>/help</code>
+          <b>Ayuda:</b> <code>/help</code>
       hipchat:
         message: <b>%{user}</b> publicó en <a href="%{post_url}">%{title}</a>
       mattermost:
         status:
           header: |
-              *Reglas para este canal*
-              (si varias reglas saltan, la primera será ejecutada)
+            *Reglas para este canal*
+            (si varias reglas saltan, la primera será ejecutada)
           no_rules: "No hay reglas configuradas para este canal. Ejecuta `/discourse help` para instrucciones."
           rule_string: "*%{index})* *%{filter}* posts en *%{category}*"
           rule_string_tags_suffix: "con etiquetas: *%{tags}*"
@@ -160,30 +160,30 @@ es:
           tag: "La etiqueta *%{name}*  no ha sido encontrada."
           category: "La categoría *%{name}* no ha sido encontrada. Categorías disponibles: *%{list}*"
         help: |
-            *Nueva regla:* `/discourse [watch|follow|mute] [categoría] [tag:nombre de etiqueta]`
-            (debes especificar un tipo de regla y al menos una categoría o etiqueta)
-            - *watch* – notifica a este canal en cada nuevo tema y respuesta
-            - *follow* – notifica a este canal en cada nuevo tema
-            - *mute* – bloquear notificaciones a este canal
+          *Nueva regla:* `/discourse [watch|follow|mute] [categoría] [tag:nombre de etiqueta]`
+          (debes especificar un tipo de regla y al menos una categoría o etiqueta)
+          - *watch* – notifica a este canal en cada nuevo tema y respuesta
+          - *follow* – notifica a este canal en cada nuevo tema
+          - *mute* – bloquear notificaciones a este canal
 
-            *Quitar regla:* `/discourse remove [número de la regla]`
-            (el `[número de la regla]` puede encontrarse ejecutando `/discourse status`)
+          *Quitar regla:* `/discourse remove [número de la regla]`
+          (el `[número de la regla]` puede encontrarse ejecutando `/discourse status`)
 
-            *Lista de reglas:* `/discourse status`
+          *Lista de reglas:* `/discourse status`
 
-            *Ayuda:* `/discourse help`
+          *Ayuda:* `/discourse help`
       matrix:
         text_message: "%{user} publicó en %{title} - %{post_url}"
         formatted_message: |
-            <b>%{user}</b> publicó en <b><a href='%{post_url}'>%{title}</a></b>
-            <blockquote>
-            %{excerpt}
-            </blockquote>
+          <b>%{user}</b> publicó en <b><a href='%{post_url}'>%{title}</a></b>
+          <blockquote>
+          %{excerpt}
+          </blockquote>
       zulip:
         message: |
-            **%{user}** publicó en **[%{title}](%{post_url})**
-            ~~~quote
-            %{excerpt}
-            ~~~
+          **%{user}** publicó en **[%{title}](%{post_url})**
+          ~~~quote
+          %{excerpt}
+          ~~~
       flowdock:
         message_title: "publicó"

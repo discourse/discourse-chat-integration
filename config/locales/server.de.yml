@@ -58,8 +58,8 @@ de:
       slack:
         status:
           header: |
-              *Regeln für diesen Kanal*
-              (Wenn mehrere Regeln zutreffen, wird die oberste Regel ausgeführt)
+            *Regeln für diesen Kanal*
+            (Wenn mehrere Regeln zutreffen, wird die oberste Regel ausgeführt)
           no_rules: "Es sind keine Regeln für diesen Kanal eingerichtet. Führe `/discourse help`  aus für weitere Anweisungen."
           rule_string: "*%{index})* *%{filter}* Beiträge in *%{category}*"
           rule_string_tags_suffix: " mit Schlagwörtern: *%{tags}*"
@@ -75,21 +75,21 @@ de:
           tag: "Das %{name}* Schlagwort kann nicht gefunden werden."
           category: "Die *%{name}* Kategorie kann nicht gefunden werden. Verfügbare Kategorien: *%{list}*"
         help: |
-            *Neue Regel:* `/discourse [watch|follow|mute] [Kategorie] [tag:Schlagwort]`
-            (du musst einen Regeltyp angeben sowie mindestens eine Kategorie oder ein Schlagwort)
-            - *watch* – benachrichtige diesen Kanal über neue Themen und neue Antworten
-            - *follow* – benachrichtige diesen Kanal über neue Themen
-            - *mute* – blockiere Benachrichtigungen an diesen Kanal
+          *Neue Regel:* `/discourse [watch|follow|mute] [Kategorie] [tag:Schlagwort]`
+          (du musst einen Regeltyp angeben sowie mindestens eine Kategorie oder ein Schlagwort)
+          - *watch* – benachrichtige diesen Kanal über neue Themen und neue Antworten
+          - *follow* – benachrichtige diesen Kanal über neue Themen
+          - *mute* – blockiere Benachrichtigungen an diesen Kanal
 
-            *Regel entfernen:* `/discourse remove [Nummer der Regel]`
-            (Die `[Nummer der Regel]` kann durch Ausführung von `/discourse status` herausgefunden werden.)
+          *Regel entfernen:* `/discourse remove [Nummer der Regel]`
+          (Die `[Nummer der Regel]` kann durch Ausführung von `/discourse status` herausgefunden werden.)
 
-            *Regeln auflisten:* `/discourse status`
+          *Regeln auflisten:* `/discourse status`
 
-            *[Experimentell] Transkript erstellen:* `/discourse post [n]`
-            Erstellt ein Entwurfsthema auf Discourse, das die letzten `n` Beiträge in diesem Kanal enthält.
+          *[Experimentell] Transkript erstellen:* `/discourse post [n]`
+          Erstellt ein Entwurfsthema auf Discourse, das die letzten `n` Beiträge in diesem Kanal enthält.
 
-            *Hilfe:* `/discourse help`
+          *Hilfe:* `/discourse help`
         transcript:
           error: "Entschuldige, beim Erstellen des Transkripts ist etwas schief gelaufen."
           post_to_discourse: "Klicke hier, um auf Discourse einen Beitrag mit einem Transkript zu entwerfen"
@@ -105,13 +105,13 @@ de:
         unknown_chat: "Dieser Chat ist nicht eingerichtet auf %{site_title}. Bitte frage einen Administrator, einen Kanal mit der 'Chat-ID' %{chat_id} hinzuzufügen."
         known_chat: "Dieser Chat ist eingerichtet auf %{site_title}. Konfiguriere ihn im Administrationsbereich. (Chat-ID: %{chat_id})"
         message: |-
-            <b>%{user}</b> hat geschrieben in <a href="%{post_url}">%{title}</a>
+          <b>%{user}</b> hat geschrieben in <a href="%{post_url}">%{title}</a>
 
-            <pre>%{post_excerpt}</pre>
+          <pre>%{post_excerpt}</pre>
         status:
           header: |
-              <b>Regeln für diesen Kanal</b>
-              (wenn mehrere Regeln auf einen Beitrag passen, wird die oberste ausgeführt)
+            <b>Regeln für diesen Kanal</b>
+            (wenn mehrere Regeln auf einen Beitrag passen, wird die oberste ausgeführt)
           no_rules: "Es sind keine Regeln für diesen Kanal eingerichtet. Führe <code>/help</code> aus für Anweisungen."
           rule_string: "<b>%{index})</b> <b>%{filter}</b> Beiträge in <b>%{category}</b>"
           rule_string_tags_suffix: "mit den Schlagwörtern: <b>%{tags}</b>"
@@ -127,25 +127,25 @@ de:
           tag: "Das Schlagwort <b>%{name}</b> kann nicht gefunden werden."
           category: "Die Kategorie <b>%{name}</b> kann nicht gefunden werden. Verfügbare Kategorien: <b>%{list}</b>"
         help: |
-            <b>Neue Regel:</b> <code>/[watch|follow|mute] [Kategorie] [tag:Schlagwort]</code>
-            (du musst mindestens einen Regeltyp sowie mindestens eine Kategorie oder ein Schlagwort angeben)
-            - <b>watch</b> – benachrichtige diesen Kanal über neue Themen und neue Antworten
-            - <b>follow</b> – benachrichtige diesen Kanal über neue Themen
-            - <b>mute</b> – blockiere Benachrichtigungen an diesen Kanal
+          <b>Neue Regel:</b> <code>/[watch|follow|mute] [Kategorie] [tag:Schlagwort]</code>
+          (du musst mindestens einen Regeltyp sowie mindestens eine Kategorie oder ein Schlagwort angeben)
+          - <b>watch</b> – benachrichtige diesen Kanal über neue Themen und neue Antworten
+          - <b>follow</b> – benachrichtige diesen Kanal über neue Themen
+          - <b>mute</b> – blockiere Benachrichtigungen an diesen Kanal
 
-            <b>Rege löschen:</b> <code>/remove [Nummer der Regel]</code>
-            (Die <code>[Nummer der Regel]</code> kann durch Ausführen von <code>/status</code> herausgefunden werden.)
+          <b>Rege löschen:</b> <code>/remove [Nummer der Regel]</code>
+          (Die <code>[Nummer der Regel]</code> kann durch Ausführen von <code>/status</code> herausgefunden werden.)
 
-            <b>Regeln auflisten:</b> <code>/status</code>
+          <b>Regeln auflisten:</b> <code>/status</code>
 
-            <b>Hilfe:</b> <code>/help</code>
+          <b>Hilfe:</b> <code>/help</code>
       hipchat:
         message: <b>%{user}</b> hat geschrieben in <a href="%{post_url}">%{title}</a>
       mattermost:
         status:
           header: |
-              *Regeln für diesen Kanal*
-              (wenn mehrere Regeln zutreffen, wird die oberste Regel ausgeführt)
+            *Regeln für diesen Kanal*
+            (wenn mehrere Regeln zutreffen, wird die oberste Regel ausgeführt)
           no_rules: "Es sind keine Regeln für diesen Kanal konfiguriert. Führe `/discourse help` aus für Anweisungen."
           rule_string: "*%{index})* *%{filter}* Beiträge in *%{category}*"
           rule_string_tags_suffix: " mit den Schlagwörtern: *%{tags}*"
@@ -161,30 +161,30 @@ de:
           tag: "Das *%{name}* Schlagwort kann nicht gefunden werden."
           category: "Die *%{name}* Kategorie kann nicht gefunden werden. Verfügbare Kategorien: *%{list}*"
         help: |
-            *Neue Regel:* `/discourse [watch|follow|mute] [Kategorie] [tag:Schlagwort]`
-            (du musst einen Regeltyp angeben sowie mindestens eine Kategorie oder ein Schlagwort)
-            - *watch* – benachrichtige diesen Kanal über neue Themen und neue Antworten
-            - *follow* – benachrichtige diesen Kanal über neue Themen
-            - *mute* – blockiere Benachrichtigungen an diesen Kanal
+          *Neue Regel:* `/discourse [watch|follow|mute] [Kategorie] [tag:Schlagwort]`
+          (du musst einen Regeltyp angeben sowie mindestens eine Kategorie oder ein Schlagwort)
+          - *watch* – benachrichtige diesen Kanal über neue Themen und neue Antworten
+          - *follow* – benachrichtige diesen Kanal über neue Themen
+          - *mute* – blockiere Benachrichtigungen an diesen Kanal
 
-            *Regel entfernen:* `/discourse remove [Nummer der Regel]`
-            (Die `[Nummer der Regel]` kann durch Ausführung von `/discourse status` herausgefunden werden.)
+          *Regel entfernen:* `/discourse remove [Nummer der Regel]`
+          (Die `[Nummer der Regel]` kann durch Ausführung von `/discourse status` herausgefunden werden.)
 
-            *Regeln auflisten:* `/discourse status`
+          *Regeln auflisten:* `/discourse status`
 
-            *Hilfe:* `/discourse help`
+          *Hilfe:* `/discourse help`
       matrix:
         text_message: "%{user} hat geschrieben in %{title} - %{post_url}"
         formatted_message: |
-            <b>%{user}</b> hat geschrieben in <b><a href='%{post_url}'>%{title}</a></b>
-            <blockquote>
-            %{excerpt}
-            </blockquote>
+          <b>%{user}</b> hat geschrieben in <b><a href='%{post_url}'>%{title}</a></b>
+          <blockquote>
+          %{excerpt}
+          </blockquote>
       zulip:
         message: |
-            **%{user}** hat geschrieben in **[%{title}](%{post_url})**
-            ~~~quote
-            %{excerpt}
-            ~~~
+          **%{user}** hat geschrieben in **[%{title}](%{post_url})**
+          ~~~quote
+          %{excerpt}
+          ~~~
       flowdock:
         message_title: "hat geschrieben"

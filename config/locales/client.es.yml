@@ -69,7 +69,7 @@ es:
         group: Grupo
         tags: Etiquetas
         instructions:
-          type: "Cambia el tipo para que salten notificaciones para menciones o mensajes de grupo"
+          type: "Cambia el tipo para que aparezcan notificaciones para menciones o mensajes de grupo"
           filter: "Nivel de notificación. Silenciado anula otras reglas activadas."
           category: "Esta regla solo se aplicará para temas en la categoría especificada."
           group: "Esta regla se aplicará a temas haciendo referencia a este grupo."
