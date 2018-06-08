@@ -81,48 +81,48 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
 
   private
 
-    def channel_valid?
-      if !(DiscourseChat::Channel.where(id: channel_id).exists?)
-        errors.add(:channel_id, "#{channel_id} is not a valid channel id")
-      end
+  def channel_valid?
+    if !(DiscourseChat::Channel.where(id: channel_id).exists?)
+      errors.add(:channel_id, "#{channel_id} is not a valid channel id")
+    end
+  end
+
+  def category_valid?
+    if type != 'normal' && !category_id.nil?
+      errors.add(:category_id, "cannot be specified for that type of rule")
     end
 
-    def category_valid?
-      if type != 'normal' && !category_id.nil?
-        errors.add(:category_id, "cannot be specified for that type of rule")
-      end
+    return unless type == 'normal'
 
-      return unless type == 'normal'
+    if !(category_id.nil? || Category.where(id: category_id).exists?)
+      errors.add(:category_id, "#{category_id} is not a valid category id")
+    end
+  end
 
-      if !(category_id.nil? || Category.where(id: category_id).exists?)
-        errors.add(:category_id, "#{category_id} is not a valid category id")
-      end
+  def group_valid?
+    if type == 'normal' && !group_id.nil?
+      errors.add(:group_id, "cannot be specified for that type of rule")
     end
 
-    def group_valid?
-      if type == 'normal' && !group_id.nil?
-        errors.add(:group_id, "cannot be specified for that type of rule")
-      end
+    return if type == 'normal'
 
-      return if type == 'normal'
-
-      if !Group.where(id: group_id).exists?
-        errors.add(:group_id, "#{group_id} is not a valid group id")
-      end
+    if !Group.where(id: group_id).exists?
+      errors.add(:group_id, "#{group_id} is not a valid group id")
     end
+  end
 
-    def tags_valid?
-      return if tags.nil?
+  def tags_valid?
+    return if tags.nil?
 
-      tags.each do |tag|
-        if !Tag.where(name: tag).exists?
-          errors.add(:tags, "#{tag} is not a valid tag")
-        end
+    tags.each do |tag|
+      if !Tag.where(name: tag).exists?
+        errors.add(:tags, "#{tag} is not a valid tag")
       end
     end
+  end
 
-    def init_filter
-      self.filter ||= 'watch'
-      self.type ||= 'normal'
-    end
+  def init_filter
+    self.filter ||= 'watch'
+    self.type ||= 'normal'
+  end
 end

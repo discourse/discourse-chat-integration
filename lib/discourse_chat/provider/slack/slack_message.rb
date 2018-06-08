@@ -87,9 +87,9 @@ module DiscourseChat::Provider::SlackProvider
 
     private
 
-      def user
-        return nil unless user_id = @raw["user"]
-        @transcript.users.find { |u| u["id"] == user_id }
-      end
+    def user
+      return nil unless user_id = @raw["user"]
+      @transcript.users.find { |u| u["id"] == user_id }
+    end
   end
 end

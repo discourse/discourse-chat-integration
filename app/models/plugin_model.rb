@@ -18,22 +18,22 @@ class DiscourseChat::PluginModel < PluginStoreRow
 
   private
 
-    def set_key
-      self.key ||= self.class.alloc_key
-    end
+  def set_key
+    self.key ||= self.class.alloc_key
+  end
 
-    def init_plugin_model
-      self.type_name ||= 'JSON'
-      self.plugin_name ||= PLUGIN_NAME
-    end
+  def init_plugin_model
+    self.type_name ||= 'JSON'
+    self.plugin_name ||= PLUGIN_NAME
+  end
 
-    def self.alloc_key
-      DistributedMutex.synchronize("#{self::PLUGIN_NAME}_#{self.key_prefix}_id") do
-        max_id = PluginStore.get(self::PLUGIN_NAME, "#{self.key_prefix}_id")
-        max_id = 1 unless max_id
-        PluginStore.set(self::PLUGIN_NAME, "#{self.key_prefix}_id", max_id + 1)
-        "#{self.key_prefix}#{max_id}"
-      end
+  def self.alloc_key
+    DistributedMutex.synchronize("#{self::PLUGIN_NAME}_#{self.key_prefix}_id") do
+      max_id = PluginStore.get(self::PLUGIN_NAME, "#{self.key_prefix}_id")
+      max_id = 1 unless max_id
+      PluginStore.set(self::PLUGIN_NAME, "#{self.key_prefix}_id", max_id + 1)
+      "#{self.key_prefix}#{max_id}"
     end
+  end
 
 end

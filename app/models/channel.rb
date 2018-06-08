@@ -20,49 +20,49 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
 
   private
 
-    def init_data
-      self.data = {} if self.data.nil?
+  def init_data
+    self.data = {} if self.data.nil?
+  end
+
+  def destroy_rules
+    rules.destroy_all
+  end
+
+  def provider_valid?
+    if !DiscourseChat::Provider.provider_names.include?(provider)
+      errors.add(:provider, "#{provider} is not a valid provider")
+    end
+  end
+
+  def data_valid?
+    # If provider is invalid, don't try and check data
+    return unless ::DiscourseChat::Provider.provider_names.include? provider
+
+    params = ::DiscourseChat::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
+
+    unless params.map { |p| p[:key] }.sort == data.keys.sort
+      errors.add(:data, "data does not match the required structure for provider #{provider}")
+      return
     end
 
-    def destroy_rules
-      rules.destroy_all
-    end
+    check_unique = false
+    matching_channels = DiscourseChat::Channel.with_provider(provider).where.not(id: id)
 
-    def provider_valid?
-      if !DiscourseChat::Provider.provider_names.include?(provider)
-        errors.add(:provider, "#{provider} is not a valid provider")
+    data.each do |key, value|
+      regex_string = params.find { |p| p[:key] == key }[:regex]
+      if !Regexp.new(regex_string).match(value)
+        errors.add(:data, "data.#{key} is invalid")
+      end
+
+      unique = params.find { |p| p[:key] == key }[:unique]
+      if unique
+        check_unique = true
+        matching_channels = matching_channels.with_data_value(key, value)
       end
     end
 
-    def data_valid?
-      # If provider is invalid, don't try and check data
-      return unless ::DiscourseChat::Provider.provider_names.include? provider
-
-      params = ::DiscourseChat::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
-
-      unless params.map { |p| p[:key] }.sort == data.keys.sort
-        errors.add(:data, "data does not match the required structure for provider #{provider}")
-        return
-      end
-
-      check_unique = false
-      matching_channels = DiscourseChat::Channel.with_provider(provider).where.not(id: id)
-
-      data.each do |key, value|
-        regex_string = params.find { |p| p[:key] == key }[:regex]
-        if !Regexp.new(regex_string).match(value)
-          errors.add(:data, "data.#{key} is invalid")
-        end
-
-        unique = params.find { |p| p[:key] == key }[:unique]
-        if unique
-          check_unique = true
-          matching_channels = matching_channels.with_data_value(key, value)
-        end
-      end
-
-      if check_unique && matching_channels.exists?
-        errors.add(:data, "matches an existing channel")
-      end
+    if check_unique && matching_channels.exists?
+      errors.add(:data, "matches an existing channel")
     end
+  end
 end
