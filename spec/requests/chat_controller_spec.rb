@@ -2,8 +2,8 @@ require 'rails_helper'
 require_relative '../dummy_provider'
 
 describe 'Chat Controller', type: :request do
-  let(:first_post) { Fabricate(:post) }
-  let(:topic) { Fabricate(:topic, posts: [first_post]) }
+
+  let(:topic) { Fabricate(:post).topic }
   let(:admin) { Fabricate(:admin) }
   let(:category) { Fabricate(:category) }
   let(:category2) { Fabricate(:category) }
@@ -45,7 +45,7 @@ describe 'Chat Controller', type: :request do
       it 'should return the right response' do
         get '/admin/plugins/chat/providers.json'
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         json = JSON.parse(response.body)
 
@@ -73,7 +73,7 @@ describe 'Chat Controller', type: :request do
           channel_id: channel.id, topic_id: topic.id
         }
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         JSON.parse(response.body)
       end
@@ -83,7 +83,7 @@ describe 'Chat Controller', type: :request do
           channel_id: 999, topic_id: topic.id
         }
 
-        expect(response).not_to be_success
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -106,7 +106,7 @@ describe 'Chat Controller', type: :request do
 
         get '/admin/plugins/chat/channels.json', params: { provider: 'dummy' }
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         channels = JSON.parse(response.body)['channels']
 
@@ -146,7 +146,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         channel = DiscourseChat::Channel.all.last
 
@@ -161,7 +161,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).not_to be_success
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -184,7 +184,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         channel = DiscourseChat::Channel.all.last
         expect(channel.data).to eq("val" => "something-else")
@@ -197,7 +197,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).not_to be_success
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -216,7 +216,7 @@ describe 'Chat Controller', type: :request do
       it 'should be able delete a channel' do
         delete "/admin/plugins/chat/channels/#{channel.id}.json"
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
         expect(DiscourseChat::Channel.all.size).to eq(0)
       end
     end
@@ -241,7 +241,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         rule = DiscourseChat::Rule.all.last
 
@@ -262,7 +262,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).not_to be_success
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -288,7 +288,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
 
         rule = DiscourseChat::Rule.all.last
         expect(rule.category_id).to eq(category2.id)
@@ -304,7 +304,7 @@ describe 'Chat Controller', type: :request do
           }
         }
 
-        expect(response).not_to be_success
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -330,7 +330,7 @@ describe 'Chat Controller', type: :request do
       it 'should be able delete a rule' do
         delete "/admin/plugins/chat/rules/#{rule.id}.json"
 
-        expect(response).to be_success
+        expect(response.status).to eq(200)
         expect(DiscourseChat::Rule.all.size).to eq(0)
       end
     end

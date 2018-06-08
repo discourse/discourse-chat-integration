@@ -13,7 +13,7 @@ describe 'Public Controller', type: :request do
 
       get "/chat-transcript/#{key}.json"
 
-      expect(response).to be_success
+      expect(response.status).to eq(200)
 
       expect(response.body).to eq('{"content":"Some content here"}')
     end
@@ -22,7 +22,7 @@ describe 'Public Controller', type: :request do
       key = 'abcdefghijk'
       get "/chat-transcript/#{key}.json"
 
-      expect(response).not_to be_success
+      expect(response.status).to eq(404)
     end
 
   end

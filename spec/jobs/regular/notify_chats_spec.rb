@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PostCreator do
-  let(:first_post) { Fabricate(:post) }
-  let(:topic) { Fabricate(:topic, posts: [first_post]) }
+  let(:topic) { Fabricate(:post).topic }
 
   before do
     SiteSetting.queue_jobs = true
