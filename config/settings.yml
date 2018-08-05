@@ -85,6 +85,8 @@ chat_integration:
     default: ''
   chat_integration_matrix_excerpt_length:
     default: 400
+  chat_integration_matrix_use_notice:
+    default: true
 
 #######################################
 ########### ZULIP SETTINGS ############
