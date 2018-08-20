@@ -1,6 +1,6 @@
 class DiscourseChat::Channel < DiscourseChat::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :provider, :error_key, :data ], coder: JSON
+  store :value, accessors: [ :provider, :error_key, :error_info, :data ], coder: JSON
 
   scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider) }
   scope :with_data_value, ->(key, value) { where("(value::json->>'data')::json->>?=?", key.to_s, value.to_s) }

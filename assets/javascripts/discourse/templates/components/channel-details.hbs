@@ -9,7 +9,7 @@
 
   <span class='channel-title'>
     {{#if channel.error_key}}
-      {{d-button action="showError" actionParam=channel.error_key class="delete btn-danger" icon="exclamation-triangle"}}
+      {{d-button action="showError" actionParam=channel class="delete btn-danger" icon="exclamation-triangle"}}
     {{/if}}
 
     {{channel-data provider=provider channel=channel}}

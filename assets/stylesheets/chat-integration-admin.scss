@@ -1,10 +1,9 @@
 #admin-plugin-chat {
-
   table {
-    margin-top:0;
+    margin-top: 0;
 
     td:last-child {
-      white-space:nowrap;
+      white-space: nowrap;
     }
 
     td:not(:last-child) {
@@ -18,7 +17,7 @@
 
   div.error {
     font-size: 1.1em;
-    font-weight:bold;
+    font-weight: bold;
     max-width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -33,7 +32,7 @@
     div.channel-header {
       background: $primary-low;
       padding: 10px;
-      overflow:auto;
+      overflow: auto;
 
       .channel-title {
         font-size: 1.3em;
@@ -45,7 +44,7 @@
     }
 
     div.channel-footer {
-      overflow:auto;
+      overflow: auto;
     }
   }
 }
@@ -54,7 +53,7 @@
 #chat_integration_test_modal,
 #chat-integration-edit-rule_modal {
   table {
-    width:100%;
+    width: 100%;
 
     tr.input td {
       padding-top: 10px;
@@ -83,7 +82,7 @@
   .tag-chooser {
     ul.select2-choices {
       border: none;
-      background:none;
+      background: none;
     }
 
     margin-bottom: 0px;
@@ -92,5 +91,14 @@
 
   .field-name {
     font-weight: bold;
+  }
+}
+
+#chat_integration_error_modal {
+  pre {
+    max-width: 500px;
+    max-height: 800px;
+    overflow: scroll;
+    background: $primary-low;
   }
 }

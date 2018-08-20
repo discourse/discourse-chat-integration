@@ -86,15 +86,16 @@ module DiscourseChat
           else
             channel.update_attribute('error_key', 'chat_integration.channel_exception')
           end
+          channel.update_attribute('error_info', JSON.pretty_generate(e.try(:info)))
 
           # Log the error
-          Discourse.handle_job_exception(e,
-            message: "Triggering notifications failed",
-            extra: { provider_name: provider::PROVIDER_NAME,
-                     channel: rule.channel,
-                     post_id: post.id,
-                     error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
-          )
+          # Discourse.handle_job_exception(e,
+          #   message: "Triggering notifications failed",
+          #   extra: { provider_name: provider::PROVIDER_NAME,
+          #            channel: rule.channel,
+          #            post_id: post.id,
+          #            error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
+          # )
         end
 
       end
