@@ -16,7 +16,6 @@ ro:
       settings: "Setări"
       no_providers: "Trebuie să activezi niște furnizori în setările pluginului"
       channels_with_errors: "Unele canale pentru acest furnizor au eșuat când au fost trimise mesaje ultima dată. Apăsați pictograma(ele) de eroare pentru a afla mai mult."
-      channel_exception: "O eroare necunoscută a apărut atunci când un mesaj a fost trimis ultima dată pe acest canal. Verificați jurnalele site-ului pentru mai multe informații."
       group_mention_template: "Mențiuni despre: @{{name}}"
       group_message_template: "Mesaj pentru:  @{{name}}"
       choose_group: "(selectează un grup)"

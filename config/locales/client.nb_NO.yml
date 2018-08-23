@@ -16,7 +16,6 @@ nb_NO:
       settings: "Innstillinger"
       no_providers: "Du må skru på noen tilbydere i proramtilleggsinnstillingene"
       channels_with_errors: "Noen kanaler for denne tilbyderen mislyktes sist meldinger ble sendt. Klikk på feil-ikon(ene) for å lære mer."
-      channel_exception: "En ukjent inntraff når en melding sist ble sendt til denne kanalen. Sjekk sideloggen for mer informasjon."
       group_message_template: "Meldinger til: @{{name}}"
       choose_group: "(velg en gruppe)"
       all_categories: "(alle kategorier)"

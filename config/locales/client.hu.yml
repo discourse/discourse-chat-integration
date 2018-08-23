@@ -1,0 +1,103 @@
+# encoding: utf-8
+#
+# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+#
+# To work with us on translations, join this project:
+# https://www.transifex.com/projects/p/discourse-org/
+
+hu:
+  js:
+    chat_integration:
+      settings: "Beállítások"
+      choose_group: "(válassz egy csoportot)"
+      all_categories: "(összes kategória)"
+      all_tags: "(összes címke)"
+      delete_channel: "Töröl"
+      test_channel: "Teszt"
+      edit_channel: "Szerkeszt"
+      test_modal:
+        title: "Tesztüzenet küldése"
+        topic: "Téma"
+        send: "Szöveges üzenet küldése"
+        close: "Bezár"
+        success: "Üzenet sikeresen elküldve"
+      type:
+        normal: Normális
+        group_message: Csoportos üzenet
+        group_mention: Csoportos megemlítés
+      filter:
+        mute: 'Lenémít'
+      rule_table:
+        tags: "Címkék"
+        edit_rule: "Szerkeszt"
+        delete_rule: "Töröl"
+      edit_channel_modal:
+        cancel: "Visszavon"
+        provider: "Szolgáltató"
+        channel_validation:
+          ok: "Érvényes"
+          fail: "Érvénytelen formátum"
+      edit_rule_modal:
+        title: Szabály Szerkesztése
+        save: Szabály Mentése
+        cancel: Visszavon
+        provider: Szolgáltató
+        type: Típus
+        category: Kategória
+        group: Csoport
+        tags: Címkék
+      provider:
+        telegram:
+          title: "Telegram"
+          param:
+            name:
+              title: "Név"
+            chat_id:
+              title: Chat ID
+        discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Név"
+        hipchat:
+          title: "HipChat"
+          param:
+            name:
+              title: "Név"
+            color:
+              title: Szín
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: Csatorna
+              help: "pl. #csatorna, @felhasználónév"
+        matrix:
+          title: "Matrix"
+          param:
+            name:
+              title: "Név"
+            room_id:
+              title: "Szoba ID"
+          errors:
+            unknown_room: "Szoba ID érvénytelen"
+        zulip:
+          title: "Zulip"
+          param:
+            subject:
+              title: "Tárgy"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Csatorna
+              help: "pl. #csatorna, @felhasználónév"
+        gitter:
+          title: "Gitter"
+          param:
+            name:
+              title: "Név"
+            webhook_url:
+              title: "Webhook URL"
+        flowdock:
+          title: "Flowdock"

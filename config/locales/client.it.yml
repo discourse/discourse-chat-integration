@@ -7,7 +7,12 @@
 
 it:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Chat Integrations"
     chat_integration:
+      menu_title: "Chat Integrations"
       settings: "Impostazioni"
       group_mention_template: "Menzioni di: @{{name}}"
       group_message_template: "Messaggi a: @{{name}}"

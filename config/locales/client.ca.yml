@@ -5,4 +5,17 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-ca: {}
+ca:
+  js:
+    chat_integration:
+      settings: "Configuracions"
+      edit_channel: "Edita"
+      test_modal:
+        close: "Tanca"
+      type:
+        normal: Normal
+      rule_table:
+        filter: "Filtre"
+        category: "Categoria"
+        tags: "Etiquetes"
+        edit_rule: "Edita"

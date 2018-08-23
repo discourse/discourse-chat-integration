@@ -16,7 +16,6 @@ es:
       settings: "Ajustes"
       no_providers: "Necesitas habilitar algún proveedor en los ajustes del plugin"
       channels_with_errors: "Algunos canales de este proveedores fallaron la última vez que se enviaron mensajes. Haz clic en los iconos de error para saber más."
-      channel_exception: "Un error desconocido ha ocurrido la última vez que se mandó un mensaje a este canal. Comprueba los registros de la página para más información."
       group_mention_template: "Menciones de: @{{name}}"
       group_message_template: "Mensajes a: @{{name}}"
       choose_group: "(escoge un grupo)"

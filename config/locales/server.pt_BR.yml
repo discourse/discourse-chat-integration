@@ -5,4 +5,186 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-pt_BR: {}
+pt_BR:
+  site_settings:
+    chat_integration_enabled: 'Habilitar o plug-in discourse-chat-integration'
+    chat_integration_discourse_username: 'Nome de usuário do usuário para agir como na busca de conteúdo.'
+    chat_integration_delay_seconds: 'Número de segundos a aguardar após a criação antes de enviar notificações de chat'
+    chat_integration_slack_enabled: 'Habilitar o provedor de integração de chat'
+    chat_integration_slack_access_token: 'OAuth Access Token para autenticar com o Slack'
+    chat_integration_slack_incoming_webhook_token: 'O token de verificação usado para autenticar solicitações recebidas'
+    chat_integration_slack_excerpt_length: 'Slack post trecho de comprimento'
+    chat_integration_slack_icon_url: 'Ícone para publicar para folga com (padrão para o logotipo do fórum)'
+    chat_integration_slack_outbound_webhook_url: "Para usar o sistema 'Incoming Webhook' do Slack em vez da API OAuth. Não recomendado."
+    errors:
+      chat_integration_slack_api_configs_are_empty: "Você deve inserir um URL de webhook de saída ou um token de acesso"
+    chat_integration_telegram_enabled: "Habilitar o provedor de integração de bate-papo do Telegram"
+    chat_integration_telegram_access_token: "O token de acesso do seu bot a partir do botfather do Telegram"
+    chat_integration_telegram_excerpt_length: "Comprimento do trecho da postagem do telegrama "
+    chat_integration_telegram_enable_slash_commands: "Permitir que as assinaturas de telegrama sejam gerenciadas usando 'comandos de barra'"
+    chat_integration_discord_enabled: "Habilitar o provedor de integração de bate-papo Discord"
+    chat_integration_discord_message_content: "A mensagem a ser incluída acima do resumo ao enviar uma notificação para Discord"
+    chat_integration_discord_excerpt_length: "Comprimento do trecho da discórdia"
+    chat_integration_hipchat_enabled: "habilitar o provedor de integração de bate-papo do Hipchat"
+    chat_integration_hipchat_icon_url: "Ícone para postagens no Hipchat (padrão para o logotipo do fórum)"
+    chat_integration_hipchat_excerpt_length: "Hipchat post trecho de comprimento"
+    chat_integration_mattermost_enabled: "habilitar o provedor de integração de chat Mattermost"
+    chat_integration_mattermost_webhook_url: 'URL para o webhook da Mattermost'
+    chat_integration_mattermost_incoming_webhook_token: 'O token de verificação usado para autenticar solicitações recebidas'
+    chat_integration_mattermost_icon_url: "Ícone para posts no Mattermost (padrão para o logo do fórum)"
+    chat_integration_mattermost_excerpt_length: "Maior comprimento de trecho de postagem"
+    chat_integration_matrix_enabled: "habilitar o provedor de integração de bate-papo Matrix"
+    chat_integration_matrix_homeserver: "Homeserver para se conectar. Certifique-se de incluir o protocolo"
+    chat_integration_matrix_access_token: "Token de acesso para a conta Matrix do bot"
+    chat_integration_matrix_excerpt_length: "Comprimento do trecho pós-matriz"
+    chat_integration_zulip_enabled: "Habilitar o provedor de integração de bate-papo do Zulip"
+    chat_integration_zulip_server: "O URL base do seu servidor Zulip. Certifique-se de incluir http (s): //"
+    chat_integration_zulip_bot_email_address: "O endereço de e-mail associado ao seu bot Zulip"
+    chat_integration_zulip_bot_api_key: "A chave de API do seu bot Zulip"
+    chat_integration_zulip_excerpt_length: "Zulip post trecho de comprimento"
+    chat_integration_rocketchat_enabled: "habilitar o provedor de integração de bate-papo do Rocket Chat"
+    chat_integration_rocketchat_webhook_url: "O URL para o webhook de integração do Rocket Chat"
+    chat_integration_rocketchat_excerpt_length: "Rocket Chat postar trecho do trecho"
+    chat_integration_gitter_enabled: "habilitar o provedor de integração de bate-papo Gitter"
+    chat_integration_flowdock_enabled: "habilitar o provedor de integração de bate-papo do Flowdock"
+    chat_integration_flowdock_excerpt_length: "Flowdock post trecho de comprimento"
+  chat_integration:
+    all_categories: "(todas as categorias)"
+    deleted_category: "(categoria eliminada)"
+    deleted_group: "(grupo excluído)"
+    group_mention_template: "menções de: @%{name}"
+    group_message_template: "mensagens para: @%{name}"
+    provider:
+      slack:
+        status:
+          header: |
+            * Regras para este canal*
+            (se várias regras corresponderem a uma postagem, a regra mais alta será executada)
+          no_rules: "Não há regras configuradas para este canal. Execute `/ discourse help` para instruções."
+          rule_string: "*%{index})* *%{filter}* posts em *%{category}*"
+          rule_string_tags_suffix: " com etiquetas: *%{tags}*"
+        parse_error: "Desculpe, eu não entendi isso. Execute `/ discourse help` para instruções."
+        create:
+          created: "Regra criada com sucesso"
+          updated: "Regra atualizada com sucesso"
+          error: "Desculpe, ocorreu um erro ao criar essa regra."
+        delete:
+          success: "Regra excluída com sucesso"
+          error: "Desculpe, ocorreu um erro ao excluir essa regra. Execute `/ discourse status` para uma lista de regras."
+        not_found:
+          tag: "A *%{name}* tag não pode ser encontrada."
+          category: "A *%{name}* categoria não pode ser encontrada. Categorias disponíveis: *%{list}*"
+        help: |
+          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
+        transcript:
+          error: "Algo deu errado ao construir a transcrição, desculpe!"
+          post_to_discourse: "Clique aqui para elaborar um post sobre Discurso com uma transcrição"
+          api_required: "Desculpe, essa integração não está configurada para suportar transcrições de postagem."
+          view_on_slack: "Visualizar%{name} no Slack"
+          first_message_pretext: "Começando%{n} mensagens atrás:"
+          last_message_pretext: "e terminando %{n} mensagens atrás:"
+          posted_in: "publicado em %{name}"
+          change_first_message: "Alterar a primeira mensagem ..."
+          change_last_message: "Alterar a última mensagem ..."
+          loading: "Carregando a transcrição ..."
+      telegram:
+        unknown_chat: "Este chat não está configurado %{site_title}. Peça a um administrador para adicionar um canal com \"ID de bate-papo\" %{chat_id}."
+        known_chat: "Este chat está configurado %{site_title}. Configure-o no painel de administração. (ID do bate-papo:%{chat_id}) "
+        message: |-
+          <b>%{user}</b> publicado em <a href="%{post_url}">%{title}</a>
+
+          <pre>%{post_excerpt}</pre>
+        status:
+          header: |
+            <b>Regras para este canal</b>
+            (Se várias regras corresponderem a uma postagem, a regra mais alta será executada)
+          no_rules: "Não há regras configuradas para este canal. Pesquise<code>/ajuda</code> para instruções."
+          rule_string: "<b>%{index})</b> <b>%{filter}</b> publicado em <b>%{category}</b>"
+          rule_string_tags_suffix: " com etiquetas:<b>%{tags}</b>"
+        parse_error: "Desculpe,não entendi isso. Pesquise <code>/ajuda</code> para instruções."
+        create:
+          created: "Regra criada com sucesso"
+          updated: "Regra atualizada com sucesso"
+          error: "Desculpe, ocorreu um erro ao criar essa regra."
+        delete:
+          success: "Regra deletada com sucesso."
+          error: "Desculpe,ocorreu um erro ao deletar a regra. Pesquise <code>/status</code> para uma lista de regras."
+        not_found:
+          tag: "A<b>%{name}</b> tag não pode ser encontrada."
+          category: "A<b>%{name}</b> categoria não pôde ser encontrada. Categorias disponíveis: <b>%{list}</b>"
+        help: |
+          <b>Nova regra:</b> <code>/[assista|siga|silencie] [categoria] [tag:nome]</code>
+          (você deve especificar um tipo de regra e pelo menos uma categoria ou tag)
+          - <b>assista </b> – notifique este canal para novos tópicos e novas respostas
+          - <b>siga </b> – notifique esse canal para novos tópicos
+          - <b>silencie</b> – bloqueie notificações desse canal
+
+          <b>Remover regra:</b> <code>/remover [regra número]</code>
+          (<code>[regra número]</code> pode ser encontrado correndo <code>/status</code>)
+
+          <b>Listar regras:</b> <code>/status</code>
+
+          <b>Ajuda:</b> <code>/ajuda</code>
+      hipchat:
+        message: <b>%{user}</b> publicado em<a href="%{post_url}">%{title}</a>
+      mattermost:
+        status:
+          header: |
+            * Regras para este canal *
+            (se várias regras corresponderem a uma postagem, a regra mais alta será executada)
+          no_rules: "Não há regras configuradas para este canal. Execute `/ discourse help` para instruções."
+          rule_string: "*%{index})* *%{filter}* publicado em *%{category}*"
+          rule_string_tags_suffix: "com etiquetas: *%{tags}*"
+        parse_error: "Desculpe, não entendi isso. Pesquise `/discourse help` para instruções."
+        create:
+          created: "Regra criada com sucesso."
+          updated: "Regra atualizada com sucesso."
+          error: "Desculpe, ocorreu um erro ao criar a regra."
+        delete:
+          success: "Regra deletada com sucesso."
+          error: "Desculpe, ocorreu um erro ao deletar a regra. Pesquise `/discourse status` para uma lista de regras."
+        not_found:
+          tag: "A*%{name}* tag não pôde ser encontrada."
+          category: "A *%{name}* categoria não pôde ser encontrada. Categorias disponíveis: *%{list}*"
+        help: |
+          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *Help:* `/discourse help`
+      matrix:
+        text_message: "%{user} publicado em %{title} - %{post_url}"
+        formatted_message: |
+          <b>%{user}</b> publicado em <b><a href='%{post_url}'>%{title}</a></b>
+          <blockquote>
+          %{excerpt}
+          </blockquote>
+      zulip:
+        message: |
+          **%{user}** publicado em **[%{title}](%{post_url})**
+          ~~~citação
+          %{excerpt}
+          ~~~
+      flowdock:
+        message_title: "publicado"
