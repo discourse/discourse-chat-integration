@@ -17,4 +17,30 @@ it:
       group_mention_template: "Menzioni di: @{{name}}"
       group_message_template: "Messaggi a: @{{name}}"
       all_categories: "(tutte le categorie)"
+      all_tags: "(tutte le etichette)"
       create_rule: "Crea Regola"
+      create_channel: "Crea Canale"
+      delete_channel: "Elimina"
+      test_channel: "Test"
+      edit_channel: "Modifica"
+      channel_delete_confirm: "Sicuro di voler eliminare questo canale? Saranno eliminate anche tutte le regole associate ."
+      test_modal:
+        title: "Invia un messaggio di test"
+        topic: "Argomento"
+        close: "Chiudi"
+        success: "Messaggio inviato correttamente"
+      type:
+        normal: Normale
+      filter:
+        mute: 'Silenzia'
+        follow: 'Solo il primo messaggio'
+        watch: 'Tutti i messaggi e le risposte'
+      rule_table:
+        filter: "Filtra"
+        category: "Categoria"
+        edit_rule: "Modifica"
+        delete_rule: "Elimina"
+      edit_channel_modal:
+        title: "Modifica Canale"
+        save: "Salva Canale"
+        cancel: "Annulla"

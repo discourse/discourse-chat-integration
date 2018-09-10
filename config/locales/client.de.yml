@@ -16,6 +16,7 @@ de:
       settings: "Einstellungen"
       no_providers: "Du musst mindestens ein paar Provider in den Plugin-Einstellungen aktivieren"
       channels_with_errors: "Einige Kanäle für diesen Provider sind das letzte Mal fehlgeschlagen, als Nachrichten geschickt werden. Klicke auf das/die Fehlersymboĺ(e), um mehr zu erfahren."
+      channel_exception: "Ein unbekannter Fehler ist aufgetreten als die Nachricht das letzte Mal an diesen Kanal gesendet wurde."
       group_mention_template: "Erwähnungen von: @{{name}}"
       group_message_template: "Nachrichten an: @{{name}}"
       choose_group: "(wähle eine Gruppe)"

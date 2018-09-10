@@ -54,6 +54,7 @@ de:
     deleted_group: "(Gruppe gelöscht)"
     group_mention_template: "Erwähnungen von: @%{name}"
     group_message_template: "Nachrichten an: @%{name}"
+    admin_error: "Einige Chat Integration Kanäle haben Fehler. Besuche den Chat Integrationsbereich um mehr darüber herauszufinden."
     provider:
       slack:
         status:
