@@ -3,17 +3,10 @@ sudo: required
 services:
   - docker
 
-before_install: 
-  - plugin_name=${PWD##*/} && echo $plugin_name
+before_install:
+  - git clone https://github.com/discourse/discourse-plugin-ci
 
 install: true # Prevent travis doing bundle install
 
-script: 
-  - >
-    docker run
-    -e "COMMIT_HASH=origin/tests-passed"
-    -e "SKIP_CORE=1"
-    -e SINGLE_PLUGIN=$plugin_name
-    -v $(pwd):/var/www/discourse/plugins/$plugin_name
-    discourse/discourse_test:release
-  
+script:
+  - discourse-plugin-ci/script.sh
