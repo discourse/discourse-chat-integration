@@ -2,13 +2,12 @@ import { acceptance } from "helpers/qunit-helpers";
 acceptance("Chat Integration", {
   loggedIn: true,
 
-  beforeEach() {
+  pretend(server) {
     const response = object => {
       return [200, { "Content-Type": "text/html; charset=utf-8" }, object];
     };
 
     server.get("/admin/plugins/chat/providers", () => {
-      // eslint-disable-line no-undef
       return response({
         providers: [
           {
@@ -21,7 +20,6 @@ acceptance("Chat Integration", {
     });
 
     server.get("/admin/plugins/chat/channels", () => {
-      // eslint-disable-line no-undef
       return response({
         channels: [
           {
@@ -46,42 +44,34 @@ acceptance("Chat Integration", {
     });
 
     server.post("/admin/plugins/chat/channels", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.put("/admin/plugins/chat/channels/:id", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.delete("/admin/plugins/chat/channels/:id", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.post("/admin/plugins/chat/rules", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.put("/admin/plugins/chat/rules/:id", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.delete("/admin/plugins/chat/rules/:id", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.post("/admin/plugins/chat/test", () => {
-      // eslint-disable-line no-undef
       return response({});
     });
 
     server.get("/groups/search.json", () => {
-      // eslint-disable-line no-undef
       return response([]);
     });
   }
