@@ -1,23 +1,30 @@
-import { ajax } from 'discourse/lib/ajax';
-import { popupAjaxError } from 'discourse/lib/ajax-error';
+import { ajax } from "discourse/lib/ajax";
+import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default Discourse.Route.extend({
   beforeModel(transition) {
     if (this.currentUser) {
       const secret = transition.params.transcript.secret;
 
-      this.replaceWith('discovery.latest').then(e => {
-        if (this.controllerFor('navigation/default').get('canCreateTopic')) {
+      this.replaceWith("discovery.latest").then(e => {
+        if (this.controllerFor("navigation/default").get("canCreateTopic")) {
           Ember.run.next(() => {
             ajax(`chat-transcript/${secret}`).then(result => {
-              e.send('createNewTopicViaParams', null, result['content'], null, null, null);
+              e.send(
+                "createNewTopicViaParams",
+                null,
+                result["content"],
+                null,
+                null,
+                null
+              );
             }, popupAjaxError);
           });
         }
       });
     } else {
       this.session.set("shouldRedirectToUrl", window.location.href);
-      this.replaceWith('login');
+      this.replaceWith("login");
     }
   }
 });

@@ -1,11 +1,11 @@
-import RestModel from 'discourse/models/rest';
+import RestModel from "discourse/models/rest";
 
 export default RestModel.extend({
   updateProperties() {
-    return this.getProperties(['data']);
+    return this.getProperties(["data"]);
   },
 
   createProperties() {
-    return this.getProperties(['provider','data']);
+    return this.getProperties(["provider", "data"]);
   }
 });
