@@ -10,6 +10,8 @@ chat_integration:
 #######################################
 ########## SLACK SETTINGS #############
 #######################################
+  chat_integration_slack_username:
+    default: Discourse
   chat_integration_slack_enabled:
     default: false
     validator: "ChatIntegrationSlackEnabledSettingValidator"
