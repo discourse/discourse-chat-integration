@@ -8,6 +8,8 @@ enabled_site_setting :chat_integration_enabled
 
 register_asset "stylesheets/chat-integration-admin.scss"
 
+register_svg_icon "rocket" if respond_to?(:register_svg_icon)
+
 # Site setting validators must be loaded before initialize
 require_relative "lib/discourse_chat/provider/slack/slack_enabled_setting_validator"
 

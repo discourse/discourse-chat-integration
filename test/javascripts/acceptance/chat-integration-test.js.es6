@@ -266,7 +266,7 @@ test("Test channel works", assert => {
   visit("/admin/plugins/chat");
 
   andThen(() => {
-    click(".fa-rocket");
+    click(".btn-chat-test");
   });
 
   andThen(() => {
