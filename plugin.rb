@@ -29,7 +29,11 @@ after_initialize do
     DiscourseChat::Channel.find_each do |channel|
       error = true unless channel.error_key.blank?
     end
-    I18n.t("chat_integration.admin_error") if error
+
+    if error
+      base_path = Discourse.respond_to?(:base_path) ? Discourse.base_path : Discourse.base_uri
+      I18n.t("chat_integration.admin_error", base_path: base_path)
+    end
   end
 
   DiscourseChat::Provider.mount_engines
