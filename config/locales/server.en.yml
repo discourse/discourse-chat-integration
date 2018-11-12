@@ -92,7 +92,7 @@ en:
     group_mention_template: "mentions of: @%{name}"
     group_message_template: "messages to: @%{name}"
 
-    admin_error: "Some chat integration channels have errors. Visit <a href='/admin/plugins/chat'>the chat integration section</a> to find out more."
+    admin_error: "Some chat integration channels have errors. Visit <a href='%{base_url}/admin/plugins/chat'>the chat integration section</a> to find out more."
 
     provider:
 
