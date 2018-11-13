@@ -34,7 +34,7 @@ module DiscourseChat::Provider::SlackProvider
         text = parts.length > 1 ? parts[1] : parts[0]
 
         if parts[0].start_with?('@')
-          user = @transcript.users.find { |u| u["id"] == parts[0].gsub('@', '') }
+          user = @transcript.users.find { |u| u["id"] == parts[0].gsub('@', '') } || parts[0]
           next "@#{user['name']}"
         end
 
