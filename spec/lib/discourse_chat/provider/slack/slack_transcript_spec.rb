@@ -75,8 +75,8 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
   describe 'loading users' do
     it 'loads users correctly' do
       stub_request(:post, "https://slack.com/api/users.list")
-        .with(body: { token: "abcde" })
-        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }] }.to_json)
+        .with(body: { token: "abcde", "cursor": nil, "limit": "200" })
+        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }], response_metadata: { next_cursor: "" } }.to_json)
 
       expect(transcript.load_user_data).to be_truthy
     end
@@ -99,7 +99,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
   context 'with loaded users' do
     before do
       stub_request(:post, "https://slack.com/api/users.list")
-        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }] }.to_json)
+        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }], response_metadata: { next_cursor: "" } }.to_json)
       transcript.load_user_data
     end
 
