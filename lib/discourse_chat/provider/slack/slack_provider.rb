@@ -32,10 +32,10 @@ module DiscourseChat::Provider::SlackProvider
     end
 
     icon_url =
-      if !SiteSetting.chat_integration_slack_icon_url.blank?
+      if SiteSetting.chat_integration_slack_icon_url.present?
         "#{Discourse.base_url}#{SiteSetting.chat_integration_slack_icon_url}"
-      elsif !SiteSetting.logo_small_url.blank?
-        "#{Discourse.base_url}#{SiteSetting.logo_small_url}"
+      elsif (url = (SiteSetting.try(:site_logo_small_url) || SiteSetting.logo_small_url)).present?
+        "#{Discourse.base_url}#{url}"
       end
 
     message = {

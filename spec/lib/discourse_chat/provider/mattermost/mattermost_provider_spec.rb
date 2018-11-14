@@ -4,10 +4,12 @@ RSpec.describe DiscourseChat::Provider::MattermostProvider do
   let(:post) { Fabricate(:post) }
 
   describe '.trigger_notifications' do
+    let(:upload) { Fabricate(:upload) }
+
     before do
       SiteSetting.chat_integration_mattermost_enabled = true
       SiteSetting.chat_integration_mattermost_webhook_url = "https://mattermost.blah/hook/abcd"
-      SiteSetting.logo_small_url = "https://some_small_logo"
+      SiteSetting.logo_small = upload
     end
 
     let(:chan1) { DiscourseChat::Channel.create!(provider: 'mattermost', data: { identifier: "#awesomechannel" }) }
@@ -21,7 +23,7 @@ RSpec.describe DiscourseChat::Provider::MattermostProvider do
     describe 'when mattermost icon is not configured' do
       it 'defaults to the right icon' do
         message = described_class.mattermost_message(post, chan1)
-        expect(message[:icon_url]).to eq(SiteSetting.logo_small_url)
+        expect(message[:icon_url]).to eq(UrlHelper.absolute(upload.url))
       end
     end
 

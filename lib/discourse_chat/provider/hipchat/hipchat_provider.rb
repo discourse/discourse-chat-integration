@@ -41,10 +41,10 @@ module DiscourseChat
           )
 
         icon_url =
-          if !SiteSetting.chat_integration_hipchat_icon_url.blank?
+          if SiteSetting.chat_integration_hipchat_icon_url.present?
             UrlHelper.absolute(SiteSetting.chat_integration_hipchat_icon_url)
-          elsif !SiteSetting.logo_small_url.blank?
-            UrlHelper.absolute(SiteSetting.logo_small_url)
+          elsif (url = (SiteSetting.try(:site_logo_small_url) || SiteSetting.logo_small_url)).present?
+            UrlHelper.absolute(url)
           end
 
         message = {
