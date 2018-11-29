@@ -14,7 +14,7 @@ zh_CN:
     chat_integration:
       menu_title: "聊天功能整合"
       settings: "设置"
-      choose_group: "(选择一个群组)"
+      choose_group: "（选择一个群组）"
       all_categories: "(所有分类)"
       all_tags: "(所有标签)"
       create_rule: "创建规则"
@@ -44,7 +44,13 @@ zh_CN:
       edit_channel_modal:
         title: "编辑频道"
         save: "保存频道"
+      edit_rule_modal:
+        filter: 筛选
       provider:
+        matrix:
+          param:
+            room_id:
+              title: "房间号"
         zulip:
           param:
             subject:

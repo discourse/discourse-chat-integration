@@ -23,7 +23,7 @@ it:
       delete_channel: "Elimina"
       test_channel: "Test"
       edit_channel: "Modifica"
-      channel_delete_confirm: "Sicuro di voler eliminare questo canale? Saranno eliminate anche tutte le regole associate ."
+      channel_delete_confirm: "Sicuro di voler eliminare questo canale? Saranno eliminate anche tutte le regole associate."
       test_modal:
         title: "Invia un messaggio di test"
         topic: "Argomento"
@@ -44,3 +44,21 @@ it:
         title: "Modifica Canale"
         save: "Salva Canale"
         cancel: "Annulla"
+      edit_rule_modal:
+        filter: Filtro
+      provider:
+        discord:
+          param:
+            name:
+              title: "Nome"
+        matrix:
+          param:
+            room_id:
+              title: "ID stanza"
+        rocketchat:
+          errors:
+            invalid_channel: "Quel canale non esiste su Rocket Chat"
+        gitter:
+          param:
+            name:
+              title: "Nome"

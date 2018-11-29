@@ -5,10 +5,11 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-sl:
+lt:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Pokalbių integracijos"
     chat_integration:
-      settings: "Nastavitve"
-      choose_group: "(izberite skupino)"
-      all_categories: "(vse kategorije)"
-      all_tags: "(vse oznake)"
+      settings: "Nustatymai"
