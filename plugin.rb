@@ -25,7 +25,7 @@ after_initialize do
   add_admin_route 'chat_integration.menu_title', 'chat'
 
   AdminDashboardData.add_problem_check do
-    error = false;
+    error = false
     DiscourseChat::Channel.find_each do |channel|
       error = true unless channel.error_key.blank?
     end
