@@ -39,7 +39,7 @@ module DiscourseChat
         end
 
         message = {
-          msgtype: 'm.notice',
+          msgtype: SiteSetting.chat_integration_matrix_use_notice ? 'm.notice' : 'm.text',
           body: I18n.t('chat_integration.provider.matrix.text_message',                           user: display_name,
                                                                                                   post_url: post.full_url,
                                                                                                   title: post.topic.title),

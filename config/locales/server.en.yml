@@ -55,6 +55,7 @@ en:
     chat_integration_matrix_homeserver: "Homeserver to connect to. Make sure to include the protocol"
     chat_integration_matrix_access_token: "Access token for the bot's Matrix account"
     chat_integration_matrix_excerpt_length: "Matrix post excerpt length"
+    chat_integration_matrix_use_notice: "Use notice instead of plain message"
 
     #######################################
     ########### ZULIP SETTINGS ############
