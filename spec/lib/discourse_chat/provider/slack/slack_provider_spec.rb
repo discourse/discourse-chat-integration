@@ -49,6 +49,18 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
           .to eq('<http://somesource.com|meta.discourse.org>')
       end
     end
+
+    describe 'when post contains an email' do
+      it 'should return the right excerpt' do
+        post.update!(cooked: <<~COOKED
+            The address is <a href=\"mailto:someone@domain.com\">my email</a>
+        COOKED
+        )
+
+        expect(described_class.excerpt(post))
+          .to eq('The address is <mailto:someone@domain.com|my email>')
+      end
+    end
   end
 
   describe '.trigger_notifications' do
