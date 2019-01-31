@@ -8,3 +8,41 @@
 zh_CN:
   site_settings:
     chat_integration_enabled: '开启Discourse聊天集成插件'
+  chat_integration:
+    all_categories: "（所有分类）"
+    deleted_category: "（删除的分类）"
+    deleted_group: "（已删除的小组）"
+    group_mention_template: "提及： @{{name}}"
+    group_message_template: "发给 @%{name}的消息"
+    provider:
+      slack:
+        status:
+          rule_string: "*%{index})* *%{filter}*帖子在*%{category}*"
+          rule_string_tags_suffix: "包括标签：*%{tags}*"
+        delete:
+          success: "规则删除成功"
+        not_found:
+          tag: "标签*%{name}*找不到"
+        transcript:
+          change_first_message: "更改第一个消息……"
+          change_last_message: "更改最后的消息……"
+      telegram:
+        status:
+          rule_string_tags_suffix: "包括标签：<b>%{tags}</b>"
+        not_found:
+          tag: "标签<b>%{name}</b>找不到"
+      mattermost:
+        status:
+          rule_string_tags_suffix: "包括标签：*%{tags}*"
+        create:
+          updated: "规则成功更新"
+        delete:
+          success: "规则删除成功"
+      zulip:
+        message: |
+          **%{user}** 发表在 **[%{title}](%{post_url})**
+          ~~~引用
+          %{excerpt}
+          ~~~
+      flowdock:
+        message_title: "已发布"

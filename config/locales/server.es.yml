@@ -37,6 +37,7 @@ es:
     chat_integration_matrix_homeserver: "Homeserver al que conectarse. Asegúrate de incluir el protocolo"
     chat_integration_matrix_access_token: "Token de acceso para el bot de la cuenta de Matrix"
     chat_integration_matrix_excerpt_length: "Longitud del extracto para posts en Matrix"
+    chat_integration_matrix_use_notice: "Use aviso en lugar de mensaje simple"
     chat_integration_zulip_enabled: "Habilitar el proveedor de integración con Zulip"
     chat_integration_zulip_server: "La URL base de tu servidor de Zulip. Asegúrate de incluir http(s)://"
     chat_integration_zulip_bot_email_address: "La dirección de email asociada con tu bot de Zuli"

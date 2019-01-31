@@ -37,6 +37,7 @@ fr:
     chat_integration_matrix_homeserver: "Homeserver à lequel connecter. Y inclure le protocole"
     chat_integration_matrix_access_token: "Token d'accès pour le bot de compte Matrix"
     chat_integration_matrix_excerpt_length: "Longueur des extraits de message Matrix"
+    chat_integration_matrix_use_notice: "Utiliser un avis au lieu d'un message simple"
     chat_integration_zulip_enabled: "Activer le provider d'intégration chat Zulip"
     chat_integration_zulip_server: "URL de base pour votre serveur Zulip. Y inclure http(s)://"
     chat_integration_zulip_bot_email_address: "L'adresse courriel associée à votre bot Zulip"
@@ -63,7 +64,7 @@ fr:
             (si plusieurs règles correspondent à un message, le premier règle sera appliqué)
           no_rules: "Il n'y a pas de règles définis pour ce canal. Exécuter '/discourse help' pour recevoir des instructions."
           rule_string: "*%{index})* *%{filter}* messages dans *%{category}*"
-          rule_string_tags_suffix: " avec tags: *%{tags}*"
+          rule_string_tags_suffix: " avec étiquettes : *%{tags}*"
         parse_error: "Désolé, je n'ai pas compris. Exécuter '/discourse help' pour recevoir des instructions."
         create:
           created: "Règle crée avec succès"
@@ -73,11 +74,11 @@ fr:
           success: "Règle supprimé avec succès"
           error: "Désolé, une erreur est survenu lors de la suppression de ce règle.  Exécuter '/discourse help' pour recevoir des instructions."
         not_found:
-          tag: "Le tag *%{name}* ne peut pas être retrouvé."
+          tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
           category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
         help: |
           *Nouveau règle :* `/discourse [watch|follow|mute] [category] [tag:name]`
-          (vous devez spécifier un type de règle et au moins une catégorie ou tag)
+          (vous devez spécifier un type de règle et au moins une catégorie ou étiquette)
           - *watch* – avertir ce canal de nouveaux sujets et nouvelles réponses
           - *follow* – avertir ce canal de nouveaux sujets
           - *mute* – bloquer les notifications à ce canal
@@ -115,7 +116,7 @@ fr:
             (si plusieurs règles s'appliquent, le premier est utilisé)
           no_rules: "Il n'y a pas de règles définis pour ce canal. Exécuter<code>/help</code> pour recevoir des instructions."
           rule_string: "<b>%{index})</b> <b>%{filter}</b> messages dans <b>%{category}</b>"
-          rule_string_tags_suffix: " avec tags : <b>%{tags}</b>"
+          rule_string_tags_suffix: " avec étiquettes : <b>%{tags}</b>"
         parse_error: "Désolé, je n'ai pas compris. Exécuter<code>/help</code> pour recevoir des instructions."
         create:
           created: "Règle crée avec succès"
@@ -125,11 +126,11 @@ fr:
           success: "Règle supprimé avec succès"
           error: "Désolé, une erreur est survenu lors de la suppression de ce règle. Exécuter<code>/help</code> pour recevoir des instructions."
         not_found:
-          tag: "Le tag <b>%{name}</b> ne peut pas être retrouvé."
+          tag: "L'étiquette <b>%{name}</b> ne peut pas être retrouvée."
           category: "La catégorie <b>%{name}</b> ne peut pas être retrouvée. Catégories disponibles : <b>%{list}</b>"
         help: |
           <b>Nouveau règle :</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
-          (vous devez spécifier un type de règle et au moins une catégorie ou tag)
+          (vous devez spécifier un type de règle et au moins une catégorie ou étiquette)
           - <b>watch</b> – avertir ce canal de nouveaux sujets et nouvelles réponses
           - <b>follow</b> – avertir ce canal de nouveaux sujets
           - <b>mute</b> – bloquer les notifications à ce canal
@@ -149,7 +150,7 @@ fr:
             (si plusieurs règles correspondent à un message, le premier règle sera appliqué)
           no_rules: "Il n'y a pas de règles définis pour ce canal. Exécuter '/discourse help' pour recevoir des instructions."
           rule_string: "*%{index})* *%{filter}* messages dans *%{category}*"
-          rule_string_tags_suffix: " avec tags: *%{tags}*"
+          rule_string_tags_suffix: " avec étiquettes : *%{tags}*"
         parse_error: "Désolé, je n'ai pas compris. Exécuter '/discourse help' pour recevoir des instructions."
         create:
           created: "Règle crée avec succès"
@@ -159,11 +160,11 @@ fr:
           success: "Règle supprimé avec succès"
           error: "Désolé, une erreur est survenu lors de la suppression de ce règle.  Exécuter '/discourse help' pour recevoir des instructions."
         not_found:
-          tag: "Le tag *%{name}* ne peut pas être retrouvé."
+          tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
           category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
         help: |
           *Nouveau règle :* `/discourse [watch|follow|mute] [category] [tag:name]`
-          (vous devez spécifier un type de règle et au moins une catégorie ou tag)
+          (vous devez spécifier un type de règle et au moins une catégorie ou étiquette)
           - *watch* – avertir ce canal de nouveaux sujets et nouvelles réponses
           - *follow* – avertir ce canal de nouveaux sujets
           - *mute* – bloquer les notifications à ce canal

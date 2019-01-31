@@ -14,6 +14,8 @@ zh_CN:
     chat_integration:
       menu_title: "聊天功能整合"
       settings: "设置"
+      group_mention_template: "提及： @{{name}}"
+      group_message_template: "发给 @%{name}的消息"
       choose_group: "（选择一个群组）"
       all_categories: "(所有分类)"
       all_tags: "(所有标签)"
@@ -31,6 +33,7 @@ zh_CN:
       type:
         normal: 正常
         group_message: 群组信息
+        group_mention: 群组提及
       filter:
         mute: '禁言'
         follow: '第一帖'
@@ -44,21 +47,63 @@ zh_CN:
       edit_channel_modal:
         title: "编辑频道"
         save: "保存频道"
+        cancel: "取消"
+        channel_validation:
+          ok: "有效"
+          fail: "格式无效"
       edit_rule_modal:
+        title: 编辑规则
+        channel: 频道
         filter: 筛选
+        category: 分类
+        group: 群组
+        tags: 标签
       provider:
-        matrix:
-          param:
-            room_id:
-              title: "房间号"
-        zulip:
-          param:
-            subject:
-              title: "主题"
-        rocketchat:
+        slack:
           param:
             identifier:
               title: 频道
+              help: "例如：#频道， @用户名。"
+        telegram:
+          title: "Telegram"
+          param:
+            name:
+              title: "名称"
+        discord:
+          param:
+            name:
+              title: "名称"
+        hipchat:
+          param:
+            name:
+              title: "名称"
+            webhook_url:
+              title: Webhook URL
+            color:
+              title: 颜色
+        mattermost:
+          param:
+            identifier:
+              help: "例如：#频道， @用户名。"
+        matrix:
+          title: "矩阵"
+          param:
+            room_id:
+              title: "房间号"
+          errors:
+            unknown_room: "房间ID无效"
+        zulip:
+          param:
+            stream:
+              title: "流串"
+            subject:
+              title: "主题"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: 频道
+              help: "例如：#频道， @用户名。"
           errors:
             invalid_channel: "这个频道在 Rocket Chat 上不存在"
         gitter:

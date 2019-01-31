@@ -21,7 +21,7 @@ fr:
       group_message_template: "Messages à : @{{name}}"
       choose_group: "(choisir un groupe)"
       all_categories: "(toutes les catégories)"
-      all_tags: "(tous les tags)"
+      all_tags: "(toutes les étiquettes)"
       create_rule: "Créer règle"
       create_channel: "Créer canal"
       delete_channel: "Supprimer"
@@ -46,7 +46,7 @@ fr:
       rule_table:
         filter: "Filtrer"
         category: "Catégorie"
-        tags: "Tags"
+        tags: "Etiquettes"
         edit_rule: "Modifier"
         delete_rule: "Supprimer"
       edit_channel_modal:
@@ -67,13 +67,13 @@ fr:
         filter: Filtrer
         category: Catégorie
         group: Groupe
-        tags: Tags
+        tags: Etiquettes
         instructions:
           type: "Modifier le type pour déclencher des notifications pour les messages de groupe ou les mentions."
           filter: "Niveau de notification. Silencieux annule les autres règles qui correspondent"
           category: "Cette règle ne s'appliquera qu'aux sujets de la catégorie spécifiée"
           group: "Cette règle s'appliquera aux messages qui référencent ce groupe"
-          tags: "Si elle est spécifiée, cette règle ne s'appliquera qu'aux sujets qui ont au moins un de ces tags"
+          tags: "Si elle est spécifiée, cette règle ne s'appliquera qu'aux sujets qui ont au moins un de ces étiquettes"
       provider:
         slack:
           title: "Slack"
