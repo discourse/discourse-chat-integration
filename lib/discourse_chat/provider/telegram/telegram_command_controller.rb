@@ -13,21 +13,22 @@ module DiscourseChat::Provider::TelegramProvider
     def command
 
       # If it's a new message (telegram also sends hooks for other reasons that we don't care about)
-      if params.key?('message')
-        chat_id = params['message']['chat']['id']
+      # if params.key?('message')
+      #   chat_id = params['message']['chat']['id']
+      #
+      #   message_text = process_command(params['message'])
+      #
+      #   message = {
+      #     chat_id: chat_id,
+      #     text: message_text,
+      #     parse_mode: "html",
+      #     disable_web_page_preview: true,
+      #   }
+      #
+      #   DiscourseChat::Provider::TelegramProvider.sendMessage(message)
+      # THIS IF BLOCK IS COMMENTED TO DISABLE BOT MESSAGE ON REPLYING MESSAGE ETC.
 
-        message_text = process_command(params['message'])
-
-        message = {
-          chat_id: chat_id,
-          text: message_text,
-          parse_mode: "html",
-          disable_web_page_preview: true,
-        }
-
-        DiscourseChat::Provider::TelegramProvider.sendMessage(message)
-
-      elsif params.key?('channel_post') && params['channel_post']['text'].include?('/getchatid')
+      if params.key?('channel_post') && params['channel_post']['text'].include?('/getchatid')
         chat_id = params['channel_post']['chat']['id']
 
         message_text = I18n.t(
