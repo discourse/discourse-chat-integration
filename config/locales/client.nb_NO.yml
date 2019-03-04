@@ -28,7 +28,7 @@ nb_NO:
       channel_delete_confirm: "Er du sikker på at du ønsker å slette denne kanalen? Alle tilknyttede regler vil bli slettet."
       test_modal:
         title: "Send en testmelding"
-        topic: "Tråd"
+        topic: "Emne"
         send: "Send testmelding"
         close: "Lukk"
         error: "En ukjent feil inntraff under forsendelse av meldingen. Sjekk sideloggen for mer informasjon."
