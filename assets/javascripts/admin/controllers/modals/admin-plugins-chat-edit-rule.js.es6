@@ -25,14 +25,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
   },
 
   actions: {
-    save() {
+    save(rule) {
       if (this.get("saveDisabled")) return;
 
-      this.get("model.rule")
+      rule
         .save()
-        .then(() => {
-          this.send("closeModal");
-        })
+        .then(() => this.send("closeModal"))
         .catch(popupAjaxError);
     }
   }

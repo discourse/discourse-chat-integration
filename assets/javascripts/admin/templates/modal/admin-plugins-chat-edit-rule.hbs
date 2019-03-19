@@ -97,11 +97,12 @@
 
 <div class="modal-footer">
   {{d-button id="save-rule"
-      class='btn-primary btn-large'
-      action="save"
-      title="chat_integration.edit_rule_modal.save"
-      label="chat_integration.edit_rule_modal.save"
-      disabled=saveDisabled}}
+    class='btn-primary btn-large'
+    action="save"
+    actionParam=model.rule
+    title="chat_integration.edit_rule_modal.save"
+    label="chat_integration.edit_rule_modal.save"
+    disabled=saveDisabled}}
 
   {{d-button class="btn-large"
       action=(route-action "closeModal")

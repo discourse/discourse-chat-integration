@@ -100,211 +100,144 @@ test("Rules load successfully", async assert => {
   );
 });
 
-test("Create channel works", assert => {
-  visit("/admin/plugins/chat");
+test("Create channel works", async assert => {
+  await visit("/admin/plugins/chat");
+  await click("#create-channel");
 
-  andThen(() => {
-    click("#create-channel");
-  });
+  assert.ok(
+    exists("#chat-integration-edit-channel-modal"),
+    "it displays the modal"
+  );
+  assert.ok(
+    find("#save-channel").prop("disabled"),
+    "it disables the save button"
+  );
 
-  andThen(() => {
-    assert.ok(
-      exists("#chat-integration-edit-channel-modal"),
-      "it displays the modal"
-    );
-    assert.ok(
-      find("#save-channel").prop("disabled"),
-      "it disables the save button"
-    );
-    fillIn("#chat-integration-edit-channel-modal input", "#general");
-  });
+  await fillIn("#chat-integration-edit-channel-modal input", "#general");
 
-  andThen(() => {
-    assert.ok(
-      find("#save-channel").prop("disabled") === false,
-      "it enables the save button"
-    );
-  });
+  assert.ok(
+    find("#save-channel").prop("disabled") === false,
+    "it enables the save button"
+  );
 
-  andThen(() => {
-    click("#save-channel");
-  });
+  await click("#save-channel");
 
-  andThen(() => {
-    assert.ok(
-      !exists("#chat-integration-edit-channel-modal"),
-      "modal closes on save"
-    );
-  });
+  assert.ok(
+    !exists("#chat-integration-edit-channel-modal"),
+    "modal closes on save"
+  );
 });
 
-test("Edit channel works", assert => {
-  visit("/admin/plugins/chat");
+test("Edit channel works", async assert => {
+  await click(".channel-header button:first");
 
-  andThen(() => {
-    click(".channel-header button:first");
-  });
+  assert.ok(
+    exists("#chat-integration-edit-channel-modal"),
+    "it displays the modal"
+  );
+  assert.ok(!find("#save-channel").prop("disabled"), "save is enabled");
 
-  andThen(() => {
-    assert.ok(
-      exists("#chat-integration-edit-channel-modal"),
-      "it displays the modal"
-    );
-    assert.ok(!find("#save-channel").prop("disabled"), "save is enabled");
-    fillIn("#chat-integration-edit-channel-modal input", " general");
-  });
+  await fillIn("#chat-integration-edit-channel-modal input", " general");
 
-  andThen(() => {
-    assert.ok(
-      find("#save-channel").prop("disabled"),
-      "it disables the save button"
-    );
-  });
+  assert.ok(
+    find("#save-channel").prop("disabled"),
+    "it disables the save button"
+  );
 
-  andThen(() => {
-    fillIn("#chat-integration-edit-channel-modal input", "#random");
-  });
+  await fillIn("#chat-integration-edit-channel-modal input", "#random");
 
-  andThen(() => {
-    $("#chat-integration-edit-channel-modal input").trigger(
-      $.Event("keydown", { keyCode: 13 })
-    ); // Press enter
-  });
+  await $("#chat-integration-edit-channel-modal input").trigger(
+    $.Event("keydown", { keyCode: 13 })
+  ); // Press enter
 
-  andThen(() => {
-    assert.ok(
-      !exists("#chat-integration-edit-channel-modal"),
-      "modal saves on enter"
-    );
-  });
+  assert.ok(
+    !exists("#chat-integration-edit-channel-modal"),
+    "modal saves on enter"
+  );
 });
 
-test("Create rule works", assert => {
-  visit("/admin/plugins/chat");
+test("Create rule works", async assert => {
+  await visit("/admin/plugins/chat");
 
-  andThen(() => {
-    assert.ok(
-      exists(".channel-footer button:first"),
-      "create button is displayed"
-    );
-  });
+  assert.ok(
+    exists(".channel-footer button:first"),
+    "create button is displayed"
+  );
 
-  click(".channel-footer button:first");
+  await click(".channel-footer button:first");
 
-  andThen(() => {
-    assert.ok(
-      exists("#chat-integration-edit-rule_modal"),
-      "modal opens on edit"
-    );
-    assert.ok(find("#save-rule").prop("disabled") === false, "save is enabled");
-  });
+  assert.ok(exists("#chat-integration-edit-rule_modal"), "modal opens on edit");
+  assert.ok(find("#save-rule").prop("disabled") === false, "save is enabled");
 
-  click("#save-rule");
+  await click("#save-rule");
 
-  andThen(() => {
-    assert.ok(
-      !exists("#chat-integration-edit-rule_modal"),
-      "modal closes on save"
-    );
-  });
+  assert.ok(
+    !exists("#chat-integration-edit-rule_modal"),
+    "modal closes on save"
+  );
 });
 
-test("Edit rule works", assert => {
-  visit("/admin/plugins/chat");
+test("Edit rule works", async assert => {
+  await visit("/admin/plugins/chat");
 
-  andThen(() => {
-    assert.ok(exists(".edit:first"), "edit button is displayed");
-  });
+  assert.ok(exists(".edit:first"), "edit button is displayed");
 
-  click(".edit:first");
+  await click(".edit:first");
 
-  andThen(() => {
-    assert.ok(
-      exists("#chat-integration-edit-rule_modal"),
-      "modal opens on edit"
-    );
-    assert.ok(
-      find("#save-rule").prop("disabled") === false,
-      "it enables the save button"
-    );
-  });
+  assert.ok(exists("#chat-integration-edit-rule_modal"), "modal opens on edit");
+  assert.ok(
+    find("#save-rule").prop("disabled") === false,
+    "it enables the save button"
+  );
 
-  click("#save-rule");
+  await click("#save-rule");
 
-  andThen(() => {
-    assert.ok(
-      !exists("#chat-integration-edit-rule_modal"),
-      "modal closes on save"
-    );
-  });
+  assert.ok(
+    !exists("#chat-integration-edit-rule_modal"),
+    "modal closes on save"
+  );
 });
 
-test("Delete channel works", function(assert) {
-  visit("/admin/plugins/chat");
+test("Delete channel works", async assert => {
+  await visit("/admin/plugins/chat");
 
-  andThen(() => {
-    assert.ok(exists(".channel-header button:last"), "delete button exists");
-    click(".channel-header button:last");
-  });
+  assert.ok(exists(".channel-header button:last"), "delete button exists");
+  await click(".channel-header button:last");
 
-  andThen(() => {
-    assert.ok(exists("div.bootbox"), "modal is displayed");
-    click("div.bootbox .btn-primary");
-  });
+  assert.ok(exists("div.bootbox"), "modal is displayed");
+  await click("div.bootbox .btn-primary");
 
-  andThen(() => {
-    assert.ok(exists("div.bootbox") === false, "modal has closed");
-  });
+  assert.ok(exists("div.bootbox") === false, "modal has closed");
 });
 
-test("Delete rule works", function(assert) {
-  visit("/admin/plugins/chat");
+test("Delete rule works", async assert => {
+  await visit("/admin/plugins/chat");
 
-  andThen(() => {
-    assert.ok(exists(".delete:first"));
-    click(".delete:first");
-  });
+  assert.ok(exists(".delete:first"));
+  await click(".delete:first");
 });
 
-test("Test channel works", assert => {
-  visit("/admin/plugins/chat");
+test("Test channel works", async assert => {
+  await visit("/admin/plugins/chat");
 
-  andThen(() => {
-    click(".btn-chat-test");
-  });
+  await click(".btn-chat-test");
 
-  andThen(() => {
-    assert.ok(exists("#chat_integration_test_modal"), "it displays the modal");
-    assert.ok(
-      find("#send-test").prop("disabled"),
-      "it disables the send button"
-    );
-    fillIn("#choose-topic-title", "9318");
-  });
+  assert.ok(exists("#chat_integration_test_modal"), "it displays the modal");
+  assert.ok(find("#send-test").prop("disabled"), "it disables the send button");
 
-  andThen(() => {
-    click("#chat_integration_test_modal .radio:first");
-  });
+  await fillIn("#choose-topic-title", "9318");
+  await click("#chat_integration_test_modal .radio:first");
 
-  andThen(() => {
-    assert.ok(
-      find("#send-test").prop("disabled") === false,
-      "it enables the send button"
-    );
-  });
+  assert.ok(
+    find("#send-test").prop("disabled") === false,
+    "it enables the send button"
+  );
 
-  andThen(() => {
-    click("#send-test");
-  });
+  await click("#send-test");
 
-  andThen(() => {
-    assert.ok(
-      exists("#chat_integration_test_modal"),
-      "modal doesn't close on send"
-    );
-    assert.ok(
-      exists("#modal-alert.alert-success"),
-      "success message displayed"
-    );
-  });
+  assert.ok(
+    exists("#chat_integration_test_modal"),
+    "modal doesn't close on send"
+  );
+  assert.ok(exists("#modal-alert.alert-success"), "success message displayed");
 });
