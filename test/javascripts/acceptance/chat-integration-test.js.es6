@@ -129,6 +129,7 @@ test("Create channel works", async assert => {
 });
 
 test("Edit channel works", async assert => {
+  await visit("/admin/plugins/chat");
   await click(".channel-header button:first");
 
   assert.ok(
@@ -146,14 +147,18 @@ test("Edit channel works", async assert => {
 
   await fillIn("#chat-integration-edit-channel-modal input", "#random");
 
-  await $("#chat-integration-edit-channel-modal input").trigger(
-    $.Event("keydown", { keyCode: 13 })
-  ); // Press enter
+  andThen(() => {
+    $("#chat-integration-edit-channel-modal input").trigger(
+      $.Event("keydown", { keyCode: 13 })
+    ); // Press enter
+  });
 
-  assert.ok(
-    !exists("#chat-integration-edit-channel-modal"),
-    "modal saves on enter"
-  );
+  andThen(() => {
+    assert.ok(
+      !exists("#chat-integration-edit-channel-modal"),
+      "modal saves on enter"
+    );
+  });
 });
 
 test("Create rule works", async assert => {
