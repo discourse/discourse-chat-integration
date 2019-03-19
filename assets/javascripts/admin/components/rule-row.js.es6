@@ -20,21 +20,11 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    edit() {
-      this.sendAction("edit", this.get("rule"));
-    },
-
     delete(rule) {
       rule
         .destroyRecord()
-        .then(() => {
-          this.send("refresh");
-        })
+        .then(() => this.refresh())
         .catch(popupAjaxError);
-    },
-
-    refresh() {
-      this.sendAction("refresh");
     }
   }
 });

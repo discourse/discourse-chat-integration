@@ -25,10 +25,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
   },
 
   actions: {
-    cancel() {
-      this.send("closeModal");
-    },
-
     save() {
       if (this.get("saveDisabled")) return;
 

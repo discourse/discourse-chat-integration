@@ -28,6 +28,16 @@
 {{/if}}
 
 <td>
-  {{d-button action="edit" actionParam=rule icon="pencil" class="edit" title="chat_integration.rule_table.edit_rule"}}
-  {{d-button action="delete" actionParam=rule icon="trash-o" class="delete" title="chat_integration.rule_table.delete_rule"}}
+  {{d-button
+    action=edit
+    icon="pencil"
+    class="edit"
+    title="chat_integration.rule_table.edit_rule"}}
+
+  {{d-button
+    action=(action "delete")
+    actionParam=rule
+    icon="trash-o"
+    class="delete"
+    title="chat_integration.rule_table.delete_rule"}}
 </td>

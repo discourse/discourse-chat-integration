@@ -7,8 +7,16 @@ acceptance("Chat Integration", {
       return [200, { "Content-Type": "text/html; charset=utf-8" }, object];
     };
 
+    const jsonResponse = object => {
+      return [
+        200,
+        { "Content-Type": "application/json; charset=utf-8" },
+        object
+      ];
+    };
+
     server.get("/admin/plugins/chat/providers", () => {
-      return response({
+      return jsonResponse({
         providers: [
           {
             name: "dummy",
@@ -20,7 +28,7 @@ acceptance("Chat Integration", {
     });
 
     server.get("/admin/plugins/chat/channels", () => {
-      return response({
+      return jsonResponse({
         channels: [
           {
             id: 97,
@@ -72,28 +80,24 @@ acceptance("Chat Integration", {
     });
 
     server.get("/groups/search.json", () => {
-      return response([]);
+      return jsonResponse([]);
     });
   }
 });
 
-test("Rules load successfully", assert => {
-  visit("/admin/plugins/chat");
+test("Rules load successfully", async assert => {
+  await visit("/admin/plugins/chat");
 
-  andThen(() => {
-    assert.ok(
-      exists("#admin-plugin-chat table"),
-      "it shows the table of rules"
-    );
-    assert.equal(
-      find("#admin-plugin-chat table tr td")
-        .eq(0)
-        .text()
-        .trim(),
-      "All posts and replies",
-      "rule displayed"
-    );
-  });
+  assert.ok(exists("#admin-plugin-chat table"), "it shows the table of rules");
+
+  assert.equal(
+    find("#admin-plugin-chat table tr td")
+      .eq(0)
+      .text()
+      .trim(),
+    "All posts and replies",
+    "rule displayed"
+  );
 });
 
 test("Create channel works", assert => {

@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
       };
 
       showModal("admin-plugins-chat-edit-channel", {
-        model: model,
+        model,
         admin: true
       });
     },
@@ -39,12 +39,12 @@ export default Ember.Controller.extend({
       this.set("modalShowing", true);
 
       const model = {
-        channel: channel,
+        channel,
         provider: this.get("model.provider")
       };
 
       showModal("admin-plugins-chat-edit-channel", {
-        model: model,
+        model,
         admin: true
       });
     },
@@ -52,7 +52,7 @@ export default Ember.Controller.extend({
     testChannel(channel) {
       this.set("modalShowing", true);
       showModal("admin-plugins-chat-test", {
-        model: { channel: channel },
+        model: { channel },
         admin: true
       });
     },
@@ -62,24 +62,25 @@ export default Ember.Controller.extend({
 
       const model = {
         rule: this.store.createRecord("rule", { channel_id: channel.id }),
-        channel: channel,
+        channel,
         provider: this.get("model.provider"),
         groups: this.get("model.groups")
       };
 
-      showModal("admin-plugins-chat-edit-rule", { model: model, admin: true });
+      showModal("admin-plugins-chat-edit-rule", { model, admin: true });
     },
-    editRule(rule, channel) {
+
+    editRuleWithChannel(rule, channel) {
       this.set("modalShowing", true);
 
       const model = {
-        rule: rule,
-        channel: channel,
+        rule,
+        channel,
         provider: this.get("model.provider"),
         groups: this.get("model.groups")
       };
 
-      showModal("admin-plugins-chat-edit-rule", { model: model, admin: true });
+      showModal("admin-plugins-chat-edit-rule", { model, admin: true });
     },
 
     showError(channel) {

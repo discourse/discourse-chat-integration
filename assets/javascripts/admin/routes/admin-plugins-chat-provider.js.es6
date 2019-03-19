@@ -41,7 +41,7 @@ export default Discourse.Route.extend({
       return true; // Continue bubbling up, so the modal actually closes
     },
 
-    refresh() {
+    refreshProvider() {
       this.refresh();
     }
   }
