@@ -3,16 +3,20 @@
     <div class="span15">
       <ul class="nav nav-pills">
         {{#each model as |provider|}}
-          {{nav-item route='adminPlugins.chat.provider' routeParam=provider.name label=(concat 'chat_integration.provider.' provider.name '.title')}}
+          {{nav-item
+            route='adminPlugins.chat.provider'
+            routeParam=provider.name
+            label=(concat 'chat_integration.provider.' provider.name '.title')}}
         {{/each}}
       </ul>
     </div>
 
     <div class="pull-right">
-      {{d-button action="showSettings"
-          icon="gear"
-          title="chat_integration.settings"
-          label="chat_integration.settings"}}
+      {{d-button
+        action=(route-action "showSettings")
+        icon="gear"
+        title="chat_integration.settings"
+        label="chat_integration.settings"}}
     </div>
   </div>
 

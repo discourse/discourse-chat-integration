@@ -1,15 +1,36 @@
 <div class='channel-header'>
   <div class='pull-right'>
-    {{d-button action="edit" actionParam=channel icon="pencil" title="chat_integration.edit_channel" label="chat_integration.edit_channel"}}
+    {{d-button
+      action=editChannel
+      actionParam=channel
+      icon="pencil"
+      title="chat_integration.edit_channel"
+      label="chat_integration.edit_channel"}}
 
-    {{d-button action="test" actionParam=channel icon="rocket" title="chat_integration.test_channel" label="chat_integration.test_channel" class="btn-chat-test"}}
+    {{d-button
+      action=test
+      actionParam=channel
+      icon="rocket"
+      title="chat_integration.test_channel"
+      label="chat_integration.test_channel"
+      class="btn-chat-test"}}
 
-    {{d-button class='cancel' action="delete" actionParam=channel icon="trash" title="chat_integration.delete_channel" label="chat_integration.delete_channel"}}
+    {{d-button
+      class='cancel'
+      action=(action "deleteChannel")
+      actionParam=channel
+      icon="trash"
+      title="chat_integration.delete_channel"
+      label="chat_integration.delete_channel"}}
   </div>
 
   <span class='channel-title'>
     {{#if channel.error_key}}
-      {{d-button action="showError" actionParam=channel class="delete btn-danger" icon="exclamation-triangle"}}
+      {{d-button
+        action=showError
+        actionParam=channel
+        class="delete btn-danger"
+        icon="exclamation-triangle"}}
     {{/if}}
 
     {{channel-data provider=provider channel=channel}}
@@ -30,14 +51,15 @@
     </tr>
 
     {{#each channel.rules as |rule|}}
-      {{rule-row rule=rule edit='editRule' refresh='refresh'}}
+      {{rule-row rule=rule edit=(action "editRule") refresh=refresh}}
     {{/each}}
   </table>
 </div>
 
 <div class='channel-footer'>
   <div class='pull-right'>
-   {{d-button action="createRule"
+   {{d-button
+      action=createRule
       actionParam=channel
       icon="plus"
       title="chat_integration.create_rule"
