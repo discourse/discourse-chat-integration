@@ -10,54 +10,55 @@ pt_BR:
     admin:
       site_settings:
         categories:
-          chat_integration: "Integrações de bate-papo"
+          chat_integration: "Integrações de Bate-Papo"
     chat_integration:
-      menu_title: "Integrações de bate-papo"
-      settings: "configurações"
+      menu_title: "Integrações de Bate-Papo"
+      settings: "Configurações"
       no_providers: "Você precisa habilitar alguns provedores nas configurações do plugin"
-      channels_with_errors: "Alguns canais desse provedor falharam na última vez em que as mensagens foram enviadas. Clique no ícone(s) de erro para saber mais."
-      group_mention_template: "Menções de: @ {{name}}"
+      channels_with_errors: "Alguns canais deste provedor falharam na última vez em que as mensagens foram enviadas. Clique no(s) ícone(s) de erro para saber mais."
+      channel_exception: "Um erro desconhecido ocorreu na última vez que uma mensagem foi enviada para este canal."
+      group_mention_template: "Menções de: @{{name}}"
       group_message_template: "Mensagens para: @{{name}}"
       choose_group: "(escolha um grupo)"
       all_categories: "(todas as categorias)"
-      all_tags: "(todas as tags)"
-      create_rule: "Criar regra"
-      create_channel: "Criar canal"
-      delete_channel: "Apagar"
-      test_channel: "Teste"
+      all_tags: "(todas as etiquetas)"
+      create_rule: "Criar Regra"
+      create_channel: "Criar Canal"
+      delete_channel: "Excluir"
+      test_channel: "Testar"
       edit_channel: "Editar"
-      channel_delete_confirm: "Tem certeza de que quer apagar esse canal? Todas as regras associadas serão apagadas."
+      channel_delete_confirm: "Você tem certeza de que deseja excluir este canal? Todas as regras associadas serão excluídas."
       test_modal:
-        title: "Envie uma mensagem teste"
+        title: "Enviar uma mensagem de teste"
         topic: "Tópico"
-        send: "Envie mensagem teste"
+        send: "Enviar Mensagem de Teste"
         close: "Fechar"
-        error: "Um erro desconhecido ocorreu ao enviar a mensagem. Verifique os registros do site para mais informações."
+        error: "Um erro desconhecido ocorreu durante o envio da mensagem. Verifique os registros do site para mais informações."
         success: "Mensagem enviada com sucesso"
       type:
         normal: Normal
-        group_message: Mensagem de grupo
-        group_mention: Menção de grupo
+        group_message: Mensagem de Grupo
+        group_mention: Menção de Grupo
       filter:
-        mute: 'mudo'
-        follow: 'Somente a primeira publicação'
-        watch: 'Todas as publicações e respostas'
+        mute: 'Silenciar'
+        follow: 'Somente a primeira postagem'
+        watch: 'Todas as postagens e respostas'
       rule_table:
         filter: "Filtro"
         category: "Categoria"
-        tags: "Tags"
+        tags: "Etiquetas"
         edit_rule: "Editar"
-        delete_rule: "Apagar"
+        delete_rule: "Excluir"
       edit_channel_modal:
-        title: "editar canal"
-        save: "Salvar canal"
+        title: "Editar Canal"
+        save: "Salvar Canal"
         cancel: "Cancelar"
         provider: "Provedor"
         channel_validation:
-          ok: "Validar"
-          fail: "formato inválido"
+          ok: "Válido"
+          fail: "Formato inválido"
       edit_rule_modal:
-        title: Editar regra
+        title: Editar Regra
         save: Salvar Regra
         cancel: Cancelar
         provider: Provedor
@@ -66,23 +67,23 @@ pt_BR:
         filter: Filtro
         category: Categoria
         group: Grupo
-        tags: Tags
+        tags: Etiquetas
         instructions:
           type: "Alterar o tipo para acionar notificações para mensagens de grupo ou menções"
-          filter: "Nível de notificação. Mute substitui outras regras de correspondência"
-          category: "Esta regra será aplicada apenas a tópicos da categoria especificada"
-          group: "Esta regra será aplicada a postagens que referenciem esse grupo"
-          tags: "Se especificado, essa regra vai aplicar-se apenas aos tópicos que tem ao menos uma das tags"
+          filter: "Nível de notificação. Silenciar sobrescreve outras regras correspondentes"
+          category: "Esta regra será aplicada apenas a tópicos na categoria especificada"
+          group: "Esta regra será aplicada a postagens que referenciem este grupo"
+          tags: "Se especificado, esta regra será aplicada apenas a tópicos que possuem pelo menos uma destas etiquetas"
       provider:
         slack:
-          title: "Folga"
+          title: "Slack"
           param:
             identifier:
               title: Canal
-              help: "e.g. #channel, @username."
+              help: "ex.: #canal, @nome_de_usuário."
           errors:
-            action_prohibited: "O bot não tem permissão para postar nesse canal"
-            channel_not_found: "O canal especificado não existe na folga"
+            action_prohibited: "Este robô não tem permissão para postar naquele canal"
+            channel_not_found: "O canal especificado não existe no Slack"
         telegram:
           title: "Telegram"
           param:
@@ -90,11 +91,11 @@ pt_BR:
               title: "Nome"
               help: "Um nome para descrever o canal. Não é usado para a conexão ao Telegram."
             chat_id:
-              title: Chat ID
-              help: Um número dado a você pelo bot ou um identificador do canal de transmissão no formato @channelname
+              title: ID do Bate-Papo
+              help: Um número dado a você pelo robô, ou um identificador do canal de transmissão no formato @nome_do_canal
           errors:
             channel_not_found: "O canal especificado não existe no Telegram"
-            forbidden: "O bot não tem permissão para postar neste canal"
+            forbidden: "O robô não tem permissão para postar neste canal"
         discord:
           title: "Discord"
           param:
@@ -111,17 +112,17 @@ pt_BR:
               title: "Nome"
               help: "Um nome para descrever o canal. Não é usado para a conexão ao HipChat."
             webhook_url:
-              title: Webhook URL
+              title: URL do Webhook
               help: O URL do webhook criado na sua integração do HipChat
             color:
               title: Cor
-              help: A cor da mensagem no HipChat. Deve ser um de amarelo, verde, vermelho, roxo, cinza, aleatório
+              help: 'A cor da mensagem no HipChat. Precisa ser um destes (em inglês): yellow,green,red,purple,gray,random'
         mattermost:
           title: "Mattermost"
           param:
             identifier:
               title: Canal
-              help: "e.g. #channel, @username."
+              help: "ex.: #canal, @nome_de_usuário."
           errors:
             channel_not_found: "O canal especificado não existe no Mattermost"
         matrix:
@@ -131,36 +132,36 @@ pt_BR:
               title: "Nome"
               help: "Um nome para descrever o canal. Não é usado para a conexão com o Matrix."
             room_id:
-              title: "Room ID"
-              help: "O 'identificador privado' para o quarto. Deve ser algo como! Abcdefg: matrix.org"
+              title: "ID da Sala"
+              help: "O 'identificador privado' para a sala. Precisa ser algo como !abcdefg:matrix.org"
           errors:
             unknown_token: "O token de acesso é inválido"
-            unknown_room: "O ID do quarto é inválido"
+            unknown_room: "O ID da sala é inválido"
         zulip:
           title: "Zulip"
           param:
             stream:
               title: "Stream"
-              help: "O nome do fluxo Zulip a mensagem deve ser enviada para. por exemplo. 'geral'"
+              help: "O nome da stream do Zulip para a qual a mensagem deve ser enviada. ex.: 'geral'"
             subject:
               title: "Assunto"
-              help: "O assunto que essas mensagens enviadas pelo bot devem ser dadas"
+              help: "O assunto que estas mensagens enviadas pelo robô devem ser dadas"
           errors:
-            does_not_exist: "Esse fluxo não existe em Zulip"
+            does_not_exist: "Esta stream não existe no Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
             identifier:
               title: Canal
-              help: "e.g. #channel, @username."
+              help: "ex.: #canal, @nome_de_usuário."
           errors:
-            invalid_channel: "Esse canal não existe no Rocket Chat"
+            invalid_channel: "Este canal não existe no Rocket Chat"
         gitter:
           title: "Gitter"
           param:
             name:
               title: "Nome"
-              help: "O nome de uma sala Gitter, por exemplo gitterHQ / services."
+              help: "O nome de uma sala Gitter, ex.: gitterHQ/services."
             webhook_url:
               title: "URL do Webhook"
               help: "O URL fornecido quando você cria uma nova integração em uma sala Gitter."
@@ -168,5 +169,5 @@ pt_BR:
           title: "Flowdock"
           param:
             flow_token:
-              title: "Token de fluxo"
+              title: "Token de Fluxo"
               help: "O token de fluxo fornecido depois de criar uma fonte para um fluxo no qual você deseja enviar mensagens."

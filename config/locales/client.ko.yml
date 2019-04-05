@@ -5,4 +5,61 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-ko: {}
+ko:
+  js:
+    chat_integration:
+      create_rule: "규칙 만들기"
+      create_channel: "채널 만들기"
+      delete_channel: "삭제"
+      test_channel: "테스트"
+      edit_channel: "수정"
+      test_modal:
+        topic: "토픽"
+      type:
+        group_message: 그룹 메시지
+      rule_table:
+        filter: "필터"
+        category: "카테고리"
+        tags: "태그"
+        edit_rule: "수정"
+        delete_rule: "삭제"
+      edit_channel_modal:
+        title: "채널 수정"
+        save: "채널 저장"
+        cancel: "취소"
+        channel_validation:
+          fail: "잘못된 형식"
+      edit_rule_modal:
+        title: 규칙 수정
+        save: 규칙 저장
+        cancel: 취소
+        type: 형식
+        channel: 채널
+        filter: 필터
+        category: 카테고리
+        group: 그룹
+        tags: 태그
+      provider:
+        slack:
+          param:
+            identifier:
+              title: 채널
+        telegram:
+          title: "텔레그램"
+          param:
+            name:
+              title: "이름"
+            chat_id:
+              title: 채팅 ID
+        hipchat:
+          param:
+            color:
+              title: 색상
+        mattermost:
+          param:
+            identifier:
+              title: 채널
+        rocketchat:
+          param:
+            identifier:
+              title: 채널
