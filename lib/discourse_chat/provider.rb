@@ -92,7 +92,6 @@ end
 require_relative "provider/slack/slack_provider"
 require_relative "provider/telegram/telegram_provider"
 require_relative "provider/discord/discord_provider"
-require_relative "provider/hipchat/hipchat_provider"
 require_relative "provider/mattermost/mattermost_provider"
 require_relative "provider/matrix/matrix_provider"
 require_relative "provider/zulip/zulip_provider"

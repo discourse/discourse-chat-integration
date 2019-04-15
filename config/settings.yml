@@ -51,16 +51,6 @@ chat_integration:
     default: 400
 
 #######################################
-########## HIPCHAT SETTINGS ###########
-#######################################
-  chat_integration_hipchat_enabled:
-    default: false
-  chat_integration_hipchat_icon_url:
-    default: ''
-  chat_integration_hipchat_excerpt_length:
-    default: 400
-
-#######################################
 ######## MATTERMOST SETTINGS ##########
 #######################################
   chat_integration_mattermost_enabled:

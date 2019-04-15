@@ -33,13 +33,6 @@ en:
     chat_integration_discord_excerpt_length: "Discord post excerpt length"
 
     #######################################
-    ########## HIPCHAT SETTINGS ###########
-    #######################################
-    chat_integration_hipchat_enabled: "Enable the Hipchat chat-integration provider"
-    chat_integration_hipchat_icon_url: "Icon for posts to Hipchat (defaults to forum logo)"
-    chat_integration_hipchat_excerpt_length: "Hipchat post excerpt length"
-
-    #######################################
     ######## MATTERMOST SETTINGS ##########
     #######################################
     chat_integration_mattermost_enabled: "Enable the Mattermost chat-integration provider"
