@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::FlowdockProvider
 
   PROVIDER_NAME = "flowdock".freeze

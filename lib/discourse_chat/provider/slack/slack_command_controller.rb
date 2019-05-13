@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::SlackProvider
   class SlackCommandController < DiscourseChat::Provider::HookController
     requires_provider ::DiscourseChat::Provider::SlackProvider::PROVIDER_NAME

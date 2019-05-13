@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiscourseChat::PluginModel < PluginStoreRow
   PLUGIN_NAME = 'discourse-chat-integration'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiscourseChat::Rule < DiscourseChat::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter ], coder: JSON

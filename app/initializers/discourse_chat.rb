@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ::DiscourseChat
   PLUGIN_NAME = "discourse-chat-integration".freeze
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::MattermostProvider
   class MattermostCommandController < DiscourseChat::Provider::HookController
     requires_provider ::DiscourseChat::Provider::MattermostProvider::PROVIDER_NAME

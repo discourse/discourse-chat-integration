@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::SlackProvider
   class SlackMessage
     def initialize(raw_message, transcript)

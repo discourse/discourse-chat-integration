@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::SlackProvider
   class SlackMessageFormatter < Nokogiri::XML::SAX::Document
     attr_reader :excerpt
 
     def initialize
-      @excerpt = ""
+      @excerpt = +""
     end
 
     def self.format(html = '')

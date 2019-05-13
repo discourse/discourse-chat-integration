@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::SlackProvider
   class SlackTranscript
     attr_reader :users, :channel_id, :messages
@@ -77,7 +79,7 @@ module DiscourseChat::Provider::SlackProvider
     end
 
     def build_transcript
-      post_content = "[quote]\n"
+      post_content = +"[quote]\n"
       post_content << "[**#{I18n.t('chat_integration.provider.slack.transcript.view_on_slack', name: @channel_name)}**](#{first_message.url})\n"
 
       all_avatars = {}

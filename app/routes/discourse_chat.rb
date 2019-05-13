@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'admin_constraint'
 
 module DiscourseChat

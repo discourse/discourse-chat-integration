@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Discourse::Application.routes.append do
   mount ::DiscourseChat::AdminEngine, at: '/admin/plugins/chat', constraints: AdminConstraint.new
   mount ::DiscourseChat::PublicEngine, at: '/chat-transcript/', as: 'chat-transcript'

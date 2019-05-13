@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # name: discourse-chat-integration
 # about: This plugin integrates discourse with a number of chat providers
 # version: 0.1

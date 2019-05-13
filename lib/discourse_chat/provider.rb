@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat
   class ProviderError < StandardError
     attr_accessor :info
@@ -35,7 +37,7 @@ module DiscourseChat
 
     def self.is_enabled(provider)
       if defined? provider::PROVIDER_ENABLED_SETTING
-        SiteSetting.send(provider::PROVIDER_ENABLED_SETTING)
+        SiteSetting.get(provider::PROVIDER_ENABLED_SETTING)
       else
         false
       end

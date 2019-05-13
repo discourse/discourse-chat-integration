@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::TelegramProvider
   class TelegramCommandController < DiscourseChat::Provider::HookController
     requires_provider ::DiscourseChat::Provider::TelegramProvider::PROVIDER_NAME

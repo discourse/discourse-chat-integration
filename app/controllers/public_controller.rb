@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiscourseChat::PublicController < ApplicationController
   requires_plugin DiscourseChat::PLUGIN_NAME
 

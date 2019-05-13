@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::RocketchatProvider
   PROVIDER_NAME = "rocketchat".freeze
 

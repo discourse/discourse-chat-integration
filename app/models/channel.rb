@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiscourseChat::Channel < DiscourseChat::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :provider, :error_key, :error_info, :data ], coder: JSON

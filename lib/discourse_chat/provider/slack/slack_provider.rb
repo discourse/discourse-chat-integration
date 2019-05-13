@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DiscourseChat::Provider::SlackProvider
   PROVIDER_NAME = "slack".freeze
 

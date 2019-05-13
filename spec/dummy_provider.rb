@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 RSpec.shared_context "dummy provider" do
   before(:each) do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 DiscourseEvent.on(:site_setting_saved) do |sitesetting|
   isEnabledSetting = sitesetting.name == 'chat_integration_telegram_enabled'
   isAccessToken =  sitesetting.name == 'chat_integration_telegram_access_token'
