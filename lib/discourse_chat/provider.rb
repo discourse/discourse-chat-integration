@@ -37,7 +37,7 @@ module DiscourseChat
 
     def self.is_enabled(provider)
       if defined? provider::PROVIDER_ENABLED_SETTING
-        SiteSetting.get(provider::PROVIDER_ENABLED_SETTING)
+        SiteSetting.public_send(provider::PROVIDER_ENABLED_SETTING)
       else
         false
       end
