@@ -28,6 +28,8 @@ hu:
       filter:
         mute: 'Lenémít'
       rule_table:
+        filter: "Szűr"
+        category: "Kategória"
         tags: "Címkék"
         edit_rule: "Szerkeszt"
         delete_rule: "Töröl"
@@ -43,10 +45,17 @@ hu:
         cancel: Visszavon
         provider: Szolgáltató
         type: Típus
+        channel: Csatorna
+        filter: Szűr
         category: Kategória
         group: Csoport
         tags: Címkék
       provider:
+        slack:
+          param:
+            identifier:
+              title: Csatorna
+              help: "pl. #csatorna, @felhasználónév"
         telegram:
           title: "Telegram"
           param:
@@ -59,13 +68,8 @@ hu:
           param:
             name:
               title: "Név"
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "Név"
-            color:
-              title: Szín
+            webhook_url:
+              title: Webhook URL
         mattermost:
           title: "Mattermost"
           param:

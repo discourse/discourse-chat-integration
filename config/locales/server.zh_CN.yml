@@ -19,6 +19,9 @@ zh_CN:
         status:
           rule_string: "*%{index})* *%{filter}*帖子在*%{category}*"
           rule_string_tags_suffix: "包括标签：*%{tags}*"
+        create:
+          created: "规则创建成功"
+          updated: "规则成功更新"
         delete:
           success: "规则删除成功"
         not_found:
@@ -29,15 +32,24 @@ zh_CN:
       telegram:
         status:
           rule_string_tags_suffix: "包括标签：<b>%{tags}</b>"
+        create:
+          created: "规则创建成功"
+          updated: "规则成功更新"
+        delete:
+          success: "规则删除成功"
         not_found:
           tag: "标签<b>%{name}</b>找不到"
       mattermost:
         status:
+          rule_string: "*%{index})* *%{filter}*帖子在*%{category}*"
           rule_string_tags_suffix: "包括标签：*%{tags}*"
         create:
+          created: "规则创建成功"
           updated: "规则成功更新"
         delete:
           success: "规则删除成功"
+        not_found:
+          tag: "标签*%{name}*找不到"
       zulip:
         message: |
           **%{user}** 发表在 **[%{title}](%{post_url})**

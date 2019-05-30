@@ -94,16 +94,6 @@ pl_PL:
               help: "Nazwa opisująca kanał. Nie służy do połączenia z Discord."
             webhook_url:
               title: Adres URL webhooka
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "Nazwa"
-              help: "Nazwa opisująca kanał. Nie jest używana do połączenia z HipChat."
-            webhook_url:
-              title: Adres URL webhooka
-            color:
-              title: Kolor
         mattermost:
           title: "Mattermost"
           param:

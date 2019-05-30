@@ -56,16 +56,18 @@ ar:
           param:
             name:
               title: "الاسم"
-        hipchat:
+        mattermost:
           param:
-            name:
-              title: "الاسم"
-            color:
-              title: لون
+            identifier:
+              title: قناة
         matrix:
           param:
             name:
               title: "الاسم"
+        zulip:
+          param:
+            subject:
+              title: "الموضوع"
         rocketchat:
           param:
             identifier:

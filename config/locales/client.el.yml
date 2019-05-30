@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-el: {}
+el:
+  js:
+    chat_integration:
+      settings: "Ρυθμίσεις"
+      delete_channel: "Σβήσιμο"
+      edit_channel: "Επεξεργασία"
+      test_modal:
+        topic: "Νήμα"
+        close: "Κλείσιμο"
+      type:
+        normal: Φυσιολογικά
+      filter:
+        mute: 'Σίγαση'
+      rule_table:
+        filter: "Φίλτρο"
+        category: "Κατηγορία"
+        tags: "Ετικέτες"
+        edit_rule: "Επεξεργασία"
+        delete_rule: "Σβήσιμο"
+      edit_channel_modal:
+        cancel: "Άκυρο"
+      edit_rule_modal:
+        cancel: Άκυρο
+        type: Τύπος
+        filter: Φίλτρο
+        category: Κατηγορία
+        group: Ομάδα
+        tags: Ετικέτες
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Όνομα"
+        discord:
+          param:
+            name:
+              title: "Όνομα"
+        matrix:
+          param:
+            name:
+              title: "Όνομα"
+        zulip:
+          param:
+            subject:
+              title: "Αντικείμενο"
+        gitter:
+          param:
+            name:
+              title: "Όνομα"

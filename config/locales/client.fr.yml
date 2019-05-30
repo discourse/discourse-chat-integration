@@ -105,18 +105,6 @@ fr:
             webhook_url:
               title: Webhook URL
               help: L'URL webhook crée dans les paramètres de votre serveur Discord
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "Nom"
-              help: "Un nom pour décrire le canal. Il n'est pas utilisé pour la connexion à HipChat."
-            webhook_url:
-              title: Webhook URL
-              help: L'URL webhook crée dans votre intégration HipChat
-            color:
-              title: Couleur
-              help: 'La couleur du message dans HipChart. Doit être un de: yellow,green,red,purple,gray,random'
         mattermost:
           title: "Mattermost"
           param:

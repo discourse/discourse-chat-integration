@@ -5,4 +5,49 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-gl: {}
+gl:
+  js:
+    chat_integration:
+      settings: "Axustes"
+      delete_channel: "Eliminar"
+      edit_channel: "Editar"
+      test_modal:
+        topic: "Tema"
+        close: "Pechar"
+      type:
+        normal: Normal
+      filter:
+        mute: 'Silenciar'
+      rule_table:
+        filter: "Filtro"
+        category: "Categoría"
+        edit_rule: "Editar"
+        delete_rule: "Eliminar"
+      edit_channel_modal:
+        cancel: "Cancelar"
+      edit_rule_modal:
+        cancel: Cancelar
+        filter: Filtro
+        category: Categoría
+        group: Grupo
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Nome"
+        discord:
+          param:
+            name:
+              title: "Nome"
+        matrix:
+          param:
+            name:
+              title: "Nome"
+        zulip:
+          param:
+            subject:
+              title: "Asunto"
+        gitter:
+          param:
+            name:
+              title: "Nome"

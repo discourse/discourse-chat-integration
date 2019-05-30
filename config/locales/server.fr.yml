@@ -25,9 +25,6 @@ fr:
     chat_integration_discord_enabled: "Activer le provider d'intégration de chat Discord"
     chat_integration_discord_message_content: "Message à inclure au-dessus du résumé lors de l'envoi d'une notification à Discord"
     chat_integration_discord_excerpt_length: "Longueur des extraits de message Discord"
-    chat_integration_hipchat_enabled: "Activer le provider d'intégration de chat Hipchat"
-    chat_integration_hipchat_icon_url: "Icône à utiliser pour publier sur Hipchat (par défaut logo du forum)"
-    chat_integration_hipchat_excerpt_length: "Longueur des extraits de message Hipchat"
     chat_integration_mattermost_enabled: "Activer le provider d'intégration chat Mattermost"
     chat_integration_mattermost_webhook_url: 'URL pour le webhook Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'Le token de vérification utilisé pour authentifier les requêtes entrants'

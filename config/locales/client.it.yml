@@ -38,23 +38,41 @@ it:
       rule_table:
         filter: "Filtra"
         category: "Categoria"
+        tags: "Etichette"
         edit_rule: "Modifica"
         delete_rule: "Elimina"
       edit_channel_modal:
         title: "Modifica Canale"
         save: "Salva Canale"
         cancel: "Annulla"
+        channel_validation:
+          ok: "Valido"
       edit_rule_modal:
+        cancel: Annulla
+        type: Tipo
         filter: Filtro
+        category: Categoria
+        group: Gruppo
+        tags: Etichette
       provider:
+        telegram:
+          param:
+            name:
+              title: "Nome"
         discord:
           param:
             name:
               title: "Nome"
         matrix:
           param:
+            name:
+              title: "Nome"
             room_id:
               title: "ID stanza"
+        zulip:
+          param:
+            subject:
+              title: "Oggetto"
         rocketchat:
           errors:
             invalid_channel: "Quel canale non esiste su Rocket Chat"

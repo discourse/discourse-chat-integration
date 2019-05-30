@@ -25,9 +25,6 @@ hy:
     chat_integration_discord_enabled: "Միացրեք Discord  զրույցի-ինտեգրումների մատակարարը"
     chat_integration_discord_message_content: "Հաղորդագրություն, որը պետք է ներառվի ամփոփման մեջ  Discord -ին ծանուցում ուղարկելիս "
     chat_integration_discord_excerpt_length: "Discord գրառման հատվածի երկարություն"
-    chat_integration_hipchat_enabled: "Միացրեք Hipchat  զրույցի-ինտեգրումների մատակարարը"
-    chat_integration_hipchat_icon_url: "Hipchat-ում գրառում կատարելու պատկերակ (լռելյայն նույնն է, ինչ ֆորումի լոգոն)"
-    chat_integration_hipchat_excerpt_length: "Hipchat գրառման հատվածի երկարություն"
     chat_integration_mattermost_enabled: "Միացրեք Mattermost զրույցի-ինտեգրումների մատակարարը"
     chat_integration_mattermost_webhook_url: 'URL  Mattermost webhook -ի համար'
     chat_integration_mattermost_incoming_webhook_token: 'Մուտքային հարցումների նույնականացման համար օգտագործվող վավերացման տոկեն'

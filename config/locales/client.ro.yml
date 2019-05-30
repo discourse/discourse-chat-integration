@@ -64,3 +64,39 @@ ro:
         type: Tip
         channel: Canal
         filter: Filtru
+        category: Categorie
+        group: Grup
+        tags: Etichete
+      provider:
+        slack:
+          param:
+            identifier:
+              title: Canal
+        telegram:
+          param:
+            name:
+              title: "Nume"
+        discord:
+          param:
+            name:
+              title: "Nume"
+        mattermost:
+          param:
+            identifier:
+              title: Canal
+        matrix:
+          param:
+            name:
+              title: "Nume"
+        zulip:
+          param:
+            subject:
+              title: "Subiect"
+        rocketchat:
+          param:
+            identifier:
+              title: Canal
+        gitter:
+          param:
+            name:
+              title: "Nume"

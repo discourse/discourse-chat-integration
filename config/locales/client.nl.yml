@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-nl: {}
+nl:
+  js:
+    chat_integration:
+      settings: "Instellingen"
+      delete_channel: "Verwijderen"
+      edit_channel: "Bewerken"
+      test_modal:
+        topic: "Topic"
+        close: "Sluiten"
+      type:
+        normal: Normaal
+      filter:
+        mute: 'Negeren'
+      rule_table:
+        filter: "Filter"
+        category: "Categorie"
+        tags: "Tags"
+        edit_rule: "Bewerken"
+        delete_rule: "Verwijderen"
+      edit_channel_modal:
+        cancel: "Annuleren"
+      edit_rule_modal:
+        cancel: Annuleren
+        type: Type
+        filter: Filter
+        category: Categorie
+        group: Groep
+        tags: Tags
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Naam"
+        discord:
+          param:
+            name:
+              title: "Naam"
+        matrix:
+          param:
+            name:
+              title: "Naam"
+        zulip:
+          param:
+            subject:
+              title: "Onderwerp"
+        gitter:
+          param:
+            name:
+              title: "Naam"

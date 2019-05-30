@@ -13,5 +13,48 @@ fi:
       create_rule: "Luo sääntö"
       create_channel: "Luo kanava"
       delete_channel: "Poista"
+      edit_channel: "Muokkaa"
       test_modal:
         title: "Lähetä testiviesti"
+        topic: "Ketju"
+        close: "Sulje"
+      type:
+        normal: Normaali
+      filter:
+        mute: 'Vaimenna'
+      rule_table:
+        filter: "Suodatin"
+        category: "Alue"
+        tags: "Tunnisteet"
+        edit_rule: "Muokkaa"
+        delete_rule: "Poista"
+      edit_channel_modal:
+        cancel: "Peru"
+      edit_rule_modal:
+        cancel: Peru
+        type: Tyyppi
+        filter: Suodatin
+        category: Alue
+        group: Ryhmä
+        tags: Tunnisteet
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Nimi"
+        discord:
+          param:
+            name:
+              title: "Nimi"
+        matrix:
+          param:
+            name:
+              title: "Nimi"
+        zulip:
+          param:
+            subject:
+              title: "Otsikko"
+        gitter:
+          param:
+            name:
+              title: "Nimi"

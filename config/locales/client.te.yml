@@ -11,18 +11,27 @@ te:
       settings: "అమరికలు"
       all_categories: "(అన్ని వర్గాలు)"
       delete_channel: "తొలగించు"
+      edit_channel: "సవరించు"
       test_modal:
+        topic: "విషయం"
         close: "మూసివేయి"
+      filter:
+        mute: 'నిశ్శబ్దం'
       rule_table:
+        filter: "జల్లెడ"
         category: "వర్గం"
+        tags: "ట్యాగులు"
+        edit_rule: "సవరించు"
         delete_rule: "తొలగించు"
       edit_channel_modal:
         cancel: "రద్దుచేయి"
       edit_rule_modal:
         cancel: రద్దుచేయి
         type: రకం
+        filter: జల్లెడ
         category: వర్గం
         group: సమూహం
+        tags: ట్యాగులు
       provider:
         telegram:
           param:
@@ -32,16 +41,14 @@ te:
           param:
             name:
               title: "పేరు"
-        hipchat:
-          param:
-            name:
-              title: "పేరు"
-            color:
-              title: రంగు
         matrix:
           param:
             name:
               title: "పేరు"
+        zulip:
+          param:
+            subject:
+              title: "సబ్జెక్టు"
         gitter:
           param:
             name:

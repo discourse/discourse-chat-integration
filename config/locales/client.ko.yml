@@ -8,6 +8,7 @@
 ko:
   js:
     chat_integration:
+      settings: "설정"
       create_rule: "규칙 만들기"
       create_channel: "채널 만들기"
       delete_channel: "삭제"
@@ -15,8 +16,12 @@ ko:
       edit_channel: "수정"
       test_modal:
         topic: "토픽"
+        close: "닫기"
       type:
+        normal: '알림 : 일반'
         group_message: 그룹 메시지
+      filter:
+        mute: '알림 끄기'
       rule_table:
         filter: "필터"
         category: "카테고리"
@@ -51,15 +56,27 @@ ko:
               title: "이름"
             chat_id:
               title: 채팅 ID
-        hipchat:
+        discord:
           param:
-            color:
-              title: 색상
+            name:
+              title: "이름"
         mattermost:
           param:
             identifier:
               title: 채널
+        matrix:
+          param:
+            name:
+              title: "이름"
+        zulip:
+          param:
+            subject:
+              title: "제목"
         rocketchat:
           param:
             identifier:
               title: 채널
+        gitter:
+          param:
+            name:
+              title: "이름"

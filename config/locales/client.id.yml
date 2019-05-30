@@ -5,4 +5,45 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-id: {}
+id:
+  js:
+    chat_integration:
+      delete_channel: "Hapus"
+      edit_channel: "Ubah"
+      test_modal:
+        topic: "Topik"
+        close: "Tutup"
+      type:
+        normal: normal
+      filter:
+        mute: 'Bisu'
+      rule_table:
+        category: "Kategori"
+        edit_rule: "Ubah"
+        delete_rule: "Hapus"
+      edit_channel_modal:
+        cancel: "Batal"
+      edit_rule_modal:
+        cancel: Batal
+        category: Kategori
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Nama"
+        discord:
+          param:
+            name:
+              title: "Nama"
+        matrix:
+          param:
+            name:
+              title: "Nama"
+        zulip:
+          param:
+            subject:
+              title: "Judul"
+        gitter:
+          param:
+            name:
+              title: "Nama"

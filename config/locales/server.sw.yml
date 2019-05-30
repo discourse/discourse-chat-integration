@@ -17,8 +17,8 @@ sw:
     chat_integration_telegram_excerpt_length: "Urefu wa taarifa fupi kutoka kwa Telegram"
     chat_integration_discord_message_content: "Ujumbe wakuambatanishwa juu ya muhtasari wakati wa kutuma taarifa kwa Discord"
     chat_integration_discord_excerpt_length: "Urefu wa Kipande cha taarifa za Discord"
-    chat_integration_hipchat_icon_url: "Ikoni za machapisho kwenda Hipchat (kwa msingi ni nembo ya jamii)"
     chat_integration_mattermost_webhook_url: 'Anwani ya Mattermost webhook'
+    chat_integration_mattermost_incoming_webhook_token: 'Ishara ya uthibitisho inayotumika kusahihisha maombi yanayoingia.'
     chat_integration_mattermost_icon_url: "Ikoni za machapisho kwenye Mattermost (kwa asili ni nembo ya Jamii)"
     chat_integration_matrix_homeserver: "Seva ya Nyumbani ya kuunganishwa. Hakikisha umeweka sheria au protocol"
     chat_integration_zulip_server: "Anwani ya mtandao ya seva ya Zulip. Hakikisha unaandika http(s):// "

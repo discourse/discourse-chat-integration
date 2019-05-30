@@ -12,4 +12,50 @@ lt:
         categories:
           chat_integration: "Pokalbių integracijos"
     chat_integration:
+      menu_title: "Pokalbių integracijos"
       settings: "Nustatymai"
+      delete_channel: "Pašalinti"
+      edit_channel: "Redaguoti"
+      test_modal:
+        topic: "Tema"
+        close: "Uždaryti"
+      type:
+        normal: Įprastas
+      filter:
+        mute: 'Nutildyti'
+      rule_table:
+        filter: "Filtruoti"
+        category: "Kategorija"
+        tags: "Žymos"
+        edit_rule: "Redaguoti"
+        delete_rule: "Pašalinti"
+      edit_channel_modal:
+        cancel: "Atšaukti"
+      edit_rule_modal:
+        cancel: Atšaukti
+        type: Tipas
+        filter: Filtruoti
+        category: Kategorija
+        group: Grupė
+        tags: Žymos
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Vardas"
+        discord:
+          param:
+            name:
+              title: "Vardas"
+        matrix:
+          param:
+            name:
+              title: "Vardas"
+        zulip:
+          param:
+            subject:
+              title: "Tema"
+        gitter:
+          param:
+            name:
+              title: "Vardas"

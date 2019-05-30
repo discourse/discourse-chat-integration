@@ -5,4 +5,51 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-lv: {}
+lv:
+  js:
+    chat_integration:
+      settings: "Iestatījumi"
+      delete_channel: "Dzēst"
+      edit_channel: "Labot"
+      test_modal:
+        topic: "Tēmas"
+        close: "Aizvērt"
+      type:
+        normal: Normāls
+      filter:
+        mute: 'Noklusināt'
+      rule_table:
+        filter: "Filtrs"
+        category: "Sadaļa"
+        tags: "Birkas"
+        edit_rule: "Labot"
+        delete_rule: "Dzēst"
+      edit_channel_modal:
+        cancel: "Atcelt"
+      edit_rule_modal:
+        cancel: Atcelt
+        filter: Filtrs
+        category: Sadaļa
+        group: Grupa
+        tags: Birkas
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Vārds"
+        discord:
+          param:
+            name:
+              title: "Vārds"
+        matrix:
+          param:
+            name:
+              title: "Vārds"
+        zulip:
+          param:
+            subject:
+              title: "Tēma"
+        gitter:
+          param:
+            name:
+              title: "Vārds"

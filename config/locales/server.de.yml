@@ -25,9 +25,6 @@ de:
     chat_integration_discord_enabled: "Aktiviere den Chat-Integration-Provider für Discord"
     chat_integration_discord_message_content: "Die Nachricht, die beim Versenden einer Benachrichtigung an Discord oberhalb der Zusammenfassung eingefügt wird"
     chat_integration_discord_excerpt_length: "Auszugslänge für Discord-Beiträge"
-    chat_integration_hipchat_enabled: "Aktiviere den Chat-Integration-Provider für Hipchat"
-    chat_integration_hipchat_icon_url: "Icon für Beiträge an Hipchat (standardmäßig das Seitenlogo)"
-    chat_integration_hipchat_excerpt_length: "Auszugslänge für Hipchat-Beitrag"
     chat_integration_mattermost_enabled: "Aktiviere den Chat-Integration-Provider für Mattermost"
     chat_integration_mattermost_webhook_url: 'URL für den Mattermost-Webhook'
     chat_integration_mattermost_incoming_webhook_token: 'Das Verifizierungstoken zur Authentisierung eingehender Anfragen'

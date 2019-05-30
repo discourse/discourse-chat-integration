@@ -5,4 +5,49 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-sr: {}
+sr:
+  js:
+    chat_integration:
+      settings: "Podešavanje"
+      delete_channel: "Obriši"
+      edit_channel: "Izmeni"
+      test_modal:
+        topic: "Tema"
+        close: "Zatvori"
+      type:
+        normal: Normalno
+      filter:
+        mute: 'Utišaj'
+      rule_table:
+        filter: "Filter"
+        category: "Kategorija"
+        edit_rule: "Izmeni"
+        delete_rule: "Obriši"
+      edit_channel_modal:
+        cancel: "Odustani"
+      edit_rule_modal:
+        cancel: Odustani
+        filter: Filter
+        category: Kategorija
+        group: Grupa
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Ime foruma"
+        discord:
+          param:
+            name:
+              title: "Ime foruma"
+        matrix:
+          param:
+            name:
+              title: "Ime foruma"
+        zulip:
+          param:
+            subject:
+              title: "Predmet"
+        gitter:
+          param:
+            name:
+              title: "Ime foruma"

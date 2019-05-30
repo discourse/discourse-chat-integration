@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-fa_IR: {}
+fa_IR:
+  js:
+    chat_integration:
+      settings: "تنظیمات"
+      delete_channel: "حذف"
+      edit_channel: "ویرایش"
+      test_modal:
+        topic: "موضوعات"
+        close: "بستن"
+      type:
+        normal: معمولی
+      filter:
+        mute: 'بی صدا'
+      rule_table:
+        filter: "فیلتر"
+        category: "دسته‌بندی"
+        tags: "برچسبها"
+        edit_rule: "ویرایش"
+        delete_rule: "حذف"
+      edit_channel_modal:
+        cancel: "لغو کردن"
+      edit_rule_modal:
+        cancel: لغو کردن
+        type: نوع
+        filter: فیلتر
+        category: دسته‌بندی
+        group: گروه
+        tags: برچسبها
+      provider:
+        telegram:
+          param:
+            name:
+              title: "نام"
+        discord:
+          param:
+            name:
+              title: "نام"
+        matrix:
+          param:
+            name:
+              title: "نام"
+        zulip:
+          param:
+            subject:
+              title: "موضوع"
+        gitter:
+          param:
+            name:
+              title: "نام"

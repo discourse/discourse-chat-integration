@@ -13,3 +13,9 @@ et:
       slack:
         delete:
           success: "Reegel on kustutatud"
+      telegram:
+        delete:
+          success: "Reegel on kustutatud"
+      mattermost:
+        delete:
+          success: "Reegel on kustutatud"

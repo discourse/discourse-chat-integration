@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-zh_TW: {}
+zh_TW:
+  js:
+    chat_integration:
+      settings: "設定"
+      delete_channel: "刪除"
+      edit_channel: "編輯"
+      test_modal:
+        topic: "話題"
+        close: "關閉"
+      type:
+        normal: 一般
+      filter:
+        mute: '靜音'
+      rule_table:
+        filter: "過濾"
+        category: "分類"
+        tags: "標籤"
+        edit_rule: "編輯"
+        delete_rule: "刪除"
+      edit_channel_modal:
+        cancel: "取消"
+      edit_rule_modal:
+        cancel: 取消
+        type: 類型
+        filter: 過濾
+        category: 分類
+        group: 群組
+        tags: 標籤
+      provider:
+        telegram:
+          param:
+            name:
+              title: "名稱"
+        discord:
+          param:
+            name:
+              title: "名稱"
+        matrix:
+          param:
+            name:
+              title: "名稱"
+        zulip:
+          param:
+            subject:
+              title: "主旨"
+        gitter:
+          param:
+            name:
+              title: "名稱"

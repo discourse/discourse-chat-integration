@@ -99,17 +99,8 @@ sw:
             name:
               title: "Jina"
               help: "Jina ulilotumia kuelezea njia ya mawasiliano halitambuliki na Discord"
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "Jina"
-              help: "Jina la kuelezea chaneli. Haitumiki kuunganisha na HipChat."
             webhook_url:
               title: Anwani ya Webhook
-            color:
-              title: Rangi
-              help: 'Rangi ya ujumbe ndani ya HipChat. Lazima iwe kati ya njano,kijani,nyekundu,urudhufi,kijivu,nyingine '
         mattermost:
           title: "Umuhimu zaidi"
           param:

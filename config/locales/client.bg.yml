@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-bg: {}
+bg:
+  js:
+    chat_integration:
+      settings: "Настройки"
+      delete_channel: "Изтрий"
+      edit_channel: "Редактирай"
+      test_modal:
+        topic: "Тема"
+        close: "Затвори"
+      type:
+        normal: Нормален
+      filter:
+        mute: 'Заглушаване'
+      rule_table:
+        filter: "Филтер"
+        category: "Категория"
+        tags: "Етикети"
+        edit_rule: "Редактирай"
+        delete_rule: "Изтрий"
+      edit_channel_modal:
+        cancel: "Отмени"
+      edit_rule_modal:
+        cancel: Отмени
+        type: Тип
+        filter: Филтер
+        category: Категория
+        group: Група
+        tags: Етикети
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Име"
+        discord:
+          param:
+            name:
+              title: "Име"
+        matrix:
+          param:
+            name:
+              title: "Име"
+        zulip:
+          param:
+            subject:
+              title: "Тема"
+        gitter:
+          param:
+            name:
+              title: "Име"

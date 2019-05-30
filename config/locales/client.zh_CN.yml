@@ -48,11 +48,15 @@ zh_CN:
         title: "编辑频道"
         save: "保存频道"
         cancel: "取消"
+        provider: "提供者"
         channel_validation:
           ok: "有效"
           fail: "格式无效"
       edit_rule_modal:
         title: 编辑规则
+        cancel: 取消
+        provider: 提供者
+        type: 类型
         channel: 频道
         filter: 筛选
         category: 分类
@@ -69,25 +73,25 @@ zh_CN:
           param:
             name:
               title: "名称"
+            chat_id:
+              title: 聊天ID
         discord:
-          param:
-            name:
-              title: "名称"
-        hipchat:
+          title: "Discord"
           param:
             name:
               title: "名称"
             webhook_url:
               title: Webhook URL
-            color:
-              title: 颜色
         mattermost:
           param:
             identifier:
+              title: 频道
               help: "例如：#频道， @用户名。"
         matrix:
           title: "矩阵"
           param:
+            name:
+              title: "名称"
             room_id:
               title: "房间号"
           errors:
@@ -107,6 +111,7 @@ zh_CN:
           errors:
             invalid_channel: "这个频道在 Rocket Chat 上不存在"
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "名字"

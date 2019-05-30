@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-vi: {}
+vi:
+  js:
+    chat_integration:
+      settings: "Xác lập"
+      delete_channel: "Xóa"
+      edit_channel: "Sửa"
+      test_modal:
+        topic: "Chủ đề"
+        close: "Đóng lại"
+      type:
+        normal: Bình thường
+      filter:
+        mute: 'Im lặng'
+      rule_table:
+        filter: "Lọc"
+        category: "Danh mục"
+        tags: "Thẻ"
+        edit_rule: "Sửa"
+        delete_rule: "Xóa"
+      edit_channel_modal:
+        cancel: "Hủy"
+      edit_rule_modal:
+        cancel: Hủy
+        type: Loại
+        filter: Lọc
+        category: Danh mục
+        group: Nhóm
+        tags: Thẻ
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Tên"
+        discord:
+          param:
+            name:
+              title: "Tên"
+        matrix:
+          param:
+            name:
+              title: "Tên"
+        zulip:
+          param:
+            subject:
+              title: "Tiêu đề"
+        gitter:
+          param:
+            name:
+              title: "Tên"

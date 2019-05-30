@@ -14,3 +14,43 @@ ru:
       test_modal:
         topic: "Тема"
         close: "Закрыть"
+      type:
+        normal: Нормальный
+      filter:
+        mute: 'Отключить'
+      rule_table:
+        filter: "Фильтр"
+        category: "Категория"
+        tags: "Теги"
+        edit_rule: "Редактировать"
+        delete_rule: "Удалить"
+      edit_channel_modal:
+        cancel: "Отмена"
+      edit_rule_modal:
+        cancel: Отмена
+        type: Тип
+        filter: Фильтр
+        category: Категория
+        group: Группа
+        tags: Теги
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Имя"
+        discord:
+          param:
+            name:
+              title: "Имя"
+        matrix:
+          param:
+            name:
+              title: "Имя"
+        zulip:
+          param:
+            subject:
+              title: "Тема"
+        gitter:
+          param:
+            name:
+              title: "Имя"

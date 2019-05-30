@@ -25,9 +25,6 @@ ur:
     chat_integration_discord_enabled: "ڈِسکَورڈ کا چَیٹ-اِنٹیگرَیشَن پرووَائیڈر فعال کریں"
     chat_integration_discord_message_content: "ڈِسکَورڈ پر اِطلاع بھیجنے پر، خلاصہ کے اوپر شامل کیے جانے والا پیغام"
     chat_integration_discord_excerpt_length: "ڈِسکَورڈ پوسٹ کے اقتباس کا سائز"
-    chat_integration_hipchat_enabled: "ہِپچَیٹ کا چَیٹ-اِنٹیگرَیشَن پرووَائیڈر فعال کریں"
-    chat_integration_hipchat_icon_url: "ہِپچَیٹ پر پوسٹس کیلئے آئکن (ڈِیفالٹ فورَم لوگو ہے)"
-    chat_integration_hipchat_excerpt_length: "ہِپچَیٹ پوسٹ کے اقتباس کا سائز"
     chat_integration_mattermost_enabled: "مَیٹرمَوسٹ کا چَیٹ-اِنٹیگرَیشَن پرووَائیڈر فعال کریں"
     chat_integration_mattermost_webhook_url: 'مَیٹرمَوسٹ وَیب ھُوک کیلئے URL'
     chat_integration_mattermost_incoming_webhook_token: 'آنے والی درخواستوں کی توثیق کرنے کیلئے استعمال ہونے والا توثیقی ٹوکن'
@@ -37,6 +34,7 @@ ur:
     chat_integration_matrix_homeserver: "ہوم سرور جس کے ساتھ کَنیکٹ کرنا ہے۔ پروٹوکول شامل کرنا یقینی بنائیں"
     chat_integration_matrix_access_token: "بَوٹ کے مَیٹرِکس اکاؤنٹ کیلئے ایکسَیس ٹوکن"
     chat_integration_matrix_excerpt_length: "مَیٹرِکس پوسٹ کے اقتباس کا سائز"
+    chat_integration_matrix_use_notice: "سادہ پیغام کے بجائے نوٹس کا استعمال کریں"
     chat_integration_zulip_enabled: "زُولِپ کا چَیٹ-اِنٹیگرَیشَن پرووَائیڈر فعال کریں"
     chat_integration_zulip_server: "آپ کے زُولِپ سرور کا بَیس URL۔ http(s):// شامل کرنا یقینی بنائیں"
     chat_integration_zulip_bot_email_address: "آپ کے زُولِپ بَوٹ کے ساتھ منسلک ای میل ایڈریس"
@@ -54,6 +52,7 @@ ur:
     deleted_group: "(حذف کردہ گروپ)"
     group_mention_template: "ذکر: @%{name} کے"
     group_message_template: "پیغامات: @%{name} کیلئے"
+    admin_error: "کچھ چَیٹ اِنٹیگرَیشَن چینلز میں خرابیاں ہیں۔ مزید جاننے کیلئے <a href='%{base_path}/admin/plugins/chat'>چَیٹ اِنٹیگرَیشَن سیکشن</a> پر جائیں۔"
     provider:
       slack:
         status:

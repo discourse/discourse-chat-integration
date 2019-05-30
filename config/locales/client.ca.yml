@@ -9,13 +9,48 @@ ca:
   js:
     chat_integration:
       settings: "Configuracions"
+      delete_channel: "Esborra"
       edit_channel: "Edita"
       test_modal:
+        topic: "Tema"
         close: "Tanca"
       type:
         normal: Normal
+      filter:
+        mute: 'Silenci'
       rule_table:
         filter: "Filtre"
         category: "Categoria"
         tags: "Etiquetes"
         edit_rule: "Edita"
+        delete_rule: "Esborra"
+      edit_channel_modal:
+        cancel: "Cancel·la"
+      edit_rule_modal:
+        cancel: Cancel·la
+        type: Tipus
+        filter: Filtre
+        category: Categoria
+        group: Grup
+        tags: Etiquetes
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Nom"
+        discord:
+          param:
+            name:
+              title: "Nom"
+        matrix:
+          param:
+            name:
+              title: "Nom"
+        zulip:
+          param:
+            subject:
+              title: "Tema"
+        gitter:
+          param:
+            name:
+              title: "Nom"

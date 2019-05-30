@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-bs_BA: {}
+bs_BA:
+  js:
+    chat_integration:
+      settings: "Postavke"
+      delete_channel: "Delete"
+      edit_channel: "Izmijeni"
+      test_modal:
+        topic: "Topic"
+        close: "Zatvori"
+      type:
+        normal: Normalno
+      filter:
+        mute: 'Utišaj'
+      rule_table:
+        filter: "Filter"
+        category: "Kategorija"
+        tags: "Oznake"
+        edit_rule: "Izmijeni"
+        delete_rule: "Delete"
+      edit_channel_modal:
+        cancel: "Otkaži"
+      edit_rule_modal:
+        cancel: Otkaži
+        type: Tip
+        filter: Filter
+        category: Kategorija
+        group: Grupa
+        tags: Oznake
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Ime"
+        discord:
+          param:
+            name:
+              title: "Ime"
+        matrix:
+          param:
+            name:
+              title: "Ime"
+        zulip:
+          param:
+            subject:
+              title: "Naslov"
+        gitter:
+          param:
+            name:
+              title: "Ime"

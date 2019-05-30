@@ -5,4 +5,52 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-sv: {}
+sv:
+  js:
+    chat_integration:
+      settings: "Inställningar"
+      delete_channel: "Radera"
+      edit_channel: "Redigera"
+      test_modal:
+        topic: "Ämne"
+        close: "Stäng"
+      type:
+        normal: Normal
+      filter:
+        mute: 'Tysta'
+      rule_table:
+        filter: "Filter"
+        category: "Kategori"
+        tags: "Taggar"
+        edit_rule: "Redigera"
+        delete_rule: "Radera"
+      edit_channel_modal:
+        cancel: "Avbryt"
+      edit_rule_modal:
+        cancel: Avbryt
+        type: Typ
+        filter: Filter
+        category: Kategori
+        group: Grupp
+        tags: Taggar
+      provider:
+        telegram:
+          param:
+            name:
+              title: "Namn"
+        discord:
+          param:
+            name:
+              title: "Namn"
+        matrix:
+          param:
+            name:
+              title: "Namn"
+        zulip:
+          param:
+            subject:
+              title: "Ämne"
+        gitter:
+          param:
+            name:
+              title: "Namn"

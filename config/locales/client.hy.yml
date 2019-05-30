@@ -105,18 +105,6 @@ hy:
             webhook_url:
               title: Webhook -ի URL
               help: 'Ձեր Discord սերվերի կարգավորումներում ստեղծված webhook -ի URL -ը '
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "Անուն"
-              help: "Անուն՝ ալիքը նկարագրելու համար: Այն չի օգտագործվում HipChat -ին միանալու համար:"
-            webhook_url:
-              title: Webhook -ի URL
-              help: Ձեր HipChat ինtեgրումի մեջ ստեղծված webhook -ի URL -ը
-            color:
-              title: Գույն
-              help: 'HipChat -ի հաղորդագրության գույնը: Պետք է լինի հետևյալներից մեկը՝ դեղին, կանաչ, կարմիր, մանուշակագույն, մոխրագույն, պատահական'
         mattermost:
           title: "Mattermost"
           param:

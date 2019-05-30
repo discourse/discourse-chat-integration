@@ -25,9 +25,6 @@ pt_BR:
     chat_integration_discord_enabled: "Habilitar o provedor de integração de bate-papo do Discord"
     chat_integration_discord_message_content: "A mensagem a ser incluída acima do resumo ao enviar uma notificação para Discord"
     chat_integration_discord_excerpt_length: "Tamanho do treco da postagem do Discord"
-    chat_integration_hipchat_enabled: "Habilitar o provedor de integração de bate-papo do Hipchat"
-    chat_integration_hipchat_icon_url: "Ícone para postagens no Hipchat (padrão é logotipo do fórum)"
-    chat_integration_hipchat_excerpt_length: "Tamanho do treco da postagem do Hipchat"
     chat_integration_mattermost_enabled: "Habilitar o provedor de integração de bate-papo do Mattermost"
     chat_integration_mattermost_webhook_url: 'URL para o webhook do Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'O token de verificação usado para autenticar solicitações recebidas'

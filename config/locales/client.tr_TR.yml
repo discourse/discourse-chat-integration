@@ -71,13 +71,6 @@ tr_TR:
           param:
             name:
               title: "İsim"
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "İsim"
-            color:
-              title: Renk
         mattermost:
           param:
             identifier:
@@ -86,6 +79,10 @@ tr_TR:
           param:
             name:
               title: "İsim"
+        zulip:
+          param:
+            subject:
+              title: "Konu"
         rocketchat:
           title: "Rocket.Chat"
           param:

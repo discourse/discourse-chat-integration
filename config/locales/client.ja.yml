@@ -8,5 +8,49 @@
 ja:
   js:
     chat_integration:
+      settings: "設定"
+      delete_channel: "削除する"
+      edit_channel: "編集"
+      test_modal:
+        topic: "トピック"
+        close: "投票をクローズする"
       type:
         normal: デフォルト
+      filter:
+        mute: 'ミュート'
+      rule_table:
+        filter: "フィルター"
+        category: "カテゴリ"
+        tags: "タグ"
+        edit_rule: "編集"
+        delete_rule: "削除する"
+      edit_channel_modal:
+        cancel: "キャンセル"
+      edit_rule_modal:
+        cancel: キャンセル
+        type: タイプ
+        filter: フィルター
+        category: カテゴリ
+        group: グループ
+        tags: タグ
+      provider:
+        telegram:
+          param:
+            name:
+              title: "名前"
+        discord:
+          param:
+            name:
+              title: "名前"
+        matrix:
+          param:
+            name:
+              title: "名前"
+        zulip:
+          param:
+            subject:
+              title: "件名"
+        gitter:
+          param:
+            name:
+              title: "名前"

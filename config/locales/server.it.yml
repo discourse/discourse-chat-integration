@@ -9,3 +9,5 @@ it:
   site_settings:
     chat_integration_enabled: 'Attiva il plugin discourse-chat-integration'
     chat_integration_delay_seconds: 'Dopo la creazione di un messaggio, numero di secondi di attesa prima di inviare una notifica chat'
+  chat_integration:
+    all_categories: "(tutte le categorie)"

@@ -49,3 +49,36 @@ et:
         category: Kategooria
         group: Grupp
         tags: Sildid
+      provider:
+        slack:
+          param:
+            identifier:
+              title: Kanal
+        telegram:
+          param:
+            name:
+              title: "Nimi"
+        discord:
+          param:
+            name:
+              title: "Nimi"
+        mattermost:
+          param:
+            identifier:
+              title: Kanal
+        matrix:
+          param:
+            name:
+              title: "Nimi"
+        zulip:
+          param:
+            subject:
+              title: "Teema"
+        rocketchat:
+          param:
+            identifier:
+              title: Kanal
+        gitter:
+          param:
+            name:
+              title: "Nimi"

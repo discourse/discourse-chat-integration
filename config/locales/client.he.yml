@@ -12,8 +12,13 @@ he:
         categories:
           chat_integration: "מיזוגי צ'אט"
     chat_integration:
+      menu_title: "מיזוגי צ'אט"
       settings: "הגדרות"
+      no_providers: "עליך לאפשר מספר ספקים בהגדרות התוסף"
+      channels_with_errors: "בפעם האחרונה שנשלחו מסרים כמה ערוצים נכשלו עבור הספר הזה. לחץ על סמליל(י) השגיאה כדי לקבל עוד מידע"
+      channel_exception: "אירעה שגיאה בלתי מזוהה בפעם האחרונה שנשלחה הודעה בערוץ זה."
       group_mention_template: "אזכור של: @{{name}}"
+      group_message_template: "הודעות אל: @{{name}}"
       choose_group: "בחירת קבוצה"
       all_categories: "כל הקטגוריות"
       all_tags: "כל התגיות"
@@ -22,3 +27,135 @@ he:
       delete_channel: "הסרה"
       test_channel: "נסיון"
       edit_channel: "עריכה"
+      channel_delete_confirm: "האם את/ה בטוח שברצונך למחוק את הערוץ הזה? כל הכללים המקושרים אליו ימחקו"
+      test_modal:
+        title: "שליחת הודעת ניסיון"
+        topic: "נושא"
+        send: "שליחת הודעת ניסיון"
+        close: "סגור"
+        error: "שגיאה לא מזוהה התרחשה בעת שליחת ההודעה. יש לבדוק את הלוגים של האתר עבור מידע נוסף."
+        success: "ההודעה נשלחה בהצלחה"
+      type:
+        normal: רגיל
+        group_message: הודעה קבוצתית
+        group_mention: איזכור קבוצה
+      filter:
+        mute: 'השתק'
+        follow: 'הודעה ראשונה בלבד'
+        watch: 'כל הפוסטים והתגובות'
+      rule_table:
+        filter: "סינון"
+        category: "קטגוריה"
+        tags: "תגיות"
+        edit_rule: "ערוך"
+        delete_rule: "הסרה"
+      edit_channel_modal:
+        title: "עריכת ערוץ"
+        save: "שמירת ערוץ"
+        cancel: "ביטול"
+        provider: "ספק"
+        channel_validation:
+          ok: "מאומת"
+          fail: "פורמט לא חוקי"
+      edit_rule_modal:
+        title: שינוי כלל
+        save: שמירת כלל
+        cancel: ביטול
+        provider: ספק
+        type: סוג
+        channel: ערוץ
+        filter: סינון
+        category: קטגוריה
+        group: קבוצה
+        tags: תגיות
+        instructions:
+          type: "יש לשנות את הסוג כדי להפעיל התראות עבור הודעות קבוצתיות או איזכורים"
+          filter: "רמת התראה. השתקה דורסת כללים תואמים נוספים"
+          category: "כלל זה יחול על נושאים בקטגוריה המצוינת"
+          group: "כלל זה חל על פוסטים שמפנים לקבוצה זו"
+          tags: "אם צוין, כלל זה יחול רק כל נושאים שיש להם לפחות אחת מהתגיות האלה."
+      provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: ערוץ
+              help: "למשל #ערוץ, @שם_משתמש."
+          errors:
+            action_prohibited: "לבוט אין הרשה לפרסם לערוץ הזה"
+            channel_not_found: "הערוץ שצוין לא קיים ב־Slack"
+        telegram:
+          title: "טלגרם"
+          param:
+            name:
+              title: "שם"
+              help: "שם לתיאור הערוץ. לא בשימוש בחיבור לטלגרם."
+            chat_id:
+              title: מזהה שיחה
+              help: מספר שהעניק לך הבוט או מזהה פרסום ערוצים בתצורה @שם_ערוץ
+          errors:
+            channel_not_found: "הערוץ שצוין לא קיים בטלגרם"
+            forbidden: "לבוט אין הרשאה לפרסם לערוץ הזה"
+        discord:
+          title: "Discord"
+          param:
+            name:
+              title: "שם"
+              help: "שם לתיאור הערוץ. הוא לא משמש לחיבור אל Discord."
+            webhook_url:
+              title: כתובת התלייה
+              help: כתובת ההתלייה נוצרה בהגדרות שרת ה־Discord שלך
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: ערוץ
+              help: "למשל #ערוץ, @שם_משתמש."
+          errors:
+            channel_not_found: "הערוץ שצוין לא קיים ב־Mattermost"
+        matrix:
+          title: "Matrix"
+          param:
+            name:
+              title: "שם"
+              help: "שם לתיאור הערוץ. הוא לא משמש לחיבור אל Matrix."
+            room_id:
+              title: "מזהה חדר"
+              help: "ה‚מזהה הפרטי’ של החדר. הוא אמור להיראות בערך ככה: ‎!abcdefg:matrix.org"
+          errors:
+            unknown_token: "אסימון הגישה שגוי"
+            unknown_room: "מזהה החדר שגוי"
+        zulip:
+          title: "Zulip"
+          param:
+            stream:
+              title: "תזרים"
+              help: "שם תזרים ה־Zulip שאליו אמורה להישלח ההודעה, למשל: ‚general’"
+            subject:
+              title: "נושא"
+              help: "הנושא שיינתן להודעות אלו שנשלחות על ידי הבוט"
+          errors:
+            does_not_exist: "תזרים זה לא קיים ב־Zulip"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: ערוץ
+              help: "למשל #ערוץ, @שם_משתמש."
+          errors:
+            invalid_channel: "ערוץ זה לא קיים ב־‏Rocket Chat"
+        gitter:
+          title: "Gitter"
+          param:
+            name:
+              title: "שם"
+              help: "שם חדר ב־Gitter למשל gitterHQ/services."
+            webhook_url:
+              title: "כתובת התלייה"
+              help: "הכתובת שסופקה בעת יצירת שילוב בחדר Gitter."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "אסימון Flow"
+              help: "אסימון ה־flow לאחר יצירת המשאב ל־flow אליו ברצונך לשלוח הודעות."

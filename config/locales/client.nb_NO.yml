@@ -84,18 +84,12 @@ nb_NO:
           param:
             name:
               title: "Navn"
-        hipchat:
-          title: "HipChat"
-          param:
-            name:
-              title: "Navn"
-            color:
-              title: Farge
         mattermost:
           title: "Mattermost"
           param:
             identifier:
               title: Kanal
+              help: "f.eks. #kanal, @brukernavn."
         matrix:
           title: "Matrix"
           param:

@@ -5,4 +5,50 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-th: {}
+th:
+  js:
+    chat_integration:
+      settings: "การตั้งค่า"
+      delete_channel: "ลบ"
+      edit_channel: "แก้ไข"
+      test_modal:
+        topic: "หัวข้อ"
+        close: "ปิด"
+      type:
+        normal: ปกติ
+      filter:
+        mute: 'ปิด'
+      rule_table:
+        category: "หมวดหมู่"
+        tags: "ป้าย"
+        edit_rule: "แก้ไข"
+        delete_rule: "ลบ"
+      edit_channel_modal:
+        cancel: "ยกเลิก"
+      edit_rule_modal:
+        cancel: ยกเลิก
+        type: ชนิด
+        category: หมวดหมู่
+        group: กลุ่ม
+        tags: ป้าย
+      provider:
+        telegram:
+          param:
+            name:
+              title: "ชื่อ"
+        discord:
+          param:
+            name:
+              title: "ชื่อ"
+        matrix:
+          param:
+            name:
+              title: "ชื่อ"
+        zulip:
+          param:
+            subject:
+              title: "หัวข้อ"
+        gitter:
+          param:
+            name:
+              title: "ชื่อ"
