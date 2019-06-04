@@ -41,7 +41,9 @@ module DiscourseChat
         topic = post.topic
 
         category = ''
-        if topic.category
+        if topic.category&.uncategorized?
+          category = "[#{I18n.t('uncategorized_category_name')}]"
+        elsif topic.category
           category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
         end
 
@@ -65,7 +67,7 @@ module DiscourseChat
           author_icon: post.user.small_avatar_url,
           color: topic.category ? "##{topic.category.color}" : nil,
           text: post.excerpt(SiteSetting.chat_integration_mattermost_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
-          title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
+          title: "#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
           title_link: post.full_url,
         }
 

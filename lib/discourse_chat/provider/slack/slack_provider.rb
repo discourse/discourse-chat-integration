@@ -29,7 +29,9 @@ module DiscourseChat::Provider::SlackProvider
     topic = post.topic
 
     category = ''
-    if topic.category
+    if topic.category&.uncategorized?
+      category = "[#{I18n.t('uncategorized_category_name')}]"
+    elsif topic.category
       category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
     end
 
@@ -54,7 +56,7 @@ module DiscourseChat::Provider::SlackProvider
       color: topic.category ? "##{topic.category.color}" : nil,
       text: excerpt(post),
       mrkdwn_in: ["text"],
-      title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
+      title: "#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
       title_link: post.full_url,
       thumb_url: post.full_url
     }
