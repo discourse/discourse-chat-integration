@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-DiscourseEvent.on(:site_setting_saved) do |sitesetting|
+event =
+  if Gem::Version.new(Discourse::VERSION::STRING) > Gem::Version.new("2.3.0.beta8")
+    :site_setting_changed
+  else
+    :site_setting_saved
+  end
+
+DiscourseEvent.on(event) do |sitesetting|
   isEnabledSetting = sitesetting.name == 'chat_integration_telegram_enabled'
   isAccessToken =  sitesetting.name == 'chat_integration_telegram_access_token'
 
