@@ -7,7 +7,12 @@
 
 et:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Jututoa integratsioonid"
     chat_integration:
+      menu_title: "Jututoa integratsioonid"
       settings: "Seaded"
       choose_group: "(vali grupp)"
       all_categories: "(kõik kategooriad)"
@@ -29,6 +34,7 @@ et:
       filter:
         mute: 'Vaigista'
         follow: 'Ainult esimene postitus'
+        watch: 'Kõik postitused ja vastused'
       rule_table:
         filter: "Filter"
         category: "Kategooria"
@@ -39,10 +45,15 @@ et:
         title: "Muuda kanalit"
         save: "Salvesta kanal"
         cancel: "Loobu"
+        provider: "Teenusepakkuja"
+        channel_validation:
+          ok: "Kehtiv"
+          fail: "Vigane vorming"
       edit_rule_modal:
         title: Muuda reeglit
         save: Salvesta reegel
         cancel: Tühista
+        provider: Teenusepakkuja
         type: Tüüp
         channel: Kanal
         filter: Filter
@@ -54,10 +65,14 @@ et:
           param:
             identifier:
               title: Kanal
+              help: "nt. #channel, @username."
         telegram:
+          title: "Telegramm"
           param:
             name:
               title: "Nimi"
+            chat_id:
+              title: Vestluse ID
         discord:
           param:
             name:
@@ -66,19 +81,28 @@ et:
           param:
             identifier:
               title: Kanal
+              help: "nt. #kanal, @kasutajanimi."
         matrix:
           param:
             name:
               title: "Nimi"
+            room_id:
+              title: "Toa ID"
         zulip:
+          title: "Zulip"
           param:
+            stream:
+              title: "Voog"
             subject:
               title: "Teema"
         rocketchat:
           param:
             identifier:
               title: Kanal
+              help: "nt. #channel, @username."
         gitter:
           param:
             name:
               title: "Nimi"
+        flowdock:
+          title: "Flowdock"

@@ -90,7 +90,7 @@ fr:
 
           *Aide :* `/discourse help`
         transcript:
-          error: "Désolé, une erreur est survenue lors de la création de la transcription !"
+          error: "Désolé, une erreur est survenue lors de la création de la transcription !"
           post_to_discourse: "Cliquer ici pour créer un message Discourse avec une transcription"
           api_required: "Désolé, cette intégration n'est pas configuré pour faire des transcriptions."
           view_on_slack: "Visualiser dans %{name} sur Slack"

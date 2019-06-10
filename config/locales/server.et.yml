@@ -8,11 +8,14 @@
 et:
   chat_integration:
     all_categories: "(kõik kategooriad)"
+    deleted_category: "(kustutatud kategooria)"
     deleted_group: "(kustutatud grupp)"
     provider:
       slack:
         delete:
           success: "Reegel on kustutatud"
+        transcript:
+          loading: "Käsikirja laadimine..."
       telegram:
         delete:
           success: "Reegel on kustutatud"
