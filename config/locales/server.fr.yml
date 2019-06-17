@@ -50,8 +50,8 @@ fr:
     all_categories: "(toutes les catégories)"
     deleted_category: "(catégorie supprimée)"
     deleted_group: "(groupe supprimé)"
-    group_mention_template: "mentions de : @%{name}"
-    group_message_template: "messages à : @%{name}"
+    group_mention_template: "mentions de : @%{name}"
+    group_message_template: "messages à : @%{name}"
     admin_error: "Certains canaux d'intégration de chat ont des erreurs. Visitez <a href='%{base_path}/admin/plugins/chat'>la section d'intégration de chat</a> pour en savoir plus."
     provider:
       slack:
@@ -61,7 +61,7 @@ fr:
             (si plusieurs règles correspondent à un message, le premier règle sera appliqué)
           no_rules: "Il n'y a pas de règles définis pour ce canal. Exécuter '/discourse help' pour recevoir des instructions."
           rule_string: "*%{index})* *%{filter}* messages dans *%{category}*"
-          rule_string_tags_suffix: " avec étiquettes : *%{tags}*"
+          rule_string_tags_suffix: " avec étiquettes : *%{tags}*"
         parse_error: "Désolé, je n'ai pas compris. Exécuter '/discourse help' pour recevoir des instructions."
         create:
           created: "Règle crée avec succès"
@@ -72,30 +72,30 @@ fr:
           error: "Désolé, une erreur est survenu lors de la suppression de ce règle.  Exécuter '/discourse help' pour recevoir des instructions."
         not_found:
           tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
-          category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
+          category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
         help: |
-          *Nouveau règle :* `/discourse [watch|follow|mute] [category] [tag:name]`
+          *Nouveau règle :* `/discourse [watch|follow|mute] [category] [tag:name]`
           (vous devez spécifier un type de règle et au moins une catégorie ou étiquette)
           - *watch* – avertir ce canal de nouveaux sujets et nouvelles réponses
           - *follow* – avertir ce canal de nouveaux sujets
           - *mute* – bloquer les notifications à ce canal
 
-          *Supprimer règle :* `/discourse remove [rule number]`
+          *Supprimer règle :* `/discourse remove [rule number]`
           (exécuter `/discourse status` pour trouver `[rule number]`)
 
-          *Listers règles :* `/discourse status`
+          *Listers règles :* `/discourse status`
 
-          *[Expérimental] Transcription de message :* `/discourse post [n]`
+          *[Expérimental] Transcription de message :* `/discourse post [n]`
           Créer un sujet brouillon dans discourse composé des `n` derniers messages à ce canal
 
-          *Aide :* `/discourse help`
+          *Aide :* `/discourse help`
         transcript:
           error: "Désolé, une erreur est survenue lors de la création de la transcription !"
           post_to_discourse: "Cliquer ici pour créer un message Discourse avec une transcription"
           api_required: "Désolé, cette intégration n'est pas configuré pour faire des transcriptions."
           view_on_slack: "Visualiser dans %{name} sur Slack"
-          first_message_pretext: "commençant il y a %{n} messages :"
-          last_message_pretext: "et terminant il y a %{n} messages :"
+          first_message_pretext: "commençant il y a %{n} messages :"
+          last_message_pretext: "et terminant il y a %{n} messages :"
           posted_in: "publié dans %{name}"
           change_first_message: "Modifier premier message..."
           change_last_message: "Modifier dernier message..."
@@ -113,7 +113,7 @@ fr:
             (si plusieurs règles s'appliquent, le premier est utilisé)
           no_rules: "Il n'y a pas de règles définis pour ce canal. Exécuter<code>/help</code> pour recevoir des instructions."
           rule_string: "<b>%{index})</b> <b>%{filter}</b> messages dans <b>%{category}</b>"
-          rule_string_tags_suffix: " avec étiquettes : <b>%{tags}</b>"
+          rule_string_tags_suffix: " avec étiquettes : <b>%{tags}</b>"
         parse_error: "Désolé, je n'ai pas compris. Exécuter<code>/help</code> pour recevoir des instructions."
         create:
           created: "Règle crée avec succès"
@@ -124,20 +124,20 @@ fr:
           error: "Désolé, une erreur est survenu lors de la suppression de ce règle. Exécuter<code>/help</code> pour recevoir des instructions."
         not_found:
           tag: "L'étiquette <b>%{name}</b> ne peut pas être retrouvée."
-          category: "La catégorie <b>%{name}</b> ne peut pas être retrouvée. Catégories disponibles : <b>%{list}</b>"
+          category: "La catégorie <b>%{name}</b> ne peut pas être retrouvée. Catégories disponibles : <b>%{list}</b>"
         help: |
-          <b>Nouveau règle :</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
+          <b>Nouveau règle :</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
           (vous devez spécifier un type de règle et au moins une catégorie ou étiquette)
           - <b>watch</b> – avertir ce canal de nouveaux sujets et nouvelles réponses
           - <b>follow</b> – avertir ce canal de nouveaux sujets
           - <b>mute</b> – bloquer les notifications à ce canal
 
-          <b>Supprimer règle :</b> <code>/remove [rule number]</code>
+          <b>Supprimer règle :</b> <code>/remove [rule number]</code>
           (exécuter <code>/status</code> pour trouver <code>[rule number]</code>)
 
-          <b>Lister règles :</b> <code>/status</code>
+          <b>Lister règles :</b> <code>/status</code>
 
-          <b>Aide:</b> <code>/help</code>
+          <b>Aide :</b> <code>/help</code>
       hipchat:
         message: <b>%{user}</b> a publié dans <a href="%{post_url}">%{title}</a>
       mattermost:
@@ -147,7 +147,7 @@ fr:
             (si plusieurs règles correspondent à un message, le premier règle sera appliqué)
           no_rules: "Il n'y a pas de règles définis pour ce canal. Exécuter '/discourse help' pour recevoir des instructions."
           rule_string: "*%{index})* *%{filter}* messages dans *%{category}*"
-          rule_string_tags_suffix: " avec étiquettes : *%{tags}*"
+          rule_string_tags_suffix: " avec étiquettes : *%{tags}*"
         parse_error: "Désolé, je n'ai pas compris. Exécuter '/discourse help' pour recevoir des instructions."
         create:
           created: "Règle crée avec succès"
@@ -158,20 +158,20 @@ fr:
           error: "Désolé, une erreur est survenu lors de la suppression de ce règle.  Exécuter '/discourse help' pour recevoir des instructions."
         not_found:
           tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
-          category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
+          category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
         help: |
-          *Nouveau règle :* `/discourse [watch|follow|mute] [category] [tag:name]`
+          *Nouveau règle :* `/discourse [watch|follow|mute] [category] [tag:name]`
           (vous devez spécifier un type de règle et au moins une catégorie ou étiquette)
           - *watch* – avertir ce canal de nouveaux sujets et nouvelles réponses
           - *follow* – avertir ce canal de nouveaux sujets
           - *mute* – bloquer les notifications à ce canal
 
-          *Supprimer règle :* `/discourse remove [rule number]`
+          *Supprimer règle :* `/discourse remove [rule number]`
           (exécuter `/discourse status` pour trouver `[rule number]`)
 
-          *Listers règles :* `/discourse status`
+          *Listers règles :* `/discourse status`
 
-          *Aide :* `/discourse help`
+          *Aide :* `/discourse help`
       matrix:
         text_message: "%{user} a publié dans %{title} - %{post_url}"
         formatted_message: |

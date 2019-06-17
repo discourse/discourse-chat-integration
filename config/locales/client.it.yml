@@ -14,8 +14,12 @@ it:
     chat_integration:
       menu_title: "Chat Integrations"
       settings: "Impostazioni"
+      no_providers: "È necessario abilitare alcuni provider nelle impostazioni del plug-in"
+      channels_with_errors: "L'invio di messaggi per alcuni canali di questo provider non ha funzionato. Fai clic sull'icona/e di errore per saperne di più."
+      channel_exception: "Si è verificato un errore sconosciuto l'ultima volta che un messaggio è stato inviato su a questo canale."
       group_mention_template: "Menzioni di: @{{name}}"
       group_message_template: "Messaggi a: @{{name}}"
+      choose_group: "(scegli un gruppo)"
       all_categories: "(tutte le categorie)"
       all_tags: "(tutte le etichette)"
       create_rule: "Crea Regola"
@@ -27,10 +31,14 @@ it:
       test_modal:
         title: "Invia un messaggio di test"
         topic: "Argomento"
+        send: "Invia messaggio di prova"
         close: "Chiudi"
+        error: "Si è verificato un errore sconosciuto durante l'invio del messaggio. Controlla i log del sito per maggiori informazioni."
         success: "Messaggio inviato correttamente"
       type:
         normal: Normale
+        group_message: Messaggio di gruppo
+        group_mention: Menzione di gruppo
       filter:
         mute: 'Silenzia'
         follow: 'Solo il primo messaggio'
@@ -45,38 +53,109 @@ it:
         title: "Modifica Canale"
         save: "Salva Canale"
         cancel: "Annulla"
+        provider: "Provider"
         channel_validation:
           ok: "Valido"
+          fail: "Formato non valido"
       edit_rule_modal:
+        title: Modifica regola
+        save: Salva regola
         cancel: Annulla
+        provider: Provider
         type: Tipo
+        channel: Canale
         filter: Filtro
         category: Categoria
         group: Gruppo
         tags: Etichette
+        instructions:
+          type: "Cambia il tipo per attivare le notifiche per i messaggi o le menzioni di gruppo"
+          filter: "Livello di notifica. Il silenziamento sovrascrive le altre regole"
+          category: "Questa regola si applica solo agli argomenti nella categoria specificata"
+          group: "Questa regola si applica ai post che fanno riferimento a questo gruppo"
+          tags: "Se specificato, questa regola si applica solo agli argomenti che hanno almeno una di queste Etichette"
       provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: Canale
+              help: "es. #canale, @nomeutente."
+          errors:
+            action_prohibited: "Il bot non ha il permesso di pubblicare su quel canale"
+            channel_not_found: "Il canale specificato non esiste su slack"
         telegram:
+          title: "Telegram"
           param:
             name:
               title: "Nome"
+              help: "Un nome per descrivere il canale. Non è utilizzato per la connessione a Telegram."
+            chat_id:
+              title: Chat ID
+              help: Un numero fornito dal bot o un identificatore del canale di trasmissione nella forma @channelname
+          errors:
+            channel_not_found: "Il canale specificato non esiste su Telegram"
+            forbidden: "Il bot non ha il permesso di pubblicare su questo canale"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Nome"
+              help: "Un nome per descrivere il canale. Non è usato per la connessione a Discord."
+            webhook_url:
+              title: Webhook URL
+              help: L'URL del webhook creato nelle impostazioni del server Discord
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: Canale
+              help: "es. #canale, @nomeutente."
+          errors:
+            channel_not_found: "Il canale specificato non esiste in Mattermost"
         matrix:
+          title: "Matrix"
           param:
             name:
               title: "Nome"
+              help: "Un nome per descrivere il canale. Non è utilizzato per la connessione a Matrix."
             room_id:
               title: "ID stanza"
+              help: "L' \"identificatore privato\" per la stanza. Dovrebbe essere qualcosa di simile a !abcdefg:matrix.org"
+          errors:
+            unknown_token: "Il token di accesso non è valido"
+            unknown_room: "Il room ID non è valido"
         zulip:
+          title: "Zulip"
           param:
+            stream:
+              title: "Stream"
+              help: "Il nome dello stream di Zulip al quale il messaggio deve essere inviato. es. 'general'"
             subject:
               title: "Oggetto"
+              help: "L'oggetto che i messaggi inviati dal bot dovrebbero avere"
+          errors:
+            does_not_exist: "Questo stream non esiste su Zulip"
         rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Canale
+              help: "es. #canale, @nomeutente."
           errors:
             invalid_channel: "Quel canale non esiste su Rocket Chat"
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "Nome"
+              help: "Il nome di una stanza Gitter, ad esempio gitterHQ/servizi."
+            webhook_url:
+              title: "Webhook URL"
+              help: "L'URL fornito quando si crea una nuova integrazione in una stanza Gitter."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow Token"
+              help: "Il flow token fornito dopo aver creato una fonte per un flow a cui si desidera inviare messaggi."

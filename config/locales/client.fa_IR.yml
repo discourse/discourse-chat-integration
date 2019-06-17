@@ -9,6 +9,7 @@ fa_IR:
   js:
     chat_integration:
       settings: "تنظیمات"
+      all_categories: "(تمام دسته بندی ها)"
       delete_channel: "حذف"
       edit_channel: "ویرایش"
       test_modal:

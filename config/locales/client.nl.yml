@@ -9,6 +9,7 @@ nl:
   js:
     chat_integration:
       settings: "Instellingen"
+      all_categories: "(alle categorieën)"
       delete_channel: "Verwijderen"
       edit_channel: "Bewerken"
       test_modal:

@@ -9,7 +9,11 @@ ru:
   js:
     chat_integration:
       settings: "Настройки"
+      choose_group: "(выберите группу)"
+      all_categories: "(все категории)"
+      all_tags: "(все теги)"
       delete_channel: "Удалить"
+      test_channel: "Тест"
       edit_channel: "Изменить"
       test_modal:
         topic: "Тема"
@@ -29,28 +33,61 @@ ru:
       edit_rule_modal:
         cancel: Отмена
         type: Тип
+        channel: Канал
         filter: Фильтр
         category: Категория
         group: Группа
         tags: Теги
       provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: Канал
+              help: "например, #channel, @username."
         telegram:
+          title: "Telegram"
           param:
             name:
               title: "Имя"
+            chat_id:
+              title: ID чата
         discord:
+          title: "Discord"
           param:
             name:
               title: "Имя"
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: Канал
+              help: "например, #channel, @username."
         matrix:
+          title: "Matrix"
           param:
             name:
               title: "Имя"
         zulip:
+          title: "Zulip"
           param:
+            stream:
+              title: "Stream"
             subject:
               title: "Тема"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Канал
+              help: "например, #channel, @username."
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "Имя"
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              help: "Маркер потока предоставляется после создания источника для потока, в который вы хотите отправлять сообщения."

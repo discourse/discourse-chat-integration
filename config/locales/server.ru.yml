@@ -7,8 +7,11 @@
 
 ru:
   site_settings:
+    chat_integration_enabled: 'Включить плагин discourse-chat-integration'
+    chat_integration_delay_seconds: 'Количество секунд ожидания после создания записи перед отправкой уведомлений в чат'
     chat_integration_telegram_enabled: "Включить чат-интеграцию с Telegram"
   chat_integration:
+    all_categories: "(все категории)"
     provider:
       mattermost:
         help: |

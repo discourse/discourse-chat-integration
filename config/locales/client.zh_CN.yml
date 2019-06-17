@@ -14,6 +14,9 @@ zh_CN:
     chat_integration:
       menu_title: "聊天功能整合"
       settings: "设置"
+      no_providers: "你需要在插件设置中启用某些提供商"
+      channels_with_errors: "最近此提供商的一些频道发送消息失败。点击错误图标了解更多。"
+      channel_exception: "最近发送消息到此频道时出现未知错误。"
       group_mention_template: "提及： @{{name}}"
       group_message_template: "发给 @%{name}的消息"
       choose_group: "（选择一个群组）"
@@ -24,11 +27,13 @@ zh_CN:
       delete_channel: "删除"
       test_channel: "测试"
       edit_channel: "编辑"
+      channel_delete_confirm: "你确定要删除此频道吗？所有相关的规则会被一并删除。"
       test_modal:
         title: "发送一个测试信息"
         topic: "主题"
         send: "发送测试信息"
         close: "关闭"
+        error: "发送消息时遇到未知错误。检查站点日志了解详情。"
         success: "消息发送成功"
       type:
         normal: 正常
@@ -54,6 +59,7 @@ zh_CN:
           fail: "格式无效"
       edit_rule_modal:
         title: 编辑规则
+        save: 保存规则
         cancel: 取消
         provider: 提供者
         type: 类型
@@ -62,46 +68,74 @@ zh_CN:
         category: 分类
         group: 群组
         tags: 标签
+        instructions:
+          type: "更改类型以将提醒切换到群组消息或提及"
+          filter: "提醒等级。静音会覆盖其它匹配规则"
+          category: "此规则仅会作用于指定分类中的主题。"
+          group: "此规则会作用于引用此群组的帖子"
+          tags: "如指定，此规则将仅作用于含有这些标签的主题"
       provider:
         slack:
+          title: "Slack"
           param:
             identifier:
               title: 频道
               help: "例如：#频道， @用户名。"
+          errors:
+            action_prohibited: "机器人没有权限发布到该频道"
+            channel_not_found: "指定的频道在slack上不存在"
         telegram:
           title: "Telegram"
           param:
             name:
               title: "名称"
+              help: "一个描述该频道的名称。它不用于连接到Telegram。"
             chat_id:
               title: 聊天ID
+              help: 一个由机器人提供的号码，或一个@channelname格式的广播频道
+          errors:
+            channel_not_found: "指定的频道在Telegram上不存在"
+            forbidden: "机器人没有权限发布到此频道"
         discord:
           title: "Discord"
           param:
             name:
               title: "名称"
+              help: "一个描述该频道的名称。它不用于连接到Discord。"
             webhook_url:
               title: Webhook URL
+              help: 你在Discord服务器设置中创建的webhook URL
         mattermost:
+          title: "Mattermost"
           param:
             identifier:
               title: 频道
               help: "例如：#频道， @用户名。"
+          errors:
+            channel_not_found: "指定的频道在Mattermost上不存在"
         matrix:
           title: "矩阵"
           param:
             name:
               title: "名称"
+              help: "一个描述该频道的名称。它不用于连接到Matrix。"
             room_id:
               title: "房间号"
+              help: "房间的“私有标识符”。它看起来应该像!abcdefg:matrix.org"
           errors:
+            unknown_token: "访问令牌无效"
             unknown_room: "房间ID无效"
         zulip:
+          title: "Zulip"
           param:
             stream:
               title: "流串"
+              help: "消息应发送到的Zulip流的名称。例如：“general”"
             subject:
               title: "主题"
+              help: "应该提供机器人发送消息的主题"
+          errors:
+            does_not_exist: "Zulip流不存在"
         rocketchat:
           title: "Rocket.Chat"
           param:
@@ -115,5 +149,12 @@ zh_CN:
           param:
             name:
               title: "名字"
+              help: "一个Gitter房间名称如gitterHQ/services."
             webhook_url:
               title: "Webhook 地址"
+              help: "在Gitter房间中创建新集成时提供的链接。"
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow令牌"

@@ -10,6 +10,7 @@ fi:
     chat_integration:
       settings: "Asetukset"
       no_providers: "Sinun täytyy sallia jotkut palveluntarjoajat lisäosien asetuksissa"
+      all_categories: "(kaikki alueet)"
       create_rule: "Luo sääntö"
       create_channel: "Luo kanava"
       delete_channel: "Poista"
