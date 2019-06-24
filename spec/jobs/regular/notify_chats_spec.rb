@@ -6,7 +6,6 @@ RSpec.describe PostCreator do
   let(:topic) { Fabricate(:post).topic }
 
   before do
-    SiteSetting.queue_jobs = true
     Jobs::NotifyChats.jobs.clear
   end
 
@@ -17,7 +16,7 @@ RSpec.describe PostCreator do
       end
 
       it 'should schedule a chat notification job' do
-        freeze_time
+        freeze_time Time.now.beginning_of_day
 
         post = PostCreator.new(topic.user,
           raw: 'Some post content',
@@ -27,7 +26,7 @@ RSpec.describe PostCreator do
         job = Jobs::NotifyChats.jobs.last
 
         expect(job['at'])
-          .to eq((Time.zone.now + SiteSetting.chat_integration_delay_seconds.seconds).to_f)
+          .to eq(Time.now.to_f + SiteSetting.chat_integration_delay_seconds.seconds.to_f)
 
         expect(job['args'].first['post_id']).to eq(post.id)
 
