@@ -9,7 +9,7 @@ module DiscourseChat::Provider::SlackProvider
 
     def username
       if user
-        user['name']
+        user["profile"]["display_name"]
       elsif @raw.key?("username")
         @raw["username"]
       end
