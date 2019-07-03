@@ -206,9 +206,9 @@ module DiscourseChat::Provider::SlackProvider
         json = JSON.parse(response.body)
         return false unless json['ok']
         cursor = json['response_metadata']['next_cursor']
-        for user in json['members']
+        json['members'].each do |user|
           # Slack uses display_name and falls back to real_name if it is not set
-          if user['profile']['display_name'].empty?
+          if user['profile']['display_name'].blank?
             user['_transcript_username'] = user['profile']['real_name']
           else
             user['_transcript_username'] = user['profile']['display_name']

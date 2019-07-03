@@ -37,9 +37,8 @@ module DiscourseChat::Provider::SlackProvider
         text = parts.length > 1 ? parts[1] : parts[0]
 
         if parts[0].start_with?('@')
-          user_id = parts[0].gsub('@', '')
-          user = @transcript.users[user_id]
-          if user
+          user_id = parts[0][1..-1]
+          if user = @transcript.users[user_id]
             user_name = user['_transcript_username']
           else
             user_name = user_id
