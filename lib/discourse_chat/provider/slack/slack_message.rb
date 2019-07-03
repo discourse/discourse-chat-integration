@@ -9,8 +9,10 @@ module DiscourseChat::Provider::SlackProvider
 
     def username
       if user
-        user["profile"]["display_name"]
+        # Slack uses display_name and falls back to real_name if it is not set
+        user["profile"]["display_name"] || user["profile"]["real_name"]
       elsif @raw.key?("username")
+        # This is for bot messages
         @raw["username"]
       end
     end
