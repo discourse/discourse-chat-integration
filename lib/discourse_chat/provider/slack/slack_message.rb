@@ -12,7 +12,7 @@ module DiscourseChat::Provider::SlackProvider
         user["_transcript_username"]
       elsif @raw.key?("username")
         # This is for bot messages
-        @raw["username"]
+        @raw["username"].gsub(' ', '_')
       end
     end
 

@@ -213,6 +213,7 @@ module DiscourseChat::Provider::SlackProvider
           else
             user['_transcript_username'] = user['profile']['display_name']
           end
+          user['_transcript_username'] = user['_transcript_username'].gsub(' ', '_')
           @users[user['id']] = user
         end
       end

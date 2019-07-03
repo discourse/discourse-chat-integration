@@ -243,16 +243,16 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
       it 'handles usernames correctly' do
         expect(transcript.first_message.username).to eq('awesomeguy') # Normal user
-        expect(transcript.messages[1].username).to eq('Test Community') # Bot user
+        expect(transcript.messages[1].username).to eq('Test_Community') # Bot user
         expect(transcript.messages[2].username).to eq(nil) # Unknown normal user
         # Normal user, display_name not set (fall back to real_name)
-        expect(transcript.messages[4].username).to eq('another guy')
+        expect(transcript.messages[4].username).to eq('another_guy')
       end
 
       it 'handles user mentions correctly' do
         # User with display_name not set, unrecognized user
         expect(transcript.first_message.text).to \
-          eq('Let’s try some **bold text** @another guy @someotheruser')
+          eq('Let’s try some **bold text** @another_guy @someotheruser')
         # Normal user
         expect(transcript.messages[4].text).to \
           eq('Oooh a new discourse plugin @awesomeguy ???')
@@ -274,9 +274,9 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         [quote]
         [**View in #general on Slack**](https://slack.com/archives/G1234/p1501093331439776)
 
-        ![awesomeguy] **@awesomeguy:** Let’s try some **bold text** @another guy @someotheruser
+        ![awesomeguy] **@awesomeguy:** Let’s try some **bold text** @another_guy @someotheruser
 
-        **@Test Community:** 
+        **@Test_Community:** 
         > Discourse can now be integrated with Mattermost! - @david
 
         [/quote]
