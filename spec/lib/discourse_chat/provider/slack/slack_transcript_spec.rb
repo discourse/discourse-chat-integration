@@ -14,7 +14,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       },
       {
           "type": "message",
-          "user": "U5Z773QLS",
+          "user": "U5Z773QLZ",
           "text": "Oooh a new discourse plugin???",
           "ts": "1501801643.056375"
       },
@@ -65,7 +65,29 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
             "text": "Let’s try some *bold text*",
             "ts": "1501093331.439776"
         },
+    ]
+  }
 
+  let(:users_fixture) {
+    [
+      {
+        id: "U5Z773QLS",
+        name: "awesomeguyemail",
+        profile: {
+          image_24: "https://example.com/avatar",
+          display_name: "awesomeguy",
+          real_name: "actually just a guy"
+        }
+      },
+      {
+        id: "U5Z773QLZ",
+        name: "otherguyemail",
+        profile: {
+          image_24: "https://example.com/avatar",
+          display_name: "",
+          real_name: "another guy"
+        }
+      }
     ]
   }
 
@@ -78,7 +100,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
     it 'loads users correctly' do
       stub_request(:post, "https://slack.com/api/users.list")
         .with(body: { token: "abcde", "cursor": nil, "limit": "200" })
-        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }], response_metadata: { next_cursor: "" } }.to_json)
+        .to_return(status: 200, body: { ok: true, members: users_fixture, response_metadata: { next_cursor: "" } }.to_json)
 
       expect(transcript.load_user_data).to be_truthy
     end
@@ -101,7 +123,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
   context 'with loaded users' do
     before do
       stub_request(:post, "https://slack.com/api/users.list")
-        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }], response_metadata: { next_cursor: "" } }.to_json)
+        .to_return(status: 200, body: { ok: true, members: users_fixture, response_metadata: { next_cursor: "" } }.to_json)
       transcript.load_user_data
     end
 
@@ -221,8 +243,10 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
       it 'handles usernames correctly' do
         expect(transcript.first_message.username).to eq('awesomeguy') # Normal user
-        expect(transcript.messages[2].username).to eq(nil) # Unknown normal user
         expect(transcript.messages[1].username).to eq('Test Community') # Bot user
+        expect(transcript.messages[2].username).to eq(nil) # Unknown normal user
+        # Normal user, display_name not set (fall back to real_name)
+        expect(transcript.messages[5].username).to eq('another guy')
       end
 
       it 'handles avatars correctly' do
