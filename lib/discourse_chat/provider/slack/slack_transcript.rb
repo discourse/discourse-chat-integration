@@ -216,7 +216,7 @@ module DiscourseChat::Provider::SlackProvider
           @users[user['id']] = user
         end
       end
-      return true
+      true
     end
 
     def load_chat_history(count: 500)
