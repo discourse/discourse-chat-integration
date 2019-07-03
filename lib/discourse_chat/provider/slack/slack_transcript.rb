@@ -207,6 +207,12 @@ module DiscourseChat::Provider::SlackProvider
         return false unless json['ok']
         cursor = json['response_metadata']['next_cursor']
         for user in json['members']
+          # Slack uses display_name and falls back to real_name if it is not set
+          if user['profile']['display_name'].empty?
+            user['_transcript_username'] = user['profile']['real_name']
+          else
+            user['_transcript_username'] = user['profile']['display_name']
+          end
           @users[user['id']] = user
         end
       end
