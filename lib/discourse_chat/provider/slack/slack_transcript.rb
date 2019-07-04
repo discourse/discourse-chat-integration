@@ -197,7 +197,7 @@ module DiscourseChat::Provider::SlackProvider
       cursor = nil
       req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
 
-      @users = []
+      @users = {}
       loop do
         break if cursor == ""
         req.set_form_data(token: SiteSetting.chat_integration_slack_access_token, limit: 200, cursor: cursor)
@@ -206,9 +206,18 @@ module DiscourseChat::Provider::SlackProvider
         json = JSON.parse(response.body)
         return false unless json['ok']
         cursor = json['response_metadata']['next_cursor']
-        @users << json['members']
+        json['members'].each do |user|
+          # Slack uses display_name and falls back to real_name if it is not set
+          if user['profile']['display_name'].blank?
+            user['_transcript_username'] = user['profile']['real_name']
+          else
+            user['_transcript_username'] = user['profile']['display_name']
+          end
+          user['_transcript_username'] = user['_transcript_username'].gsub(' ', '_')
+          @users[user['id']] = user
+        end
       end
-      @users&.flatten!
+      true
     end
 
     def load_chat_history(count: 500)

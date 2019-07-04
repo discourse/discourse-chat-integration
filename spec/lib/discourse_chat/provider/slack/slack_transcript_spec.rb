@@ -14,8 +14,8 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       },
       {
           "type": "message",
-          "user": "U5Z773QLS",
-          "text": "Oooh a new discourse plugin???",
+          "user": "U5Z773QLZ",
+          "text": "Oooh a new discourse plugin <@U5Z773QLS> ???",
           "ts": "1501801643.056375"
       },
       {
@@ -62,10 +62,32 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         {
             "type": "message",
             "user": "U5Z773QLS",
-            "text": "Let’s try some *bold text*",
+            "text": "Let’s try some *bold text* <@U5Z773QLZ> <@someotheruser>",
             "ts": "1501093331.439776"
         },
+    ]
+  }
 
+  let(:users_fixture) {
+    [
+      {
+        id: "U5Z773QLS",
+        name: "awesomeguyemail",
+        profile: {
+          image_24: "https://example.com/avatar",
+          display_name: "awesomeguy",
+          real_name: "actually just a guy"
+        }
+      },
+      {
+        id: "U5Z773QLZ",
+        name: "otherguyemail",
+        profile: {
+          image_24: "https://example.com/avatar",
+          display_name: "",
+          real_name: "another guy"
+        }
+      }
     ]
   }
 
@@ -78,7 +100,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
     it 'loads users correctly' do
       stub_request(:post, "https://slack.com/api/users.list")
         .with(body: { token: "abcde", "cursor": nil, "limit": "200" })
-        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }], response_metadata: { next_cursor: "" } }.to_json)
+        .to_return(status: 200, body: { ok: true, members: users_fixture, response_metadata: { next_cursor: "" } }.to_json)
 
       expect(transcript.load_user_data).to be_truthy
     end
@@ -101,7 +123,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
   context 'with loaded users' do
     before do
       stub_request(:post, "https://slack.com/api/users.list")
-        .to_return(status: 200, body: { ok: true, members: [{ id: "U5Z773QLS", name: "awesomeguy", profile: { image_24: "https://example.com/avatar" } }], response_metadata: { next_cursor: "" } }.to_json)
+        .to_return(status: 200, body: { ok: true, members: users_fixture, response_metadata: { next_cursor: "" } }.to_json)
       transcript.load_user_data
     end
 
@@ -166,7 +188,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       end
 
       it 'handles bold text' do
-        expect(transcript.messages.first.text).to eq("Let’s try some **bold text**")
+        expect(transcript.messages.first.text).to start_with("Let’s try some **bold text** ")
       end
 
       it 'handles links' do
@@ -221,8 +243,19 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
       it 'handles usernames correctly' do
         expect(transcript.first_message.username).to eq('awesomeguy') # Normal user
+        expect(transcript.messages[1].username).to eq('Test_Community') # Bot user
         expect(transcript.messages[2].username).to eq(nil) # Unknown normal user
-        expect(transcript.messages[1].username).to eq('Test Community') # Bot user
+        # Normal user, display_name not set (fall back to real_name)
+        expect(transcript.messages[4].username).to eq('another_guy')
+      end
+
+      it 'handles user mentions correctly' do
+        # User with display_name not set, unrecognized user
+        expect(transcript.first_message.text).to \
+          eq('Let’s try some **bold text** @another_guy @someotheruser')
+        # Normal user
+        expect(transcript.messages[4].text).to \
+          eq('Oooh a new discourse plugin @awesomeguy ???')
       end
 
       it 'handles avatars correctly' do
@@ -241,9 +274,9 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         [quote]
         [**View in #general on Slack**](https://slack.com/archives/G1234/p1501093331439776)
 
-        ![awesomeguy] **@awesomeguy:** Let’s try some **bold text**
+        ![awesomeguy] **@awesomeguy:** Let’s try some **bold text** @another_guy @someotheruser
 
-        **@Test Community:** 
+        **@Test_Community:** 
         > Discourse can now be integrated with Mattermost! - @david
 
         [/quote]

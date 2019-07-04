@@ -9,9 +9,10 @@ module DiscourseChat::Provider::SlackProvider
 
     def username
       if user
-        user['name']
+        user["_transcript_username"]
       elsif @raw.key?("username")
-        @raw["username"]
+        # This is for bot messages
+        @raw["username"].gsub(' ', '_')
       end
     end
 
@@ -36,8 +37,13 @@ module DiscourseChat::Provider::SlackProvider
         text = parts.length > 1 ? parts[1] : parts[0]
 
         if parts[0].start_with?('@')
-          user = @transcript.users.find { |u| u["id"] == parts[0].gsub('@', '') }
-          next "@#{user['name']}"
+          user_id = parts[0][1..-1]
+          if user = @transcript.users[user_id]
+            user_name = user['_transcript_username']
+          else
+            user_name = user_id
+          end
+          next "@#{user_name}"
         end
 
         "[#{text}](#{link})"
@@ -91,7 +97,7 @@ module DiscourseChat::Provider::SlackProvider
 
     def user
       return nil unless user_id = @raw["user"]
-      @transcript.users.find { |u| u["id"] == user_id }
+      @transcript.users[user_id]
     end
   end
 end
