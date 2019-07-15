@@ -69,7 +69,7 @@ fr:
           error: "Désolé, une erreur est survenu lors de la création de ce règle"
         delete:
           success: "Règle supprimé avec succès"
-          error: "Désolé, une erreur est survenu lors de la suppression de ce règle.  Exécuter '/discourse help' pour recevoir des instructions."
+          error: "Désolé, une erreur est survenu lors de la suppression de ce règle. Exécuter '/discourse help' pour recevoir des instructions."
         not_found:
           tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
           category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"
@@ -101,7 +101,7 @@ fr:
           change_last_message: "Modifier dernier message..."
           loading: "Transcription en cours d'affichage..."
       telegram:
-        unknown_chat: "Ce chat n'est pas installé sur %{site_title}.  Demander à un administrateur d'ajouter le canal avec 'Chat ID' %{chat_id}."
+        unknown_chat: "Ce chat n'est pas installé sur %{site_title}. Demander à un administrateur d'ajouter le canal avec 'Chat ID' %{chat_id}."
         known_chat: "Ce chat est installé sur %{site_title}. Configurez-le dans le panneau d'administration. (Chat ID: %{chat_id})"
         message: |-
           <b>%{user}</b> a publié dans <a href="%{post_url}">%{title}</a>
@@ -155,7 +155,7 @@ fr:
           error: "Désolé, une erreur est survenu lors de la création de ce règle"
         delete:
           success: "Règle supprimé avec succès"
-          error: "Désolé, une erreur est survenu lors de la suppression de ce règle.  Exécuter '/discourse help' pour recevoir des instructions."
+          error: "Désolé, une erreur est survenu lors de la suppression de ce règle. Exécuter '/discourse help' pour recevoir des instructions."
         not_found:
           tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
           category: "La catégorie *%{name}* ne peut pas être retrouvée. Catégories disponibles : *%{list}*"

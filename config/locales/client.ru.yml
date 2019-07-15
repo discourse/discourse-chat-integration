@@ -7,21 +7,42 @@
 
 ru:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Интеграция в чаты"
     chat_integration:
+      menu_title: "Интеграция в чаты"
       settings: "Настройки"
+      no_providers: "Вам нужно включить некоторых провайдеров в настройках плагина"
+      channels_with_errors: "Некоторые каналы этого провайдера не работали в последний раз, когда были отправлены сообщения. Нажмите на иконку(и), чтобы узнать больше."
+      channel_exception: "В момент последней отправки сообщения на этот канал, произошла непредвиденная ошибка."
+      group_mention_template: "Упоминания о: @{{name}}"
+      group_message_template: "Сообщения для: @{{name}}"
       choose_group: "(выберите группу)"
       all_categories: "(все категории)"
       all_tags: "(все теги)"
+      create_rule: "Создать Правило"
+      create_channel: "Создать Channel"
       delete_channel: "Удалить"
       test_channel: "Тест"
       edit_channel: "Изменить"
+      channel_delete_confirm: "Вы уверены, что хотите удалить этот канал?  Все связанные правила будут удалены."
       test_modal:
+        title: "Отправить тестовое сообщение"
         topic: "Тема"
+        send: "Послать ТЕСТОВОЕ сообщение"
         close: "Закрыть"
+        error: "При отправке сообщения произошла неизвестная ошибка. Проверьте логи сайта для получения дополнительной информации."
+        success: "Сообщение успешно отправлено"
       type:
         normal: Нормальный
+        group_message: Групповое сообщение
+        group_mention: Групповая рассылка
       filter:
         mute: 'Отключить'
+        follow: 'Только первый пост'
+        watch: 'Все посты и ответы'
       rule_table:
         filter: "Фильтр"
         category: "Категория"
@@ -29,9 +50,18 @@ ru:
         edit_rule: "Редактировать"
         delete_rule: "Удалить"
       edit_channel_modal:
+        title: "Редактировать Канал"
+        save: "Сохранить Канал"
         cancel: "Отмена"
+        provider: "Провайдер"
+        channel_validation:
+          ok: "Валидный"
+          fail: "Неверный формат"
       edit_rule_modal:
+        title: Изменить правило
+        save: Сохранить правило
         cancel: Отмена
+        provider: Провайдер
         type: Тип
         channel: Канал
         filter: Фильтр

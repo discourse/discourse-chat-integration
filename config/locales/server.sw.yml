@@ -114,7 +114,7 @@ sw:
 
           <b>Orodha za kanuni:</b> <code>/status</code>
 
-          <b>Msaada:</b>  <code>/msaada</code>
+          <b>Msaada:</b> <code>/msaada</code>
       hipchat:
         message: <b>%{user}</b> ameandika kwenye <a href="%{post_url}">%{title}</a>
       mattermost:

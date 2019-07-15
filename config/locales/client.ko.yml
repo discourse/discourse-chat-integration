@@ -9,6 +9,7 @@ ko:
   js:
     chat_integration:
       settings: "설정"
+      all_categories: "(전체 카테고리)"
       create_rule: "규칙 만들기"
       create_channel: "채널 만들기"
       delete_channel: "삭제"

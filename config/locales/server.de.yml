@@ -59,7 +59,7 @@ de:
           header: |
             *Regeln für diesen Kanal*
             (Wenn mehrere Regeln zutreffen, wird die oberste Regel ausgeführt)
-          no_rules: "Es sind keine Regeln für diesen Kanal eingerichtet. Führe `/discourse help`  aus für weitere Anweisungen."
+          no_rules: "Es sind keine Regeln für diesen Kanal eingerichtet. Führe `/discourse help` aus für weitere Anweisungen."
           rule_string: "*%{index})* *%{filter}* Beiträge in *%{category}*"
           rule_string_tags_suffix: " mit Schlagwörtern: *%{tags}*"
         parse_error: "Entschuldige, das habe ich nicht verstanden. Führe `/discourse help` aus für weitere Anweisungen."

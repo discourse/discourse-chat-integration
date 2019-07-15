@@ -7,10 +7,16 @@
 
 pl_PL:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Integracje czatu"
     chat_integration:
+      menu_title: "Integracje czatu"
       settings: "Ustawienia"
       no_providers: "Musisz włączyć niektórych dostawców w ustawieniach wtyczki"
       channels_with_errors: "Niektóre kanały dla tego dostawcy nie powiodły się, gdy zostały wysłane ostatnie wiadomości. Kliknij ikonę błędu, aby dowiedzieć się więcej."
+      channel_exception: "Wystąpił nieznany błąd, gdy wiadomość została ostatnio wysłana na ten kanał."
       group_mention_template: "Wzmianki o: @{{name}}"
       group_message_template: "Wiadomości do: @{{name}}"
       choose_group: "(wybierz grupę)"
@@ -27,10 +33,12 @@ pl_PL:
         topic: "Temat"
         send: "Wyślij Wiadomość Testową"
         close: "Zamknij"
+        error: "Wystąpił nieznany błąd, w trakcie wysyłania wiadomości na ten kanał. Sprawdź logi witryny, aby uzyskać więcej informacji."
         success: "Wiadomość wysłana poprawnie"
       type:
         normal: Normalny
         group_message: Wiadomość Grupowa
+        group_mention: Wzmianka grupy
       filter:
         mute: 'Wycisz'
         follow: 'Tylko pierwszy wpis'
@@ -75,14 +83,16 @@ pl_PL:
               help: "np. #kanał, @użytkownik."
           errors:
             action_prohibited: "Bot nie ma uprawnień do publikowania na tym kanale"
-            channel_not_found: "Określony kanał nie istnieje na slacku"
+            channel_not_found: "Ten kanał nie istnieje na Slacku"
         telegram:
           title: "Telegram"
           param:
             name:
               title: "Nazwa"
+              help: "Nazwa opisująca kanał. Nie jest używana do połączenia z Telegramem."
             chat_id:
               title: ID czatu
+              help: Numer nadany przez bota lub identyfikator kanału nadawania w formie @nazwakanału
           errors:
             channel_not_found: "Określony kanał nie istnieje w Telegramie"
             forbidden: "Bot nie ma uprawnień do publikowania na tym kanale"
@@ -94,27 +104,38 @@ pl_PL:
               help: "Nazwa opisująca kanał. Nie służy do połączenia z Discord."
             webhook_url:
               title: Adres URL webhooka
+              help: URL webhooka stworzony w ustawienia serwera Discorda.
         mattermost:
           title: "Mattermost"
           param:
             identifier:
               title: Kanał
               help: "np. #kanał, @użytkownik."
+          errors:
+            channel_not_found: "Określony kanał nie istnieje w Mattermost"
         matrix:
+          title: "Matrix"
           param:
             name:
               title: "Nazwa"
+              help: "Nazwa opisująca kanał. Nie jest używana do połączenia z Matrix."
             room_id:
               title: "ID pokoju"
+              help: "\"Prywatny identyfikator\" pokoju. Powinien wyglądać mniej więcej tak: !abcdefg:matrix.org"
           errors:
             unknown_token: "Token dostępu jest nieprawidłowy"
             unknown_room: "ID pokoju jest nieprawidłowy"
         zulip:
+          title: "Zulip"
           param:
             stream:
               title: "Stream"
+              help: "Nazwa streamu Zulip, na który powinna zostać wysłana wiadomość, np. 'general'"
             subject:
               title: "Temat"
+              help: "Powinieneś nadać tytuł wiadomości wysyłanych przez bota"
+          errors:
+            does_not_exist: "Ten kanał nie istnieje na Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
@@ -128,6 +149,13 @@ pl_PL:
           param:
             name:
               title: "Nazwa"
+              help: "Nazwa pokoju Glitter, np. gitterHQ/services."
             webhook_url:
               title: "Adres URL webhooka"
               help: "Adres URL podany podczas tworzenia nowej integracji w pokoju Gitter."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow Token"
+              help: "Flow token nadany w trakcie tworzenia źródła flowu w którym zamierzasz wysyłać wiadomości."

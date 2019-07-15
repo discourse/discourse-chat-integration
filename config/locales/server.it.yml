@@ -9,5 +9,51 @@ it:
   site_settings:
     chat_integration_enabled: 'Attiva il plugin discourse-chat-integration'
     chat_integration_delay_seconds: 'Dopo la creazione di un messaggio, numero di secondi di attesa prima di inviare una notifica chat'
+    chat_integration_slack_incoming_webhook_token: 'Il token di verifica utilizzato per autenticare le richieste in arrivo'
+    chat_integration_telegram_access_token: "Il token di accesso del tuo bot dal botfather di Telegram"
+    chat_integration_mattermost_incoming_webhook_token: 'Il token di verifica utilizzato per autenticare le richieste in arrivo'
+    chat_integration_matrix_access_token: "Token di accesso per l'account Matrix del bot"
   chat_integration:
     all_categories: "(tutte le categorie)"
+    provider:
+      slack:
+        status:
+          header: |
+            * Regole per questo canale *
+            (se a un messaggio si applicano più regole, viene eseguita la regola più in alto)
+          no_rules: "Non ci sono regole per questo canale. Esegui `/discourse help` per ulteriori istruzioni."
+          rule_string: "* %{index}) * * %{filter} * messaggi in * %{category} *"
+        create:
+          created: "Regola creata con successo"
+          updated: "Regola aggiornata con successo"
+          error: "Spiacenti, si è verificato un errore durante la creazione della regola."
+        not_found:
+          tag: "Non è stato possibile trovare l'Etichetta *%{name}*."
+          category: "La categoria *%{name}* non può essere trovata. Categorie disponibili: *%{list}*"
+      telegram:
+        create:
+          created: "Regola creata con successo"
+          updated: "Regola aggiornata con successo"
+          error: "Spiacenti, si è verificato un errore durante la creazione della regola."
+        delete:
+          error: "Spiacenti, si è verificato un errore durante l'eliminazione della regola. Esegui <code>/status</code> per vedere l'elenco delle regole."
+      mattermost:
+        status:
+          header: |
+            * Regole per questo canale *
+            (se a un messaggio si applicano più regole, viene eseguita la regola più in alto)
+          no_rules: "Non ci sono regole per questo canale. Esegui `/discourse help` per ulteriori istruzioni."
+          rule_string: "* %{index}) * * %{filter} * messaggi in * %{category} *"
+        create:
+          created: "Regola creata con successo"
+          updated: "Regola aggiornata con successo"
+          error: "Spiacenti, si è verificato un errore durante la creazione della regola."
+        not_found:
+          tag: "Non è stato possibile trovare l'Etichetta *%{name}*."
+          category: "La categoria *%{name}* non è stata trovata. Categorie disponibili: *%{list}*"
+      matrix:
+        formatted_message: |
+          <b>%{user}</b> pubblicato in <b><a href='%{post_url}'>%{title}</a></b>
+          <blockquote>
+          %{excerpt}
+          </blockquote>

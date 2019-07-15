@@ -132,7 +132,7 @@ es:
           - <b>mute</b>– bloquea las notificaciones a este canal
 
           <b>Quitar regla:</b> <code>/remove [número de la regla]</code>
-          (el <code>[número de la regla]  puede obtenerse ejecutando <code>/status</code>)
+          (el <code>[número de la regla] puede obtenerse ejecutando <code>/status</code>)
 
           <b>Lista de reglas:</b> <code>/status</code>
 
@@ -156,7 +156,7 @@ es:
           success: "Regla borrada con éxito"
           error: "Lo siento, ha ocurrido un error al borrar esa regla. Ejecuta `/discourse status` para una lista de reglas."
         not_found:
-          tag: "La etiqueta *%{name}*  no ha sido encontrada."
+          tag: "La etiqueta *%{name}* no ha sido encontrada."
           category: "La categoría *%{name}* no ha sido encontrada. Categorías disponibles: *%{list}*"
         help: |
           *Nueva regla:* `/discourse [watch|follow|mute] [categoría] [tag:nombre de etiqueta]`
