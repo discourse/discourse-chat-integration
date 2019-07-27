@@ -2,9 +2,9 @@ import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default Discourse.Route.extend({
-  beforeModel(transition) {
+  model(params) {
     if (this.currentUser) {
-      const secret = transition.params.transcript.secret;
+      const secret = params.secret;
 
       this.replaceWith("discovery.latest").then(e => {
         if (this.controllerFor("navigation/default").get("canCreateTopic")) {
