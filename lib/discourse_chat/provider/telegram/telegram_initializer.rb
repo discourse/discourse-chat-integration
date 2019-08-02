@@ -16,7 +16,7 @@ if Gem::Version.new(Discourse::VERSION::STRING) > Gem::Version.new("2.3.0.beta8"
     end
   end
 else
-  DiscourseEvent.on(site_setting_saved) do |sitesetting|
+  DiscourseEvent.on(:site_setting_saved) do |sitesetting|
     isEnabledSetting = sitesetting.name == 'chat_integration_telegram_enabled'
     isAccessToken =  sitesetting.name == 'chat_integration_telegram_access_token'
 
