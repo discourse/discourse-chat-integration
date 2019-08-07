@@ -96,6 +96,11 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
     SiteSetting.chat_integration_slack_access_token = "abcde"
   end
 
+  it "doesn't raise an error when there are no messages to guess" do
+    transcript.instance_variable_set(:@messages, [])
+    expect(transcript.guess_first_message(skip_messages: 1)).to eq(false)
+  end
+
   describe 'loading users' do
     it 'loads users correctly' do
       stub_request(:post, "https://slack.com/api/users.list")

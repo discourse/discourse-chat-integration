@@ -34,6 +34,7 @@ module DiscourseChat::Provider::SlackProvider
     # Apply a heuristic to decide which is the first message in the current conversation
     def guess_first_message(skip_messages: 5) # Can skip the last n messages
       return true if @requested_thread_ts # Always start thread on first message
+      return false if @messages.blank? || @messages.size < skip_messages
 
       possible_first_messages = @messages[0..-skip_messages]
 
