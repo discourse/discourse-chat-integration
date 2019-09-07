@@ -40,7 +40,7 @@ module DiscourseChat::Provider::SlackProvider
 
     message = {
       channel: channel,
-      username: SiteSetting.chat_integration_slack_username,
+      username: SiteSetting.chat_integration_slack_username || SiteSetting.title || "Discourse",
       icon_url: icon_url,
       attachments: []
     }
