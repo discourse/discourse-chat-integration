@@ -79,7 +79,7 @@ class DiscourseChat::ChatController < ApplicationController
 
       channel = DiscourseChat::Channel.new(hash)
 
-      if !channel.save(hash)
+      if !channel.save
         raise Discourse::InvalidParameters, 'Channel is not valid'
       end
 
@@ -121,7 +121,7 @@ class DiscourseChat::ChatController < ApplicationController
       hash = params.require(:rule).permit(:channel_id, :type, :filter, :group_id, :category_id, tags: [])
       rule = DiscourseChat::Rule.new(hash)
 
-      if !rule.save(hash)
+      if !rule.save
         raise Discourse::InvalidParameters, 'Rule is not valid'
       end
 
