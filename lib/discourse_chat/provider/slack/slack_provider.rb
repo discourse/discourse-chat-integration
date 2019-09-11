@@ -42,9 +42,16 @@ module DiscourseChat::Provider::SlackProvider
         "#{Discourse.base_url}#{url}"
       end
 
+    slack_username =
+      if SiteSetting.chat_integration_slack_username.present?
+        SiteSetting.chat_integration_slack_username
+      else
+        SiteSetting.title || "Discourse"
+      end
+
     message = {
       channel: channel,
-      username: SiteSetting.title || "Discourse",
+      username: slack_username,
       icon_url: icon_url,
       attachments: []
     }
