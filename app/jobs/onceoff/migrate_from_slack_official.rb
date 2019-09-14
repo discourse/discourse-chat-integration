@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Jobs
-  class DiscourseChatMigrateFromSlackOfficial < Jobs::Onceoff
+  class DiscourseChatMigrateFromSlackOfficial < ::Jobs::Onceoff
     def execute_onceoff(args)
       slack_installed = PluginStoreRow.where(plugin_name: 'discourse-slack-official').exists?
 
