@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Jobs
-  class NotifyChats < Jobs::Base
+  class NotifyChats < ::Jobs::Base
     sidekiq_options retry: false
 
     def execute(args)
