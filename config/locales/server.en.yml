@@ -7,6 +7,7 @@ en:
     #######################################
     ########## SLACK SETTINGS #############
     #######################################
+    chat_integration_slack_username: "Bot's username to post to slack with"
     chat_integration_slack_enabled: 'Enable the slack chat-integration provider'
     chat_integration_slack_access_token: 'OAuth Access Token for authenticating with Slack'
     chat_integration_slack_incoming_webhook_token: 'The verification token used to authenticate incoming requests'
