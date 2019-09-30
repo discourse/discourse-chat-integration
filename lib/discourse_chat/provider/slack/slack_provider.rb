@@ -6,7 +6,7 @@ module DiscourseChat::Provider::SlackProvider
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
   CHANNEL_PARAMETERS = [
-                        { key: "identifier", regex: '^[@#]\S*$', unique: true }
+                        { key: "identifier", regex: '^[@#]?\S*$', unique: true }
                        ]
 
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)

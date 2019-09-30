@@ -28,6 +28,8 @@ module DiscourseChat::Provider::SlackProvider
         case params[:channel_name]
         when 'directmessage'
           "@#{params[:user_name]}"
+        when 'privategroup'
+          params[:channel_id]
         else
           "##{params[:channel_name]}"
         end
