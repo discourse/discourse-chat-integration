@@ -101,6 +101,7 @@ zh_CN:
           change_last_message: "更改最后的消息……"
           loading: "加载副本中..."
       telegram:
+        unknown_chat: "此聊天尚未在 %{site_title} 上配置。请咨询管理员添加聊天编号为 %{chat_id} 的频道。"
         known_chat: "%{site_title}的聊天已设置。在管理面板进行配置。（聊天ID：%{chat_id}）"
         message: |-
           <b>%{user}</b>发表在<a href="%{post_url}">%{title}</a>
@@ -124,6 +125,19 @@ zh_CN:
         not_found:
           tag: "标签<b>%{name}</b>找不到"
           category: "未找到分类*%{name}*。可用分类：*%{list}*"
+        help: |
+          <b>新建规则：</b><code>/[watch|follow|mute] [category] [tag:name]</code>
+          （您必须指定规则类型及至少一个分类或标签）
+          -<b>watch</b>– 在此频道有新主题和回复时通知
+          - <b>follow</b>– 在此频道有新主题时通知
+          - <b>mute</b>– 屏蔽此频道的所有通知
+
+          <b>移除规则：</b><code>/remove [规则编号]</code>
+          （<code>[规则编号]</code>可通过输入<code>/status</code>指令找到）
+
+          <b>列出规则：</b><code>/status</code>
+
+          <b>帮助：</b><code>/help</code>
       hipchat:
         message: <b>%{user}</b>发表在<a href="%{post_url}">%{title}</a>
       mattermost:

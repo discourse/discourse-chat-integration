@@ -16,7 +16,7 @@ es:
       settings: "Ajustes"
       no_providers: "Necesitas habilitar algún proveedor en los ajustes del plugin"
       channels_with_errors: "Algunos canales de este proveedores fallaron la última vez que se enviaron mensajes. Haz clic en los iconos de error para saber más."
-      channel_exception: "Un error desconocido ha ocurrido la última vez que se mandó un mensaje a este canal."
+      channel_exception: "Un error desconocido se produjo la última vez que se mandó un mensaje a este canal."
       group_mention_template: "Menciones de: @{{name}}"
       group_message_template: "Mensajes a: @{{name}}"
       choose_group: "(escoge un grupo)"
@@ -24,16 +24,16 @@ es:
       all_tags: "(todas las etiquetas)"
       create_rule: "Crear regla"
       create_channel: "Crear canal"
-      delete_channel: "Borrar"
+      delete_channel: "Eliminar"
       test_channel: "Probar"
       edit_channel: "Editar"
-      channel_delete_confirm: "¿Quieres borrar este canal? Todas las reglas relacionadas serán borradas."
+      channel_delete_confirm: "¿Estás seguro de que quieres eliminar este canal? Todas las reglas relacionadas se eliminarán."
       test_modal:
         title: "Enviar un mensaje de prueba"
         topic: "Tema"
         send: "Enviar mensaje de prueba"
         close: "Cerrar"
-        error: "Un error desconocido ha ocurrido al enviar el mensaje. Comprueba los logs de la página para más información."
+        error: "Un error desconocido se produjo al enviar el mensaje. Revisa los registros de la página para más información."
         success: "Mensaje enviado correctamente."
       type:
         normal: Normal
@@ -41,14 +41,14 @@ es:
         group_mention: Mención grupal
       filter:
         mute: 'Silenciar'
-        follow: 'Solo primer post'
-        watch: 'Todos los posts y respuestas'
+        follow: 'Solo la primera publicación'
+        watch: 'Todas las publicaciones y respuestas'
       rule_table:
         filter: "Filtrar"
         category: "Categoría"
         tags: "Etiquetas"
         edit_rule: "Editar"
-        delete_rule: "Borrar"
+        delete_rule: "Eliminar"
       edit_channel_modal:
         title: "Editar canal"
         save: "Guardar canal"
@@ -56,7 +56,7 @@ es:
         provider: "Proveedor"
         channel_validation:
           ok: "Válido"
-          fail: "Formato no válido"
+          fail: "Formato inválido"
       edit_rule_modal:
         title: Editar regla
         save: Guardar regla
@@ -69,10 +69,10 @@ es:
         group: Grupo
         tags: Etiquetas
         instructions:
-          type: "Cambia el tipo para que aparezcan notificaciones para menciones o mensajes de grupo"
+          type: "Cambia el tipo para que aparezcan notificaciones de menciones o mensajes de grupo"
           filter: "Nivel de notificación. Silenciado anula otras reglas activadas."
-          category: "Esta regla solo se aplicará para temas en la categoría especificada."
-          group: "Esta regla se aplicará a temas haciendo referencia a este grupo."
+          category: "Esta regla solo se aplicará a los temas en la categoría especificada."
+          group: "Esta regla se aplicará a las publicaciones que hacen referencia a este grupo."
           tags: "Si están especificadas, esta regla solo se aplicará a temas que tengan al menos una de estas etiquetas:"
       provider:
         slack:
@@ -80,9 +80,9 @@ es:
           param:
             identifier:
               title: Canal
-              help: "ej.: #canal, @usuario."
+              help: "ejemplo: #canal, @usuario."
           errors:
-            action_prohibited: "Este bot no tiene permiso para enviar a ese canal."
+            action_prohibited: "Este bot no tiene permiso para publicar en ese canal."
             channel_not_found: "El canal especificado no existe en Slack"
         telegram:
           title: "Telegram"
@@ -92,10 +92,10 @@ es:
               help: "Un nombre para describir el canal. No se usa en la conexión con Telegram."
             chat_id:
               title: ID del chat
-              help: Un número dado por el bot, o el identificador de broadcast en forma de @nombredelcanal
+              help: Un número que el bot te ha dado o un identificador de canal de difusión en forma de @nombredelcanal
           errors:
             channel_not_found: "El canal especificado no existe en Telegram"
-            forbidden: "El bot no tiene permiso para enviar a este canal"
+            forbidden: "El bot no tiene permiso para publicar en este canal"
         discord:
           title: "Discord"
           param:
@@ -110,7 +110,7 @@ es:
           param:
             identifier:
               title: Canal
-              help: "ej.: #canal, @usuario."
+              help: "ejemplo: #canal, @usuario."
           errors:
             channel_not_found: "El canal especificado no existe en Mattermost"
         matrix:
@@ -121,7 +121,7 @@ es:
               help: "Un nombre para describir el canal. No se usa para la conexión con Matrix."
             room_id:
               title: "ID de la sala"
-              help: "El 'private identifier' (identificador privado) de la sala. Debería ser algo como !abcdefg:matrix.org"
+              help: "El «identificador privado» de la sala. Debería ser algo como !abcdefg:matrix.org"
           errors:
             unknown_token: "Token de acceso inválido"
             unknown_room: "La ID de la sala no es válida"
@@ -130,7 +130,7 @@ es:
           param:
             stream:
               title: "Stream"
-              help: "El nombre del stream de Zulip al que el mensaje debería ser enviado. Ej.: 'general'"
+              help: "El nombre del stream de Zulip al que el mensaje debería ser enviado. Ejemplo: «general»"
             subject:
               title: "Asunto"
               help: "El asunto que el mensaje enviado por el bot debería tener"
@@ -141,7 +141,7 @@ es:
           param:
             identifier:
               title: Canal
-              help: "ej.: #canal, @usuario."
+              help: "ejemplo: #canal, @usuario."
           errors:
             invalid_channel: "Ese canal no existe en Rocket Chat"
         gitter:
@@ -149,7 +149,7 @@ es:
           param:
             name:
               title: "Nombre"
-              help: "El nombre de la sala de Gitter. ej.: gitterHQ/services."
+              help: "El nombre de la sala de Gitter. ejemplo: gitterHQ/services."
             webhook_url:
               title: "URL del webhook"
               help: "La URL dada cuando creaste una nueva integración en una sala de Gitter."
@@ -157,5 +157,5 @@ es:
           title: "Flowdock"
           param:
             flow_token:
-              title: "Nuevo token"
-              help: "El token de Flow dado después de crear una fuente para un flow en el que quieras mandar mensajes."
+              title: "Token de Flow"
+              help: "El token de Flow provisto luego de crear una fuente para un flow al que quieras enviar mensajes."

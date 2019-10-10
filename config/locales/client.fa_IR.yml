@@ -40,6 +40,7 @@ fa_IR:
             name:
               title: "نام"
         discord:
+          title: "دیسکورد"
           param:
             name:
               title: "نام"

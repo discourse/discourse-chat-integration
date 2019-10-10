@@ -158,3 +158,4 @@ zh_CN:
           param:
             flow_token:
               title: "Flow令牌"
+              help: "在创建流消息后所提供的流式凭证。"

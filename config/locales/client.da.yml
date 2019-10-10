@@ -9,6 +9,7 @@ da:
   js:
     chat_integration:
       settings: "Indstillinger"
+      all_categories: "(alle kategorier)"
       delete_channel: "Slet"
       edit_channel: "Rediger"
       test_modal:
@@ -39,6 +40,7 @@ da:
             name:
               title: "Navn"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Navn"

@@ -9,11 +9,14 @@ uk:
   js:
     chat_integration:
       settings: "Налаштування"
+      all_categories: "(усі категорії)"
       delete_channel: "Видалити"
       edit_channel: "Редагувати"
       test_modal:
         topic: "Тема"
         close: "Закрити"
+      type:
+        normal: Нормальний
       filter:
         mute: 'Mute'
       rule_table:

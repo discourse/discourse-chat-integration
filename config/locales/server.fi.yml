@@ -6,5 +6,25 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 fi:
+  site_settings:
+    chat_integration_enabled: 'Ota discourse-chat-integrointi lisäosa käyttöön. '
+    chat_integration_delay_seconds: 'Odotuksen pituus sekunneissa kirjoituksen luomisen jälkeen ennen chat ilmoituksen lähettämistä'
+    chat_integration_telegram_enabled: "Ota Telegram chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_telegram_enable_slash_commands: "Salli telegram tilausten hallinnointi 'kauttaviiva käskyjä' käyttäen"
+    chat_integration_discord_enabled: "Ota Discord chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_mattermost_enabled: "Ota Mattermost  chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_matrix_enabled: "Ota Matrix chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_matrix_homeserver: "Yhdistettävä kotipalvelin. Varmista, että sisällytit protokollan"
+    chat_integration_matrix_use_notice: "Käytä huomautusta pelkän viestin sijaan"
+    chat_integration_zulip_enabled: "Ota Zulip chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_zulip_bot_email_address: "Zulip bottin liitetty sähköpostiosoite"
+    chat_integration_zulip_bot_api_key: "API avain Zulip botille"
+    chat_integration_rocketchat_enabled: "Ota Rocket Chat chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_gitter_enabled: "Ota Gitter chat-integrointi palveluntarjoaja käyttöön. "
+    chat_integration_flowdock_enabled: "Ota Flowdock chat-integrointi palveluntarjoaja käyttöön. "
   chat_integration:
     all_categories: "(kaikki alueet)"
+    deleted_category: "(poistettu alue)"
+    deleted_group: "(poistettu ryhmä)"
+    group_mention_template: "@%{name} mainittu"
+    group_message_template: "Viestejä käyttäjälle: @%{name}"

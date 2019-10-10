@@ -8,16 +8,27 @@
 vi:
   js:
     chat_integration:
+      menu_title: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
       settings: "Xác lập"
+      no_providers: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
+      channels_with_errors: "Một vài channels từ dịch vụ chat này đã thất bại trong lần gửi tin nhắn cuối cùng. Nhấn chuột vào biểu tượng lỗi để xem thêm."
+      group_message_template: "Tin nhắn tới: @{{name}}"
+      choose_group: "(chọn một nhóm)"
+      all_categories: "(tất cả danh mục)"
+      all_tags: "(tất cả từ khoá)"
       delete_channel: "Xóa"
       edit_channel: "Sửa"
       test_modal:
+        title: "Gửi một tin nhắn kiểm tra dịch vụ"
         topic: "Chủ đề"
+        send: "Gửi tin nhắn kiểm tra"
         close: "Đóng lại"
       type:
         normal: Bình thường
       filter:
         mute: 'Im lặng'
+        follow: 'Chỉ chủ đề đầu tiên'
+        watch: 'Tất cả bài viết và trả lời'
       rule_table:
         filter: "Lọc"
         category: "Danh mục"
@@ -26,7 +37,12 @@ vi:
         delete_rule: "Xóa"
       edit_channel_modal:
         cancel: "Hủy"
+        channel_validation:
+          ok: "Hợp lệ"
+          fail: "Định dạng không hợp lệ"
       edit_rule_modal:
+        title: Sửa quy tắc
+        save: Lưu quy tắc
         cancel: Hủy
         type: Loại
         filter: Lọc
@@ -34,6 +50,10 @@ vi:
         group: Nhóm
         tags: Thẻ
       provider:
+        slack:
+          param:
+            identifier:
+              help: "Ví dụ #channel, @username"
         telegram:
           param:
             name:
@@ -42,6 +62,10 @@ vi:
           param:
             name:
               title: "Tên"
+        mattermost:
+          param:
+            identifier:
+              help: "Ví dụ #channel, @username"
         matrix:
           param:
             name:
@@ -50,6 +74,10 @@ vi:
           param:
             subject:
               title: "Tiêu đề"
+        rocketchat:
+          param:
+            identifier:
+              help: "Ví dụ #channel, @username"
         gitter:
           param:
             name:

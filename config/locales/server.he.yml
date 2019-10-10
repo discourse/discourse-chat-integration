@@ -10,6 +10,7 @@ he:
     chat_integration_enabled: 'הפעלת התוסף discourse-chat-integration (שילוב צ׳אט ב־Discourse)'
     chat_integration_discourse_username: 'שם המשתמש להתחקות אליו בעת קבלת תוכן.'
     chat_integration_delay_seconds: 'מספר השניות להמתין לאחר יצירת פוסט בטרם שליחת התראות לצ׳אט'
+    chat_integration_slack_username: "שם המשתמש של הבוט לפרסום דרך slack"
     chat_integration_slack_enabled: 'הפעלת ספק שילוב הצ׳אט עם Slack'
     chat_integration_slack_access_token: 'אסימון גישה OAuth לאימות מול Slack'
     chat_integration_slack_incoming_webhook_token: 'אסימון הווידוא שמשמש לאמת בקשות נכנסות'

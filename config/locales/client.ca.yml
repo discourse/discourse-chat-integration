@@ -14,8 +14,8 @@ ca:
     chat_integration:
       menu_title: "Integracions de xat"
       settings: "Configuració"
-      no_providers: "Heu d’habilitar alguns proveïdors en la configuració del connector"
-      channels_with_errors: "Alguns canals d’aquest proveïdor van fallar l’última vegada que es van enviar missatges. Feu clic en la icona o icones d'error per a obtenir més informació."
+      no_providers: "Heu d'habilitar alguns proveïdors en la configuració del connector"
+      channels_with_errors: "Alguns canals d'aquest proveïdor van fallar l'última vegada que es van enviar missatges. Feu clic en la icona o icones d'error per a obtenir més informació."
       channel_exception: "Es va produir un error desconegut la darrera vegada que es va enviar un missatge a aquest canal."
       group_mention_template: "Mencions de: @ {{name}}"
       group_message_template: "Missatges a: @{{name}}"
@@ -27,13 +27,13 @@ ca:
       delete_channel: "Suprimeix"
       test_channel: "Test"
       edit_channel: "Edita"
-      channel_delete_confirm: "Esteu segur que voleu suprimir aquest canal? S'esborraran totes les regles associades."
+      channel_delete_confirm: "Esteu segur que voleu suprimir aquest canal? Se suprimiran totes les regles associades."
       test_modal:
         title: "Envia un missatge de prova"
         topic: "Tema"
         send: "Envia un missatge de prova"
         close: "Tanca"
-        error: "S&#39;ha produït un error desconegut en enviar el missatge. Consulteu els registres del lloc per a obtenir més informació."
+        error: "S'ha produït un error desconegut en enviar el missatge. Consulteu els registres del lloc web per a obtenir més informació."
         success: "Missatge enviat correctament"
       type:
         normal: Normal
@@ -71,9 +71,9 @@ ca:
         instructions:
           type: "Canvieu el tipus per a activar notificacions de missatges de grup o de mencions"
           filter: "Nivell de notificació. El silenciament sobreescriu altres regles"
-          category: "Aquesta regla només s&#39;aplicarà als temes de la categoria especificada"
+          category: "Aquesta regla només s'aplicarà als temes de la categoria especificada"
           group: "Aquesta regla s'aplicarà a les publicacions que facin referència a aquest grup"
-          tags: "Si s’especifica, aquesta regla sols s’aplicarà als temes que tinguin almenys una d’aquestes etiquetes."
+          tags: "Si s'especifica, aquesta regla sols s'aplicarà als temes que tinguin almenys una d'aquestes etiquetes."
       provider:
         slack:
           title: "Slack"
@@ -101,10 +101,10 @@ ca:
           param:
             name:
               title: "Nom"
-              help: "Un nom per a descriure el canal. No s’utilitza per a la connexió amb Discord."
+              help: "Un nom per a descriure el canal. No s'utilitza per a la connexió amb Discord."
             webhook_url:
               title: URL del webhook
-              help: L’URL del webhook creat en la configuració del servidor Discord
+              help: L'URL del webhook creat en la configuració del servidor Discord
         mattermost:
           title: "Mattermost"
           param:
@@ -118,19 +118,19 @@ ca:
           param:
             name:
               title: "Nom"
-              help: "Un nom per a descriure el canal. No s’utilitza per a la connexió amb Matrix."
+              help: "Un nom per a descriure el canal. No s'utilitza per a la connexió amb Matrix."
             room_id:
               title: "ID de la sala"
               help: "'Identificador privat' de la sala. Hauria de ser similar a !abcdefg:matrix.org"
           errors:
-            unknown_token: "El testimoni d’accés no és vàlid"
-            unknown_room: "L’ID de la sala no és vàlid"
+            unknown_token: "El testimoni d'accés no és vàlid"
+            unknown_room: "L'ID de la sala no és vàlid"
         zulip:
           title: "Zulip"
           param:
             stream:
               title: "Stream"
-              help: "El nom de l'stream de Zulip al qual s’ha d’enviar el missatge, p. ex. \"general\"."
+              help: "El nom de l'stream de Zulip al qual s'ha d'enviar el missatge, p. ex. \"general\"."
             subject:
               title: "Assumpte"
               help: "L'assumpte que s'ha de posar a aquests missatges enviats pel bot."
@@ -152,7 +152,7 @@ ca:
               help: "El nom de la sala Gitter, p. ex. gitterHQ/services."
             webhook_url:
               title: "URL del webhook"
-              help: "L’URL proporcionat quan creeu una nova integració en la sala Gitter."
+              help: "L'URL proporcionat quan creeu una nova integració en la sala Gitter."
         flowdock:
           title: "Flowdock"
           param:

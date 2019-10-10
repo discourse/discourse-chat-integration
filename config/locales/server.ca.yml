@@ -7,17 +7,18 @@
 
 ca:
   site_settings:
-    chat_integration_enabled: 'Habilita el proveïdor d''integració de xat de Discourse'
+    chat_integration_enabled: 'Habilita el connector d''integració de xat de Discourse'
     chat_integration_discourse_username: 'Nom d''usuari per a identificar-se quan s''obté contingut. '
-    chat_integration_delay_seconds: 'Nombre de segons que cal esperar després de la creació de publicacions abans d’enviar les notificacions de xat'
-    chat_integration_slack_enabled: 'Habilita el proveïdor d’integració de xats de Slack'
-    chat_integration_slack_access_token: 'Token d&#39;accés OAuth per a autenticar-se amb Slack'
-    chat_integration_slack_incoming_webhook_token: 'El testimoni de verificació que s’utilitza per a autenticar les sol·licituds entrants'
+    chat_integration_delay_seconds: 'Nombre de segons que cal esperar després de la creació de publicacions abans d''enviar les notificacions de xat'
+    chat_integration_slack_username: "Nom d'usuari de bot per a publicar en Slack"
+    chat_integration_slack_enabled: 'Habilita el proveïdor d''integració de xats de Slack'
+    chat_integration_slack_access_token: 'Token d''accés OAuth per a autenticar-se amb Slack'
+    chat_integration_slack_incoming_webhook_token: 'El testimoni de verificació que s''utilitza per a autenticar les sol·licituds entrants'
     chat_integration_slack_excerpt_length: 'Longitud de l''extracte de publicació de Slack'
     chat_integration_slack_icon_url: 'Icona per a publicar en Slack (per defecte és el logotip del fòrum)'
-    chat_integration_slack_outbound_webhook_url: "Per a utilitzar el sistema 'Incoming Webhook' de Slack en comptes de l’API OAuth. No es recomana."
+    chat_integration_slack_outbound_webhook_url: "Per a utilitzar el sistema 'Incoming Webhook' de Slack en comptes de l'API OAuth. No es recomana."
     errors:
-      chat_integration_slack_api_configs_are_empty: "Heu d’introduir l’URL de webhook de sortida o un testimoni d’accés"
+      chat_integration_slack_api_configs_are_empty: "Heu d'introduir l'URL de webhook de sortida o un testimoni d'accés"
     chat_integration_telegram_enabled: "Habilita el proveïdor d'integració de xat de Telegram"
     chat_integration_telegram_access_token: "El testimoni d'accés del vostre bot des del BotFather de Telegram"
     chat_integration_telegram_excerpt_length: "Longitud de l'extracte de publicació de Telegram"
@@ -26,22 +27,22 @@ ca:
     chat_integration_discord_message_content: "El missatge que s'inclou sobre el resum en enviar una notificació a Discord"
     chat_integration_discord_excerpt_length: "Longitud de l'extracte de publicació de Discord"
     chat_integration_mattermost_enabled: "Habiliteu el proveïdor de la integració de xat de Mattermost"
-    chat_integration_mattermost_webhook_url: 'URL per al webhook de Matternost'
-    chat_integration_mattermost_incoming_webhook_token: 'El testimoni de verificació que s’utilitza per a autenticar les sol·licituds entrants'
+    chat_integration_mattermost_webhook_url: 'URL per al webhook de Mattermost'
+    chat_integration_mattermost_incoming_webhook_token: 'El testimoni de verificació que s''utilitza per a autenticar les sol·licituds entrants'
     chat_integration_mattermost_icon_url: "Icona per a publicacions en Mattermost (per defecte el logo del fòrum)"
     chat_integration_mattermost_excerpt_length: "Longitud de l'extracte de publicació de Mattermost"
     chat_integration_matrix_enabled: "Habilita el proveïdor d'integració de xat de Matrix"
-    chat_integration_matrix_homeserver: "Servidor domèstic al qual es connecta. Assegureu-vos d’incloure-hi el protocol."
-    chat_integration_matrix_access_token: "Testimoni d&#39;accés per al compte Matrix del bot"
+    chat_integration_matrix_homeserver: "Servidor domèstic al qual es connecta. Assegureu-vos d'incloure-hi el protocol."
+    chat_integration_matrix_access_token: "Testimoni d'accés per al compte Matrix del bot"
     chat_integration_matrix_excerpt_length: "Longitud de l'extracte de publicació de Matrix"
     chat_integration_matrix_use_notice: "Utilitza un avís en comptes d'un missatge simple"
     chat_integration_zulip_enabled: "Habiliteu el proveïdor de la integració de xat de Zulip"
-    chat_integration_zulip_server: "L’URL base del vostre servidor Zulip. Assegureu-vos d’incloure-hi http(s): //"
-    chat_integration_zulip_bot_email_address: "L’adreça de correu electrònic associada al vostre bot Zulip"
-    chat_integration_zulip_bot_api_key: "La clau d’API per al vostre bot Zulip"
+    chat_integration_zulip_server: "L'URL base del vostre servidor Zulip. Assegureu-vos d'incloure-hi http(s): //"
+    chat_integration_zulip_bot_email_address: "L'adreça de correu electrònic associada al vostre bot Zulip"
+    chat_integration_zulip_bot_api_key: "La clau d'API per al vostre bot Zulip"
     chat_integration_zulip_excerpt_length: "Longitud de l'extracte de publicació de Zulip"
     chat_integration_rocketchat_enabled: "Activa el proveïdor d'integració de xat de Rocket Chat"
-    chat_integration_rocketchat_webhook_url: "L’URL per al webhook d'integració de Rocket Chat"
+    chat_integration_rocketchat_webhook_url: "L'URL per al webhook d'integració de Rocket Chat"
     chat_integration_rocketchat_excerpt_length: "Longitud de l'extracte de publicació de Rocket Chat"
     chat_integration_gitter_enabled: "Habilita el proveïdor d'integració de xat de Gitter"
     chat_integration_flowdock_enabled: "Habiliteu el proveïdor de la integració de xat de Flowdock"
@@ -52,7 +53,7 @@ ca:
     deleted_group: "(grup suprimit)"
     group_mention_template: "mencions de: @ %{name}"
     group_message_template: "missatges a: @%{name}"
-    admin_error: "Alguns canals d’integració de xat tenen errors. Visiteu <a href='%{base_path}/admin/plugins/chat'>la secció d’integració de xat</a> per a obtenir més informació."
+    admin_error: "Alguns canals d'integració de xat tenen errors. Visiteu <a href='%{base_path}/admin/plugins/chat'>la secció d'integració de xat</a> per a obtenir més informació."
     provider:
       slack:
         status:
@@ -69,9 +70,9 @@ ca:
           error: "Ho sentim. Hi ha hagut un error en crear-se la regla."
         delete:
           success: "Regla suprimida amb èxit"
-          error: "Ho sentim, s’ha produït un error en esborrar aquesta regla. Executeu `/discourse status` per a veure una llista de regles."
+          error: "Ho sentim, s'ha produït un error en esborrar aquesta regla. Executeu `/discourse status` per a veure una llista de regles."
         not_found:
-          tag: "No es pot trobar l’etiqueta *%{name}*."
+          tag: "No es pot trobar l'etiqueta *%{name}*."
           category: "No es pot trobar la categoria *%{name}*. Categories disponibles: *%{list}*"
         help: |
           *Regla nova:* `/discourse  [watch|follow|mute] [category] [tag:name]`
@@ -92,7 +93,7 @@ ca:
         transcript:
           error: "Alguna cosa ha fallat en construir la transcripció, disculpeu!"
           post_to_discourse: "Feu clic aquí per a esbossar una publicació en Discourse amb una transcripció"
-          api_required: "Ho sentim. Aquesta integració no s’ha configurat per a donar suport a la publicació de transcripcions."
+          api_required: "Ho sentim. Aquesta integració no s'ha configurat per a donar suport a la publicació de transcripcions."
           view_on_slack: "Mostra en %{name} en Slack"
           first_message_pretext: "començant %{n} missatges enrere:"
           last_message_pretext: "i acabant fa %{n} missatges:"
@@ -121,9 +122,9 @@ ca:
           error: "Ho sentim. Hi ha hagut un error en crear-se la regla."
         delete:
           success: "Regla suprimida amb èxit"
-          error: "Ho sentim, s’ha produït un error en esborrar aquesta regla. Executa <code>/status</code> per a una llista de regles."
+          error: "Ho sentim, s'ha produït un error en esborrar aquesta regla. Executa <code>/status</code> per a una llista de regles."
         not_found:
-          tag: "No es pot trobar l’etiqueta <b>%{name}</b>."
+          tag: "No es pot trobar l'etiqueta <b>%{name}</b>."
           category: "No es pot trobar la categoria <b>%{name}</b>. Categories disponibles: <b>%{list}</b>"
         help: |
           <b>Regla nova:</b> <code>/discourse  [watch|follow|mute] [category] [tag:name]</code>
@@ -155,9 +156,9 @@ ca:
           error: "Ho sentim. Hi ha hagut un error en crear-se la regla."
         delete:
           success: "Regla suprimida amb èxit"
-          error: "Ho sentim, s’ha produït un error en esborrar aquesta regla. Executeu `/discourse status` per a veure una llista de regles."
+          error: "Ho sentim, s'ha produït un error en esborrar aquesta regla. Executeu `/discourse status` per a veure una llista de regles."
         not_found:
-          tag: "No es pot trobar l’etiqueta *%{name}*."
+          tag: "No es pot trobar l'etiqueta *%{name}*."
           category: "No es pot trobar la categoria *%{name}*. Categories disponibles: *%{list}*"
         help: |
           *Regla nova:* `/discourse  [watch|follow|mute] [category] [tag:name]`

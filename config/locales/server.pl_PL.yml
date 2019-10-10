@@ -10,6 +10,7 @@ pl_PL:
     chat_integration_enabled: 'Włącz wtyczkę discourse‐chat‐integration'
     chat_integration_discourse_username: 'Nazwa użytkownika przy pobieraniu wiadomości'
     chat_integration_delay_seconds: 'Liczba sekund do odczekania po stworzeniu wpisu do wysłania powiadomienia na czacie'
+    chat_integration_slack_username: "Nazwa bota do publikowania wiadomości na Slacku"
     chat_integration_slack_enabled: 'Włącz integrację ze Slackiem'
     chat_integration_slack_access_token: 'Token dostępu OAuth do połączenia ze Slackiem'
     chat_integration_slack_incoming_webhook_token: 'Token weryfikacji używany do weryfikacji żądań przychodzących'

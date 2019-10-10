@@ -11,6 +11,7 @@ nl:
       settings: "Instellingen"
       all_categories: "(alle categorieën)"
       delete_channel: "Verwijderen"
+      test_channel: "Testen"
       edit_channel: "Bewerken"
       test_modal:
         topic: "Topic"
@@ -40,6 +41,7 @@ nl:
             name:
               title: "Naam"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Naam"

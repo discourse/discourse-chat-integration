@@ -10,6 +10,7 @@ de:
     chat_integration_enabled: 'Aktiviert das discourse-chat-integration Plugin'
     chat_integration_discourse_username: 'Benutzername des Benutzers, der verwendet wird, um Inhalte abzurufen.'
     chat_integration_delay_seconds: 'Sekundenzahl, die nach dem Erstellen eines Beitrags gewartet wird, bis Chat-Benachrichtigungen geschickt werden'
+    chat_integration_slack_username: "Benutzername des Bots, mit dem er an Slack schreibt"
     chat_integration_slack_enabled: 'Aktiviere den Chat-Integration-Provider für Slack'
     chat_integration_slack_access_token: 'OAuth-Zugriffstoken zur Authentifizierung mit Slack'
     chat_integration_slack_incoming_webhook_token: 'Das Verifizierungstoken, das zur Authentifizierung eingehender Anfragen verwendet wird'

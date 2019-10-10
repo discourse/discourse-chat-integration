@@ -7,22 +7,42 @@
 
 fi:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Chatti-integroinnit"
     chat_integration:
+      menu_title: "Chatti-integroinnit"
       settings: "Asetukset"
       no_providers: "Sinun täytyy sallia jotkut palveluntarjoajat lisäosien asetuksissa"
+      channels_with_errors: "Jotkin tämän palveluntuottajan kanavista pettivät viimeksi, kun viestejä lähetettiin. Klikkaa vikaikonia/ikoneita saadaksesi lisää tietoa."
+      channel_exception: "Tuntematon virhe tapahtui viimeksi, kun viesti lähetettiin tälle kanavalle. "
+      group_mention_template: "@{{name}} mainittu"
+      group_message_template: "Viestejä käyttäjälle @{{name}}"
+      choose_group: "(valitse ryhmä) "
       all_categories: "(kaikki alueet)"
+      all_tags: "(kaikki tunnisteet) "
       create_rule: "Luo sääntö"
       create_channel: "Luo kanava"
       delete_channel: "Poista"
+      test_channel: "Testi"
       edit_channel: "Muokkaa"
+      channel_delete_confirm: "Oletko varma, että haluat poistaa tämän kanavan? Kaikki kanavaan liittyvät säännöt poistetaan. "
       test_modal:
         title: "Lähetä testiviesti"
         topic: "Ketju"
+        send: "Lähetä testiviesti"
         close: "Sulje"
+        error: "Tuntematon virhe tapahtui viestiä lähetettäessä. Tarkasta sivuston loki saadaksesi lisätietoa. "
+        success: "Viesti lähetetty onnistuneesti "
       type:
         normal: Normaali
+        group_message: Ryhmäviesti
+        group_mention: 'Ryhmämaininta '
       filter:
         mute: 'Vaimenna'
+        follow: 'Uusi ketju'
+        watch: 'Kaikki viestit ja vastaukset'
       rule_table:
         filter: "Suodatin"
         category: "Alue"
@@ -30,32 +50,93 @@ fi:
         edit_rule: "Muokkaa"
         delete_rule: "Poista"
       edit_channel_modal:
+        title: "Muokkaa kanavaa"
+        save: "Tallenna kanava"
         cancel: "Peru"
+        provider: "Palveluntarjoaja"
+        channel_validation:
+          ok: "Voimassa"
+          fail: "Formaatti ei kelpaa"
       edit_rule_modal:
+        title: Muokkaa sääntöä
+        save: Tallenna sääntö
         cancel: Peru
+        provider: Palveluntarjoaja
         type: Tyyppi
+        channel: Kanava
         filter: Suodatin
         category: Alue
         group: Ryhmä
         tags: Tunnisteet
+        instructions:
+          filter: "Muistutusten taso. Vaimenna syrjäyttää muut vastaavat asetukset"
+          category: "Tämä asetus koskee vain ketjuja määritellyssä kategoriassa"
+          group: "Tämä asetus koskee tähän ryhmään viittaavia viestejä "
+          tags: "Jos määritelty, tämä asetus koskee vain ketjuja, joissa on vähintään yksi näistä tunnisteista"
       provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: Kanava
+              help: "esim. #kanava, @käyttäjänimi"
+          errors:
+            action_prohibited: "Botilla ei ole oikeuksia lähettää viestejä tuolle kanavalle"
+            channel_not_found: "Kyseistä kanavaa ei ole olemassa slackissa"
         telegram:
+          title: "Telegram"
           param:
             name:
               title: "Nimi"
+              help: "Kanavaa kuvaava nimi. Sitä ei käytetä Telegramiin yhdistämiseen."
+            chat_id:
+              title: Chatin ID
+              help: Botin antama numero, tai julkisen kanavan tunnus muodossa @kanavannimi
+          errors:
+            channel_not_found: "Kyseistä kanavaa ei ole olemassa Telegramissa"
+            forbidden: "Botilla ei ole oikeuksia lähettää viestejä tälle kanavalle"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Nimi"
+              help: "Kanavaa kuvaava nimi. Sitä ei käytetä Discordiin yhdistämiseen."
+            webhook_url:
+              title: Webhook URL
+              help: Webhook URL, joka on luotu Discord palvelimesi asetuksissa
+        mattermost:
+          title: "Mattermost"
+          param:
+            identifier:
+              title: Kanava
+              help: "esim. #kanava, @käyttäjänimi."
+          errors:
+            channel_not_found: "Kyseistä kanavaa ei ole olemassa Mattermostissa"
         matrix:
+          title: "Matrix"
           param:
             name:
               title: "Nimi"
+              help: "Kanavaa kuvaava nimi. Sitä ei käytetä Matrixiin yhdistämiseen."
+            room_id:
+              title: "Huoneen ID"
+          errors:
+            unknown_room: "Huoneen tunnus ei kelpaa"
         zulip:
+          title: "Zulip"
           param:
             subject:
               title: "Otsikko"
+        rocketchat:
+          title: "Rocket.Chat"
+          param:
+            identifier:
+              title: Kanava
+              help: "esim. #kanava, @käyttäjänimi"
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "Nimi"
+            webhook_url:
+              title: "Webhook URL"
