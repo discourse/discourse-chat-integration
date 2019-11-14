@@ -44,7 +44,7 @@ module DiscourseChat::Provider::RocketchatProvider
 
     message[:attachments].push(summary)
 
-    return message
+    message
   end
 
   def self.send_via_webhook(message)

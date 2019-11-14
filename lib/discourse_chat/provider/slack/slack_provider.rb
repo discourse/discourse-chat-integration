@@ -70,7 +70,7 @@ module DiscourseChat::Provider::SlackProvider
 
     message[:attachments].push(summary)
 
-    return message
+    message
   end
 
   def self.send_via_api(post, channel, message)

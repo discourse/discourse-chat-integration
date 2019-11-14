@@ -100,7 +100,7 @@ module DiscourseChat::Provider::SlackProvider
         response = http.request(req)
       end
 
-      return { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
+      { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
     end
 
     def interactive

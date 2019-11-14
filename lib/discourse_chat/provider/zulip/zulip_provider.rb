@@ -22,7 +22,7 @@ module DiscourseChat
 
         response = http.request(req)
 
-        return response
+        response
       end
 
       def self.generate_zulip_message(post, stream, subject)

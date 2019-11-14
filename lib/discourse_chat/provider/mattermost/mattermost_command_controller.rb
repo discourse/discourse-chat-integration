@@ -43,7 +43,7 @@ module DiscourseChat::Provider::MattermostProvider
       # Create channel if doesn't exist
       channel ||= DiscourseChat::Channel.create!(provider: provider, data: { identifier: channel_id })
 
-      return ::DiscourseChat::Helper.process_command(channel, tokens)
+      ::DiscourseChat::Helper.process_command(channel, tokens)
 
     end
 

@@ -28,7 +28,7 @@ module DiscourseChat
         req.body = message.to_json
         response = http.request(req)
 
-        return response
+        response
       end
 
       def self.generate_matrix_message(post)
@@ -53,7 +53,7 @@ module DiscourseChat
 
         }
 
-        return message
+        message
       end
 
       def self.trigger_notification(post, channel)

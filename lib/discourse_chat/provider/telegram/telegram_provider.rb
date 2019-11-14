@@ -29,7 +29,7 @@ module DiscourseChat
       end
 
       def self.sendMessage(message)
-        return self.do_api_request('sendMessage', message)
+        self.do_api_request('sendMessage', message)
       end
 
       def self.do_api_request(methodName, message)
@@ -46,7 +46,7 @@ module DiscourseChat
 
         responseData = JSON.parse(response.body)
 
-        return responseData
+        responseData
       end
 
       def self.message_text(post)
@@ -69,7 +69,7 @@ module DiscourseChat
           tags = topic.tags.map(&:name).join(', ')
         end
 
-        return I18n.t(
+        I18n.t(
             "chat_integration.provider.telegram.message",
             user: display_name,
             post_url: post.full_url,

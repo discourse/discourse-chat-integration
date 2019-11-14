@@ -18,7 +18,7 @@ module DiscourseChat::Provider::FlowdockProvider
     req.body = message.to_json
     response = http.request(req)
 
-    return response
+    response
   end
 
   def self.generate_flowdock_message(post, flow_token)
@@ -45,7 +45,7 @@ module DiscourseChat::Provider::FlowdockProvider
       }
     }
 
-    return message
+    message
   end
 
   def self.trigger_notification(post, channel)
