@@ -11,7 +11,7 @@ class DiscourseChat::PluginModel < PluginStoreRow
   def self.default_scope
     where(type_name: 'JSON')
       .where(plugin_name: self::PLUGIN_NAME)
-      .where("key LIKE ?", "#{self.key_prefix}%")
+      .where("`key` LIKE ?", "#{self.key_prefix}%")
   end
 
   def self.key_prefix

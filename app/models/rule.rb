@@ -4,35 +4,35 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter ], coder: JSON
 
-  scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s) }
+  scope :with_type, ->(type) { where("JSON_EXTRACT(CAST(value AS JSON), '$.type')=?", type.to_s) }
   scope :with_channel, ->(channel) { with_channel_id(channel.id) }
-  scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s) }
+  scope :with_channel_id, ->(channel_id) { where("JSON_EXTRACT(CAST(value AS JSON), '$.channel_id')=?", channel_id.to_s) }
 
   scope :with_category_id, ->(category_id) do
     if category_id.nil?
-      where("(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'")
+      where("JSON_EXTRACT(CAST(value AS JSON), '$.category_id') IS NULL OR JSON_EXTRACT(CAST(value AS JSON), '$.category_id')='null'")
     else
-      where("value::json->>'category_id'=?", category_id.to_s)
+      where("JSON_EXTRACT(CAST(value AS JSON), '$.category_id')=?", category_id.to_s)
     end
   end
 
   scope :with_group_ids, ->(group_id) do
-    where("value::json->>'group_id' IN (?)", group_id.map!(&:to_s))
+    where("JSON_EXTRACT(CAST(value AS JSON), '$.group_id') IN (?)", group_id.map!(&:to_s))
   end
 
   scope :order_by_precedence, -> {
     order("
       CASE
-      WHEN value::json->>'type' = 'group_mention' THEN 1
-      WHEN value::json->>'type' = 'group_message' THEN 2
+      WHEN JSON_EXTRACT(CAST(value AS JSON), '$.type') = 'group_mention' THEN 1
+      WHEN JSON_EXTRACT(CAST(value AS JSON), '$.type') = 'group_message' THEN 2
       ELSE 3
       END
     ",
     "
       CASE
-      WHEN value::json->>'filter' = 'mute' THEN 1
-      WHEN value::json->>'filter' = 'watch' THEN 2
-      WHEN value::json->>'filter' = 'follow' THEN 3
+      WHEN JSON_EXTRACT(CAST(value AS JSON), '$.filter') = 'mute' THEN 1
+      WHEN JSON_EXTRACT(CAST(value AS JSON), '$.filter') = 'watch' THEN 2
+      WHEN JSON_EXTRACT(CAST(value AS JSON), '$.filter') = 'follow' THEN 3
      END
     ")
   }
