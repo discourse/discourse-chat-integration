@@ -29,7 +29,7 @@ module DiscourseChat::Provider::TelegramProvider
 
         DiscourseChat::Provider::TelegramProvider.sendMessage(message)
 
-      elsif params.key?('channel_post') && params['channel_post']['text'].include?('/getchatid')
+      elsif params.dig('channel_post', 'text')&.include?('/getchatid')
         chat_id = params['channel_post']['chat']['id']
 
         message_text = I18n.t(
