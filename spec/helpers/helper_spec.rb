@@ -311,13 +311,13 @@ RSpec.describe DiscourseChat::Manager do
     it 'saves a transcript to redis' do
       key = DiscourseChat::Helper.save_transcript("Some content here")
 
-      expect($redis.get("chat_integration:transcript:#{key}")).to eq("Some content here")
+      expect(Discourse.redis.get("chat_integration:transcript:#{key}")).to eq("Some content here")
 
-      ttl = $redis.pttl("chat_integration:transcript:#{key}")
+      ttl = Discourse.redis.pttl("chat_integration:transcript:#{key}")
 
       # Slight hack since freeze_time doens't work on redis
-      expect($redis.pttl("chat_integration:transcript:#{key}")).to be <= (3601 * 1000)
-      expect($redis.pttl("chat_integration:transcript:#{key}")).to be >= (3599 * 1000)
+      expect(Discourse.redis.pttl("chat_integration:transcript:#{key}")).to be <= (3601 * 1000)
+      expect(Discourse.redis.pttl("chat_integration:transcript:#{key}")).to be >= (3599 * 1000)
     end
   end
 

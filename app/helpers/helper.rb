@@ -192,7 +192,7 @@ module DiscourseChat
     def self.save_transcript(transcript)
       secret = SecureRandom.hex
       redis_key = "chat_integration:transcript:#{secret}"
-      $redis.setex(redis_key, 3600, transcript)
+      Discourse.redis.setex(redis_key, 3600, transcript)
       secret
     end
 
