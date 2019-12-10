@@ -67,7 +67,7 @@ module DiscourseChat
           I18n.t("chat_integration.provider.#{provider}.delete.error")
         end
       when "status"
-        return DiscourseChat::Helper.status_for_channel(channel)
+        DiscourseChat::Helper.status_for_channel(channel)
       when "help"
         I18n.t("chat_integration.provider.#{provider}.help")
       else
