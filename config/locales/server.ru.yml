@@ -12,7 +12,12 @@ ru:
     chat_integration_telegram_enabled: "Включить чат-интеграцию с Telegram"
   chat_integration:
     all_categories: "(все категории)"
+    deleted_category: "(удаленный раздел)"
+    deleted_group: "(удаленная группа)"
     provider:
+      telegram:
+        not_found:
+          category: "Раздел <b>%{name}</b> не найден. Доступные разделы: <b>%{list}</b>"
       mattermost:
         help: |
           *Նոր կանոն՝* `/discourse [watch|follow|mute] [category] [tag:name]`

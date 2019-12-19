@@ -7,19 +7,32 @@
 
 nl:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Chatintegraties"
     chat_integration:
+      menu_title: "Chatintegraties"
       settings: "Instellingen"
+      no_providers: "U dient enkele providers in te schakelen in de plug-in-instellingen"
+      channel_exception: "De laatste keer dat een bericht naar dit kanaal werd gestuurd, is een onbekende fout opgetreden."
       all_categories: "(alle categorieën)"
       delete_channel: "Verwijderen"
       test_channel: "Testen"
       edit_channel: "Bewerken"
+      channel_delete_confirm: "Weet u zeker dat u dit kanaal wilt verwijderen? Alle gekoppelde regels worden verwijderd."
       test_modal:
+        title: "Een testbericht sturen"
         topic: "Topic"
+        send: "Testbericht sturen"
         close: "Sluiten"
+        error: "Tijdens het versturen van het bericht is een onbekende fout opgetreden. Bekijk de websitelogboeken voor meer informatie."
       type:
         normal: Normaal
       filter:
         mute: 'Negeren'
+        follow: 'Alleen eerste bericht'
+        watch: 'Alle berichten en antwoorden'
       rule_table:
         filter: "Filter"
         category: "Categorie"
@@ -27,33 +40,65 @@ nl:
         edit_rule: "Bewerken"
         delete_rule: "Verwijderen"
       edit_channel_modal:
+        title: "Kanaal bewerken"
+        save: "Kanaal opslaan"
         cancel: "Annuleren"
+        provider: "Provider"
+        channel_validation:
+          ok: "Geldig"
       edit_rule_modal:
+        title: Regel bewerken
+        save: Regel opslaan
         cancel: Annuleren
+        provider: Provider
         type: Type
+        channel: Kanaal
         filter: Filter
         category: Categorie
         group: Groep
         tags: Tags
       provider:
+        slack:
+          title: "Slack"
+          param:
+            identifier:
+              title: Kanaal
         telegram:
+          title: "Telegram"
           param:
             name:
               title: "Naam"
+            chat_id:
+              title: Chat-ID
         discord:
           title: "Discord"
           param:
             name:
               title: "Naam"
+            webhook_url:
+              title: Webhook-URL
+        mattermost:
+          param:
+            identifier:
+              title: Kanaal
         matrix:
           param:
             name:
               title: "Naam"
+          errors:
+            unknown_token: "Toegangstoken is ongeldig"
         zulip:
           param:
             subject:
               title: "Onderwerp"
+        rocketchat:
+          param:
+            identifier:
+              title: Kanaal
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "Naam"
+            webhook_url:
+              title: "Webhook-URL"

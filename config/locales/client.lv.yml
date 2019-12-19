@@ -38,6 +38,7 @@ lv:
             name:
               title: "Vārds"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Vārds"
