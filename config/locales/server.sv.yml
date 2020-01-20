@@ -5,4 +5,103 @@
 # To work with us on translations, join this project:
 # https://www.transifex.com/projects/p/discourse-org/
 
-sv: {}
+sv:
+  site_settings:
+    chat_integration_enabled: 'Aktivera discourse-chatt-integrerings-tillägget'
+    chat_integration_discourse_username: 'Användarnamn för användaren att fungera som vid hämtning av innehåll.'
+    chat_integration_delay_seconds: 'Väntan, uttryckt i sekunder, efter inläggets skapande innan chattaviseringar skickas'
+    chat_integration_slack_username: "Bots användarnamn att skriva för att interagera med"
+    chat_integration_slack_enabled: 'Aktivera chatt-integrerings-tillägget för Slack'
+    chat_integration_slack_access_token: 'OAuth tillträdesbevis för autentisering med Slack'
+    chat_integration_slack_incoming_webhook_token: 'Verifieringsbevis som används för att autentisera inkommande förfrågningar'
+    chat_integration_slack_excerpt_length: 'Slack postens utdragslängd'
+    chat_integration_slack_icon_url: 'Ikon för att posta till Slack (standard är forumets logotyp)'
+    chat_integration_slack_outbound_webhook_url: "För att använda Slacks 'inkommande webbkrok' som system istället för OAuth API. Rekommenderas inte. "
+    errors:
+      chat_integration_slack_api_configs_are_empty: "Du måste ange antingen en utgående webbkroks URL, eller ett behörighetsbevis"
+    chat_integration_telegram_enabled: "Aktivera chatt-integrerings-tillägget för Telegram"
+    chat_integration_telegram_access_token: "Din hjälpredas åtkomstbevis från Telegram-hjälpredefadern"
+    chat_integration_discord_excerpt_length: "Discord postens utdragslängd"
+    chat_integration_mattermost_incoming_webhook_token: 'Verifieringsbevis som används för att autentisera inkommande begärningar'
+    chat_integration_zulip_server: "Bas-URL för din Zulip-server. Se till att ta med http(s)://"
+    chat_integration_zulip_bot_email_address: "E-postadressen som är kopplad till din Zulip-hjälpreda"
+    chat_integration_zulip_bot_api_key: "API-nyckeln för din Zulip-hjälpreda"
+  chat_integration:
+    all_categories: "(alla kategorier)"
+    deleted_category: "(raderad kategori)"
+    deleted_group: "(raderad grupp)"
+    group_mention_template: "omnämnanden av: @%{name}"
+    group_message_template: "meddelanden till: @%{name}"
+    provider:
+      slack:
+        status:
+          no_rules: "Det finns inga regler uppsatta för denna kanal. Kör `/discourse help` för instruktioner."
+          rule_string: "*%{index})* *%{filter}* inlägg i *%{category}*"
+          rule_string_tags_suffix: "med taggar: *%{tags}*"
+        parse_error: "Tyvärr, jag förstod inte det där. Kör  `/discourse help` för instruktioner."
+        create:
+          created: "Regel har skapats"
+          updated: "Regel har uppdaterats"
+          error: "Tyvärr uppstod det ett fel när den regeln skapades."
+        delete:
+          success: "Regel har tagits bort"
+          error: "Tyvärr, ett fel uppstod vid radering av den regeln. Kör `/discourse status` för en lista på regler."
+        not_found:
+          tag: "*%{name}* taggen kan inte hittas."
+          category: "*%{name}* kategorin kan inte hittas. Tillgängliga kategorier: *%{list}*"
+        transcript:
+          error: "Något gick fel när utskriften skapades, ber om ursäkt! "
+          view_on_slack: "Visa i %{name} på Slack"
+          change_first_message: "Ändra första meddelandet..."
+          change_last_message: "Ändra sista meddelandet..."
+          loading: "Laddar transkriptet..."
+      telegram:
+        message: |-
+          <b>%{user}</b> publicerade i <a href="%{post_url}">%{title}</a>
+
+          <pre>%{post_excerpt}</pre>
+        status:
+          no_rules: "Det finns inga regler uppsatta för denna kanal. Kör <code>/help</code> för instruktioner."
+          rule_string: "<b>%{index})</b><b>%{filter}</b> inlägg i <b>%{category}</b>"
+          rule_string_tags_suffix: "med taggar: <b>%{tags}</b>"
+        parse_error: "Tyvärr, jag förstod inte det där. Kör <code>/help</code> för instruktioner."
+        create:
+          created: "Regel har skapats"
+          updated: "Regel har uppdaterats"
+          error: "Tyvärr uppstod det ett fel när den regeln skapades."
+        delete:
+          success: "Regel har tagits bort"
+        not_found:
+          tag: "Taggen <b>%{name}</b> kan inte hittas."
+          category: "Kategorin <b>%{name}</b> kan inte hittas. Tillgängliga kategorier: <b>%{list}</b>"
+      mattermost:
+        status:
+          no_rules: "Det finns inga regler uppsatta för denna kanal. Kör `/discourse help` för instruktioner."
+          rule_string: "*%{index})* *%{filter}* inlägg i *%{category}*"
+          rule_string_tags_suffix: "med taggar: *%{tags}*"
+        parse_error: "Tyvärr, jag förstod inte det där. Kör  `/discourse help` för instruktioner."
+        create:
+          created: "Regel har skapats"
+          updated: "Regel har uppdaterats"
+          error: "Tyvärr uppstod det ett fel när den regeln skapades."
+        delete:
+          success: "Regel har tagits bort"
+          error: "Tyvärr, ett fel uppstod vid radering av den regeln. Kör `/discourse status` för en lista på regler."
+        not_found:
+          tag: "Taggen *%{name}* kan inte hittas."
+          category: "Kategorin *%{name}* kan inte hittas. Tillgängliga kategorier: *%{list}*"
+      matrix:
+        text_message: "%{user} publicerade i %{title} - %{post_url}"
+        formatted_message: |
+          <b>%{user}</b> publicerade i <b><a href='%{post_url}'>%{title}</a></b>
+          <blockquote>
+          %{excerpt}
+          </blockquote>
+      zulip:
+        message: |
+          **%{user}** publicerade i **[%{title}](%{post_url})**
+          ~~~citat
+          %{excerpt}
+          ~~~
+      flowdock:
+        message_title: "publicerade"

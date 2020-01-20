@@ -23,7 +23,7 @@ ru:
       all_categories: "(все категории)"
       all_tags: "(все теги)"
       create_rule: "Создать Правило"
-      create_channel: "Создать Channel"
+      create_channel: "Создать канал"
       delete_channel: "Удалить"
       test_channel: "Тест"
       edit_channel: "Изменить"
@@ -87,6 +87,8 @@ ru:
           param:
             name:
               title: "Имя"
+            webhook_url:
+              title: URL вебхука
         mattermost:
           title: "Mattermost"
           param:
@@ -98,6 +100,10 @@ ru:
           param:
             name:
               title: "Имя"
+            room_id:
+              title: "ID комнаты"
+          errors:
+            unknown_token: "Неверный токен доступа"
         zulip:
           title: "Zulip"
           param:
@@ -116,6 +122,8 @@ ru:
           param:
             name:
               title: "Имя"
+            webhook_url:
+              title: "URL вебхука"
         flowdock:
           title: "Flowdock"
           param:

@@ -7,8 +7,18 @@
 
 tr_TR:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Sohbet Entegrasyonları"
     chat_integration:
+      menu_title: "Sohbet Entegrasyonları"
       settings: "Ayarlar"
+      no_providers: "Eklenti ayarlarında bazı sağlayıcıları etkinleştirmeniz gerekiyor"
+      channels_with_errors: "Bu sağlayıcı için bazı kanallar en son mesaj gönderildiğinde başarısız oldu. Daha fazla bilgi edinmek için hata simgelerini tıklayın."
+      channel_exception: "Bu kanala en son mesaj gönderildiğinde bilinmeyen bir hata oluştu."
+      group_mention_template: "Kişisinin cevabı: @{{name}}"
+      group_message_template: "Kişisine mesajlar: @{{name}}"
       choose_group: "(bir grup seçin)"
       all_categories: "(tüm kategoriler)"
       all_tags: "(tüm etiketler)"
@@ -17,11 +27,13 @@ tr_TR:
       delete_channel: "Sil"
       test_channel: "Deneme"
       edit_channel: "Düzenle"
+      channel_delete_confirm: "Bu kanalı silmek istediğinizden emin misiniz? İlişkili tüm kurallar silinecektir."
       test_modal:
         title: "Bir ileti gönderin"
         topic: "Konu"
         send: "İleti gönderin"
         close: "Kapat"
+        error: "Mesaj gönderilirken bilinmeyen bir hata oluştu. Daha fazla bilgi için site günlüklerine bakın."
         success: "İleti başarıyla gönderildi"
       type:
         normal: Normal
@@ -30,6 +42,7 @@ tr_TR:
       filter:
         mute: 'Sustur'
         follow: 'Yalnızca ilk gönderi'
+        watch: 'Tüm gönderiler ve yanıtlar'
       rule_table:
         filter: "Süzgeç"
         category: "Kategori"
@@ -55,40 +68,94 @@ tr_TR:
         category: Kategori
         group: Grup
         tags: Etiketler
+        instructions:
+          type: "Grup mesajları veya sözleri için bildirimleri tetikleyecek türü değiştirme"
+          filter: "Bildirim seviyesi. Sessiz, eşleşen diğer kuralları geçersiz kılar"
+          category: "Bu kural yalnızca belirtilen kategorideki konular için geçerlidir"
+          group: "Bu kural, bu grubu referans alan yayınlar için geçerli olacak"
+          tags: "Belirtilirse, bu kural yalnızca bu etiketlerden en az birine sahip konular için geçerlidir"
       provider:
         slack:
           title: "Slack"
           param:
             identifier:
               title: Kanal
+              help: "örneğin #kanal, @kullanıcıadı."
+          errors:
+            action_prohibited: "Bot&#39;un bu kanala gönderim yapma izni yok"
+            channel_not_found: "Belirtilen kanal Slack'te mevcut değil"
         telegram:
           title: "Telegram"
           param:
             name:
               title: "İsim"
+              help: "Kanalı tanımlayan bir ad Telegram bağlantısı için kullanılmaz."
+            chat_id:
+              title: Sohbet ID
+              help: Bot tarafından size verilen bir numara veya @channelname biçimindeki bir yayın kanalı tanımlayıcısı
+          errors:
+            channel_not_found: "Telegram&#39;da belirtilen kanal mevcut değil"
+            forbidden: "Bot&#39;un bu kanala gönderim izni yok"
         discord:
           title: "Discord"
           param:
             name:
               title: "İsim"
+              help: "Kanalı tanımlayan bir ad. Discord bağlantısı için kullanılmaz."
+            webhook_url:
+              title: Webhook URL&#39;si
+              help: Discord sunucusu ayarlarınızda oluşturulan webhook URL&#39;si
         mattermost:
+          title: "Mattermost"
           param:
             identifier:
               title: Kanal
+              help: "örneğin #kanal, @kullanıcıadı."
+          errors:
+            channel_not_found: "Belirtilen kanal Mattermost&#39;da mevcut değil"
         matrix:
+          title: "Matris"
           param:
             name:
               title: "İsim"
+              help: "Kanalı tanımlayan bir ad. Matrix bağlantısı için kullanılmaz."
+            room_id:
+              title: "Oda ID"
+              help: "Oda için &#39;özel tanımlayıcı&#39;. Şöyle bir şey olmalı !abcdefg: matrix.org"
+          errors:
+            unknown_token: "Erişim jetonu geçersiz"
+            unknown_room: "Oda ID'si geçersiz"
         zulip:
+          title: "Zulip"
           param:
+            stream:
+              title: "Akış"
+              help: "İletinin gönderilmesi gereken Zulip akışının adı. örneğin &#39;genel&#39;"
             subject:
               title: "Konu"
+              help: "Bot tarafından gönderilen bu mesajların verilmesi gereken konu"
+          errors:
+            does_not_exist: "Bu akış Zulip&#39;te mevcut değil"
         rocketchat:
           title: "Rocket.Chat"
           param:
             identifier:
               title: Kanal
+              help: "örneğin #kanal, @kullanıcıadı."
+          errors:
+            invalid_channel: "Bu kanal Roket Sohbeti&#39;nde mevcut değil"
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "İsim"
+              help: "Gitter odasının adı örneğin gitterHQ/services."
+            webhook_url:
+              title: "Webhook URL&#39;si"
+              help: "Gitter odasında yeni bir entegrasyon oluşturduğunuzda sağlanan URL."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Akış Jetonu"
+              help: "İleti göndermek istediğiniz akış için bir kaynak oluşturduktan sonra sağlanan akış belirteci."

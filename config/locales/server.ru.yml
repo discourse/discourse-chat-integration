@@ -15,10 +15,40 @@ ru:
     deleted_category: "(удаленный раздел)"
     deleted_group: "(удаленная группа)"
     provider:
-      telegram:
+      slack:
+        status:
+          rule_string_tags_suffix: "с тегами: *%{tags}*"
+        create:
+          created: "Правило успешно создано"
+          updated: "Правило успешно обновлено"
+        delete:
+          success: "Правило успешно удалено"
         not_found:
+          tag: "Тег *%{name}* не найден."
+        transcript:
+          change_first_message: "Изменить первое сообщение..."
+          change_last_message: "Изменить последнее сообщение..."
+      telegram:
+        status:
+          rule_string_tags_suffix: "с тегами: <b>%{tags}</b>"
+        create:
+          created: "Правило успешно создано"
+          updated: "Правило успешно обновлено"
+        delete:
+          success: "Правило успешно удалено"
+        not_found:
+          tag: "Тег <b>%{name}</b> не найден."
           category: "Раздел <b>%{name}</b> не найден. Доступные разделы: <b>%{list}</b>"
       mattermost:
+        status:
+          rule_string_tags_suffix: "с тегами: *%{tags}*"
+        create:
+          created: "Правило успешно создано"
+          updated: "Правило успешно обновлено"
+        delete:
+          success: "Правило успешно удалено"
+        not_found:
+          tag: "Тег *%{name}* не найден."
         help: |
           *Նոր կանոն՝* `/discourse [watch|follow|mute] [category] [tag:name]`
           (Դուք պետք է սահմանեք կանոնի տիպ և առնվազն մեկ կատեգորիա կամ թեգ)
