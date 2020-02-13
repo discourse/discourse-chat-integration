@@ -59,6 +59,7 @@ vi:
             name:
               title: "Tên"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Tên"
