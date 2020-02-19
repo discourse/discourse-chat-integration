@@ -1,5 +1,5 @@
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import computed from "ember-addons/ember-computed-decorators";
+import computed from "discourse-common/utils/decorators";
 
 export default Ember.Component.extend({
   tagName: "tr",

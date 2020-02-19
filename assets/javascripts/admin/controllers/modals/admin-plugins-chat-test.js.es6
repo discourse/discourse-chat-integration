@@ -1,10 +1,7 @@
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import {
-  default as computed,
-  on
-} from "ember-addons/ember-computed-decorators";
+import { default as computed, on } from "discourse-common/utils/decorators";
 
 export default Ember.Controller.extend(ModalFunctionality, {
   @on("init")

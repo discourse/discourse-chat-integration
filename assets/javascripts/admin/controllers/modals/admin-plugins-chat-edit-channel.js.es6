@@ -5,7 +5,7 @@ import {
   default as computed,
   observes,
   on
-} from "ember-addons/ember-computed-decorators";
+} from "discourse-common/utils/decorators";
 
 export default Ember.Controller.extend(ModalFunctionality, {
   @on("init")

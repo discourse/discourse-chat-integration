@@ -3,7 +3,7 @@ import Category from "discourse/models/category";
 import {
   default as computed,
   observes
-} from "ember-addons/ember-computed-decorators";
+} from "discourse-common/utils/decorators";
 
 export default RestModel.extend({
   available_filters: [

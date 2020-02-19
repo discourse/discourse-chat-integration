@@ -1,5 +1,5 @@
 import showModal from "discourse/lib/show-modal";
-import computed from "ember-addons/ember-computed-decorators";
+import computed from "discourse-common/utils/decorators";
 
 export default Ember.Controller.extend({
   modalShowing: false,
