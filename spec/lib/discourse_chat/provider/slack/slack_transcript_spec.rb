@@ -274,7 +274,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         text = transcript.build_transcript
 
         # Rubocop doesn't like this, but we really do need trailing whitespace in the string
-        # rubocop:disable TrailingWhitespace
+        # rubocop:disable Style/TrailingWhitespace
         expected = <<~END
         [quote]
         [**View in #general on Slack**](https://slack.com/archives/G1234/p1501093331439776)
@@ -288,7 +288,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
         [awesomeguy]: https://example.com/avatar
         END
-        # rubocop:enable TrailingWhitespace
+        # rubocop:enable Style/TrailingWhitespace
 
         expect(text).to eq(expected)
       end
