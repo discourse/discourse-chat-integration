@@ -10,6 +10,7 @@ zh_CN:
     chat_integration_enabled: '开启Discourse聊天集成插件'
     chat_integration_discourse_username: '获取内容时用户的名称。'
     chat_integration_delay_seconds: '创建帖子后发送聊天通知之前等待的秒数'
+    chat_integration_slack_username: "在 slack 上回复的 bot 机器人名称"
     chat_integration_slack_enabled: '启用slack聊天集成供应商'
     chat_integration_slack_access_token: '用于使用Slack进行身份验证的OAuth访问令牌'
     chat_integration_slack_incoming_webhook_token: '用于验证传入请求的验证令牌'

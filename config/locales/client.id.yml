@@ -8,6 +8,8 @@
 id:
   js:
     chat_integration:
+      settings: "Pengaturan"
+      all_categories: "(semua kategori)"
       delete_channel: "Hapus"
       edit_channel: "Ubah"
       test_modal:
@@ -18,20 +20,26 @@ id:
       filter:
         mute: 'Bisu'
       rule_table:
+        filter: "Filter"
         category: "Kategori"
+        tags: "Label"
         edit_rule: "Ubah"
         delete_rule: "Hapus"
       edit_channel_modal:
         cancel: "Batal"
       edit_rule_modal:
         cancel: Batal
+        type: Tipe
+        filter: Filter
         category: Kategori
+        tags: Label
       provider:
         telegram:
           param:
             name:
               title: "Nama"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Nama"
