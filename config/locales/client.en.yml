@@ -21,6 +21,10 @@ en:
       test_channel: "Test"
       edit_channel: "Edit"
       channel_delete_confirm: "Are you sure you want to delete this channel? All associated rules will be deleted."
+      create_webhook: "Add Webhook"
+      delete_webhook: "Delete"
+      edit_webhook: "Edit"
+      webhook_delete_confirm: "Are you sure you want to delete this webhook?"
       test_modal:
         title: "Send a test message"
         topic: "Topic"
@@ -42,6 +46,14 @@ en:
         tags: "Tags"
         edit_rule: "Edit"
         delete_rule: "Delete"
+      edit_webhook_modal:
+        title: "Edit Webhook"
+        save: "Save Webhook"
+        cancel: "Cancel"
+        provider: "Provider"
+        webhook_validation:
+          ok: "Valid"
+          fail: "Invalid format"
       edit_channel_modal:
         title: "Edit Channel"
         save: "Save Channel"
@@ -117,11 +129,28 @@ en:
         #######################################
         mattermost:
           title: "Mattermost"
+          webhook_param:
+            name:
+              title: "Name"
+              help: "To refer to this webhook"
+            url:
+              title: "URL"
+              help: "URL for webhook"
+            icon_url:
+              title: "Icon URL"
+              help: "Optional icon for posts"
+            excerpt_length:
+              title: "Excerpt length"
+              help: "Maximum length of posts"
           param:
+            webhook:
+              title: Webhook
+              help: "Leave blank for default"
             identifier:
               title: Channel
-              help: "e.g. #channel, @username."
+              help: "e.g. #channel, @username"
           errors:
+            webhook_not_found: "Specified webhook has not been defined"
             channel_not_found: "The specified channel does not exist on Mattermost"
 
         #######################################

@@ -1,0 +1,9 @@
+{{#each provider.webhook_parameters as |param|}}
+  {{#unless param.hidden}}
+    <span class='field-name'>
+      {{i18n (concat 'chat_integration.provider.' webhook.provider '.webhook_param.' param.key '.title')}}:
+    </span>
+    <span class='field-value'>{{get webhook.data param.key}}</span>
+    <br/>
+  {{/unless}}
+{{/each}}

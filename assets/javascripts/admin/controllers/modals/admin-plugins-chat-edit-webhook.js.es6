@@ -11,7 +11,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   @on("init")
   setupKeydown() {
     Ember.run.schedule("afterRender", () => {
-      $("#chat-integration-edit-channel-modal").keydown(e => {
+      $("#chat-integration-edit-webhook-modal").keydown(e => {
         if (e.keyCode === 13) {
           this.send("save");
         }
@@ -23,14 +23,14 @@ export default Ember.Controller.extend(ModalFunctionality, {
   @observes("model")
   setupValidations() {
     if (this.get("model.provider")) {
-      const theKeys = this.get("model.provider.channel_parameters").map(
+      const theKeys = this.get("model.provider.webhook_parameters").map(
         param => param["key"]
       );
       Ember.defineProperty(
         this,
         "paramValidation",
         Ember.computed(
-          `model.channel.data.{${theKeys.join(",")}}`,
+          `model.webhook.data.{${theKeys.join(",")}}`,
           this._paramValidation
         )
       );
@@ -40,7 +40,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   validate(parameter) {
     const regString = parameter.regex;
     const regex = new RegExp(regString);
-    let val = this.get(`model.channel.data.${parameter.key}`);
+    let val = this.get(`model.webhook.data.${parameter.key}`);
 
     if (val === undefined) {
       val = "";
@@ -80,7 +80,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   _paramValidation() {
     const response = {};
-    const parameters = this.get("model.provider.channel_parameters");
+    const parameters = this.get("model.provider.webhook_parameters");
 
     parameters.forEach(parameter => {
       response[parameter.key] = this.validate(parameter);
@@ -116,7 +116,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     save() {
       if (this.get("saveDisabled")) return;
 
-      this.get("model.channel")
+      this.get("model.webhook")
         .save()
         .then(() => {
           this.send("closeModal");

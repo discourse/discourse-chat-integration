@@ -17,6 +17,11 @@ module DiscourseChat
     put '/rules/:id' => "chat#update_rule"
     delete '/rules/:id' => "chat#destroy_rule"
 
+    get '/webhooks' => "chat#list_webhooks"
+    post '/webhooks' => "chat#create_webhook"
+    put '/webhooks/:id' => "chat#update_webhook"
+    delete '/webhooks/:id' => "chat#destroy_webhook"
+
     get "/:provider" => "chat#respond"
   end
 

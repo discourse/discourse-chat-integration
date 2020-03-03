@@ -5,6 +5,30 @@
   </div>
 {{/if}}
 
+<h1>Webhooks</h1>
+
+{{#each model.webhooks as |webhook|}}
+  {{webhook-details
+    webhook=webhook
+    provider=model.provider
+    refresh=(route-action "refreshProvider")
+    editWebhook=(action "editWebhook")}}
+{{/each}}
+
+<div class="table-footer">
+  <div class="pull-right">
+    {{d-button
+      id="create-webhook"
+      action=(action "createWebhook")
+      actionParam=model.provider
+      icon="plus"
+      title="chat_integration.create_webhook"
+      label="chat_integration.create_webhook"}}
+  </div>
+</div>
+
+<h1>Channels</h1>
+
 {{#each model.channels as |channel|}}
   {{channel-details
     channel=channel

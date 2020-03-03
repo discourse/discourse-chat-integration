@@ -5,6 +5,7 @@ RSpec.shared_context "dummy provider" do
     module ::DiscourseChat::Provider::DummyProvider
       PROVIDER_NAME = "dummy".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
+      WEBHOOK_PARAMETERS = []
       CHANNEL_PARAMETERS = []
 
       @@sent_messages = []
@@ -44,6 +45,9 @@ RSpec.shared_context "validated dummy provider" do
     module ::DiscourseChat::Provider::Dummy2Provider
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
+      WEBHOOK_PARAMETERS = [
+                            { key: "val", regex: '^\S+$', unique: true }
+                           ]
       CHANNEL_PARAMETERS = [
                             { key: "val", regex: '^\S+$', unique: true }
                            ]

@@ -4,6 +4,7 @@ export default Discourse.Route.extend({
   model(params) {
     return Ember.RSVP.hash({
       channels: this.store.findAll("channel", { provider: params.provider }),
+      webhooks: this.store.findAll("webhook", { provider: params.provider }),
       provider: this.modelFor("admin-plugins-chat").findBy(
         "id",
         params.provider

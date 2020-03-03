@@ -25,6 +25,35 @@
     padding: 15px;
   }
 
+  h1 {
+    margin-top: 20px;
+  }
+
+  div.webhook-details {
+    margin: 20px 10px;
+    border: 1px solid $primary-low;
+
+    div.webhook-header {
+      background: $primary-low;
+      padding: 10px;
+      overflow: auto;
+
+      .webhook-title {
+        font-size: 1.3em;
+
+        .field-name {
+          font-weight: bold;
+        }
+      }
+    }
+
+    div.webhook-footer {
+        overflow: auto;
+        padding: 10px;
+        margin-bottom: 50px;
+    }
+  }
+
   div.channel-details {
     margin: 20px 10px;
     border: 1px solid $primary-low;
@@ -45,6 +74,7 @@
 
     div.channel-footer {
       overflow: auto;
+      padding: 10px;
     }
   }
 }
