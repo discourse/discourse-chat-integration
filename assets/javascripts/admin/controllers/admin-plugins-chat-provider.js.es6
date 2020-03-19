@@ -18,6 +18,37 @@ export default Ember.Controller.extend({
   },
 
   actions: {
+    createWebhook() {
+      this.set("modalShowing", true);
+
+      const model = {
+        webhook: this.store.createRecord("webhook", {
+          provider: this.get("model.provider.id"),
+          data: {}
+        }),
+        provider: this.get("model.provider")
+      };
+
+      showModal("admin-plugins-chat-edit-webhook", {
+        model,
+        admin: true
+      });
+    },
+
+    editWebhook(webhook) {
+      this.set("modalShowing", true);
+
+      const model = {
+        webhook,
+        provider: this.get("model.provider")
+      };
+
+      showModal("admin-plugins-chat-edit-webhook", {
+        model,
+        admin: true
+      });
+    },
+
     createChannel() {
       this.set("modalShowing", true);
 

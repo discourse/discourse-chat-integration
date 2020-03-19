@@ -56,6 +56,7 @@ describe 'Chat Controller', type: :request do
         expect(json['providers'].find { |h| h['name'] == 'dummy' }).to eq(
           'name' => 'dummy',
           'id' => 'dummy',
+          'webhook_parameters' => [],
           'channel_parameters' => []
         )
       end

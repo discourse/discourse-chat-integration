@@ -12,6 +12,7 @@ class DiscourseChat::ChatController < ApplicationController
       {
         name: x::PROVIDER_NAME,
         id: x::PROVIDER_NAME,
+        webhook_parameters: (defined? x::WEBHOOK_PARAMETERS) ? x::WEBHOOK_PARAMETERS : [],
         channel_parameters: (defined? x::CHANNEL_PARAMETERS) ? x::CHANNEL_PARAMETERS : []
       }
     end
@@ -47,6 +48,72 @@ class DiscourseChat::ChatController < ApplicationController
         render json: { errors: [e.message] }, status: 422
       end
     end
+  end
+
+  def list_webhooks
+    providers = ::DiscourseChat::Provider.enabled_provider_names
+    requested_provider = params[:provider]
+
+    raise Discourse::InvalidParameters if !providers.include?(requested_provider)
+
+    webhooks = DiscourseChat::Webhook.with_provider(requested_provider)
+    render_serialized webhooks, DiscourseChat::WebhookSerializer, root: 'webhooks'
+  end
+
+  def create_webhook
+    begin
+      providers = ::DiscourseChat::Provider.enabled_providers.map { |x| x::PROVIDER_NAME }
+
+      if !defined?(params[:webhook]) && defined?(params[:webhook][:provider])
+        raise Discourse::InvalidParameters, 'Provider is not valid'
+      end
+
+      requested_provider = params[:webhook][:provider]
+
+      if !providers.include?(requested_provider)
+        raise Discourse::InvalidParameters, 'Provider is not valid'
+      end
+
+      allowed_keys = DiscourseChat::Provider.get_by_name(requested_provider)::WEBHOOK_PARAMETERS.map { |p| p[:key].to_sym }
+
+      hash = params.require(:webhook).permit(:provider, data: allowed_keys)
+
+      webhook = DiscourseChat::Webhook.new(hash)
+
+      if !webhook.save
+        raise Discourse::InvalidParameters, 'Webhook is not valid'
+      end
+
+      render_serialized webhook, DiscourseChat::WebhookSerializer, root: 'webhook'
+    rescue Discourse::InvalidParameters => e
+      render json: { errors: [e.message] }, status: 422
+    end
+  end
+
+  def update_webhook
+    begin
+      webhook = DiscourseChat::Webhook.find(params[:id].to_i)
+
+      allowed_keys = DiscourseChat::Provider.get_by_name(webhook.provider)::WEBHOOK_PARAMETERS.map { |p| p[:key].to_sym }
+
+      hash = params.require(:webhook).permit(data: allowed_keys)
+
+      if !webhook.update(hash)
+        raise Discourse::InvalidParameters, 'Webhook is not valid'
+      end
+
+      render_serialized webhook, DiscourseChat::WebhookSerializer, root: 'webhook'
+    rescue Discourse::InvalidParameters => e
+      render json: { errors: [e.message] }, status: 422
+    end
+  end
+
+  def destroy_webhook
+    rule = DiscourseChat::Webhook.find_by(id: params[:id])
+    raise Discourse::InvalidParameters unless rule
+    rule.destroy!
+
+    render json: success_json
   end
 
   def list_channels

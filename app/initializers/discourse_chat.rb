@@ -33,8 +33,10 @@ end
 require_relative "../models/plugin_model"
 require_relative "../models/rule"
 require_relative "../models/channel"
+require_relative "../models/webhook"
 
 require_relative "../serializers/channel_serializer"
+require_relative "../serializers/webhook_serializer"
 require_relative "../serializers/rule_serializer"
 
 require_relative "../controllers/chat_controller"

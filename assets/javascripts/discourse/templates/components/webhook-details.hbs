@@ -1,0 +1,22 @@
+<div class='webhook-header'>
+  <div class='pull-right'>
+    {{d-button
+      action=editWebhook
+      actionParam=webhook
+      icon="pencil-alt"
+      title="chat_integration.edit_webhook"
+      label="chat_integration.edit_webhook"}}
+
+    {{d-button
+      class='cancel'
+      action=(action "deleteWebhook")
+      actionParam=webhook
+      icon="trash-alt"
+      title="chat_integration.delete_webhook"
+      label="chat_integration.delete_webhook"}}
+  </div>
+
+  <span class='webhook-title'>
+    {{webhook-data provider=provider webhook=webhook}}
+  </span>
+</div>
