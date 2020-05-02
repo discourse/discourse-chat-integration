@@ -1,2 +1,2 @@
 inherit_gem:
-  rubocop-discourse: .rubocop.yml
+  rubocop-discourse: default.yml
