@@ -38,7 +38,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
           "thread_ts": "1501801629.052212"
       },
       {
-            "text": "",
+            "text": "Check this out!",
             "username": "Test Community",
             "bot_id": "B6C6JNUDN",
             "attachments": [
@@ -210,7 +210,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
       it 'includes attachments in raw text' do
         transcript.set_first_message_by_ts('1501615820.949638')
-        expect(transcript.first_message.raw_text).to eq("\n - Discourse can now be integrated with Mattermost! - @david\n")
+        expect(transcript.first_message.raw_text).to eq("Check this out!\n - Discourse can now be integrated with Mattermost! - @david\n")
       end
 
       it 'gives correct first and last messages' do
@@ -273,22 +273,19 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
         text = transcript.build_transcript
 
-        # Rubocop doesn't like this, but we really do need trailing whitespace in the string
-        # rubocop:disable Style/TrailingWhitespace
         expected = <<~END
         [quote]
         [**View in #general on Slack**](https://slack.com/archives/G1234/p1501093331439776)
 
         ![awesomeguy] **@awesomeguy:** Let’s try some **bold text** @another_guy @someotheruser
 
-        **@Test_Community:** 
+        **@Test_Community:** Check this out!
         > Discourse can now be integrated with Mattermost! - @david
 
         [/quote]
 
         [awesomeguy]: https://example.com/avatar
         END
-        # rubocop:enable Style/TrailingWhitespace
 
         expect(text).to eq(expected)
       end
