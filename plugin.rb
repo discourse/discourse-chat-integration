@@ -20,6 +20,7 @@ after_initialize do
 
   on(:post_created) do |post|
     # This will run for every post, even PMs. Don't worry, they're filtered out later.
+    Rails.logger.warn("post created #{post.inspect}")
     time = SiteSetting.chat_integration_delay_seconds.seconds
     Jobs.enqueue_in(time, :notify_chats, post_id: post.id)
   end

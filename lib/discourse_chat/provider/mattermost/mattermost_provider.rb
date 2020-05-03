@@ -75,13 +75,17 @@ module DiscourseChat
       end
 
       def self.trigger_notification(post, channel)
+        Rails.logger.warn("trigger_notification\npost: #{post.inspect}\nchannel: #{channel.inspect}")
+
         webhook_name = channel.data['webhook']
 
         if webhook_name.blank?
+          Rails.logger.warn("webhook is blank");
           url = SiteSetting.chat_integration_mattermost_webhook_url
           excerpt_length = SiteSetting.chat_integration_mattermost_excerpt_length
           icon_url = nil
         else
+          Rails.logger.warn("webhook is not blank");
           webhooks = DiscourseChat::Webhook.with_provider(PROVIDER_NAME)
           webhook = webhooks.with_data_value('name', webhook_name).first
           if webhook.nil?
@@ -106,6 +110,7 @@ module DiscourseChat
         channel_id = channel.data['identifier']
         message = mattermost_message(post, channel_id, icon_url, excerpt_length)
 
+        Rails.logger.warn("sending via webhook url: #{url}\nmessage: #{message.inspect}");
         self.send_via_webhook(url, message)
       end
 

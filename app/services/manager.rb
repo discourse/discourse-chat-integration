@@ -39,6 +39,7 @@ module DiscourseChat
           end
         end
       end
+      Rails.logger.warn("matching_rules: #{matching_rules.inspect}")
 
       # If tagging is enabled, thow away rules that don't apply to this topic
       if SiteSetting.tagging_enabled
@@ -48,6 +49,7 @@ module DiscourseChat
           any_tags_match = !((rule.tags & topic_tags).empty?)
           next any_tags_match # If any tags match, keep this filter, otherwise throw away
         end
+        Rails.logger.warn("matching_rules after tagging: #{matching_rules.inspect}")
       end
 
       # Sort by order of precedence
@@ -74,10 +76,16 @@ module DiscourseChat
 
       # Loop through each rule, and trigger appropriate notifications
       matching_rules.each do |rule|
+        Rails.logger.warn("rule: #{rule.inspect}")
+
         # If there are any issues, skip to the next rule
+        Rails.logger.warn("testing channel")
         next unless channel = rule.channel
+        Rails.logger.warn("testing provider")
         next unless provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
+        Rails.logger.warn("testing enabled")
         next unless is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
+        Rails.logger.warn("no issues with rule")
 
         begin
           provider.trigger_notification(post, channel)
