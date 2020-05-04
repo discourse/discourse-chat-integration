@@ -14,7 +14,7 @@ it:
     chat_integration:
       menu_title: "Chat Integrations"
       settings: "Impostazioni"
-      no_providers: "È necessario abilitare alcuni provider nelle impostazioni del plug-in"
+      no_providers: "È necessario abilitare alcuni provider nelle impostazioni del plugin"
       channels_with_errors: "L'invio di messaggi per alcuni canali di questo provider non ha funzionato. Fai clic sull'icona/e di errore per saperne di più."
       channel_exception: "Si è verificato un errore sconosciuto l'ultima volta che un messaggio è stato inviato su a questo canale."
       group_mention_template: "Menzioni di: @{{name}}"
@@ -83,7 +83,7 @@ it:
               help: "es. #canale, @nomeutente."
           errors:
             action_prohibited: "Il bot non ha il permesso di pubblicare su quel canale"
-            channel_not_found: "Il canale specificato non esiste su slack"
+            channel_not_found: "Il canale specificato non esiste su Slack"
         telegram:
           title: "Telegram"
           param:

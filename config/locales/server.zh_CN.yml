@@ -35,7 +35,7 @@ zh_CN:
     chat_integration_matrix_homeserver: "要连接的服务器。确保包括协议"
     chat_integration_matrix_access_token: "Matrix机器人帐号的访问令牌"
     chat_integration_matrix_excerpt_length: "Matrix帖子摘要长度"
-    chat_integration_matrix_use_notice: "使用通知替换原始的消息"
+    chat_integration_matrix_use_notice: "使用通知替换普通消息"
     chat_integration_zulip_enabled: "启用Zulip聊天集成供应商"
     chat_integration_zulip_server: "Zulip服务器的主链接。确保包含http(s)://"
     chat_integration_zulip_bot_email_address: "与您的Zulip bot相关联的电子邮件地址"
