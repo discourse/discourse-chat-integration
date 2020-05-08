@@ -126,7 +126,5 @@ chat_integration:
     default: false
   chat_integration_groupme_excerpt_length:
     default: 400
-  chat_integration_groupme_access_token:
-    default: ''
-  chat_integration_groupme_group_ids:
+  chat_integration_groupme_bot_ids:
     default: ''
