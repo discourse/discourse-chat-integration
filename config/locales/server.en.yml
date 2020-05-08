@@ -83,7 +83,7 @@ en:
     #######################################
     chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
     chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
-    chat_integration_groupme_group_ids: "Group IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_bot_ids: "Bot IDs, seperated by ',' if there are multiple"
 
   chat_integration:
 

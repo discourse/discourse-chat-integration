@@ -189,3 +189,10 @@ en:
             flow_token:
               title: "Flow Token"
               help: "The flow token provided after creating a source for a flow into which you want to send messages."
+        #######################################
+        ########## GROUPME STRINGS ###########
+        #######################################
+        groupme:
+          title: "GroupMe"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
