@@ -117,3 +117,14 @@ chat_integration:
     default: false
   chat_integration_flowdock_excerpt_length:
     default: 400
+
+
+#######################################
+########## GROUPME SETTINGS ##########
+#######################################
+  chat_integration_groupme_enabled:
+    default: false
+  chat_integration_groupme_excerpt_length:
+    default: 400
+  chat_integration_groupme_access_token:
+    default: ''
