@@ -3,10 +3,10 @@ module DiscourseChat::Provider::GroupmeProvider
     PROVIDER_NAME = "groupme".freeze
   
     PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
-  
+    # TODO: dynamic options for making channels relate to specific Groupme instances for the multi-bot case
     CHANNEL_PARAMETERS = []
   
-    def self.generate_groupme_message(post)#, channel)
+    def self.generate_groupme_message(post)
       display_name = "@#{post.user.username}"
       full_name = post.user.name || ""
   
@@ -32,6 +32,8 @@ module DiscourseChat::Provider::GroupmeProvider
   
     def self.send_via_webhook(message)
       # loop through all the bot IDs
+      last_error_raised = nil
+      num_errors = 0
       bot_ids = SiteSetting.chat_integration_groupme_bot_ids.split(/\s*,\s*/)
       bot_ids.each { |bot_id|
         uri = URI("https://api.groupme.com/v3/bots/post")
@@ -41,16 +43,21 @@ module DiscourseChat::Provider::GroupmeProvider
         message[:bot_id] = bot_id
         req.body = message.to_json
         response = http.request(req)
-        puts response
         unless response.kind_of? Net::HTTPSuccess
-            if response.body.response_code.include?('404')
+            num_errors += 1
+            if response.code.to_s == '404'
               error_key = 'chat_integration.provider.groupme.errors.not_found'
             else
               error_key = nil
             end
-            raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
+            last_error_raised = { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
         end
       }
+      if last_error_raised
+        successfully_sent = bot_ids.length() - num_errors
+        last_error_raised[:success_rate] = "#{successfully_sent}/#{bot_ids.length()}"
+        raise ::DiscourseChat::ProviderError.new info: last_error_raised
+      end
     end
   
     def self.trigger_notification(post, channel)
