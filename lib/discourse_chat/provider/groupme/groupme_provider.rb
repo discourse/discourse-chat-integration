@@ -3,8 +3,9 @@ module DiscourseChat::Provider::GroupmeProvider
     PROVIDER_NAME = "groupme".freeze
   
     PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
-    # TODO: dynamic options for making channels relate to specific Groupme instances for the multi-bot case
-    CHANNEL_PARAMETERS = []
+    CHANNEL_PARAMETERS = [
+        {key: "groupme_bot_id", regex:'^[0-9a-zA-Z]*$', unique: false}
+    ]
   
     def self.generate_groupme_message(post)
       display_name = "@#{post.user.username}"
@@ -30,11 +31,20 @@ module DiscourseChat::Provider::GroupmeProvider
 
     end
   
-    def self.send_via_webhook(message)
+    def self.send_via_webhook(message, channel)
       # loop through all the bot IDs
       last_error_raised = nil
       num_errors = 0
       bot_ids = SiteSetting.chat_integration_groupme_bot_ids.split(/\s*,\s*/)
+      instance_names = SiteSetting.chat_integration_groupme_instance_names.split(',')
+
+      unless instance_names.length() == bot_ids.length()
+        instance_names = ['chat_integration.provider.groupme.errors.instance_names_issue']*bot_ids.length()
+      end
+      id_to_name = Hash[bot_ids.zip(instance_names)]
+      unless channel.data['groupme_bot_id'].eql? 'all'
+        bot_ids = [channel.data['groupme_bot_id']]
+      end
       bot_ids.each { |bot_id|
         uri = URI("https://api.groupme.com/v3/bots/post")
         http = Net::HTTP.new(uri.host, uri.port)
@@ -50,7 +60,7 @@ module DiscourseChat::Provider::GroupmeProvider
             else
               error_key = nil
             end
-            last_error_raised = { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
+            last_error_raised = { error_key: error_key, groupme_name: id_to_name["#{bot_id}"], request: req.body, response_code: response.code, response_body: response.body }
         end
       }
       if last_error_raised
@@ -62,7 +72,7 @@ module DiscourseChat::Provider::GroupmeProvider
   
     def self.trigger_notification(post, channel)
       data_package = generate_groupme_message(post)
-      self.send_via_webhook(data_package)
+      self.send_via_webhook(data_package, channel)
     end
   end
   

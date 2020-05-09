@@ -194,5 +194,10 @@ en:
         #######################################
         groupme:
           title: "GroupMe"
+          param:
+            groupme_bot_id:
+              title: "GroupMe Bot ID"
+              help: "the id of the bot set up to post to a particular instance. use 'all' to send to all  instances"
           errors:
             not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
