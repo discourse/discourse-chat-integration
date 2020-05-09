@@ -4,7 +4,7 @@ module DiscourseChat::Provider::GroupmeProvider
   
     PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
     CHANNEL_PARAMETERS = [
-        {key: "groupme_bot_id", regex:'^[0-9a-zA-Z]*$', unique: false}
+        {key: "groupme_bot_id", regex:'^[0-9a-zA-Z]*$', unique: true}
     ]
   
     def self.generate_groupme_message(post)
