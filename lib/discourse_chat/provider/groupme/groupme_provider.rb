@@ -3,9 +3,8 @@ module DiscourseChat::Provider::GroupmeProvider
     PROVIDER_NAME = "groupme".freeze
   
     PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
-    # TODO: dynamic options for making channels relate to specific Groupme instances for the multi-bot case
     CHANNEL_PARAMETERS = [
-        {key: "groupme_bot_id", unique: true}
+        {key: "groupme_bot_id", regex:'^[0-9a-zA-Z]*$', unique: false}
     ]
   
     def self.generate_groupme_message(post)
@@ -37,13 +36,14 @@ module DiscourseChat::Provider::GroupmeProvider
       last_error_raised = nil
       num_errors = 0
       bot_ids = SiteSetting.chat_integration_groupme_bot_ids.split(/\s*,\s*/)
-      instance_names = SiteSettings.chat_integration_groupme_instance_names.split(',')
+      instance_names = SiteSetting.chat_integration_groupme_instance_names.split(',')
+
       unless instance_names.length() == bot_ids.length()
         instance_names = ['chat_integration.provider.groupme.errors.instance_names_issue']*bot_ids.length()
       end
       id_to_name = Hash[bot_ids.zip(instance_names)]
       unless channel.data['groupme_bot_id'].eql? 'all'
-        bot_ids = [channel.data.groupme_bot_id]
+        bot_ids = [channel.data['groupme_bot_id']]
       end
       bot_ids.each { |bot_id|
         uri = URI("https://api.groupme.com/v3/bots/post")
@@ -60,7 +60,7 @@ module DiscourseChat::Provider::GroupmeProvider
             else
               error_key = nil
             end
-            last_error_raised = { error_key: error_key, groupme_name: id_to_name[:bot_id] request: req.body, response_code: response.code, response_body: response.body }
+            last_error_raised = { error_key: error_key, groupme_name: id_to_name["#{bot_id}"], request: req.body, response_code: response.code, response_body: response.body }
         end
       }
       if last_error_raised
