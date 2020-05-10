@@ -84,7 +84,7 @@ en:
     chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
     chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
     chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
-    chat_integration_groupme_instance_names: " *optional* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
 
   chat_integration:
 

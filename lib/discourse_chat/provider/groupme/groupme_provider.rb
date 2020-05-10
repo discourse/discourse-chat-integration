@@ -4,7 +4,7 @@ module DiscourseChat::Provider::GroupmeProvider
   
     PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
     CHANNEL_PARAMETERS = [
-        {key: "groupme_bot_id", regex:'^[0-9a-zA-Z]*$', unique: true}
+        {key: "groupme_instance_name", regex:'[\s\S]*', unique: true}
     ]
   
     def self.generate_groupme_message(post)
@@ -28,24 +28,27 @@ module DiscourseChat::Provider::GroupmeProvider
       data = {
         text: "#{pre_post_text} - #{post.excerpt(SiteSetting.chat_integration_groupme_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true)}"
       }
-
     end
   
     def self.send_via_webhook(message, channel)
       # loop through all the bot IDs
       last_error_raised = nil
       num_errors = 0
+      # split on commas, but remove leading/trailing spaces
       bot_ids = SiteSetting.chat_integration_groupme_bot_ids.split(/\s*,\s*/)
-      instance_names = SiteSetting.chat_integration_groupme_instance_names.split(',')
+      instance_names = SiteSetting.chat_integration_groupme_instance_names.split(/\s*,\s*/)
 
       unless instance_names.length() == bot_ids.length()
-        instance_names = ['chat_integration.provider.groupme.errors.instance_names_issue']*bot_ids.length()
+        instance_names = [I18n.t('chat_integration.provider.groupme.errors.instance_names_issue')]*bot_ids.length()
       end
-      id_to_name = Hash[bot_ids.zip(instance_names)]
-      unless channel.data['groupme_bot_id'].eql? 'all'
-        bot_ids = [channel.data['groupme_bot_id']]
+
+      name_to_id = Hash[instance_names.zip(bot_ids)]
+      user_input_channel = channel.data['groupme_instance_name'].strip
+      unless user_input_channel.eql? 'all'
+        instance_names = [user_input_channel]
       end
-      bot_ids.each { |bot_id|
+      instance_names.each { |instance_name|
+        bot_id = name_to_id["#{instance_name}"]
         uri = URI("https://api.groupme.com/v3/bots/post")
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = (uri.scheme == 'https')
@@ -60,12 +63,12 @@ module DiscourseChat::Provider::GroupmeProvider
             else
               error_key = nil
             end
-            last_error_raised = { error_key: error_key, groupme_name: id_to_name["#{bot_id}"], request: req.body, response_code: response.code, response_body: response.body }
+            last_error_raised = { error_key: error_key, groupme_name: instance_name, bot_id: bot_id, request: req.body, response_code: response.code, response_body: response.body }
         end
       }
       if last_error_raised
-        successfully_sent = bot_ids.length() - num_errors
-        last_error_raised[:success_rate] = "#{successfully_sent}/#{bot_ids.length()}"
+        successfully_sent = instance_names.length() - num_errors
+        last_error_raised[:success_rate] = "#{successfully_sent}/#{instance_names.length()}"
         raise ::DiscourseChat::ProviderError.new info: last_error_raised
       end
     end
