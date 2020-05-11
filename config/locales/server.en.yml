@@ -78,6 +78,14 @@ en:
     chat_integration_flowdock_enabled: "Enable the Flowdock chat integration provider"
     chat_integration_flowdock_excerpt_length: "Flowdock post excerpt length"
 
+    #######################################
+    ########## GROUPME SETTINGS ##########
+    #######################################
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+
   chat_integration:
 
     all_categories: "(all categories)"
@@ -251,4 +259,11 @@ en:
       ########### FLOWDOCK STRINGS ##########
       #######################################
       flowdock:
+        message_title: "posted"
+
+
+      #######################################
+      ########### GROUPME STRINGS ##########
+      #######################################
+      groupme:
         message_title: "posted"

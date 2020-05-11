@@ -189,3 +189,15 @@ en:
             flow_token:
               title: "Flow Token"
               help: "The flow token provided after creating a source for a flow into which you want to send messages."
+        #######################################
+        ########## GROUPME STRINGS ###########
+        #######################################
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
