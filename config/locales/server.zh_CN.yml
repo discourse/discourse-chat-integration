@@ -47,6 +47,7 @@ zh_CN:
     chat_integration_gitter_enabled: "启用Gitter聊天集成供应商"
     chat_integration_flowdock_enabled: "启用Flowdock聊天集成供应商"
     chat_integration_flowdock_excerpt_length: "Flowdock帖子摘要长度"
+    chat_integration_groupme_bot_ids: "*必要* 机器人 ID，当有多个时使用‘,’（英文逗号）分隔"
   chat_integration:
     all_categories: "（所有分类）"
     deleted_category: "（删除的分类）"
@@ -187,4 +188,6 @@ zh_CN:
           %{excerpt}
           ~~~
       flowdock:
+        message_title: "已发布"
+      groupme:
         message_title: "已发布"

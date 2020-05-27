@@ -188,3 +188,5 @@ es:
           ~~~
       flowdock:
         message_title: "publicó"
+      groupme:
+        message_title: "publicó"

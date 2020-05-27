@@ -159,3 +159,12 @@ he:
             flow_token:
               title: "אסימון Flow"
               help: "אסימון ה־flow לאחר יצירת המשאב ל־flow אליו ברצונך לשלוח הודעות."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "שם עותק ה־GroupMe"
+              help: "שם עותק ה־Groupme כפי שמופיע בהגדרות האתר. יש להשתמש ב־‚all’ (הכול) כדי לשלוח לכל העותקים"
+          errors:
+            not_found: "הנתיב אליו ניסית לפרסם את ההודעה שלך לא נמצא. נא לבדוק את מזהה הבוט בהגדרות האתר."
+            instance_names_issue: "שם העותק אינו בתצורה הנכונה או שלא סופק"

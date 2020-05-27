@@ -47,6 +47,10 @@ he:
     chat_integration_gitter_enabled: "הפעלת ספק שילוב הצ׳אט עם Gitter"
     chat_integration_flowdock_enabled: "הפעלת ספק שילוב הצ׳אט עם Flowdock"
     chat_integration_flowdock_excerpt_length: "אורך מהפוסט שמופיע בתקציר ב־Flowdock"
+    chat_integration_groupme_enabled: "הפעלת ספק שילוב הצ׳אט עם Groupme"
+    chat_integration_groupme_excerpt_length: "אורך מהפוסט שמופיע בתקציר ב־Groupme"
+    chat_integration_groupme_bot_ids: "*נדרש* מזהי הבוטים, מופרדים ב־, אם יש כמה כאלה"
+    chat_integration_groupme_instance_names: "*נדרש* שמות הצ׳אטים ב־GroupMe, מופרדים ב־, אם יש כמה כאלה (באותו הסדר כמו מזהי הבוטים)"
   chat_integration:
     all_categories: "(כל הקטגוריות)"
     deleted_category: "(קטגוריה שנמחקה)"
@@ -187,4 +191,6 @@ he:
           %{excerpt}
           ~~~
       flowdock:
+        message_title: "פורסם"
+      groupme:
         message_title: "פורסם"

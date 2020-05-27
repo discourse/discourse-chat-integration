@@ -187,3 +187,5 @@ it:
           ~~~
       flowdock:
         message_title: "pubblicato"
+      groupme:
+        message_title: "pubblicato"

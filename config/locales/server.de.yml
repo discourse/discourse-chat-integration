@@ -188,3 +188,5 @@ de:
           ~~~
       flowdock:
         message_title: "hat geschrieben"
+      groupme:
+        message_title: "hat geschrieben"

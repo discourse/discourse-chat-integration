@@ -187,3 +187,5 @@ tr_TR:
           ~~~
       flowdock:
         message_title: "gönderildi"
+      groupme:
+        message_title: "gönderildi"

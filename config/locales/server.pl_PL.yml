@@ -188,3 +188,5 @@ pl_PL:
           ~~~
       flowdock:
         message_title: "wysłano"
+      groupme:
+        message_title: "wysłano"

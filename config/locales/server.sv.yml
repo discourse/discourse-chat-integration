@@ -47,6 +47,10 @@ sv:
     chat_integration_gitter_enabled: "Aktivera chatt-integrerings-tillägget för Gitter"
     chat_integration_flowdock_enabled: "Aktivera chatt-integrerings-tillägget för Flowdock"
     chat_integration_flowdock_excerpt_length: "Flowdock postens utdragslängd"
+    chat_integration_groupme_enabled: "Aktivera chatt-integrerings-tillägget för Groupme"
+    chat_integration_groupme_excerpt_length: "Groupme postens utdragslängd"
+    chat_integration_groupme_bot_ids: "*krävs* Bot-id, separerade med ',' om det är flera"
+    chat_integration_groupme_instance_names: "*krävs* Namn på GroupMe-chatten, separerade med ',' om det är flera (samma ordning som Bot-ID)"
   chat_integration:
     all_categories: "(alla kategorier)"
     deleted_category: "(raderad kategori)"
@@ -187,4 +191,6 @@ sv:
           %{excerpt}
           ~~~
       flowdock:
+        message_title: "publicerade"
+      groupme:
         message_title: "publicerade"
