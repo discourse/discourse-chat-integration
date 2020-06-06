@@ -10,8 +10,6 @@ RSpec.describe DiscourseChat::Manager do
   let(:chan2) { DiscourseChat::Channel.create!(provider: 'dummy') }
 
   let(:category) { Fabricate(:category) }
-
-  let(:category) { Fabricate(:category) }
   let(:tag1) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
   let(:tag3) { Fabricate(:tag) }

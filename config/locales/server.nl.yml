@@ -6,5 +6,17 @@
 # https://www.transifex.com/projects/p/discourse-org/
 
 nl:
+  site_settings:
+    chat_integration_enabled: 'De discourse-chatintegratieplug-in inschakelen'
+    chat_integration_slack_enabled: 'De slack-chatintegratieprovider inschakelen'
+    chat_integration_telegram_enabled: "De Telegram-chatintegratieprovider inschakelen"
+    chat_integration_discord_enabled: "De Discord-chatintegratieprovider inschakelen"
+    chat_integration_mattermost_enabled: "De Mattermost-chatintegratieprovider inschakelen"
+    chat_integration_matrix_enabled: "De Matrix-chatintegratieprovider inschakelen"
+    chat_integration_zulip_enabled: "De Zulip-chatintegratieprovider inschakelen"
+    chat_integration_rocketchat_enabled: "De Rocket Chat-chatintegratieprovider inschakelen"
+    chat_integration_gitter_enabled: "De Gitter-chatintegratieprovider inschakelen"
+    chat_integration_flowdock_enabled: "De Flowdock-chatintegratieprovider inschakelen"
+    chat_integration_groupme_enabled: "De Groupme-chatintegratieprovider inschakelen"
   chat_integration:
     all_categories: "(alle categorieën)"

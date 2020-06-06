@@ -187,3 +187,5 @@ pt_BR:
           ~~~
       flowdock:
         message_title: "postado"
+      groupme:
+        message_title: "postado"

@@ -159,3 +159,12 @@ sv:
             flow_token:
               title: "Flödesbevis"
               help: "Flödesbeviset som tillhandahålls efter att du har skapat en källa för ett flöde till vilket du vill skicka meddelanden."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe instansnamn"
+              help: "namn på Groupme instans som listas i webbplatsinställningar. använd 'all' för att skicka till alla instanser"
+          errors:
+            not_found: "Adressen du försökte skicka ditt meddelande till hittades inte. Kontrollera Bot-ID i webbplatsinställningar."
+            instance_names_issue: "instansnamn felaktigt formaterade eller är inte angivna"

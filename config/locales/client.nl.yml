@@ -46,6 +46,7 @@ nl:
         provider: "Provider"
         channel_validation:
           ok: "Geldig"
+          fail: "Ongeldige notatie"
       edit_rule_modal:
         title: Regel bewerken
         save: Regel opslaan
@@ -92,6 +93,7 @@ nl:
             subject:
               title: "Onderwerp"
         rocketchat:
+          title: "Rocket.Chat"
           param:
             identifier:
               title: Kanaal

@@ -8,7 +8,7 @@
 fr:
   site_settings:
     chat_integration_enabled: 'Activer le plugin discourse-chat-integration'
-    chat_integration_discourse_username: 'Pseudo de l''utilisateur pour récupérer le contenu.'
+    chat_integration_discourse_username: 'Nom d''utilisateur utilisé pour récupérer le contenu.'
     chat_integration_delay_seconds: 'Nombre de secondes à attendre après la création d''un message avant d''envoyer des notifications de chat'
     chat_integration_slack_enabled: 'Activer le provider d''intégration de chat Slack'
     chat_integration_slack_access_token: 'Access Token OAuth pour l''authentification avec Slack'
@@ -186,4 +186,6 @@ fr:
           %{excerpt}
           ~~~
       flowdock:
+        message_title: "publié"
+      groupme:
         message_title: "publié"
