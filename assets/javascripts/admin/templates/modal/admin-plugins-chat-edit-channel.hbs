@@ -18,6 +18,7 @@
           <tr class="input">
             <td class="label"><label for='param-{{param.key}}'>{{i18n (concat 'chat_integration.provider.' model.channel.provider '.param.' param.key '.title')}}</label></td>
             <td>
+              {{#unless param.combo_box}}
               {{text-field
                 name=(concat 'param-' param.key)
                 value=(mut (get model.channel.data param.key))
@@ -27,6 +28,9 @@
               {{#if (get model.channel.data param.key)}}
                 {{input-tip validation=(get paramValidation param.key)}}
               {{/if}}
+              {{else}}
+              {{combo-box name="webhook" content=model.webhooks value=(get model.channel.data param.key)}}
+              {{/unless}}
             </td>
           </tr>
           <tr class="instructions">

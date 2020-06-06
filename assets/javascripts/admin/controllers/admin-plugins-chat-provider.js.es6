@@ -17,6 +17,13 @@ export default Ember.Controller.extend({
     return anyErrors;
   },
 
+  availableWebhooks() {
+    const webhooks = this.get("model.webhooks");
+    let available_webhooks = []
+    webhooks.forEach(w => available_webhooks.push({ id: w.get("data.name"), name: w.get("data.name")}));
+    return available_webhooks;
+  },
+
   actions: {
     createWebhook() {
       this.set("modalShowing", true);
@@ -57,7 +64,8 @@ export default Ember.Controller.extend({
           provider: this.get("model.provider.id"),
           data: {}
         }),
-        provider: this.get("model.provider")
+        provider: this.get("model.provider"),
+        webhooks: this.availableWebhooks()
       };
 
       showModal("admin-plugins-chat-edit-channel", {
@@ -71,7 +79,8 @@ export default Ember.Controller.extend({
 
       const model = {
         channel,
-        provider: this.get("model.provider")
+        provider: this.get("model.provider"),
+        webhooks: this.availableWebhooks()
       };
 
       showModal("admin-plugins-chat-edit-channel", {

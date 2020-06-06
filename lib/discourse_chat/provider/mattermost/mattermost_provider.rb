@@ -12,7 +12,8 @@ module DiscourseChat
                           { key: "excerpt_length", regex: '^\d\d*$', unique: false }
                        ]
       CHANNEL_PARAMETERS = [
-                          { key: "webhook", regex: '^[\S]*$', unique: true },
+                          { key: "webhook", regex: '^[\S]*$', unique: true,
+                            combo_box: true },
                           { key: "identifier", regex: '^[@#]\S*$', unique: true }
                        ]
 
