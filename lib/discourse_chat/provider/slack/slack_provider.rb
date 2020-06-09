@@ -79,7 +79,6 @@ module DiscourseChat::Provider::SlackProvider
 
     response = nil
     uri = ""
-    record = DiscourseChat.pstore_get("slack_topic_#{post.topic.id}_#{channel}")
 
     data = {
       token: SiteSetting.chat_integration_slack_access_token,
