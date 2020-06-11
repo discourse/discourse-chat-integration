@@ -56,7 +56,7 @@ module DiscourseChat
         message
       end
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         message = generate_matrix_message(post)
 
         response = send_message(channel.data['room_id'], message)

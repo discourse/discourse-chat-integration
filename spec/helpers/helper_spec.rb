@@ -32,7 +32,12 @@ RSpec.describe DiscourseChat::Manager do
         expect(rule.tags).to eq(nil)
       end
 
-        it 'should work with all three filter types' do
+        it 'should work with all four filter types' do
+          response = DiscourseChat::Helper.process_command(chan1, ['thread', category.slug])
+
+          rule = DiscourseChat::Rule.all.first
+          expect(rule.filter).to eq('thread')
+
           response = DiscourseChat::Helper.process_command(chan1, ['watch', category.slug])
 
           rule = DiscourseChat::Rule.all.first

@@ -118,6 +118,10 @@ module DiscourseChat::Provider::SlackProvider
         post_content << "[#{username}]: #{url}\n"
       end
 
+      if not @requested_thread_ts.nil?
+        post_content << "<!--SLACK_CHANNEL_ID=#{@channel_id};SLACK_TS=#{@requested_thread_ts}-->"
+      end
+
       post_content
     end
 

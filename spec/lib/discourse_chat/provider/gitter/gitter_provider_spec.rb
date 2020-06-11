@@ -14,14 +14,14 @@ RSpec.describe DiscourseChat::Provider::GitterProvider do
 
     it 'sends a webhook request' do
       stub1 = stub_request(:post, chan1.data['webhook_url']).to_return(body: "OK")
-      described_class.trigger_notification(post, chan1)
+      described_class.trigger_notification(post, chan1, nil)
       expect(stub1).to have_been_requested.once
     end
 
     it 'handles errors correctly' do
       stub1 = stub_request(:post, chan1.data['webhook_url']).to_return(status: 404, body: "{ \"error\": \"Not Found\"}")
       expect(stub1).to have_been_requested.times(0)
-      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
   end

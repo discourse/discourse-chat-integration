@@ -6,23 +6,38 @@ import {
 } from "discourse-common/utils/decorators";
 
 export default RestModel.extend({
-  available_filters: [
-    {
-      id: "watch",
-      name: I18n.t("chat_integration.filter.watch"),
-      icon: "exclamation-circle"
-    },
-    {
-      id: "follow",
-      name: I18n.t("chat_integration.filter.follow"),
-      icon: "circle"
-    },
-    {
-      id: "mute",
-      name: I18n.t("chat_integration.filter.mute"),
-      icon: "times-circle"
+  @computed("channel.provider")
+  available_filters(provider) {
+    const available = [];
+
+    if (provider === "slack") {
+      available.push({
+        id: "thread",
+        name: I18n.t("chat_integration.filter.thread"),
+        icon: "chevron-right"
+      });
     }
-  ],
+
+    available.push(
+      {
+        id: "watch",
+        name: I18n.t("chat_integration.filter.watch"),
+        icon: "exclamation-circle"
+      },
+      {
+        id: "follow",
+        name: I18n.t("chat_integration.filter.follow"),
+        icon: "circle"
+      },
+      {
+        id: "mute",
+        name: I18n.t("chat_integration.filter.mute"),
+        icon: "times-circle"
+      }
+    );
+
+    return available;
+  },
 
   available_types: [
     { id: "normal", name: I18n.t("chat_integration.type.normal") },

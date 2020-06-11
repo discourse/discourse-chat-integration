@@ -79,7 +79,7 @@ module DiscourseChat
 
       end
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         chat_id = channel.data['chat_id']
 
         message = {

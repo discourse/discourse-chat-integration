@@ -48,7 +48,7 @@ module DiscourseChat::Provider::FlowdockProvider
     message
   end
 
-  def self.trigger_notification(post, channel)
+  def self.trigger_notification(post, channel, rule)
     flow_token = channel.data["flow_token"]
     message = generate_flowdock_message(post, flow_token)
     response = send_message("https://api.flowdock.com/messages", message)

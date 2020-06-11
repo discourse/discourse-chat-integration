@@ -10,7 +10,7 @@ RSpec.shared_context "dummy provider" do
       @@sent_messages = []
       @@raise_exception = nil
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         if @@raise_exception
           raise @@raise_exception
         end
@@ -50,7 +50,7 @@ RSpec.shared_context "validated dummy provider" do
 
       @@sent_messages = []
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         @@sent_messages.push(post: post.id, channel: channel)
       end
 

@@ -15,14 +15,14 @@ RSpec.describe DiscourseChat::Provider::MatrixProvider do
 
     it 'sends the message' do
       stub1 = stub_request(:put, %r{https://matrix.org/_matrix/client/r0/rooms/!blah:matrix.org/send/m.room.message/*}).to_return(status: 200)
-      described_class.trigger_notification(post, chan1)
+      described_class.trigger_notification(post, chan1, nil)
       expect(stub1).to have_been_requested.once
     end
 
     it 'handles errors correctly' do
       stub1 = stub_request(:put, %r{https://matrix.org/_matrix/client/r0/rooms/!blah:matrix.org/send/m.room.message/*}).to_return(status: 400, body: '{"errmsg":"M_UNKNOWN"}')
       expect(stub1).to have_been_requested.times(0)
-      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 

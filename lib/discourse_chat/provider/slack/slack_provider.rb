@@ -2,12 +2,25 @@
 
 module DiscourseChat::Provider::SlackProvider
   PROVIDER_NAME = "slack".freeze
+  THREAD = "thread".freeze
 
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
   CHANNEL_PARAMETERS = [
                         { key: "identifier", regex: '^[@#]?\S*$', unique: true }
                        ]
+
+  require_dependency 'topic'
+  ::Topic.register_custom_field_type(DiscourseChat::Provider::SlackProvider::THREAD, :text)
+
+  class ::Topic
+    def slack_thread_id=(ts)
+      self.custom_fields[DiscourseChat::Provider::SlackProvider::THREAD] = ts
+    end
+    def slack_thread_id
+      self.custom_fields[DiscourseChat::Provider::SlackProvider::THREAD]
+    end
+  end
 
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
     doc = Nokogiri::HTML.fragment(post.excerpt(max_length,
@@ -18,7 +31,7 @@ module DiscourseChat::Provider::SlackProvider
     SlackMessageFormatter.format(doc.to_html)
   end
 
-  def self.slack_message(post, channel)
+  def self.slack_message(post, channel, filter)
     display_name = "@#{post.user.username}"
     full_name = post.user.name || ""
 
@@ -56,6 +69,10 @@ module DiscourseChat::Provider::SlackProvider
       attachments: []
     }
 
+    if filter == "thread" && thread_ts = topic.slack_thread_id
+      message[:thread_ts] = thread_ts if not thread_ts.nil?
+    end
+
     summary = {
       fallback: "#{topic.title} - #{display_name}",
       author_name: display_name,
@@ -80,9 +97,8 @@ module DiscourseChat::Provider::SlackProvider
     response = nil
     uri = ""
 
-    data = {
-      token: SiteSetting.chat_integration_slack_access_token,
-    }
+    # <!--SLACK_CHANNEL_ID=#{@channel_id};SLACK_TS=#{@requested_thread_ts}-->
+    slack_thread_regex = /<!--SLACK_CHANNEL_ID=(\w+);SLACK_TS=([0-9]{10}.[0-9]{6})-->/
 
     req = Net::HTTP::Post.new(URI('https://slack.com/api/chat.postMessage'))
 
@@ -93,6 +109,12 @@ module DiscourseChat::Provider::SlackProvider
       channel: message[:channel].gsub('#', ''),
       attachments: message[:attachments].to_json
     }
+    if message.key?(:thread_ts)
+      data[:thread_ts] = message[:thread_ts]
+    elsif match = slack_thread_regex.match(post.raw)
+      post.topic.slack_thread_id = match.captures[1]
+      post.topic.save_custom_fields
+    end
 
     req.set_form_data(data)
 
@@ -111,6 +133,12 @@ module DiscourseChat::Provider::SlackProvider
         error_key = nil
       end
       raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: uri, response_code: response.code, response_body: response.body }
+    end
+
+    ts = json["ts"]
+    if !ts.nil? && post.topic.slack_thread_id.nil?
+      post.topic.slack_thread_id = ts
+      post.topic.save_custom_fields
     end
 
     response
@@ -136,9 +164,10 @@ module DiscourseChat::Provider::SlackProvider
 
   end
 
-  def self.trigger_notification(post, channel)
+  def self.trigger_notification(post, channel, rule)
     channel_id = channel.data['identifier']
-    message = slack_message(post, channel_id)
+    filter = rule.nil? ? "" : rule.filter
+    message = slack_message(post, channel_id, filter)
 
     if SiteSetting.chat_integration_slack_access_token.empty?
       self.send_via_webhook(message)

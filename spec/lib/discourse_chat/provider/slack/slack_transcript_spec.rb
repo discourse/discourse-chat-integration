@@ -22,7 +22,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
           "type": "message",
           "user": "U6E2W7R8C",
           "text": "Which one?",
-          "ts": "1501801634.053761"
+          "ts": "1501801635.053761"
       },
       {
           "type": "message",
@@ -32,7 +32,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       },
       {
           "type": "message",
-          "user": "U6E2W7R8C",
+          "user": "U820GH3LA",
           "text": "I'm interested!!",
           "ts": "1501801634.053761",
           "thread_ts": "1501801629.052212"
@@ -70,6 +70,24 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
 
   let(:users_fixture) {
     [
+      {
+        id: "U6JSSESES",
+        name: "threader",
+        profile: {
+          image_24: "https://example.com/avatar",
+          display_name: "Threader",
+          real_name: "A. Threader"
+        }
+      },
+      {
+        id: "U820GH3LA",
+        name: "responder",
+        profile: {
+          image_24: "https://example.com/avatar",
+          display_name: "Responder",
+          real_name: "A. Responder"
+        }
+      },
       {
         id: "U5Z773QLS",
         name: "awesomeguyemail",
@@ -160,18 +178,24 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       let(:thread_transcript) { described_class.new(channel_name: "#general", channel_id: "G1234", requested_thread_ts: "1501801629.052212") }
 
       before do
+        thread_transcript.load_user_data
         stub_request(:post, "https://slack.com/api/conversations.replies")
           .with(body: hash_including(token: "abcde", channel: 'G1234', ts: "1501801629.052212"))
-          .to_return(status: 200, body: { ok: true, messages: messages_fixture }.to_json)
+          .to_return(status: 200, body: { ok: true, messages: messages_fixture[3..4] }.to_json)
         thread_transcript.load_chat_history
       end
 
       it 'includes messages in a thread' do
-        expect(thread_transcript.messages.length).to eq(7)
+        expect(thread_transcript.messages.length).to eq(2)
       end
 
       it 'loads in chronological order' do # replies API presents messages in actual chronological order
-        expect(thread_transcript.messages.first.ts).to eq('1501801665.062694')
+        expect(thread_transcript.messages.first.ts).to eq('1501801629.052212')
+      end
+
+      it 'includes slack thread identifiers in body' do
+        text = thread_transcript.build_transcript
+        expect(text).to include("<!--SLACK_CHANNEL_ID=G1234;SLACK_TS=1501801629.052212-->")
       end
 
     end
@@ -249,7 +273,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
       it 'handles usernames correctly' do
         expect(transcript.first_message.username).to eq('awesomeguy') # Normal user
         expect(transcript.messages[1].username).to eq('Test_Community') # Bot user
-        expect(transcript.messages[2].username).to eq(nil) # Unknown normal user
+        expect(transcript.messages[3].username).to eq(nil) # Unknown normal user
         # Normal user, display_name not set (fall back to real_name)
         expect(transcript.messages[4].username).to eq('another_guy')
       end

@@ -68,7 +68,7 @@ module DiscourseChat::Provider::RocketchatProvider
 
   end
 
-  def self.trigger_notification(post, channel)
+  def self.trigger_notification(post, channel, rule)
     channel_id = channel.data['identifier']
     message = rocketchat_message(post, channel_id)
 
