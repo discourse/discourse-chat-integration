@@ -31,15 +31,16 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
     "
       CASE
       WHEN value::json->>'filter' = 'mute' THEN 1
-      WHEN value::json->>'filter' = 'watch' THEN 2
-      WHEN value::json->>'filter' = 'follow' THEN 3
+      WHEN value::json->>'filter' = 'thread' THEN 2
+      WHEN value::json->>'filter' = 'watch' THEN 3
+      WHEN value::json->>'filter' = 'follow' THEN 4
      END
     ")
   }
 
   after_initialize :init_filter
 
-  validates :filter, inclusion: { in: %w(watch follow mute),
+  validates :filter, inclusion: { in: %w(thread watch follow mute),
                                   message: "%{value} is not a valid filter" }
 
   validates :type, inclusion: { in: %w(normal group_message group_mention),

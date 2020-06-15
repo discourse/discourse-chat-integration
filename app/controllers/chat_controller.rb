@@ -34,7 +34,7 @@ class DiscourseChat::ChatController < ApplicationController
 
       post = Topic.find(topic_id.to_i).posts.first
 
-      provider.trigger_notification(post, channel)
+      provider.trigger_notification(post, channel, nil)
 
       render json: success_json
     rescue Discourse::InvalidParameters, ActiveRecord::RecordNotFound => e

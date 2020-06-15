@@ -10,7 +10,7 @@ module DiscourseChat
         { key: "webhook_url", regex: '^https://webhooks\.gitter\.im/e/\S+$', unique: true, hidden: true }
       ]
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         message = gitter_message(post)
         response = Net::HTTP.post_form(URI(channel.data['webhook_url']), message: message)
         unless response.kind_of? Net::HTTPSuccess

@@ -63,7 +63,7 @@ module DiscourseChat
         message
       end
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         # Adding ?wait=true means that we actually get a success/failure response, rather than returning asynchronously
         webhook_url = "#{channel.data['webhook_url']}?wait=true"
         message = generate_discord_message(post)

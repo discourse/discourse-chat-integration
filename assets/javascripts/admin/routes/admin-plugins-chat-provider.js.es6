@@ -18,7 +18,7 @@ export default DiscourseRoute.extend({
           "rules",
           channel.rules.map(rule => {
             rule = this.store.createRecord("rule", rule);
-            rule.channel = channel;
+            rule.set("channel", channel);
             return rule;
           })
         );

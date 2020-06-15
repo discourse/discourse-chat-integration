@@ -75,36 +75,65 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
 
     it 'sends a webhook request' do
       stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
-      described_class.trigger_notification(post, chan1)
+      described_class.trigger_notification(post, chan1, nil)
       expect(stub1).to have_been_requested.once
     end
 
     it 'handles errors correctly' do
       stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(status: 400, body: "error")
       expect(stub1).to have_been_requested.times(0)
-      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 
     describe 'with api token' do
       before do
         SiteSetting.chat_integration_slack_access_token = "magic"
+        @ts = "#{Time.now.to_i}.012345"
         @stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
-        @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":true, \"ts\": \"#{Time.now.to_i}.012345\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
-        @stub3 = stub_request(:post, %r{https://slack.com/api/chat.update}).to_return(body: '{"ok":true, "ts": "some_message_id"}', headers: { 'Content-Type' => 'application/json' })
+        @thread_stub = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).with(body: hash_including("thread_ts" => @ts)).to_return(body: "{\"ok\":true, \"ts\": \"12345.67890\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
+        @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":true, \"ts\": \"#{@ts}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
+        @channel = DiscourseChat::Channel.create(provider: 'dummy')
       end
 
       it 'sends an api request' do
         expect(@stub2).to have_been_requested.times(0)
+        expect(@thread_stub).to have_been_requested.times(0)
 
-        described_class.trigger_notification(post, chan1)
+        described_class.trigger_notification(post, chan1, nil)
         expect(@stub1).to have_been_requested.times(0)
         expect(@stub2).to have_been_requested.once
+        expect(post.topic.slack_thread_id).to eq(@ts)
+        expect(@thread_stub).to have_been_requested.times(0)
+      end
+
+      it 'sends thread id for thread' do
+        expect(@thread_stub).to have_been_requested.times(0)
+
+        rule = DiscourseChat::Rule.create(channel: @channel, filter: "thread")
+        post.topic.slack_thread_id = @ts
+
+        described_class.trigger_notification(post, chan1, rule)
+        expect(@thread_stub).to have_been_requested.once
+      end
+
+      it 'recognizes slack thread ts in comment' do
+        post.update!(cooked: "cooked", raw: <<~RAW
+             My fingers are typing words that improve `raw_quality`
+             <!--SLACK_CHANNEL_ID=UIGNOREFORNOW;SLACK_TS=1501801629.052212-->
+        RAW
+        )
+
+        rule = DiscourseChat::Rule.create(channel: @channel, filter: "thread")
+        post.topic.slack_thread_id = nil
+
+        described_class.trigger_notification(post, chan1, rule)
+        expect(post.topic.slack_thread_id).to eq('1501801629.052212')
       end
 
       it 'handles errors correctly' do
         @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":false }", headers: { 'Content-Type' => 'application/json' })
-        expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
+        expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(::DiscourseChat::ProviderError)
         expect(@stub2).to have_been_requested.once
       end
 

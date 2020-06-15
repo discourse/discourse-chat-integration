@@ -13,7 +13,7 @@ module DiscourseChat
       error_text = I18n.t("chat_integration.provider.#{provider}.parse_error")
 
       case cmd
-      when "watch", "follow", "mute"
+      when "thread", "watch", "follow", "mute"
         return error_text if tokens.empty?
         # If the first token in the command is a tag, this rule applies to all categories
         category_name = tokens[0].start_with?('tag:') ? nil : tokens.shift

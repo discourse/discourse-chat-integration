@@ -71,7 +71,7 @@ module DiscourseChat::Provider::GroupmeProvider
     end
   end
 
-  def self.trigger_notification(post, channel)
+  def self.trigger_notification(post, channel, rule)
     data_package = generate_groupme_message(post)
     self.send_via_webhook(data_package, channel)
   end

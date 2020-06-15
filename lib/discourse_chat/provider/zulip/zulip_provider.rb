@@ -46,7 +46,7 @@ module DiscourseChat
         }
       end
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
 
         stream = channel.data['stream']
         subject = channel.data['subject']

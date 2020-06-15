@@ -122,8 +122,9 @@ en:
           tag: "The *%{name}* tag cannot be found."
           category: "The *%{name}* category cannot be found. Available categories: *%{list}*"
         help: |
-          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
           (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
           - *watch* – notify this channel for new topics and new replies
           - *follow* – notify this channel for new topics
           - *mute* – block notifications to this channel

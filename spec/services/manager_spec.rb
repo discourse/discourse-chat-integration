@@ -93,8 +93,17 @@ RSpec.describe DiscourseChat::Manager do
     end
 
     it "should respect watch over follow" do
-      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'follow', category_id: nil) # Wildcard follow
       DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: category.id) # Specific watch
+
+      manager.trigger_notifications(second_post.id)
+
+      expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
+    end
+
+    it "should respect thread over watch" do
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'watch', category_id: nil) # Wildcard watch
+      DiscourseChat::Rule.create!(channel: chan1, filter: 'thread', category_id: category.id) # Specific thread
 
       manager.trigger_notifications(second_post.id)
 

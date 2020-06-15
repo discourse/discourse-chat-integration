@@ -15,14 +15,14 @@ RSpec.describe DiscourseChat::Provider::RocketchatProvider do
 
     it 'sends a webhook request' do
       stub1 = stub_request(:post, 'https://example.com/abcd').to_return(body: "{\"success\":true}")
-      described_class.trigger_notification(post, chan1)
+      described_class.trigger_notification(post, chan1, nil)
       expect(stub1).to have_been_requested.once
     end
 
     it 'handles errors correctly' do
       stub1 = stub_request(:post, 'https://example.com/abcd').to_return(status: 400, body: "{}")
       expect(stub1).to have_been_requested.times(0)
-      expect { described_class.trigger_notification(post, chan1) }.to raise_exception(::DiscourseChat::ProviderError)
+      expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(::DiscourseChat::ProviderError)
       expect(stub1).to have_been_requested.once
     end
 

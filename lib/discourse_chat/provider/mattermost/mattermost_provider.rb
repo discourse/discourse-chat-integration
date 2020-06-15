@@ -75,7 +75,7 @@ module DiscourseChat
         message
       end
 
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         channel_id = channel.data['identifier']
         message = mattermost_message(post, channel_id)
 
