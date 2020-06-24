@@ -14,15 +14,15 @@ fr:
     chat_integration:
       menu_title: "Intégrations chat"
       settings: "Paramètres"
-      no_providers: "Il faut activer des fournisseurs dans les paramètres du plugin"
+      no_providers: "Il faut activer des fournisseurs dans les paramètres de l'extension"
       channels_with_errors: "Certains canaux pour ce fournisseur ont échoué la dernière fois des messages ont été envoyés. Cliquer sur le(s) icône(s) d'erreur pour en savoir plus."
       channel_exception: "Une erreur inconnue s'est produite lorsqu'un message a été envoyé pour la dernière fois à ce canal."
-      group_mention_template: "Mentions de : @{{name}}"
-      group_message_template: "Messages à : @{{name}}"
+      group_mention_template: "Mentions de : @%{name}"
+      group_message_template: "Messages à : @%{name}"
       choose_group: "(choisir un groupe)"
       all_categories: "(toutes les catégories)"
       all_tags: "(toutes les étiquettes)"
-      create_rule: "Créer règle"
+      create_rule: "Créer la règle"
       create_channel: "Créer canal"
       delete_channel: "Supprimer"
       test_channel: "Test"
@@ -33,7 +33,7 @@ fr:
         topic: "Sujet"
         send: "Envoyer message de test"
         close: "Fermer"
-        error: "Une erreur inconnue est survenue lors de l'envoi du message. Contrôler les logs du site pour plus d'information."
+        error: "Une erreur inconnue est survenue lors de l'envoi du message. Consultez les journaux du site pour plus d'informations."
         success: "Message envoyé avec succès"
       type:
         normal: Normal
@@ -50,7 +50,7 @@ fr:
         edit_rule: "Modifier"
         delete_rule: "Supprimer"
       edit_channel_modal:
-        title: "Modifier canal"
+        title: "Modifier le canal"
         save: "Sauvegarder canal"
         cancel: "Annuler"
         provider: "Fournisseur"
@@ -58,8 +58,8 @@ fr:
           ok: "Valide"
           fail: "Format invalide"
       edit_rule_modal:
-        title: Modifier règle
-        save: Sauvegarder règle
+        title: Modifier la règle
+        save: Sauvegarder la règle
         cancel: Annuler
         provider: Fournisseur
         type: Type
@@ -73,7 +73,7 @@ fr:
           filter: "Niveau de notification. Silencieux annule les autres règles qui correspondent"
           category: "Cette règle ne s'appliquera qu'aux sujets de la catégorie spécifiée"
           group: "Cette règle s'appliquera aux messages qui référencent ce groupe"
-          tags: "Si elle est spécifiée, cette règle ne s'appliquera qu'aux sujets qui ont au moins un de ces étiquettes"
+          tags: "Si elle est spécifiée, cette règle ne s'appliquera qu'aux sujets qui ont au moins une de ces étiquettes"
       provider:
         slack:
           title: "Slack"
@@ -104,7 +104,7 @@ fr:
               help: "Un nom pour décrire le canal. Il n'est pas utilisé pour la connexion à Discord."
             webhook_url:
               title: Webhook URL
-              help: L'URL webhook crée dans les paramètres de votre serveur Discord
+              help: L'URL du Webhook créée dans les paramètres de votre serveur Discord
         mattermost:
           title: "Mattermost"
           param:
@@ -159,3 +159,12 @@ fr:
             flow_token:
               title: "Flow Token"
               help: "Le flow token fourni après création d'une source pour un flow dans lequel vous voulez envoyer des messages."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "Nom de l'instance GroupMe"
+              help: "Nom de l'instance GroupMe configuré dans les paramètres. Utilisez « all » pour envoyer à toutes les instances."
+          errors:
+            not_found: "Le chemin vers lequel vous avez essayé de poster votre message n'a pas été trouvé. Vérifiez l'ID du bot dans les paramètres."
+            instance_names_issue: "les noms d'instance sont incorrectement formatés ou non fournis"

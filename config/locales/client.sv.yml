@@ -17,8 +17,8 @@ sv:
       no_providers: "Du måste aktivera vissa leverantörer i tilläggsinställningarna"
       channels_with_errors: "Vissa kanaler för denna leverantör misslyckades förra gången meddelanden skickades. Klicka på felikonen/-erna för att få veta mer."
       channel_exception: "Det uppstod ett okänt fel när ett meddelande senast skickades till den här kanalen."
-      group_mention_template: "Omnämnanden av: @{{name}}"
-      group_message_template: "Meddelanden till: @{{name}}"
+      group_mention_template: "Omnämnanden av: @%{name}"
+      group_message_template: "Meddelanden till: @%{name}"
       choose_group: "(välj en grupp)"
       all_categories: "(alla kategorier)"
       all_tags: "(alla taggar)"
@@ -43,6 +43,7 @@ sv:
         mute: 'Tysta'
         follow: 'Endast första inlägget'
         watch: 'Alla inlägg och svar'
+        thread: 'Alla inlägg med trådade svar'
       rule_table:
         filter: "Filter"
         category: "Kategori"

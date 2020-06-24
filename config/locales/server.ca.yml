@@ -74,22 +74,6 @@ ca:
         not_found:
           tag: "No es pot trobar l'etiqueta *%{name}*."
           category: "No es pot trobar la categoria *%{name}*. Categories disponibles: *%{list}*"
-        help: |
-          *Regla nova:* `/discourse  [watch|follow|mute] [category] [tag:name]`
-          (cal especificar un tipus de regla i almenys una categoria o etiqueta)
-          - *watch* - notificar aquest canal per a respostes i temes nous
-          - *follow* - notificar a aquest canal per a temes nous
-          - *mute* - blocar notificacions a aquest canal
-
-          *Eliminar regla:* `/discourse remove [número de regla]`
-          (`[número de regla]` es pot trobar executant `/discourse status`)
-
-          *Llista de regles:* `/discourse status`
-
-          *[Experimental] Transcripció de publicacions:* `/discourse post [n]`
-          Crea un esborrany de tema en Discourse que conté les `n` publicacions més recents en aquest canal
-
-          *Ajuda:* `/discourse help`
         transcript:
           error: "Alguna cosa ha fallat en construir la transcripció, disculpeu!"
           post_to_discourse: "Feu clic aquí per a esbossar una publicació en Discourse amb una transcripció"

@@ -18,6 +18,8 @@ pt:
         normal: Normal
       filter:
         mute: 'Silenciar'
+        follow: 'Apnas primeira publicação'
+        watch: 'Todas as publicações e respostas'
       rule_table:
         filter: "Filtrar"
         category: "Categoria"
@@ -33,6 +35,8 @@ pt:
         category: Categoria
         group: Grupo
         tags: Etiquetas
+        instructions:
+          group: "Esta regra será aplicada às publicações que fazem referência a este grupo"
       provider:
         telegram:
           param:

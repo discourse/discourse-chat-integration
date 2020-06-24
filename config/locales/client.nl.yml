@@ -15,8 +15,15 @@ nl:
       menu_title: "Chatintegraties"
       settings: "Instellingen"
       no_providers: "U dient enkele providers in te schakelen in de plug-in-instellingen"
+      channels_with_errors: "De laatste keer dat berichten werden verstuurd, werkten sommige kanalen niet voor deze provider. Klik op de foutpictogrammen voor meer info."
       channel_exception: "De laatste keer dat een bericht naar dit kanaal werd gestuurd, is een onbekende fout opgetreden."
+      group_mention_template: "Vermeldingen van: @%{name}"
+      group_message_template: "Berichten naar: @%{name}"
+      choose_group: "(kies een groep)"
       all_categories: "(alle categorieën)"
+      all_tags: "(alle tags)"
+      create_rule: "Regel maken"
+      create_channel: "Kanaal maken"
       delete_channel: "Verwijderen"
       test_channel: "Testen"
       edit_channel: "Bewerken"
@@ -27,12 +34,16 @@ nl:
         send: "Testbericht sturen"
         close: "Sluiten"
         error: "Tijdens het versturen van het bericht is een onbekende fout opgetreden. Bekijk de websitelogboeken voor meer informatie."
+        success: "Bericht is verstuurd"
       type:
         normal: Normaal
+        group_message: Groepsbericht
+        group_mention: Groepsvermelding
       filter:
         mute: 'Negeren'
         follow: 'Alleen eerste bericht'
         watch: 'Alle berichten en antwoorden'
+        thread: 'Alle berichten met discussieantwoorden'
       rule_table:
         filter: "Filter"
         category: "Categorie"
@@ -58,49 +69,103 @@ nl:
         category: Categorie
         group: Groep
         tags: Tags
+        instructions:
+          type: "Het type voor het activeren van meldingen voor groepsberichten of -vermeldingen wijzigen"
+          filter: "Meldingsniveau. Dempen overschrijft andere afstemmingsregels"
+          category: "Deze regel wordt alleen toegepast op topics in de opgegeven categorie"
+          group: "Deze regel wordt toegepast op alle berichten die naar deze groep verwijzen"
+          tags: "Wanneer opgegeven, wordt deze regel alleen toegepast op topics die minstens een van deze tags bevatten"
       provider:
         slack:
           title: "Slack"
           param:
             identifier:
               title: Kanaal
+              help: "bv. #kanaal, @gebruikersnaam."
+          errors:
+            action_prohibited: "De bot heeft geen toestemming om berichten in dat kanaal te plaatsen"
+            channel_not_found: "Het opgegeven kanaal bestaat niet op slack"
         telegram:
           title: "Telegram"
           param:
             name:
               title: "Naam"
+              help: "Een naam ter beschrijving van het kanaal. Deze wordt niet voor de verbinding met Telegram gebruikt."
             chat_id:
               title: Chat-ID
+              help: Een door de bot aan u gegeven nummer, of een broadcastkanaal-ID in de vorm @kanaalnaam
+          errors:
+            channel_not_found: "Het opgegeven kanaal bestaat niet op Telegram"
+            forbidden: "De bot heeft geen toestemming om berichten in dit kanaal te plaatsen"
         discord:
           title: "Discord"
           param:
             name:
               title: "Naam"
+              help: "Een naam ter beschrijving van het kanaal. Deze wordt niet voor de verbinding met Discord gebruikt."
             webhook_url:
               title: Webhook-URL
+              help: De in uw Discourse-serverinstellingen gemaakte webhook-URL
         mattermost:
+          title: "Mattermost"
           param:
             identifier:
               title: Kanaal
+              help: "bv. #kanaal, @gebruikersnaam."
+          errors:
+            channel_not_found: "Het opgegeven kanaal bestaat niet op Mattermost"
         matrix:
+          title: "Matrix"
           param:
             name:
               title: "Naam"
+              help: "Een naam ter beschrijving van het kanaal. Deze wordt niet voor de verbinding met Matrix gebruikt."
+            room_id:
+              title: "Ruimte-ID"
+              help: "De 'privé-ID' voor de ruimte. Deze dient er ongeveer uit te zien als !abcdefg:matrix.org"
           errors:
             unknown_token: "Toegangstoken is ongeldig"
+            unknown_room: "Ruimte-ID is ongeldig"
         zulip:
+          title: "Zulip"
           param:
+            stream:
+              title: "Stream"
+              help: "De naam van de Zulip-stream waarnaar het bericht moet worden verstuurd. bv. 'algemeen'"
             subject:
               title: "Onderwerp"
+              help: "Het onderwerp dat aan deze door de bot verstuurde berichten moet worden gegeven"
+          errors:
+            does_not_exist: "Die stream bestaat niet op Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
             identifier:
               title: Kanaal
+              help: "bv. #kanaal, @gebruikersnaam."
+          errors:
+            invalid_channel: "Dat kanaal bestaat niet op Rocket Chat"
         gitter:
           title: "Gitter"
           param:
             name:
               title: "Naam"
+              help: "De naam van een Gitter-ruimte, bv. gitterHQ/services."
             webhook_url:
               title: "Webhook-URL"
+              help: "De opgegeven URL wanneer u een nieuwe integratie in een Gitter-ruimte maakt."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow-token"
+              help: "Het opgegeven flow-token na het maken van een bron voor een flow waarin u berichten wilt versturen."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "Naam van GroupMe-instantie"
+              help: "Naam van de Groupme-instantie zoals vermeld in Website-instellingen. Gebruik 'all' om naar alle instanties te versturen."
+          errors:
+            not_found: "Het pad waarnaar u uw bericht probeerde te versturen kon niet worden gevonden. Controleer de Bot-ID in Website-instellingen."
+            instance_names_issue: "instantienamen onjuist opgesteld of niet opgegeven"

@@ -17,8 +17,8 @@ he:
       no_providers: "עליך לאפשר מספר ספקים בהגדרות התוסף"
       channels_with_errors: "בפעם האחרונה שנשלחו מסרים כמה ערוצים נכשלו עבור הספר הזה. לחץ על סמליל(י) השגיאה כדי לקבל עוד מידע"
       channel_exception: "אירעה שגיאה בלתי מזוהה בפעם האחרונה שנשלחה הודעה בערוץ זה."
-      group_mention_template: "אזכור של: @{{name}}"
-      group_message_template: "הודעות אל: @{{name}}"
+      group_mention_template: "אזכורים של: ‎@%{name}‎"
+      group_message_template: "הודעות אל: ‎@%{name}‎"
       choose_group: "בחירת קבוצה"
       all_categories: "כל הקטגוריות"
       all_tags: "כל התגיות"
@@ -43,6 +43,7 @@ he:
         mute: 'השתק'
         follow: 'הודעה ראשונה בלבד'
         watch: 'כל הפוסטים והתגובות'
+        thread: 'כל הפוסטים עם תגובות בשרשרת'
       rule_table:
         filter: "סינון"
         category: "קטגוריה"

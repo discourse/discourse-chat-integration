@@ -74,22 +74,6 @@ pl_PL:
         not_found:
           tag: "Tag o nazwie *%{name}* nie może zostać znaleziony."
           category: "Kategoria o nazwie *%{name}* nie może zostać znaleziona. Dostępne kategorie: *%{list}*"
-        help: |
-          *Nowa reguła:* `/discourse [watch|follow|mute] [category] [tag:name]`
-          (musisz określić przynajmniej jedną regułę i jedną kategorię do tagowania)
-          - *obserwuj wpisy* – informuj ten kanał o nowych wpisach i odpowiedziach
-          - *obserwuj tematy* – informuj ten kanał o nowych tematach
-          - *wycisz* – zablokuj powiadomienia w tym kanale
-
-          *Usuń regułę:* `/discourse remove [numer reguły]`
-          (`[numer reguły]` może zostać znaleziony przy użyciu `/discourse status`)
-
-          *Lista reguł:* `/discourse status`
-
-          *[Eksperymentalne] transkrypt wpisu:* `/discourse post [n]`
-          Stwórz szkic tematu na Discourse zawierający ostatnie `n` postów w tym temacie
-
-          *Pomoc:* `/discourse help`
         transcript:
           error: "Coś poszło nie tak podczas tworzenia transkryptu, przepraszamy!"
           post_to_discourse: "Kliknij tutaj, by szkicować wpis Discourse’a z transkryptem"

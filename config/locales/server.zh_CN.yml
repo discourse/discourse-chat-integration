@@ -47,7 +47,10 @@ zh_CN:
     chat_integration_gitter_enabled: "启用Gitter聊天集成供应商"
     chat_integration_flowdock_enabled: "启用Flowdock聊天集成供应商"
     chat_integration_flowdock_excerpt_length: "Flowdock帖子摘要长度"
+    chat_integration_groupme_enabled: "启用GroupMe聊天集成"
+    chat_integration_groupme_excerpt_length: "GroupMe帖子摘要长度"
     chat_integration_groupme_bot_ids: "*必要* 机器人 ID，当有多个时使用‘,’（英文逗号）分隔"
+    chat_integration_groupme_instance_names: "*必要*  GroupMe聊天的名字，有多个时使用“，”分割（与Bot IDs的顺序相同）"
   chat_integration:
     all_categories: "（所有分类）"
     deleted_category: "（删除的分类）"
@@ -75,22 +78,6 @@ zh_CN:
         not_found:
           tag: "标签*%{name}*找不到"
           category: "未找到分类*%{name}*。可用分类：*%{list}*"
-        help: |
-          *新规则：*`/discourse [watch|follow|mute][category][tag:name]`
-          （你必须指定一条规则还有至少一个分类或标签）
-          - *watch* – 通知此频道的新主题或回复
-          - *follow* – 通知此频道的新主题
-          - *mute* – 屏蔽此频道的通知
-
-          *移除规则:*`/discourse remove [rule number]`
-          (`rule number]` 能够运行`discourse status`以查找）
-
-          *列出规则：*`/discourse status`
-
-          *[实验性] 帖子副本：*`/discourse post[n]`
-          在此频道中创建一个包含最后`n`个帖子的主题草稿
-
-          *帮助：*`/discourse help`
         transcript:
           error: "抱歉，创建副本时出现了一些错误！"
           post_to_discourse: "点击这里使用副本在DIscourse创建一个帖子的草稿"

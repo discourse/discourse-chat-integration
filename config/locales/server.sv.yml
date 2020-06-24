@@ -79,19 +79,20 @@ sv:
           tag: "*%{name}* taggen kan inte hittas."
           category: "*%{name}* kategorin kan inte hittas. Tillgängliga kategorier: *%{list}*"
         help: |
-          *Ny regel:* `/discource [watch|follow|mute] [category] [tag:name]`
-          (du måste specificera en regeltyp och åtminstone en kategori eller tagg)
-          - *bevaka* – notifiera denna kanal för nya ämnen och nya svar
-          - *följ* –  notifiera denna kanal för nya ämnen
-          - *tysta* – blockera notifikationer för denna kanal
+          *Ny regel:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (du måste specificera en regeltyp samt minst en kategori eller ettikett)
+          - *tråd* – notifiera denna kanal vid nya ämnen, tråd svar om möjligt
+          - *bevaka* – notifiera denna kanal vid nya ämnen eller nya svar
+          - *följ* – notifiera denna kanal vid nya ämnen
+          - *tysta* – blockera notiferingar för denna kanal
 
-          *Ta bort regel:* `/discource remove [rule number]`
-          (`[rule number]`  kan hittas genom att köra `/discourse status` )
+          *Ta bort regel:* `/discourse remove [rule number]`
+          (`[rule number]` kan tas fram genom att köra `/discourse status`)
 
-          *Lista regler:* `/discource status`
+          *Lista regler:* `/discourse status`
 
           *[Experimentell] Inläggs transkription:* `/discourse post [n]`
-          Skapa ett utkast till ämne på discourse som innehåller de sista antalet `n` inlägg för den här kanalen
+          Skapa ett ämnesutkast på discourse som innehåller de senaste antalet `n` inlägg för denna kanal
 
           *Hjälp:* `/discourse help`
         transcript:

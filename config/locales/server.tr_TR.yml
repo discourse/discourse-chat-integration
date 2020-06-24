@@ -74,22 +74,6 @@ tr_TR:
         not_found:
           tag: "*%{name}* etiketi bulunamadı."
           category: "*%{name}* kategorisi bulunamadı. Mevcut kategoriler: *%{list}*"
-        help: |
-          *Yeni kural:* `/ forum [watch | follow | mute] [kategori] [tag: name]`
-          (bir kural türü ve en az bir kategori veya etiket belirtmelisiniz)
-          - *watch* - yeni konular ve yanıtlar için bu kanalı bilgilendir
-          - *follow* - yeni konular için bu kanalı bilgilendir
-          - *mute * - bu kanala gelen bildirimleri sustur
-
-          *Kuralı kaldır: * `/discourse remove [kural numarası]`
-          (`[kural numarası]` `/discourse status` yazılarak bulunabilir.)*
-
-          Liste kuralları: *` /discourse status`
-
-          *[Deneysel] Yazı döküm metni: * `/discourse post [n]`
-          Bu kanaldaki son `n` mesajlarını içeren forum hakkında bir taslak konu oluşturun
-
-          * Yardım: * `/discourse help`
         transcript:
           error: "Transkript oluşturulurken bir şeyler ters gitti, üzgünüm!"
           post_to_discourse: "Konuşma metni ile forum hakkında bir gönderi hazırlamak için buraya tıklayın"

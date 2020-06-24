@@ -12,7 +12,6 @@ vi:
       settings: "Xác lập"
       no_providers: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
       channels_with_errors: "Một vài channels từ dịch vụ chat này đã thất bại trong lần gửi tin nhắn cuối cùng. Nhấn chuột vào biểu tượng lỗi để xem thêm."
-      group_message_template: "Tin nhắn tới: @{{name}}"
       choose_group: "(chọn một nhóm)"
       all_categories: "(tất cả danh mục)"
       all_tags: "(tất cả từ khoá)"

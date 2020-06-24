@@ -17,8 +17,8 @@ zh_CN:
       no_providers: "你需要在插件设置中启用某些提供商"
       channels_with_errors: "最近此提供商的一些频道发送消息失败。点击错误图标了解更多。"
       channel_exception: "最近发送消息到此频道时出现未知错误。"
-      group_mention_template: "提及： @{{name}}"
-      group_message_template: "发给 @%{name}的消息"
+      group_mention_template: "提及：@%{name}"
+      group_message_template: "发送消息给：@%{name}"
       choose_group: "（选择一个群组）"
       all_categories: "(所有分类)"
       all_tags: "(所有标签)"
@@ -159,3 +159,12 @@ zh_CN:
             flow_token:
               title: "Flow令牌"
               help: "在创建流消息后所提供的流式凭证。"
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe实例名称"
+              help: "在站点设置中所列出的Groupme实例名称。使用“all”以发送给所有实例"
+          errors:
+            not_found: "你所要发布信息的路径不存在。检查站点设置中的Bot ID。"
+            instance_names_issue: "实例名称错误或未提供"

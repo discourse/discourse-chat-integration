@@ -74,22 +74,6 @@ de:
         not_found:
           tag: "Das %{name}* Schlagwort kann nicht gefunden werden."
           category: "Die *%{name}* Kategorie kann nicht gefunden werden. Verfügbare Kategorien: *%{list}*"
-        help: |
-          *Neue Regel:* `/discourse [watch|follow|mute] [Kategorie] [tag:Schlagwort]`
-          (du musst einen Regeltyp angeben sowie mindestens eine Kategorie oder ein Schlagwort)
-          - *watch* – benachrichtige diesen Kanal über neue Themen und neue Antworten
-          - *follow* – benachrichtige diesen Kanal über neue Themen
-          - *mute* – blockiere Benachrichtigungen an diesen Kanal
-
-          *Regel entfernen:* `/discourse remove [Nummer der Regel]`
-          (Die `[Nummer der Regel]` kann durch Ausführung von `/discourse status` herausgefunden werden.)
-
-          *Regeln auflisten:* `/discourse status`
-
-          *[Experimentell] Transkript erstellen:* `/discourse post [n]`
-          Erstellt ein Entwurfsthema auf Discourse, das die letzten `n` Beiträge in diesem Kanal enthält.
-
-          *Hilfe:* `/discourse help`
         transcript:
           error: "Entschuldige, beim Erstellen des Transkripts ist etwas schief gelaufen."
           post_to_discourse: "Klicke hier, um auf Discourse einen Beitrag mit einem Transkript zu entwerfen"

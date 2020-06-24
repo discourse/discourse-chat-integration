@@ -74,21 +74,6 @@ it:
         not_found:
           tag: "Non è stato possibile trovare l'Etichetta *%{name}*."
           category: "La categoria *%{name}* non può essere trovata. Categorie disponibili: *%{list}*"
-        help: |
-          *Nuova regola:* `/discourse [watch|follow|mute] [category] [tag:name]`
-          (devi specificare un tipo di regola e almeno una categoria o una etichetta)
-          - *watch* – invia una notifica su questo canale per nuovi argomenti e nuove risposte
-          - *follow* – invia una notifica su questo canale per nuovi argomenti
-          - *mute* – blocca le notifiche su questo canale
-
-          *Rimuovi regola:* `/discourse remove [rule number]`
-          (`[rule number]` può essere trovato lanciando `/discourse status`)
-
-          *Elenco delle regole:* `/discourse status`
-
-          *[Sperimentale] Trascrizione messaggio:* `/discourse post [n]`
-          Crea una bozza di argomento su Discourse contenente gli ultimi `n` messaggi di questo canale
-          *Aiuto:* `/discourse help`
         transcript:
           error: "Spiacenti, qualcosa è andato storto durante la costruzione della trascrizione!"
           post_to_discourse: "Fai clic qui per creare una bozza su Discourse con una trascrizione"
