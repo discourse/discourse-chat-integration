@@ -319,7 +319,7 @@ describe 'Slack Command Controller', type: :request do
 
           json = JSON.parse(response.body)
 
-          expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.transcript.error"))
+          expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.transcript.loading"))
         end
 
         it 'errors correctly if there is no api key' do

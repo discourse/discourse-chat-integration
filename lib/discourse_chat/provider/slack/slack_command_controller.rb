@@ -75,18 +75,18 @@ module DiscourseChat::Provider::SlackProvider
           begin
             requested_messages = Integer(tokens[1], 10)
           rescue ArgumentError
-            return { text: I18n.t("chat_integration.provider.slack.parse_error") }
+            break { text: I18n.t("chat_integration.provider.slack.parse_error") }
           end
         end
 
         error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
-        return error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id, requested_thread_ts: requested_thread_ts)
-        return error_message unless transcript.load_user_data
-        return error_message unless transcript.load_chat_history
+        break error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id, requested_thread_ts: requested_thread_ts)
+        break error_message unless transcript.load_user_data
+        break error_message unless transcript.load_chat_history
 
         if first_message_ts
-          return error_message unless transcript.set_first_message_by_ts(first_message_ts)
+          break error_message unless transcript.set_first_message_by_ts(first_message_ts)
         elsif requested_messages
           transcript.set_first_message_by_index(-requested_messages)
         else
@@ -122,12 +122,12 @@ module DiscourseChat::Provider::SlackProvider
       error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
 
       Scheduler::Defer.later "Processing slack transcript update" do
-        return error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
-        return error_message unless transcript.load_user_data
-        return error_message unless transcript.load_chat_history
+        break error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
+        break error_message unless transcript.load_user_data
+        break error_message unless transcript.load_chat_history
 
-        return error_message unless transcript.set_first_message_by_ts(first_message)
-        return error_message unless transcript.set_last_message_by_ts(last_message)
+        break error_message unless transcript.set_first_message_by_ts(first_message)
+        break error_message unless transcript.set_last_message_by_ts(last_message)
 
         http = Net::HTTP.new("slack.com", 443)
         http.use_ssl = true
