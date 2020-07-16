@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
       this.set("modalShowing", true);
 
       const model = {
-        rule: this.store.createRecord("rule", { channel_id: channel.id }),
+        rule: this.store.createRecord("rule", { channel_id: channel.id, channel }),
         channel,
         provider: this.get("model.provider"),
         groups: this.get("model.groups")
