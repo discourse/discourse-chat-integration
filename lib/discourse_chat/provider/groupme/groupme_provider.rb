@@ -17,13 +17,15 @@ module DiscourseChat::Provider::GroupmeProvider
 
     category = ''
     if topic.category&.uncategorized?
-      category = "[#{I18n.t('uncategorized_category_name')}]"
+      category = "#{I18n.t('uncategorized_category_name')}"
     elsif topic.category
-      category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
+      category = (topic.category.parent_category) ? "#{topic.category.parent_category.name}/#{topic.category.name}" : "#{topic.category.name}"
     end
-    pre_post_text = "#{display_name}: #{topic.title}(#{post.full_url}) #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}"
+    pre_post_text = "#{display_name} Posted to #{SiteSetting.title}\n\nTopic: #{topic.title} [#{category}]"
+    read_more = "(Read More: #{post.full_url})"
+    post_excerpt = "#{post.excerpt(SiteSetting.chat_integration_groupme_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true)}"
     data = {
-      text: "#{pre_post_text} - #{post.excerpt(SiteSetting.chat_integration_groupme_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true)}"
+      text: "#{pre_post_text}\n\n#{post_excerpt}\n#{read_more}"
     }
     data
   end
