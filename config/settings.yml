@@ -130,3 +130,12 @@ chat_integration:
     default: ''
   chat_integration_groupme_instance_names:
     default: ''
+###########################################
+######## MICROSOFT TEAMS SETTINGS #########
+###########################################
+  chat_integration_teams_enabled:
+    default: false
+  chat_integration_teams_webhook_url:
+    default: ''
+  chat_integration_teams_excerpt_length:
+    default: 400

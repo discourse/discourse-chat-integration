@@ -212,4 +212,4 @@ en:
               title: Channel
               help: "e.g. #channel, @username."
           errors:
-          invalid_channel: "That channel does not exist on Microsoft Teams"
+            invalid_channel: "That channel does not exist on Microsoft Teams"
