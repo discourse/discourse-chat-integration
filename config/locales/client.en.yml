@@ -202,3 +202,14 @@ en:
           errors:
             not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
             instance_names_issue: "instance names incorrectly formatted or not provided"
+        ############################################
+        ######### MICROSOFT TEAMS STRINGS ##########
+        ############################################
+        teams:
+          title: "Microsoft Teams"
+          param:
+            identifier:
+              title: Channel
+              help: "e.g. #channel, @username."
+          errors:
+          invalid_channel: "That channel does not exist on Microsoft Teams"
