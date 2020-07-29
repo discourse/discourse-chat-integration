@@ -202,3 +202,17 @@ en:
           errors:
             not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
             instance_names_issue: "instance names incorrectly formatted or not provided"
+        ############################################
+        ######### MICROSOFT TEAMS STRINGS ##########
+        ############################################
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
