@@ -86,9 +86,9 @@ en:
     chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
     chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
 
-    #######################################
-    ###### ROCKET CHAT SETTINGS ###########
-    #######################################
+    ###########################################
+    ######## MICROSOFT TEAMS SETTINGS #########
+    ###########################################
     chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
     chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
 
