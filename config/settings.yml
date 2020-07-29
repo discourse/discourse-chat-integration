@@ -135,7 +135,5 @@ chat_integration:
 ###########################################
   chat_integration_teams_enabled:
     default: false
-  chat_integration_teams_webhook_url:
-    default: ''
   chat_integration_teams_excerpt_length:
     default: 400

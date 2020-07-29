@@ -208,8 +208,11 @@ en:
         teams:
           title: "Microsoft Teams"
           param:
-            identifier:
-              title: Channel
-              help: "e.g. #channel, @username."
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
           errors:
             invalid_channel: "That channel does not exist on Microsoft Teams"

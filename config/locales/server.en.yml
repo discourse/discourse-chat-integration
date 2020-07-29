@@ -90,7 +90,6 @@ en:
     ###### ROCKET CHAT SETTINGS ###########
     #######################################
     chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
-    chat_integration_teams_webhook_url: "The URL for the Microsoft Team integration webhook"
     chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
 
   chat_integration:
