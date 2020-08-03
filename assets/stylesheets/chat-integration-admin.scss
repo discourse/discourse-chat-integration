@@ -21,16 +21,16 @@
     max-width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: $danger-low;
+    background-color: var(--danger-low, $danger-low);
     padding: 15px;
   }
 
   div.channel-details {
     margin: 20px 10px;
-    border: 1px solid $primary-low;
+    border: 1px solid var(--primary-low, $primary-low);
 
     div.channel-header {
-      background: $primary-low;
+      background: var(--primary-low, $primary-low);
       padding: 10px;
       overflow: auto;
 
@@ -69,7 +69,7 @@
     }
 
     tr.instructions label {
-      color: $primary-medium;
+      color: var(--primary-medium, $primary-medium);
     }
   }
 
@@ -99,6 +99,6 @@
     max-width: 500px;
     max-height: 800px;
     overflow: scroll;
-    background: $primary-low;
+    background: var(--primary-low, $primary-low);
   }
 }
