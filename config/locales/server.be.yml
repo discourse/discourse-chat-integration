@@ -1,9 +1,8 @@
-# encoding: utf-8
-#
-# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+# WARNING: Never edit this file.
+# It will be overwritten when translations are pulled from Crowdin.
 #
 # To work with us on translations, join this project:
-# https://www.transifex.com/projects/p/discourse-org/
+# https://translate.discourse.org/
 
 be:
   site_settings:
@@ -56,7 +55,7 @@ be:
     provider:
       slack:
         status:
-          header: |-
+          header: |
             * Правілы для гэтага канала *(Калі некалькі правілаў адпавядаюць пасадзе, верхняе правіла выконваецца)
           no_rules: "Там няма правілы, устаноўленага для гэтага канала. Run `"
           rule_string: "*% {Індэкс}) * *% {фільтр} * паведамленняў у *% {катэгорыя} *"
@@ -89,7 +88,7 @@ be:
         message: |-
           <Ь>% {карыстальнік} <
         status:
-          header: |-
+          header: |
             <B> Правілы для гэтага канала <
           no_rules: "Там няма правілы, устаноўленага для гэтага канала. Выканаць <код>"
           rule_string: "<Ь>% {індэкс}) <"
@@ -105,13 +104,13 @@ be:
         not_found:
           tag: "<Ь>% {імя} <"
           category: "<Ь>% {імя} <"
-        help: |-
+        help: |
           <Б> Новае правіла: <
       hipchat:
         message: <Ь>% {карыстальнік} <
       mattermost:
         status:
-          header: |-
+          header: |
             * Правілы для гэтага канала *(Калі некалькі правілаў адпавядаюць пасадзе, верхняе правіла выконваецца)
           no_rules: "Там няма правілы, устаноўленага для гэтага канала. Run `"
           rule_string: "*% {Індэкс}) * *% {фільтр} * паведамленняў у *% {катэгорыя} *"
@@ -127,14 +126,14 @@ be:
         not_found:
           tag: "*% {Імя} * Тэг не можа быць знойдзены."
           category: "*% {Імя} * катэгорыя не можа быць знойдзены. Даступныя катэгорыі: *% {спіс} *"
-        help: |-
+        help: |
           * Новае правіла: * `
       matrix:
         text_message: "% {Карыстальнік} адказваў у% {назву} - {%} POST_URL"
-        formatted_message: |-
+        formatted_message: |
           <Ь>% {карыстальнік} <
       zulip:
-        message: |-
+        message: |
           **% {} карыстальнік ** адказваў у ** [% {назву}] (% {POST_URL}) **~~~ цытата% {Вытрымка}~~~
       flowdock:
         message_title: "адправіў"

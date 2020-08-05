@@ -1,9 +1,8 @@
-# encoding: utf-8
-#
-# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+# WARNING: Never edit this file.
+# It will be overwritten when translations are pulled from Crowdin.
 #
 # To work with us on translations, join this project:
-# https://www.transifex.com/projects/p/discourse-org/
+# https://translate.discourse.org/
 
 zh_CN:
   js:
@@ -43,6 +42,7 @@ zh_CN:
         mute: '禁言'
         follow: '第一帖'
         watch: '所有帖子和回复'
+        thread: '全部有回复串的帖子'
       rule_table:
         filter: "过滤器"
         category: "分类"

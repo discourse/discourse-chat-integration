@@ -1,9 +1,8 @@
-# encoding: utf-8
-#
-# Never edit this file. It will be overwritten when translations are pulled from Transifex.
+# WARNING: Never edit this file.
+# It will be overwritten when translations are pulled from Crowdin.
 #
 # To work with us on translations, join this project:
-# https://www.transifex.com/projects/p/discourse-org/
+# https://translate.discourse.org/
 
 hy:
   js:
@@ -102,7 +101,7 @@ hy:
               help: "Անուն ալիքը նկարագրելու համար: Այն չի օգտագործվում Discord-ին միանալու համար: "
             webhook_url:
               title: Webhook -ի URL
-              help: 'Ձեր Discord սերվերի կարգավորումներում ստեղծված webhook -ի URL -ը '
+              help: Ձեր Discord սերվերի կարգավորումներում ստեղծված webhook -ի URL -ը
         mattermost:
           title: "Mattermost"
           param:
