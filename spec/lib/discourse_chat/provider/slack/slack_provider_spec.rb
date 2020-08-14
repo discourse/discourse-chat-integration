@@ -120,7 +120,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
       it 'recognizes slack thread ts in comment' do
         post.update!(cooked: "cooked", raw: <<~RAW
              My fingers are typing words that improve `raw_quality`
-             <!--SLACK_CHANNEL_ID=UIGNOREFORNOW;SLACK_TS=1501801629.052212-->
+             <!--SLACK_CHANNEL_ID=UIGNOREFORNOW;SLACK_TS=#{@ts}-->
         RAW
         )
 
@@ -128,7 +128,9 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
         post.topic.slack_thread_id = nil
 
         described_class.trigger_notification(post, chan1, rule)
-        expect(post.topic.slack_thread_id).to eq('1501801629.052212')
+        expect(post.topic.slack_thread_id).to eq(@ts)
+        
+        expect(@thread_stub).to have_been_requested.times(1)
       end
 
       it 'handles errors correctly' do

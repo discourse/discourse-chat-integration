@@ -112,6 +112,7 @@ module DiscourseChat::Provider::SlackProvider
     if message.key?(:thread_ts)
       data[:thread_ts] = message[:thread_ts]
     elsif match = slack_thread_regex.match(post.raw)
+      data[:thread_ts] = match.captures[1]
       post.topic.slack_thread_id = match.captures[1]
       post.topic.save_custom_fields
     end
