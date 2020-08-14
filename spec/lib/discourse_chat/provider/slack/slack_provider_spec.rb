@@ -129,7 +129,7 @@ RSpec.describe DiscourseChat::Provider::SlackProvider do
 
         described_class.trigger_notification(post, chan1, rule)
         expect(post.topic.slack_thread_id).to eq(@ts)
-        
+
         expect(@thread_stub).to have_been_requested.times(1)
       end
 
