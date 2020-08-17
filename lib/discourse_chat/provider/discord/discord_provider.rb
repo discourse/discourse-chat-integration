@@ -8,7 +8,7 @@ module DiscourseChat
 
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+' },
-        { key: "webhook_url", regex: '^https:\/\/discordapp\.com\/api\/webhooks\/', unique: true, hidden: true }
+        { key: "webhook_url", regex: '^https:\/\/discord(?:app)?\.com\/api\/webhooks\/', unique: true, hidden: true }
       ].freeze
 
       def self.send_message(url, message)
