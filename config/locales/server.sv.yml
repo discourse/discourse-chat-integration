@@ -50,6 +50,8 @@ sv:
     chat_integration_groupme_excerpt_length: "Groupme postens utdragslängd"
     chat_integration_groupme_bot_ids: "*krävs* Bot-id, separerade med ',' om det är flera"
     chat_integration_groupme_instance_names: "*krävs* Namn på GroupMe-chatten, separerade med ',' om det är flera (samma ordning som Bot-ID)"
+    chat_integration_teams_enabled: "Aktivera tjänst av Microsoft Team chatt-integration"
+    chat_integration_teams_excerpt_length: "Utdragslängd för Microsoft Team inlägg"
   chat_integration:
     all_categories: "(alla kategorier)"
     deleted_category: "(raderad kategori)"

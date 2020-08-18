@@ -168,3 +168,14 @@ sv:
           errors:
             not_found: "Adressen du försökte skicka ditt meddelande till hittades inte. Kontrollera Bot-ID i webbplatsinställningar."
             instance_names_issue: "instansnamn felaktigt formaterade eller är inte angivna"
+        teams:
+          title: "Microsoft Team"
+          param:
+            name:
+              title: "Namn"
+              help: "Ett kanalnamn för team, t.ex. discourse"
+            webhook_url:
+              title: "Webhook-URL"
+              help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
+          errors:
+            invalid_channel: "Den kanalen finns inte hos Microsoft Team"
