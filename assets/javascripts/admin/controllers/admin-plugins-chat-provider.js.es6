@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   anyErrors(channels) {
     let anyErrors = false;
 
-    channels.forEach(channel => {
+    channels.forEach((channel) => {
       if (channel.error_key) {
         anyErrors = true;
       }
@@ -24,14 +24,14 @@ export default Ember.Controller.extend({
       const model = {
         channel: this.store.createRecord("channel", {
           provider: this.get("model.provider.id"),
-          data: {}
+          data: {},
         }),
-        provider: this.get("model.provider")
+        provider: this.get("model.provider"),
       };
 
       showModal("admin-plugins-chat-edit-channel", {
         model,
-        admin: true
+        admin: true,
       });
     },
 
@@ -40,12 +40,12 @@ export default Ember.Controller.extend({
 
       const model = {
         channel,
-        provider: this.get("model.provider")
+        provider: this.get("model.provider"),
       };
 
       showModal("admin-plugins-chat-edit-channel", {
         model,
-        admin: true
+        admin: true,
       });
     },
 
@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
       this.set("modalShowing", true);
       showModal("admin-plugins-chat-test", {
         model: { channel },
-        admin: true
+        admin: true,
       });
     },
 
@@ -63,11 +63,11 @@ export default Ember.Controller.extend({
       const model = {
         rule: this.store.createRecord("rule", {
           channel_id: channel.id,
-          channel
+          channel,
         }),
         channel,
         provider: this.get("model.provider"),
-        groups: this.get("model.groups")
+        groups: this.get("model.groups"),
       };
 
       showModal("admin-plugins-chat-edit-rule", { model, admin: true });
@@ -80,7 +80,7 @@ export default Ember.Controller.extend({
         rule,
         channel,
         provider: this.get("model.provider"),
-        groups: this.get("model.groups")
+        groups: this.get("model.groups"),
       };
 
       showModal("admin-plugins-chat-edit-rule", { model, admin: true });
@@ -91,8 +91,8 @@ export default Ember.Controller.extend({
 
       showModal("admin-plugins-chat-channel-error", {
         model: channel,
-        admin: true
+        admin: true,
       });
-    }
-  }
+    },
+  },
 });

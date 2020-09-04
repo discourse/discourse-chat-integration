@@ -9,14 +9,14 @@ export default DiscourseRoute.extend({
         "id",
         params.provider
       ),
-      groups: Group.findAll().then(groups => {
-        return groups.filter(g => !g.get("automatic"));
-      })
-    }).then(value => {
-      value.channels.forEach(channel => {
+      groups: Group.findAll().then((groups) => {
+        return groups.filter((g) => !g.get("automatic"));
+      }),
+    }).then((value) => {
+      value.channels.forEach((channel) => {
         channel.set(
           "rules",
-          channel.rules.map(rule => {
+          channel.rules.map((rule) => {
             rule = this.store.createRecord("rule", rule);
             rule.set("channel", channel);
             return rule;
@@ -44,6 +44,6 @@ export default DiscourseRoute.extend({
 
     refreshProvider() {
       this.refresh();
-    }
-  }
+    },
+  },
 });

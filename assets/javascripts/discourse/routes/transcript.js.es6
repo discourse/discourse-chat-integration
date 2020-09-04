@@ -7,10 +7,10 @@ export default DiscourseRoute.extend({
     if (this.currentUser) {
       const secret = params.secret;
 
-      this.replaceWith("discovery.latest").then(e => {
+      this.replaceWith("discovery.latest").then((e) => {
         if (this.controllerFor("navigation/default").get("canCreateTopic")) {
           Ember.run.next(() => {
-            ajax(`chat-transcript/${secret}`).then(result => {
+            ajax(`chat-transcript/${secret}`).then((result) => {
               e.send(
                 "createNewTopicViaParams",
                 null,
@@ -27,5 +27,5 @@ export default DiscourseRoute.extend({
       this.session.set("shouldRedirectToUrl", window.location.href);
       this.replaceWith("login");
     }
-  }
+  },
 });

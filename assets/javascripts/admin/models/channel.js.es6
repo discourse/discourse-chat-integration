@@ -7,5 +7,5 @@ export default RestModel.extend({
 
   createProperties() {
     return this.getProperties(["provider", "data"]);
-  }
+  },
 });
