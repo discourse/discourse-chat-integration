@@ -1,4 +1,5 @@
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import I18n from "I18n";
 
 export default Ember.Component.extend({
   classNames: ["channel-details"],
@@ -9,7 +10,7 @@ export default Ember.Component.extend({
         I18n.t("chat_integration.channel_delete_confirm"),
         I18n.t("no_value"),
         I18n.t("yes_value"),
-        result => {
+        (result) => {
           if (result) {
             channel
               .destroyRecord()
@@ -22,6 +23,6 @@ export default Ember.Component.extend({
 
     editRule(rule) {
       this.editRuleWithChannel(rule, this.get("channel"));
-    }
-  }
+    },
+  },
 });

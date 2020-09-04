@@ -3,15 +3,15 @@ acceptance("Chat Integration", {
   loggedIn: true,
 
   pretend(server) {
-    const response = object => {
+    const response = (object) => {
       return [200, { "Content-Type": "text/html; charset=utf-8" }, object];
     };
 
-    const jsonResponse = object => {
+    const jsonResponse = (object) => {
       return [
         200,
         { "Content-Type": "application/json; charset=utf-8" },
-        object
+        object,
       ];
     };
 
@@ -21,9 +21,9 @@ acceptance("Chat Integration", {
           {
             name: "dummy",
             id: "dummy",
-            channel_parameters: [{ key: "somekey", regex: "^\\S+$" }]
-          }
-        ]
+            channel_parameters: [{ key: "somekey", regex: "^\\S+$" }],
+          },
+        ],
       });
     });
 
@@ -43,11 +43,11 @@ acceptance("Chat Integration", {
                 type: "normal",
                 tags: [],
                 filter: "watch",
-                error_key: null
-              }
-            ]
-          }
-        ]
+                error_key: null,
+              },
+            ],
+          },
+        ],
       });
     });
 
@@ -82,25 +82,22 @@ acceptance("Chat Integration", {
     server.get("/groups/search.json", () => {
       return jsonResponse([]);
     });
-  }
+  },
 });
 
-test("Rules load successfully", async assert => {
+test("Rules load successfully", async (assert) => {
   await visit("/admin/plugins/chat");
 
   assert.ok(exists("#admin-plugin-chat table"), "it shows the table of rules");
 
   assert.equal(
-    find("#admin-plugin-chat table tr td")
-      .eq(0)
-      .text()
-      .trim(),
+    find("#admin-plugin-chat table tr td").eq(0).text().trim(),
     "All posts and replies",
     "rule displayed"
   );
 });
 
-test("Create channel works", async assert => {
+test("Create channel works", async (assert) => {
   await visit("/admin/plugins/chat");
   await click("#create-channel");
 
@@ -128,7 +125,7 @@ test("Create channel works", async assert => {
   );
 });
 
-test("Edit channel works", async assert => {
+test("Edit channel works", async (assert) => {
   await visit("/admin/plugins/chat");
   await click(".channel-header button:first");
 
@@ -161,7 +158,7 @@ test("Edit channel works", async assert => {
   });
 });
 
-test("Create rule works", async assert => {
+test("Create rule works", async (assert) => {
   await visit("/admin/plugins/chat");
 
   assert.ok(
@@ -182,7 +179,7 @@ test("Create rule works", async assert => {
   );
 });
 
-test("Edit rule works", async assert => {
+test("Edit rule works", async (assert) => {
   await visit("/admin/plugins/chat");
 
   assert.ok(exists(".edit:first"), "edit button is displayed");
@@ -203,7 +200,7 @@ test("Edit rule works", async assert => {
   );
 });
 
-test("Delete channel works", async assert => {
+test("Delete channel works", async (assert) => {
   await visit("/admin/plugins/chat");
 
   assert.ok(exists(".channel-header button:last"), "delete button exists");
@@ -215,14 +212,14 @@ test("Delete channel works", async assert => {
   assert.ok(exists("div.bootbox") === false, "modal has closed");
 });
 
-test("Delete rule works", async assert => {
+test("Delete rule works", async (assert) => {
   await visit("/admin/plugins/chat");
 
   assert.ok(exists(".delete:first"));
   await click(".delete:first");
 });
 
-test("Test channel works", async assert => {
+test("Test channel works", async (assert) => {
   await visit("/admin/plugins/chat");
 
   await click(".btn-chat-test");

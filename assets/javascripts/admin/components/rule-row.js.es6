@@ -25,6 +25,6 @@ export default Ember.Component.extend({
         .destroyRecord()
         .then(() => this.refresh())
         .catch(popupAjaxError);
-    }
-  }
+    },
+  },
 });

@@ -8,5 +8,5 @@ export default DiscourseRoute.extend({
         model.get("firstObject").name
       );
     }
-  }
+  },
 });

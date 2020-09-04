@@ -8,8 +8,8 @@ export default DiscourseRoute.extend({
   actions: {
     showSettings() {
       this.transitionTo("adminSiteSettingsCategory", "plugins", {
-        queryParams: { filter: "chat_integration" }
+        queryParams: { filter: "chat_integration" },
       });
-    }
-  }
+    },
+  },
 });

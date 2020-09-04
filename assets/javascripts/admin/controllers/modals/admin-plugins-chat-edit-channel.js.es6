@@ -1,17 +1,18 @@
+import I18n from "I18n";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import InputValidation from "discourse/models/input-validation";
 import {
   default as computed,
   observes,
-  on
+  on,
 } from "discourse-common/utils/decorators";
 
 export default Ember.Controller.extend(ModalFunctionality, {
   @on("init")
   setupKeydown() {
     Ember.run.schedule("afterRender", () => {
-      $("#chat-integration-edit-channel-modal").keydown(e => {
+      $("#chat-integration-edit-channel-modal").keydown((e) => {
         if (e.keyCode === 13) {
           this.send("save");
         }
@@ -24,7 +25,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   setupValidations() {
     if (this.get("model.provider")) {
       const theKeys = this.get("model.provider.channel_parameters").map(
-        param => param["key"]
+        (param) => param["key"]
       );
       Ember.defineProperty(
         this,
@@ -49,12 +50,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
     if (val === "") {
       // Fail silently if field blank
       return InputValidation.create({
-        failed: true
+        failed: true,
       });
     } else if (!regString) {
       // Pass silently if no regex available for provider
       return InputValidation.create({
-        ok: true
+        ok: true,
       });
     } else if (regex.test(val)) {
       // Test against regex
@@ -62,7 +63,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         ok: true,
         reason: I18n.t(
           "chat_integration.edit_channel_modal.channel_validation.ok"
-        )
+        ),
       });
     } else {
       // Failed regex
@@ -70,7 +71,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         failed: true,
         reason: I18n.t(
           "chat_integration.edit_channel_modal.channel_validation.fail"
-        )
+        ),
       });
     }
   },
@@ -79,7 +80,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     const response = {};
     const parameters = this.get("model.provider.channel_parameters");
 
-    parameters.forEach(parameter => {
+    parameters.forEach((parameter) => {
       response[parameter.key] = this.validate(parameter);
     });
 
@@ -92,7 +93,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     let invalid = false;
 
-    Object.keys(paramValidation).forEach(key => {
+    Object.keys(paramValidation).forEach((key) => {
       if (!paramValidation[key]) {
         invalid = true;
       }
@@ -119,6 +120,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
           this.send("closeModal");
         })
         .catch(popupAjaxError);
-    }
-  }
+    },
+  },
 });
