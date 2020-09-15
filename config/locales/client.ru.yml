@@ -168,3 +168,13 @@ ru:
           errors:
             not_found: "Путь, по которому вы пытались опубликовать ваше сообщение, не найден. Проверьте идентификатор бота в настройках сайта."
             instance_names_issue: "Имена экземпляров неправильно отформатированы или не указаны"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Наименование"
+              help: "Наименование канала, например 'Дискурс'."
+            webhook_url:
+              title: "URL вебхука"
+          errors:
+            invalid_channel: "Этот канал не существует в Microsoft Teams"
