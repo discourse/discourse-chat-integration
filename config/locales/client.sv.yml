@@ -121,7 +121,7 @@ sv:
               help: "Ett namn som beskriver kanalen. Det används inte för anslutningen till Matrix."
             room_id:
               title: "Rums-ID"
-              help: "Den 'privata identifieraren' för rummet. Det borde vara något i stil med !abcdefg:matrix.org"
+              help: "Den 'privata identifieraren' för rummet. Den borde vara något i stil med !abcdefg:matrix.org"
           errors:
             unknown_token: "Åtkomstbevis är ogiltigt"
             unknown_room: "Rums-ID är ogiltigt"
@@ -163,19 +163,19 @@ sv:
           title: "GroupMe"
           param:
             groupme_instance_name:
-              title: "GroupMe instansnamn"
-              help: "namn på Groupme instans som listas i webbplatsinställningar. använd 'all' för att skicka till alla instanser"
+              title: "GroupMe-instansnamn"
+              help: "namn på Groupme-instans som visas i listan i webbplatsinställningar. använd 'all' för att skicka till alla instanser"
           errors:
             not_found: "Adressen du försökte skicka ditt meddelande till hittades inte. Kontrollera Bot-ID i webbplatsinställningar."
             instance_names_issue: "instansnamn felaktigt formaterade eller är inte angivna"
         teams:
-          title: "Microsoft Team"
+          title: "Microsoft Teams"
           param:
             name:
               title: "Namn"
-              help: "Ett kanalnamn för team, t.ex. discourse"
+              help: "Ett kanalnamn för Teams, t.ex. Discourse"
             webhook_url:
               title: "Webhook-URL"
               help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
           errors:
-            invalid_channel: "Den kanalen finns inte hos Microsoft Team"
+            invalid_channel: "Den kanalen finns inte hos Microsoft Teams"
