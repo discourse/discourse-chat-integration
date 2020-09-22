@@ -23,7 +23,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   actions: {
     send() {
-      if (this.get("sendDisabled")) return;
+      if (this.get("sendDisabled")) {
+        return;
+      }
       this.set("loading", true);
 
       ajax("/admin/plugins/chat/test", {

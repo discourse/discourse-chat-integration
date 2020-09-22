@@ -23,7 +23,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   actions: {
     save(rule) {
-      if (this.get("saveDisabled")) return;
+      if (this.get("saveDisabled")) {
+        return;
+      }
 
       rule
         .save()

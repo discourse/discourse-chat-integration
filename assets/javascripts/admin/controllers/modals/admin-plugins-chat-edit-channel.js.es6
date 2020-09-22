@@ -89,7 +89,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   @computed("paramValidation")
   saveDisabled(paramValidation) {
-    if (!paramValidation) return true;
+    if (!paramValidation) {
+      return true;
+    }
 
     let invalid = false;
 
@@ -112,7 +114,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     save() {
-      if (this.get("saveDisabled")) return;
+      if (this.get("saveDisabled")) {
+        return;
+      }
 
       this.get("model.channel")
         .save()
