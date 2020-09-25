@@ -65,7 +65,7 @@ describe 'Slack Command Controller', type: :request do
         }
 
         expect(response.status).to eq(200)
-        expect(JSON.parse(response.body)["text"]).to be_present
+        expect(response.parsed_body["text"]).to be_present
       end
     end
 
@@ -98,7 +98,7 @@ describe 'Slack Command Controller', type: :request do
             token: token
           }
 
-          json = JSON.parse(response.body)
+          json = response.parsed_body
 
           expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
 
@@ -117,7 +117,7 @@ describe 'Slack Command Controller', type: :request do
               token: token
             }
 
-            json = JSON.parse(response.body)
+            json = response.parsed_body
 
             expect(json["text"]).to eq(I18n.t("chat_integration.provider.slack.create.created"))
 
@@ -317,7 +317,7 @@ describe 'Slack Command Controller', type: :request do
             token: token
           }
 
-          json = JSON.parse(response.body)
+          json = response.parsed_body
 
           expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.transcript.loading"))
         end
@@ -333,7 +333,7 @@ describe 'Slack Command Controller', type: :request do
             token: token
           }
 
-          json = JSON.parse(response.body)
+          json = response.parsed_body
 
           expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.transcript.api_required"))
         end

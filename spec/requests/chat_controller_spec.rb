@@ -49,7 +49,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response.status).to eq(200)
 
-        json = JSON.parse(response.body)
+        json = response.parsed_body
 
         expect(json['providers'].size).to eq(2)
 
@@ -76,8 +76,6 @@ describe 'Chat Controller', type: :request do
         }
 
         expect(response.status).to eq(200)
-
-        JSON.parse(response.body)
       end
 
       it 'should fail for invalid channel' do
@@ -110,7 +108,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response.status).to eq(200)
 
-        channels = JSON.parse(response.body)['channels']
+        channels = response.parsed_body['channels']
 
         expect(channels.count).to eq(1)
 

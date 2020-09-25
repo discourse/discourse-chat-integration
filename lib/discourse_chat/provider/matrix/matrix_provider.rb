@@ -64,7 +64,7 @@ module DiscourseChat
         if !response.kind_of?(Net::HTTPSuccess)
           error_key = nil
           begin
-            responseData = JSON.parse(response.body)
+            responseData = response.parsed_body
             if responseData['errcode'] == "M_UNKNOWN_TOKEN"
               error_key = 'chat_integration.provider.matrix.errors.unknown_token'
             elsif responseData['errcode'] == "M_UNKNOWN"

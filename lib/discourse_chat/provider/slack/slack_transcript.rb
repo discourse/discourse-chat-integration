@@ -208,7 +208,7 @@ module DiscourseChat::Provider::SlackProvider
         req.set_form_data(token: SiteSetting.chat_integration_slack_access_token, limit: 200, cursor: cursor)
         response = http.request(req)
         return false unless response.kind_of? Net::HTTPSuccess
-        json = JSON.parse(response.body)
+        json = response.parsed_body
         return false unless json['ok']
         cursor = json['response_metadata']['next_cursor']
         json['members'].each do |user|
@@ -244,7 +244,7 @@ module DiscourseChat::Provider::SlackProvider
       req.set_form_data(data)
       response = http.request(req)
       return false unless response.kind_of? Net::HTTPSuccess
-      json = JSON.parse(response.body)
+      json = response.parsed_body
       return false unless json['ok']
 
       raw_messages = json['messages']
