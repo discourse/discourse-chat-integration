@@ -125,7 +125,7 @@ module DiscourseChat::Provider::SlackProvider
       raise ::DiscourseChat::ProviderError.new info: { request: uri, response_code: response.code, response_body: response.body }
     end
 
-    json = response.parsed_body
+    json = JSON.parse(response.body)
 
     unless json["ok"] == true
       if json.key?("error") && (json["error"] == ('channel_not_found') || json["error"] == ('is_archived'))

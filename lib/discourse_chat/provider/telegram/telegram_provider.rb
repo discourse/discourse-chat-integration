@@ -44,7 +44,7 @@ module DiscourseChat
         req.body = message.to_json
         response = http.request(req)
 
-        responseData = response.parsed_body
+        responseData = JSON.parse(response.body)
 
         responseData
       end
