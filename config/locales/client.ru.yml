@@ -104,7 +104,7 @@ ru:
               help: "Имя для описания канала. Оно не используется для подключения к Discord."
             webhook_url:
               title: URL вебхука
-              help: URL-адрес webhook, созданный в настройках сервера Discord
+              help: URL-адрес вебхука, созданный в настройках сервера Discord
         mattermost:
           title: "Mattermost"
           param:
