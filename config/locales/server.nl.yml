@@ -8,14 +8,20 @@ nl:
   site_settings:
     chat_integration_enabled: 'De discourse-chatintegratieplug-in inschakelen'
     chat_integration_slack_enabled: 'De slack-chatintegratieprovider inschakelen'
+    chat_integration_slack_incoming_webhook_token: 'Het verificatietoken dat wordt gebruikt om binnenkomende verzoeken te verifiëren'
     chat_integration_telegram_enabled: "De Telegram-chatintegratieprovider inschakelen"
     chat_integration_discord_enabled: "De Discord-chatintegratieprovider inschakelen"
     chat_integration_mattermost_enabled: "De Mattermost-chatintegratieprovider inschakelen"
+    chat_integration_mattermost_webhook_url: 'URL voor de Mattermost webhook'
     chat_integration_matrix_enabled: "De Matrix-chatintegratieprovider inschakelen"
     chat_integration_zulip_enabled: "De Zulip-chatintegratieprovider inschakelen"
+    chat_integration_zulip_bot_api_key: "De API-sleutel voor uw Zulip bot"
     chat_integration_rocketchat_enabled: "De Rocket Chat-chatintegratieprovider inschakelen"
+    chat_integration_rocketchat_webhook_url: "De URL voor de Rocket Chat integratie webhook"
     chat_integration_gitter_enabled: "De Gitter-chatintegratieprovider inschakelen"
     chat_integration_flowdock_enabled: "De Flowdock-chatintegratieprovider inschakelen"
     chat_integration_groupme_enabled: "De Groupme-chatintegratieprovider inschakelen"
   chat_integration:
     all_categories: "(alle categorieën)"
+    deleted_category: "(verwijderde categorie)"
+    deleted_group: "(verwijderde groep)"

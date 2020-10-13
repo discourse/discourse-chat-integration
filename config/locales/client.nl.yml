@@ -168,3 +168,12 @@ nl:
           errors:
             not_found: "Het pad waarnaar u uw bericht probeerde te versturen kon niet worden gevonden. Controleer de Bot-ID in Website-instellingen."
             instance_names_issue: "instantienamen onjuist opgesteld of niet opgegeven"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Naam"
+            webhook_url:
+              title: "Webhook URL"
+          errors:
+            invalid_channel: "Dat kanaal bestaat niet op Microsoft Teams"
