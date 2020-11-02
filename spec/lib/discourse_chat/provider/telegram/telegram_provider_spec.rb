@@ -4,12 +4,13 @@ require 'rails_helper'
 
 RSpec.describe DiscourseChat::Provider::TelegramProvider do
   let(:post) { Fabricate(:post) }
+  let!(:webhook_stub) { stub_request(:post, 'https://api.telegram.org/botTOKEN/setWebhook').to_return(body: "{\"ok\":true}") }
 
   describe '.trigger_notifications' do
     before do
       SiteSetting.chat_integration_telegram_access_token = "TOKEN"
-      SiteSetting.chat_integration_telegram_secret = 'shhh'
       SiteSetting.chat_integration_telegram_enabled = true
+      SiteSetting.chat_integration_telegram_secret = 'shhh'
     end
 
     let(:chan1) { DiscourseChat::Channel.create!(provider: 'telegram', data: { name: "Awesome Channel", chat_id: '123' }) }
