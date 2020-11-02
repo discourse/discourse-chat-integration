@@ -5,6 +5,7 @@ require 'rails_helper'
 describe 'Telegram Command Controller', type: :request do
   let(:category) { Fabricate(:category) }
   let!(:chan1) { DiscourseChat::Channel.create!(provider: 'telegram', data: { name: 'Amazing Channel', chat_id: '123' }) }
+  let!(:webhook_stub) { stub_request(:post, 'https://api.telegram.org/botTOKEN/setWebhook').to_return(body: "{\"ok\":true}") }
 
   describe 'with plugin disabled' do
     it 'should return a 404' do
@@ -28,9 +29,9 @@ describe 'Telegram Command Controller', type: :request do
   describe 'slash commands endpoint' do
     before do
       SiteSetting.chat_integration_enabled = true
-      SiteSetting.chat_integration_telegram_secret = "shhh"
       SiteSetting.chat_integration_telegram_access_token = "TOKEN"
       SiteSetting.chat_integration_telegram_enabled = true
+      SiteSetting.chat_integration_telegram_secret = "shhh"
     end
 
     let!(:stub) { stub_request(:post, 'https://api.telegram.org/botTOKEN/sendMessage').to_return(body: "{\"ok\":true}") }
