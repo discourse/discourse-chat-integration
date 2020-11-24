@@ -16,6 +16,8 @@ pl_PL:
       no_providers: "Musisz włączyć niektórych dostawców w ustawieniach wtyczki"
       channels_with_errors: "Niektóre kanały dla tego dostawcy nie powiodły się, gdy zostały wysłane ostatnie wiadomości. Kliknij ikonę błędu, aby dowiedzieć się więcej."
       channel_exception: "Wystąpił nieznany błąd, gdy wiadomość została ostatnio wysłana na ten kanał."
+      group_mention_template: "Wzmianki o: @%{name}"
+      group_message_template: "Wiadomości do: @%{name}"
       choose_group: "(wybierz grupę)"
       all_categories: "(wszystkie kategorie)"
       all_tags: "(wszystkie tagi)"
@@ -40,6 +42,7 @@ pl_PL:
         mute: 'Wycisz'
         follow: 'Tylko pierwszy wpis'
         watch: 'Wszystkie wpisy i odpowiedzi'
+        thread: 'Wszystkie posty z odpowiedziami w wątkach'
       rule_table:
         filter: "Filtr"
         category: "Kategoria"
@@ -156,3 +159,23 @@ pl_PL:
             flow_token:
               title: "Flow Token"
               help: "Flow token nadany w trakcie tworzenia źródła flowu w którym zamierzasz wysyłać wiadomości."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "Nazwa instancji GroupMe"
+              help: "Nazwa instancji GroupMe wymieniona w ustawieniach witryny. Użyj 'all', aby wysłać do wszystkich instancji."
+          errors:
+            not_found: "Nie znaleziono ścieżki, na którą próbujesz wysłać wiadomość. Sprawdź identyfikator bota w ustawieniach witryny."
+            instance_names_issue: "nazwy instancji są nieprawidłowo sformatowane lub nie zostały podane"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Nazwa"
+              help: "Nazwa kanału Teams, np. discourse"
+            webhook_url:
+              title: "URL webhooka"
+              help: "Adres URL podany podczas tworzenia nowego przychodzącego webhooka"
+          errors:
+            invalid_channel: "Ten kanał nie istnieje w Microsoft Teams"

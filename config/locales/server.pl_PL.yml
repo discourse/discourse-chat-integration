@@ -46,6 +46,12 @@ pl_PL:
     chat_integration_gitter_enabled: "Włącz integrację z Glitter"
     chat_integration_flowdock_enabled: "Włącz integrację z Flowdock"
     chat_integration_flowdock_excerpt_length: "Długość skrótu wpisu na Flowdock"
+    chat_integration_groupme_enabled: "Włącz integrację z GroupMe"
+    chat_integration_groupme_excerpt_length: "Długość fragmentu postu GroupMe"
+    chat_integration_groupme_bot_ids: "*wymagane* Identyfikatory botów, oddzielone przez ',' jeśli jest ich wiele"
+    chat_integration_groupme_instance_names: " *wymagana* Nazwa czatu GroupMe, rozdzielona przez ',' jeśli istnieje wiele (taka sama kolejność jak identyfikatory botów)"
+    chat_integration_teams_enabled: "Włącz integrację z Microsoft Teams"
+    chat_integration_teams_excerpt_length: "Długość fragmentu postu Microsoft Team"
   chat_integration:
     all_categories: "(wszystkie kategorie)"
     deleted_category: "(usunięta kategoria)"
