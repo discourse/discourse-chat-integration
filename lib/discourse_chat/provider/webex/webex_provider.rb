@@ -46,9 +46,8 @@ module DiscourseChat::Provider::WebexProvider
     if topic.category&.uncategorized?
       category = "[#{I18n.t('uncategorized_category_name')}]"
     elsif topic.category
-      category = (topic.category.parent_category)
-               ? "[#{topic.category.parent_category.name}/#{topic.category.name}]"
-               : "[#{topic.category.name}]"
+      category = (topic.category.parent_category) ?
+               "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
     end
 
     markdown = "**#{topic.title}**: #{category}"
