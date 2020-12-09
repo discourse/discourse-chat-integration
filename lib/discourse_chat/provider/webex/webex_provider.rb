@@ -5,7 +5,10 @@ module DiscourseChat::Provider::WebexProvider
   PROVIDER_ENABLED_SETTING = :chat_integration_webex_enabled
   CHANNEL_PARAMETERS = [
     { key: "name", regex: '^\S+$', unique: true },
-    { key: "webhook_url", regex: '^https:\/\/webexapis\.com\/v1\/webhooks\/incoming\/[A-Za-z0-9\-@\/]+\S+$', unique: true, hidden: true }
+    { key: "webhook_url",
+      regex: '^https:\/\/webexapis\.com\/v1\/webhooks\/incoming\/[A-Za-z0-9\-@\/]+\S+$',
+      unique: true,
+      hidden: true }
   ]
 
   def self.trigger_notification(post, channel, rule)
@@ -25,7 +28,10 @@ module DiscourseChat::Provider::WebexProvider
       else
         error_key = nil
       end
-      raise ::DiscourseChat::ProviderError.new info: { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
+      raise ::DiscourseChat::ProviderError.new info: { error_key: error_key,
+                                                       request: req.body,
+                                                       response_code: response.code,
+                                                       response_body: response.body }
     end
 
   end
@@ -40,14 +46,21 @@ module DiscourseChat::Provider::WebexProvider
     if topic.category&.uncategorized?
       category = "[#{I18n.t('uncategorized_category_name')}]"
     elsif topic.category
-      category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
+      category = (topic.category.parent_category)
+               ? "[#{topic.category.parent_category.name}/#{topic.category.name}]"
+               : "[#{topic.category.name}]"
     end
 
-    message = {
-      "markdown": "**#{topic.title}**: #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}(#{post.full_url}) from #{full_name}(#{display_name}): #{post.excerpt(SiteSetting.chat_integration_webex_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true)}"
-    }
+    markdown = "**#{topic.title}**: #{category}"
+    markdown += " #{topic.tags.map(&:name).join(', ')} " if topic.tags.present?
+    markdown += "(#{post.full_url}) from #{full_name} (#{display_name}):\n"
+    markdown += post.excerpt(SiteSetting.chat_integration_webex_excerpt_length,
+                             text_entities: true,
+                             strip_links: true,
+                             remap_emoji: true
+                            )
 
-    message
+    { "markdown": markdown }
   end
 
 end
