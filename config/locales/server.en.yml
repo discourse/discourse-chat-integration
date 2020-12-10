@@ -95,8 +95,8 @@ en:
     ###########################################
     ######## WEBEX TEAMS SETTINGS #########
     ###########################################
-    chat_integration_teams_enabled: "Enable the Webex Teams chat integration provider"
-    chat_integration_teams_excerpt_length: "Webex Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
 
   chat_integration:
 
