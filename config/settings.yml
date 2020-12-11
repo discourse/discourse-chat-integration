@@ -137,3 +137,10 @@ chat_integration:
     default: false
   chat_integration_teams_excerpt_length:
     default: 400
+###########################################
+######## WEBEX TEAMS SETTINGS #########
+###########################################
+  chat_integration_webex_enabled:
+    default: false
+  chat_integration_webex_excerpt_length:
+    default: 400
