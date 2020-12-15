@@ -178,3 +178,14 @@ ru:
               title: "URL вебхука"
           errors:
             invalid_channel: "Этот канал не существует в Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Название"
+              help: "Название пространства для общения, например, 'discourse'"
+            webhook_url:
+              title: "URL вебхука"
+              help: "URL-адрес, указанный при создании нового входящего вебхука"
+          errors:
+            invalid_channel: "Этот канал не существует в Webex"

@@ -50,6 +50,10 @@ he:
     chat_integration_groupme_excerpt_length: "אורך מהפוסט שמופיע בתקציר ב־Groupme"
     chat_integration_groupme_bot_ids: "*נדרש* מזהי הבוטים, מופרדים ב־, אם יש כמה כאלה"
     chat_integration_groupme_instance_names: "*נדרש* שמות הצ׳אטים ב־GroupMe, מופרדים ב־, אם יש כמה כאלה (באותו הסדר כמו מזהי הבוטים)"
+    chat_integration_teams_enabled: "הפעלת ספק שילוב הצ׳אט עם Microsoft Teams"
+    chat_integration_teams_excerpt_length: "אורך מהפוסט שמופיע בתקציר Microsoft Teams"
+    chat_integration_webex_enabled: "הפעלת ספק שילוב הצ׳אט עם Webex Teams"
+    chat_integration_webex_excerpt_length: "אורך מהפוסט שמופיע בתקציר Webex Teams"
   chat_integration:
     all_categories: "(כל הקטגוריות)"
     deleted_category: "(קטגוריה שנמחקה)"

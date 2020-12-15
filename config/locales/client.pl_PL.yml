@@ -179,3 +179,14 @@ pl_PL:
               help: "Adres URL podany podczas tworzenia nowego przychodzącego webhooka"
           errors:
             invalid_channel: "Ten kanał nie istnieje w Microsoft Teams"
+        webex:
+          title: "Zespoły Webex"
+          param:
+            name:
+              title: "Nazwa"
+              help: "Nazwa miejsca Webex np. discourse"
+            webhook_url:
+              title: "URL webhooka"
+              help: "Adres URL podany podczas tworzenia nowego przychodzącego webhooka"
+          errors:
+            invalid_channel: "Ten kanał nie istnieje w Webex"
