@@ -52,6 +52,8 @@ sv:
     chat_integration_groupme_instance_names: " *krävs* Namn på GroupMe-chatten, avgränsade med ',' om det är flera (samma ordning som Bot-ID)"
     chat_integration_teams_enabled: "Aktivera chattintegreringsleverantören för Microsoft Teams"
     chat_integration_teams_excerpt_length: "Microsoft Team-inläggsutdragets längd"
+    chat_integration_webex_enabled: "Aktivera chattintegreringsleverantör för Webex Teams"
+    chat_integration_webex_excerpt_length: "Webex Team-inläggsutdragets längd"
   chat_integration:
     all_categories: "(alla kategorier)"
     deleted_category: "(raderad kategori)"
