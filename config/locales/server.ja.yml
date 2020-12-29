@@ -7,3 +7,43 @@
 ja:
   chat_integration:
     all_categories: "(すべてのカテゴリ)"
+    provider:
+      slack:
+        parse_error: "そのコマンドは存在しません。 `/discource help' で利用できるコマンドを確認できます。"
+        create:
+          error: "申し訳ありませんが、ルールの作成中にエラーが発生しました。"
+        delete:
+          error: "申し訳ありませんが、ルールの削除中にエラーが発生しました。\nルール一覧は `/discourse status`で確認できます。"
+        help: |
+          *新しいルール:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (ルールの種類と少なくとも1つのカテゴリまたはタグを指定する必要があります)
+          - *thread* - 新しいトピックのためにこのチャンネルに通知し、可能であればスレッドの返信を行います。
+          - *watch* - 新しいトピックと新しい返信をこのチャンネルに通知する
+          - *follow* - 新しいトピックをこのチャンネルに通知する
+          - *mute* - このチャンネルへの通知をブロックする
+
+          *ルールの削除:* `/discourse remove [rule number]`
+          (`[ルール番号]` は `/discourse status` で確認できます。)
+
+          *ルールの一覧:* `/discourse status`
+
+          *[実験] ポストトランスクリプト:* `/discourse post [n]`.
+          このチャンネルの最後の `n` の投稿を含む談話に関するトピックの草案を作成する
+
+          *ヘルプの表示:* `/discourse help`
+      telegram:
+        help: |
+          <b>新しいルール:</b> <code>/[watch|follow|mute] [category] [tag:name]</code>。
+          (ルールの種類と少なくとも1つのカテゴリまたはタグを指定する必要があります)
+          - <b>watch</b> - 新しいトピックや新しい返信をこのチャンネルに通知する
+          - <b>フォロー</b> - 新しいトピックをこのチャンネルに通知する
+          - <b>mute</b> - このチャンネルへの通知をミュートにする
+
+          <b>ルールの削除:</b> <code>/remove [ルール番号]</code>を削除します。
+          (<code>[ルール番号]</code>は<code>/status</code>を実行することで見つけることができます)
+
+          <b>ルール一覧:</b> <code>/status</code>
+
+          <b>ヘルプ:</b> <code>/help</code>
+      mattermost:
+        help: "*新しいルール:* `/discourse [watch|follow|mute] [category] [tag:name]`\n(ルールの種類と少なくとも1つのカテゴリまたはタグを指定する必要があります)\n- *watch* - 新しいトピックと新しい返信をこのチャンネルに通知する\n- *follow* - 新しいトピックをこのチャンネルに通知する\n- *mute* - このチャンネルへの通知をミュートにする\n\n*ルールの削除:* `/discourse remove [rule number]` \n(`[ルール番号]` は `/discourse status` で確認できます。)\n\n*ルール一覧:* `/discourse status`\n\n*ヘルプ:* `/discourse help`\n"
