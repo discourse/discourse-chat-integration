@@ -7,36 +7,66 @@
 pt:
   site_settings:
     chat_integration_enabled: 'Ativar o ''''plug-in'''' de integração de conversação discourse'
+    chat_integration_discourse_username: 'Username of user to act as when fetching content.'
+    chat_integration_delay_seconds: 'Number of seconds to wait after post creation before sending chat notitifications'
+    chat_integration_slack_username: "Bot's username to post to slack with"
     chat_integration_slack_enabled: 'Ativar provedor de integração de conversação slack'
     chat_integration_slack_access_token: 'O «Código de Acesso» de OAuth para a autenticação com Slack'
     chat_integration_slack_incoming_webhook_token: 'O código de verificação utilizado para autenticar pedidos a receber'
     chat_integration_slack_excerpt_length: 'Comprimento do excerto da mensagem de Slack'
+    chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
+    chat_integration_slack_outbound_webhook_url: "For using Slack's 'Incoming Webhook' system instead of of the OAuth API. Not recommended."
+    errors:
+      chat_integration_slack_api_configs_are_empty: "You must enter either an outbound webhook URL, or an access token"
     chat_integration_telegram_enabled: "Ativar provedor de integração de conversação Telegram"
+    chat_integration_telegram_access_token: "Your bot's access token from the Telegram botfather"
     chat_integration_telegram_excerpt_length: "Comprimento do excerto da mensagem de Telegram"
+    chat_integration_telegram_enable_slash_commands: "Allow telegram subscriptions to be managed using 'slash commands'"
     chat_integration_discord_enabled: "Ativar provedor de integração de conversação Discord"
+    chat_integration_discord_message_content: "The message to include above the summary when sending a notification to Discord"
     chat_integration_discord_excerpt_length: "Comprimento do excerto da mensagem de Discord"
     chat_integration_mattermost_enabled: "Ativar provedor de integração de conversação Mattermost"
     chat_integration_mattermost_webhook_url: 'URL para o ''''webhook'''' de Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'O código de verificação utilizado para autenticar pedidos a receber'
     chat_integration_mattermost_icon_url: "Ícone para as mensagens de Mattermost (predefine para logótipo do fórum)"
+    chat_integration_mattermost_excerpt_length: "Mattermost post excerpt length"
     chat_integration_matrix_enabled: "Ativar provedor de integração de conversação Matrix"
+    chat_integration_matrix_homeserver: "Homeserver to connect to. Make sure to include the protocol"
+    chat_integration_matrix_access_token: "Access token for the bot's Matrix account"
+    chat_integration_matrix_excerpt_length: "Matrix post excerpt length"
+    chat_integration_matrix_use_notice: "Use notice instead of plain message"
     chat_integration_zulip_enabled: "Ativar provedor de integração de conversação Zulip"
+    chat_integration_zulip_server: "The base URL for your Zulip server. Make sure to include http(s)://"
     chat_integration_zulip_bot_email_address: "O endereço de ''e-mail'' associado com o seu robô Zulip"
     chat_integration_zulip_bot_api_key: "A chave da API para o seu robô Zulip"
     chat_integration_zulip_excerpt_length: "Comprimento do excerto da mensagem de Zulip"
+    chat_integration_rocketchat_enabled: "Enable the Rocket Chat chat integration provider"
+    chat_integration_rocketchat_webhook_url: "The URL for the Rocket Chat integration webhook"
     chat_integration_rocketchat_excerpt_length: "Comprimento do excerto da mensagem de Rocket Chat"
     chat_integration_gitter_enabled: "Ativar provedor de integração de conversação Gitter"
     chat_integration_flowdock_enabled: "Ativar provedor de integração de conversação Flowdock"
     chat_integration_flowdock_excerpt_length: "Comprimento do excerto da mensagem de Flowdock"
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(todas as categorias)"
     deleted_category: "(categoria eliminada)"
     deleted_group: "(grupo eliminado)"
     group_mention_template: "menções de: @%{name}"
     group_message_template: "mensagens para: @%{name}"
+    admin_error: "Some chat integration channels have errors. Visit <a href='%{base_path}/admin/plugins/chat'>the chat integration section</a> to find out more."
     provider:
       slack:
         status:
+          header: |
+            *Rules for this channel*
+            (if multiple rules match a post, the topmost rule is executed)
           no_rules: "Não existem regras configuradas para este canal. Execute <code>/discourse help</code> para instruções."
           rule_string: "*%{index})* *%{filter}* publica na *%{category}*"
           rule_string_tags_suffix: " com etiquetas: *%{tags}*"
@@ -51,13 +81,37 @@ pt:
         not_found:
           tag: "Não é possível encontrar a etiqueta \"%{name}\"."
           category: "Não foi possível encontrar a categoria *%{name}*. Categorias disponíveis: *%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
+          error: "Something went wrong when building the transcript, sorry!"
+          post_to_discourse: "Click here to draft a post on Discourse with a transcript"
+          api_required: "Sorry, this integration isn't setup to support posting transcripts."
           view_on_slack: "Ver em %{name} no Slack"
+          first_message_pretext: "starting %{n} messages ago:"
+          last_message_pretext: "and ending %{n} messages ago:"
           posted_in: "publicou em %{name}"
           change_first_message: "Alterar a primeira mensagem..."
           change_last_message: "Alterar a última mensagem..."
           loading: "A carregar a transcrição..."
       telegram:
+        unknown_chat: "This chat isn't setup on %{site_title}. Ask an administrator to add a channel with 'Chat ID' %{chat_id}."
+        known_chat: "This chat is setup on %{site_title}. Configure it in the admin panel. (Chat ID: %{chat_id})"
         message: |-
           <b>%{user}</b> publicou no <a href="%{post_url}">%{title}</a>
 
@@ -76,12 +130,30 @@ pt:
           error: "Desculpe, ocorreu um erro enquanto criava a regra."
         delete:
           success: "Regra eliminada com sucesso"
+          error: "Sorry, an error occured while deleting that rule. Run <code>/status</code> for a list of rules."
         not_found:
           tag: "Não é possível encontrar a etiqueta <b>%{name}</b>."
+          category: "The <b>%{name}</b> category cannot be found. Available categories: <b>%{list}</b>"
+        help: |
+          <b>New rule:</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
+          (you must specify a rule type and at least one category or tag)
+          - <b>watch</b> – notify this channel for new topics and new replies
+          - <b>follow</b> – notify this channel for new topics
+          - <b>mute</b> – block notifications to this channel
+
+          <b>Remove rule:</b> <code>/remove [rule number]</code>
+          (<code>[rule number]</code> can be found by running <code>/status</code>)
+
+          <b>List rules:</b> <code>/status</code>
+
+          <b>Help:</b> <code>/help</code>
       hipchat:
         message: <b>%{user}</b> publicou em <a href="%{post_url}">%{title}</a>
       mattermost:
         status:
+          header: |
+            *Rules for this channel*
+            (if multiple rules match a post, the topmost rule is executed)
           no_rules: "Não existem regras configuradas para este canal. Execute <code>/discourse help</code> para instruções."
           rule_string: "*%{index})* *%{filter}* publica na *%{category}*"
           rule_string_tags_suffix: " com etiquetas: *%{tags}*"
@@ -96,6 +168,19 @@ pt:
         not_found:
           tag: "Não é possível encontrar a etiqueta \"%{name}\"."
           category: "Não foi possível encontrar a categoria *%{name}*. Categorias disponíveis: *%{list}*"
+        help: |
+          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *Help:* `/discourse help`
       matrix:
         text_message: "%{user} publicou em %{title} - %{post_url}"
         formatted_message: |

@@ -50,6 +50,10 @@ zh_CN:
     chat_integration_groupme_excerpt_length: "GroupMe帖子摘要长度"
     chat_integration_groupme_bot_ids: "*必要* 机器人 ID，当有多个时使用‘,’（英文逗号）分隔"
     chat_integration_groupme_instance_names: "*必要*  GroupMe聊天的名字，有多个时使用“，”分割（与Bot IDs的顺序相同）"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "（所有分类）"
     deleted_category: "（删除的分类）"
@@ -77,6 +81,23 @@ zh_CN:
         not_found:
           tag: "标签*%{name}*找不到"
           category: "未找到分类*%{name}*。可用分类：*%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "抱歉，创建副本时出现了一些错误！"
           post_to_discourse: "点击这里使用副本在DIscourse创建一个帖子的草稿"

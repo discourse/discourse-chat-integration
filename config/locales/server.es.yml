@@ -46,6 +46,14 @@ es:
     chat_integration_gitter_enabled: "Habilitar el proveedor de integración de chat de Gitter"
     chat_integration_flowdock_enabled: "Habilitar el proveedor de integración de chat de Flowdock"
     chat_integration_flowdock_excerpt_length: "Longitud del extracto de publicaciones de Flowdock"
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(todas las categorías)"
     deleted_category: "(categoría eliminada)"
@@ -73,6 +81,23 @@ es:
         not_found:
           tag: "La etiqueta *%{name}* no ha sido encontrada."
           category: "La categoría *%{name}* no ha sido encontrada. Categorías disponibles: *%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "Algo salió mal al generar la transcripción, ¡lo sentimos!"
           post_to_discourse: "Haz clic aquí para generar un borrador de publicación en Discourse con una transcripción"

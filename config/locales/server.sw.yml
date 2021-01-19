@@ -9,27 +9,58 @@ sw:
     chat_integration_enabled: 'Ruhusu programu jalizi ya discourse'
     chat_integration_discourse_username: 'Jina la mtumiaji kutumika wakati wakupata taarifa.'
     chat_integration_delay_seconds: 'Namba za sekunde kusubiria baada ya kuandika taarifa kabla ya kutuma tamko '
+    chat_integration_slack_username: "Bot's username to post to slack with"
     chat_integration_slack_enabled: 'Ruhusu watumiaji waweze kuwasiliana kupitia slack'
+    chat_integration_slack_access_token: 'OAuth Access Token for authenticating with Slack'
     chat_integration_slack_incoming_webhook_token: 'Ishara ya uthibitisho inayotumika kusahihisha maombi yanayoingia.'
+    chat_integration_slack_excerpt_length: 'Slack post excerpt length'
+    chat_integration_slack_icon_url: 'Icon to post to slack with (defaults to forum logo)'
+    chat_integration_slack_outbound_webhook_url: "For using Slack's 'Incoming Webhook' system instead of of the OAuth API. Not recommended."
+    errors:
+      chat_integration_slack_api_configs_are_empty: "You must enter either an outbound webhook URL, or an access token"
     chat_integration_telegram_enabled: "Ruhusu watu kuwasiliana kupitia Telegram"
     chat_integration_telegram_access_token: "Uwezo wa kumuona roboti kutoka kwa Telegram"
     chat_integration_telegram_excerpt_length: "Urefu wa taarifa fupi kutoka kwa Telegram"
+    chat_integration_telegram_enable_slash_commands: "Allow telegram subscriptions to be managed using 'slash commands'"
+    chat_integration_discord_enabled: "Enable the Discord chat-integration provider"
     chat_integration_discord_message_content: "Ujumbe wakuambatanishwa juu ya muhtasari wakati wa kutuma taarifa kwa Discord"
     chat_integration_discord_excerpt_length: "Urefu wa Kipande cha taarifa za Discord"
+    chat_integration_mattermost_enabled: "Enable the Mattermost chat-integration provider"
     chat_integration_mattermost_webhook_url: 'Anwani ya Mattermost webhook'
     chat_integration_mattermost_incoming_webhook_token: 'Ishara ya uthibitisho inayotumika kusahihisha maombi yanayoingia.'
     chat_integration_mattermost_icon_url: "Ikoni za machapisho kwenye Mattermost (kwa asili ni nembo ya Jamii)"
+    chat_integration_mattermost_excerpt_length: "Mattermost post excerpt length"
+    chat_integration_matrix_enabled: "Enable the Matrix chat integration provider"
     chat_integration_matrix_homeserver: "Seva ya Nyumbani ya kuunganishwa. Hakikisha umeweka sheria au protocol"
+    chat_integration_matrix_access_token: "Access token for the bot's Matrix account"
+    chat_integration_matrix_excerpt_length: "Matrix post excerpt length"
+    chat_integration_matrix_use_notice: "Use notice instead of plain message"
+    chat_integration_zulip_enabled: "Enable the Zulip chat integration provider"
     chat_integration_zulip_server: "Anwani ya mtandao ya seva ya Zulip. Hakikisha unaandika http(s):// "
     chat_integration_zulip_bot_email_address: "Barua pepe inayotumika kwenye roboti wa Zulip"
     chat_integration_zulip_bot_api_key: "Ufunguo kwa ajili ya roboti wa Zulip"
+    chat_integration_zulip_excerpt_length: "Zulip post excerpt length"
     chat_integration_rocketchat_enabled: "Ruhusu watu waweze kuwasiliana kwa kutumia Rocket Chat"
+    chat_integration_rocketchat_webhook_url: "The URL for the Rocket Chat integration webhook"
+    chat_integration_rocketchat_excerpt_length: "Rocket Chat post excerpt length"
+    chat_integration_gitter_enabled: "Enable the Gitter chat integration provider"
+    chat_integration_flowdock_enabled: "Enable the Flowdock chat integration provider"
+    chat_integration_flowdock_excerpt_length: "Flowdock post excerpt length"
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(Vikundi Vyote)"
     deleted_category: "(kikundi kilichofutwa)"
     deleted_group: "(kikundi kilichofutwa)"
     group_mention_template: "@%{name} ametajwa:"
     group_message_template: "ujumbe kwenda kwa: @%{name}"
+    admin_error: "Some chat integration channels have errors. Visit <a href='%{base_path}/admin/plugins/chat'>the chat integration section</a> to find out more."
     provider:
       slack:
         status:
@@ -50,9 +81,27 @@ sw:
         not_found:
           tag: " *%{name}* nembo haijapatikana"
           category: "*%{name}* kikundi hakipatikani. Vikundi vilivyopo ni: *%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "Hitilafu imetokea wakati wa kutengeneza manukuu, samahani!"
           post_to_discourse: "Bonyeza hapa kuandika taarifa kwenye Discourse kwa kutumia manuku"
+          api_required: "Sorry, this integration isn't setup to support posting transcripts."
           view_on_slack: "Angalia ndani ya %{name}kwenye Slack"
           first_message_pretext: "kuanzia ujumbe %{n} uliopita"
           last_message_pretext: "na imeishia ujumbe %{n} uliopita:"
@@ -62,6 +111,7 @@ sw:
           loading: "Manuku yanapakuliwa"
       telegram:
         unknown_chat: "Hii njia ya mawasiliano kwenye %{site_title} haijatengenezwa. Wasiliana na msimazi aongeze njia ya mawasiliano kwa jina la 'Utambulisho wa Mawasiliano' %{chat_id}"
+        known_chat: "This chat is setup on %{site_title}. Configure it in the admin panel. (Chat ID: %{chat_id})"
         message: |-
           <b>%{user}</b> amechapisha kwenye <a href="%{post_url}">%{title}</a>
 

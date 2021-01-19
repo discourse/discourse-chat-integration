@@ -42,6 +42,7 @@ fr:
         mute: 'Désactiver'
         follow: 'Premier message seulement'
         watch: 'Tous les messages et réponses'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Filtrer"
         category: "Catégorie"
@@ -167,3 +168,25 @@ fr:
           errors:
             not_found: "Le chemin vers lequel vous avez essayé de poster votre message n'a pas été trouvé. Vérifiez l'ID du bot dans les paramètres."
             instance_names_issue: "les noms d'instance sont incorrectement formatés ou non fournis"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

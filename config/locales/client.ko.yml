@@ -16,6 +16,8 @@ ko:
       no_providers: "플러그인 설정에서 일부 제공자를 활성화해야합니다"
       channels_with_errors: "이 제공자의 일부 채널은 마지막으로 메시지를 송신 할 때 실패했습니다. 자세한 내용을 보려면 오류 아이콘을 클릭하십시오."
       channel_exception: "메시지가이 채널로 마지막으로 전송 될 때 알 수없는 오류가 발생했습니다."
+      group_mention_template: "Mentions of: @%{name}"
+      group_message_template: "Messages to: @%{name}"
       choose_group: "(그룹을 선택하십시오)"
       all_categories: "(전체 카테고리)"
       all_tags: "(모든 태그)"
@@ -40,6 +42,7 @@ ko:
         mute: '알림 끄기'
         follow: '첫 번째 게시물 만'
         watch: '모든 게시물과 답글'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "필터"
         category: "카테고리"
@@ -127,16 +130,63 @@ ko:
           param:
             stream:
               title: "흐름"
+              help: "The name of the Zulip stream the message should be sent to. e.g. 'general'"
             subject:
               title: "제목"
+              help: "The subject that these messages sent by the bot should be given"
+          errors:
+            does_not_exist: "That stream does not exist on Zulip"
         rocketchat:
+          title: "Rocket.Chat"
           param:
             identifier:
               title: 채널
               help: "예 : #channel, @username"
+          errors:
+            invalid_channel: "That channel does not exist on Rocket Chat"
         gitter:
+          title: "Gitter"
           param:
             name:
               title: "이름"
+              help: "A Gitter room's name e.g. gitterHQ/services."
             webhook_url:
               title: "웹 후크 URL"
+              help: "The URL provided when you create a new integration in a Gitter room."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow Token"
+              help: "The flow token provided after creating a source for a flow into which you want to send messages."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

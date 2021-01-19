@@ -81,6 +81,23 @@ pl_PL:
         not_found:
           tag: "Tag o nazwie *%{name}* nie może zostać znaleziony."
           category: "Kategoria o nazwie *%{name}* nie może zostać znaleziona. Dostępne kategorie: *%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "Coś poszło nie tak podczas tworzenia transkryptu, przepraszamy!"
           post_to_discourse: "Kliknij tutaj, by szkicować wpis Discourse’a z transkryptem"

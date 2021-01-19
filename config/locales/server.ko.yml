@@ -46,6 +46,14 @@ ko:
     chat_integration_gitter_enabled: "Gitter chat 통합 제공자 사용"
     chat_integration_flowdock_enabled: "Flowdock 채팅 통합 공급자 사용"
     chat_integration_flowdock_excerpt_length: "Flowdock 포스트 발췌 길이"
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(전체 카테고리)"
     deleted_category: "(삭제 된 카테고리)"
@@ -56,6 +64,9 @@ ko:
     provider:
       slack:
         status:
+          header: |
+            *Rules for this channel*
+            (if multiple rules match a post, the topmost rule is executed)
           no_rules: "이 채널에 설정된 규칙이 없습니다. 지침을 보려면`/ discourse help`를 실행하십시오."
           rule_string: "* %{index}) * * %{filter} * * %{category}의 게시물 *"
           rule_string_tags_suffix: "태그 포함 : * %{tags} *"
@@ -70,6 +81,23 @@ ko:
         not_found:
           tag: "* %{name} * 태그를 찾을 수 없습니다."
           category: "* %{name} * 카테고리를 찾을 수 없습니다. 사용 가능한 카테고리 : * %{list} *"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "대화 내용을 작성할 때 문제가 발생했습니다. 죄송합니다."
           post_to_discourse: "대화 내용으로 담론에 대한 게시물을 작성하려면 여기를 클릭하십시오."
@@ -87,6 +115,9 @@ ko:
         message: |-
           <b>%{title}에</b> 게시 된 <a href="%{post_url}">%{user}</a> <pre> %{post_excerpt} </pre>
         status:
+          header: |
+            <b>Rules for this channel</b>
+            (if multiple rules match a post, the topmost rule is executed)
           no_rules: "이 채널에 설정된 규칙이 없습니다. 지침을 보려면 <code>/help</code> 를 실행하십시오."
           rule_string: "<b>%{index})</b> <b>%{filter}의</b> 게시물 <b>%{category}</b>"
           rule_string_tags_suffix: "태그와 함께 : <b>%{tags}</b>"
@@ -101,10 +132,26 @@ ko:
         not_found:
           tag: "<b>%{name}</b> 태그를 찾을 수 없습니다."
           category: "<b>%{name}</b> 카테고리를 찾을 수 없습니다. 사용 가능한 카테고리 : <b>%{list}</b>"
+        help: |
+          <b>New rule:</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
+          (you must specify a rule type and at least one category or tag)
+          - <b>watch</b> – notify this channel for new topics and new replies
+          - <b>follow</b> – notify this channel for new topics
+          - <b>mute</b> – block notifications to this channel
+
+          <b>Remove rule:</b> <code>/remove [rule number]</code>
+          (<code>[rule number]</code> can be found by running <code>/status</code>)
+
+          <b>List rules:</b> <code>/status</code>
+
+          <b>Help:</b> <code>/help</code>
       hipchat:
         message: <b>%{title}에</b> 게시 된 <a href="%{post_url}">%{user}</a>
       mattermost:
         status:
+          header: |
+            *Rules for this channel*
+            (if multiple rules match a post, the topmost rule is executed)
           no_rules: "이 채널에 설정된 규칙이 없습니다. 지침을 보려면`/ discourse help`를 실행하십시오."
           rule_string: "* %{index}) * * %{filter} * * %{category}의 게시물 *"
           rule_string_tags_suffix: "태그 포함 : * %{tags} *"
@@ -119,7 +166,33 @@ ko:
         not_found:
           tag: "* %{name} * 태그를 찾을 수 없습니다."
           category: "* %{name} * 카테고리를 찾을 수 없습니다. 사용 가능한 카테고리 : * %{list} *"
+        help: |
+          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *Help:* `/discourse help`
       matrix:
         text_message: "%{title}-%{post_url}에 게시 된 %{user}"
+        formatted_message: |
+          <b>%{user}</b> posted in <b><a href='%{post_url}'>%{title}</a></b>
+          <blockquote>
+          %{excerpt}
+          </blockquote>
+      zulip:
+        message: |
+          **%{user}** posted in **[%{title}](%{post_url})**
+          ~~~quote
+          %{excerpt}
+          ~~~
       flowdock:
         message_title: "게시"
+      groupme:
+        message_title: "posted"

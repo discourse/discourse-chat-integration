@@ -176,6 +176,7 @@ ru:
               help: "Наименование канала, например 'Дискурс'."
             webhook_url:
               title: "URL вебхука"
+              help: "The URL provided when you create a new incomming webhook"
           errors:
             invalid_channel: "Этот канал не существует в Microsoft Teams"
         webex:

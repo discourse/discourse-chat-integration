@@ -46,6 +46,14 @@ it:
     chat_integration_gitter_enabled: "Abilita il provider per l'integrazione con Gitter"
     chat_integration_flowdock_enabled: "Abilita il provider per l'integrazione con Flowdock"
     chat_integration_flowdock_excerpt_length: "Lunghezza dell'estratto del messaggio Flowdock"
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(tutte le categorie)"
     deleted_category: "(categoria eliminata)"
@@ -73,6 +81,23 @@ it:
         not_found:
           tag: "Non è stato possibile trovare l'Etichetta *%{name}*."
           category: "La categoria *%{name}* non può essere trovata. Categorie disponibili: *%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "Spiacenti, qualcosa è andato storto durante la costruzione della trascrizione!"
           post_to_discourse: "Fai clic qui per creare una bozza su Discourse con una trascrizione"

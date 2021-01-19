@@ -9,6 +9,7 @@ be:
     chat_integration_enabled: 'Ўключыць дыскурс-чат-інтэграцыі убудова'
     chat_integration_discourse_username: 'Імя карыстальніка карыстальніка, каб дзейнічаць як пры атрыманні ўтрымання.'
     chat_integration_delay_seconds: 'Колькасць секунд чакання пасля стварэння паштовага перад адпраўкай апавяшчэнняў чата'
+    chat_integration_slack_username: "Bot's username to post to slack with"
     chat_integration_slack_enabled: 'Ўключэнне слабіну пастаўшчыка чат-інтэграцыі'
     chat_integration_slack_access_token: 'OAuth маркер доступу для аўтэнтыфікацыі з Слэк'
     chat_integration_slack_incoming_webhook_token: 'Маркер пацверджання выкарыстоўваецца для праверкі сапраўднасці ўваходзяць запытаў'
@@ -45,6 +46,14 @@ be:
     chat_integration_gitter_enabled: "Ўключэнне GITTER чат правайдэра інтэграцыі"
     chat_integration_flowdock_enabled: "Ўключэнне Flowdock чат правайдэра інтэграцыі"
     chat_integration_flowdock_excerpt_length: "Flowdock даўжыня пасля вытрымкі"
+    chat_integration_groupme_enabled: "Enable the Groupme chat integration provider"
+    chat_integration_groupme_excerpt_length: "Groupme post excerpt length"
+    chat_integration_groupme_bot_ids: "*required* Bot IDs, seperated by ',' if there are multiple"
+    chat_integration_groupme_instance_names: " *required* Name of the GroupMe chat, seperated by ',' if there are multiple (same order as Bot IDs)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(Усе катэгорыі)"
     deleted_category: "(Сцёрта катэгорыя)"
@@ -71,6 +80,23 @@ be:
         not_found:
           tag: "*% {Імя} * Тэг не можа быць знойдзены."
           category: "*% {Імя} * катэгорыя не можа быць знойдзены. Даступныя катэгорыі: *% {спіс} *"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "Нешта пайшло не так пры стварэнні транскрыптаў, прабачце!"
           post_to_discourse: "Націсніце тут, каб падрыхтаваць паведамленне на дыскурсе з транскрыптаў"

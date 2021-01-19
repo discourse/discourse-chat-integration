@@ -16,6 +16,8 @@ tr_TR:
       no_providers: "Eklenti ayarlarında bazı sağlayıcıları etkinleştirmeniz gerekiyor"
       channels_with_errors: "Bu sağlayıcı için bazı kanallar en son mesaj gönderildiğinde başarısız oldu. Daha fazla bilgi edinmek için hata simgelerini tıklayın."
       channel_exception: "Bu kanala en son mesaj gönderildiğinde bilinmeyen bir hata oluştu."
+      group_mention_template: "Mentions of: @%{name}"
+      group_message_template: "Messages to: @%{name}"
       choose_group: "(bir grup seçin)"
       all_categories: "(tüm kategoriler)"
       all_tags: "(tüm etiketler)"
@@ -40,6 +42,7 @@ tr_TR:
         mute: 'Sustur'
         follow: 'Yalnızca ilk gönderi'
         watch: 'Tüm gönderiler ve yanıtlar'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Süzgeç"
         category: "Kategori"
@@ -156,3 +159,34 @@ tr_TR:
             flow_token:
               title: "Akış Jetonu"
               help: "İleti göndermek istediğiniz akış için bir kaynak oluşturduktan sonra sağlanan akış belirteci."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

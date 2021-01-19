@@ -16,6 +16,8 @@ de:
       no_providers: "Du musst mindestens ein paar Provider in den Plugin-Einstellungen aktivieren"
       channels_with_errors: "Einige Kanäle für diesen Provider sind das letzte Mal fehlgeschlagen, als Nachrichten geschickt werden. Klicke auf das/die Fehlersymboĺ(e), um mehr zu erfahren."
       channel_exception: "Ein unbekannter Fehler ist aufgetreten als die Nachricht das letzte Mal an diesen Kanal gesendet wurde."
+      group_mention_template: "Mentions of: @%{name}"
+      group_message_template: "Messages to: @%{name}"
       choose_group: "(wähle eine Gruppe)"
       all_categories: "(alle Kategorien)"
       all_tags: "(alle Schlagwörter)"
@@ -40,6 +42,7 @@ de:
         mute: 'Stummschalten'
         follow: 'Nur den ersten Beitrag'
         watch: 'Alle Beiträge und Antworten.'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Filter"
         category: "Kategorie"
@@ -156,3 +159,34 @@ de:
             flow_token:
               title: "Flow-Token"
               help: "Das Flow-Token, das mitgeteilt wird, wenn du eine Quelle für einen Flow erstellst, in den du Nachrichten senden möchtest."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

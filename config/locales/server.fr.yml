@@ -50,6 +50,10 @@ fr:
     chat_integration_groupme_excerpt_length: "Longueur des extraits de message GroupMe"
     chat_integration_groupme_bot_ids: "*obligatoire* ID des bots, séparés pour des virgules s'il y en a plusieurs"
     chat_integration_groupme_instance_names: "*obligatoire* Nom du chat GroupMe, séparés par des virgules s'il y en a plusieurs (même ordre que l'ID des bots)"
+    chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
+    chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
+    chat_integration_webex_enabled: "Enable the Webex Teams chat integration provider"
+    chat_integration_webex_excerpt_length: "Webex Team post excerpt length"
   chat_integration:
     all_categories: "(toutes les catégories)"
     deleted_category: "(catégorie supprimée)"
@@ -77,6 +81,23 @@ fr:
         not_found:
           tag: "L'étiquette *%{name}* ne peut pas être retrouvée."
           category: "La catégorie *%{name}* n'a pas été trouvée. Catégories disponibles : *%{list}*"
+        help: |
+          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (you must specify a rule type and at least one category or tag)
+          - *thread* – notify this channel for new topics, thread replies if possible
+          - *watch* – notify this channel for new topics and new replies
+          - *follow* – notify this channel for new topics
+          - *mute* – block notifications to this channel
+
+          *Remove rule:* `/discourse remove [rule number]`
+          (`[rule number]` can be found by running `/discourse status`)
+
+          *List rules:* `/discourse status`
+
+          *[Experimental] Post transcript:* `/discourse post [n]`
+          Create a draft topic on discourse containing the last `n` posts in this channel
+
+          *Help:* `/discourse help`
         transcript:
           error: "Désolé, une erreur est survenue lors de la création de la transcription !"
           post_to_discourse: "Cliquez ici pour créer un message sur Discourse avec une transcription"

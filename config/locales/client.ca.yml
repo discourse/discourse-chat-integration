@@ -42,6 +42,7 @@ ca:
         mute: 'Silenci'
         follow: 'Sols la primera publicació'
         watch: 'Totes les publicacions i respostes'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Filtre"
         category: "Categoria"
@@ -158,3 +159,34 @@ ca:
             flow_token:
               title: "Testimoni de flux"
               help: "El testimoni de flux proporcionat després de crear una font per a un flux al qual voleu enviar missatges."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

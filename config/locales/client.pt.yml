@@ -14,6 +14,7 @@ pt:
       menu_title: "Integrações de conversação"
       settings: "Configurações"
       no_providers: "Precisa de ativar alguns provedores nas definições do ''plug-in''"
+      channels_with_errors: "Some channels for this provider failed last time messages were sent. Click the error icon(s) to learn more."
       channel_exception: "Ocorreu um erro desconhecido quando foi enviada uma mensagem para este canal."
       group_mention_template: "Menções de: @%{name}"
       group_message_template: "Mensagens para: @%{name}"
@@ -41,6 +42,7 @@ pt:
         mute: 'Silenciar'
         follow: 'Apenas a primeira mensagem'
         watch: 'Todas as mensagens e respostas'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Filtrar"
         category: "Categoria"
@@ -71,6 +73,7 @@ pt:
           filter: "Nível de notificação. Silêncio sobrepõe-se a outras regras correspondentes"
           category: "Esta regra aplica-se apenas para os tópicos na categoria especificada"
           group: "Esta regra será aplicada às mensagens que fazem referência a este grupo"
+          tags: "If specified, this rule will only apply to topics which have at least one of these tags"
       provider:
         slack:
           title: "Slack"
@@ -89,6 +92,7 @@ pt:
               help: "O nome para descrever o canal. Este não é utilizado para a ligação ao Telegram"
             chat_id:
               title: Id. da Conversa
+              help: A number given to you by the bot, or a broadcast channel identifier in the form @channelname
           errors:
             channel_not_found: "O canal especificado não existe no Telegram"
             forbidden: "O robô não tem permissão para publicar neste canal"
@@ -97,6 +101,7 @@ pt:
           param:
             name:
               title: "Nome"
+              help: "A name to describe the channel. It is not used for the connection to Discord."
             webhook_url:
               title: URL de Webhook
               help: O URL de ''webhook'' criado nas definições do seu servidor Discord
@@ -113,8 +118,10 @@ pt:
           param:
             name:
               title: "Nome"
+              help: "A name to describe the channel. It is not used for the connection to Matrix."
             room_id:
               title: "Id. da Sala"
+              help: "The 'private identifier' for the room. It should look something like !abcdefg:matrix.org"
           errors:
             unknown_token: "O código de acesso é inválido"
             unknown_room: "A Id. da Sala é inválida"
@@ -145,5 +152,41 @@ pt:
               help: "Um nome da sala do Gitter, exemplo: gitterHQ/services."
             webhook_url:
               title: "URL de Webhook"
+              help: "The URL provided when you create a new integration in a Gitter room."
         flowdock:
           title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow Token"
+              help: "The flow token provided after creating a source for a flow into which you want to send messages."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

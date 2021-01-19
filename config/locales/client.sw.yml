@@ -15,6 +15,9 @@ sw:
       settings: "Mipangilio"
       no_providers: "Unahitaji kuwawezesha baadhi ya watoa huduma kwenye mpangilio wa programu-jalizi"
       channels_with_errors: "Baadha ya chaneli za huyu mtumiaji zilishindwa mara ya mwisho zilipotumiwa ujumbe. Bonyeza ikoni za njano kupata taarifa zaidi za (ma)kosa."
+      channel_exception: "An unknown error occured when a message was last sent to this channel."
+      group_mention_template: "Mentions of: @%{name}"
+      group_message_template: "Messages to: @%{name}"
       choose_group: "(chagua kikundi)"
       all_categories: "(Makundi yote)"
       all_tags: "(lebo)"
@@ -39,6 +42,7 @@ sw:
         mute: 'Nyamazisha'
         follow: 'Taarifa ya kwanza pekee'
         watch: 'Machapisho yote na majibu'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Chuja"
         category: "Kikundi"
@@ -68,6 +72,7 @@ sw:
           type: "Badilisha jinsi ya kuonyesha aina za taarifa za vikundi au mtu akitajwa"
           filter: "Kiwango cha Taarifa. Zima kanuni nyongeza"
           category: "Kanuni hii itatumika kwenye mada zilizo ndani ya kategoria iliyoainika"
+          group: "This rule will apply to posts referencing this group"
           tags: "Kama ikitumika, kanuni hii itatumika kwenye mada zenye lebo hizi au hii"
       provider:
         slack:
@@ -87,6 +92,7 @@ sw:
               help: "Jina linaloelezea chaneli hii. Haitatumika kuunganisha na Telegram."
             chat_id:
               title: Utambulisho wa Mawasiliano
+              help: A number given to you by the bot, or a broadcast channel identifier in the form @channelname
           errors:
             channel_not_found: "Njia ya mawasiliano uliyoiandika haipo Telegram, mtandao wa kijamii"
             forbidden: "roboti haruhusiwi kuandika kwenye njia hii ya mawasiliano"
@@ -98,6 +104,7 @@ sw:
               help: "Jina ulilotumia kuelezea njia ya mawasiliano halitambuliki na Discord"
             webhook_url:
               title: Anwani ya Webhook
+              help: The webhook URL created in your Discord server settings
         mattermost:
           title: "Umuhimu zaidi"
           param:
@@ -123,9 +130,12 @@ sw:
           param:
             stream:
               title: "Mfululizo"
+              help: "The name of the Zulip stream the message should be sent to. e.g. 'general'"
             subject:
               title: "Hoja"
               help: "Udhui wa ujumbe kutoka kwa roboti wakati wa kutuma ujumbe"
+          errors:
+            does_not_exist: "That stream does not exist on Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
@@ -142,5 +152,41 @@ sw:
               help: "Jina la chumba cha Gitter e.g. gitterHQ/huduma."
             webhook_url:
               title: "Anwani ya Webhook"
+              help: "The URL provided when you create a new integration in a Gitter room."
         flowdock:
           title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow Token"
+              help: "The flow token provided after creating a source for a flow into which you want to send messages."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"

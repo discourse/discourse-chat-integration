@@ -16,6 +16,8 @@ fi:
       no_providers: "Sinun täytyy sallia jotkut palveluntarjoajat lisäosien asetuksissa"
       channels_with_errors: "Jotkin tämän palveluntuottajan kanavista pettivät viimeksi, kun viestejä lähetettiin. Klikkaa vikaikonia/ikoneita saadaksesi lisää tietoa."
       channel_exception: "Tuntematon virhe tapahtui viimeksi, kun viesti lähetettiin tälle kanavalle. "
+      group_mention_template: "Mentions of: @%{name}"
+      group_message_template: "Messages to: @%{name}"
       choose_group: "(valitse ryhmä) "
       all_categories: "(kaikki alueet)"
       all_tags: "(kaikki tunnisteet) "
@@ -40,6 +42,7 @@ fi:
         mute: 'Vaimenna'
         follow: 'Uusi ketju'
         watch: 'Kaikki viestit ja vastaukset'
+        thread: 'All posts with threaded replies'
       rule_table:
         filter: "Suodatin"
         category: "Alue"
@@ -66,6 +69,7 @@ fi:
         group: Ryhmä
         tags: Tunnisteet
         instructions:
+          type: "Change the type to trigger notifications for group messages or mentions"
           filter: "Muistutusten taso. Vaimenna syrjäyttää muut vastaavat asetukset"
           category: "Tämä asetus koskee vain ketjuja määritellyssä kategoriassa"
           group: "Tämä asetus koskee tähän ryhmään viittaavia viestejä "
@@ -117,23 +121,72 @@ fi:
               help: "Kanavaa kuvaava nimi. Sitä ei käytetä Matrixiin yhdistämiseen."
             room_id:
               title: "Huoneen ID"
+              help: "The 'private identifier' for the room. It should look something like !abcdefg:matrix.org"
           errors:
+            unknown_token: "Access token is invalid"
             unknown_room: "Huoneen tunnus ei kelpaa"
         zulip:
           title: "Zulip"
           param:
+            stream:
+              title: "Stream"
+              help: "The name of the Zulip stream the message should be sent to. e.g. 'general'"
             subject:
               title: "Otsikko"
+              help: "The subject that these messages sent by the bot should be given"
+          errors:
+            does_not_exist: "That stream does not exist on Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
             identifier:
               title: Kanava
               help: "esim. #kanava, @käyttäjänimi"
+          errors:
+            invalid_channel: "That channel does not exist on Rocket Chat"
         gitter:
           title: "Gitter"
           param:
             name:
               title: "Nimi"
+              help: "A Gitter room's name e.g. gitterHQ/services."
             webhook_url:
               title: "Webhook URL"
+              help: "The URL provided when you create a new integration in a Gitter room."
+        flowdock:
+          title: "Flowdock"
+          param:
+            flow_token:
+              title: "Flow Token"
+              help: "The flow token provided after creating a source for a flow into which you want to send messages."
+        groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "GroupMe Instance Name"
+              help: "name of the Groupme instance as listed in Site Settings. use 'all' to send to all  instances"
+          errors:
+            not_found: "The path you attempted to post your message to was not found. Check the Bot ID in Site Settings."
+            instance_names_issue: "instance names incorrectly formatted or not provided"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Teams channel name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Name"
+              help: "A Webex space name e.g. discourse"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incomming webhook"
+          errors:
+            invalid_channel: "That channel does not exist on Webex"
