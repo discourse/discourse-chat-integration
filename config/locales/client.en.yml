@@ -227,3 +227,12 @@ en:
               help: "The URL provided when you create a new incomming webhook"
           errors:
             invalid_channel: "That channel does not exist on Webex"
+        google:
+          title: "Google Chat"
+          param:
+            name:
+              title: "Name"
+              help: "A name for the channel (only shown in the Discourse admin interface)"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new webhook"
