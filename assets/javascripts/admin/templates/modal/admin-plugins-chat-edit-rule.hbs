@@ -9,7 +9,7 @@
             {{i18n (concat 'chat_integration.provider.' model.channel.provider '.title')}}
           </td>
         </tr>
-        <tr class="instructions">
+        <tr class="chat-instructions">
           <td></td>
           <td></td>
         </tr>
@@ -20,7 +20,7 @@
             {{channel-data provider=model.provider channel=model.channel}}
           </td>
         </tr>
-        <tr class="instructions">
+        <tr class="chat-instructions">
           <td></td>
           <td></td>
         </tr>
@@ -31,7 +31,7 @@
             {{combo-box name="type" content=model.rule.available_types value=model.rule.type}}
           </td>
         </tr>
-        <tr class="instructions">
+        <tr class="chat-instructions">
           <td></td>
           <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.type'}}</label></td>
         </tr>
@@ -42,7 +42,7 @@
             {{combo-box name="filter" content=model.rule.available_filters value=model.rule.filter}}
           </td>
         </tr>
-        <tr class="instructions">
+        <tr class="chat-instructions">
           <td></td>
           <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.filter'}}</label></td>
         </tr>
@@ -59,7 +59,7 @@
                 overrideWidths=false}}
             </td>
           </tr>
-          <tr class="instructions">
+          <tr class="chat-instructions">
             <td></td>
             <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.category'}}</label></td>
           </tr>
@@ -70,7 +70,7 @@
               {{combo-box content=model.groups valueAttribute="id" value=model.rule.group_id none="chat_integration.choose_group"}}
             </td>
           </tr>
-          <tr class="instructions">
+          <tr class="chat-instructions">
             <td></td>
             <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.group'}}</label></td>
           </tr>
@@ -83,7 +83,7 @@
               {{tag-chooser placeholderKey="chat_integration.all_tags" name="tags" tags=model.rule.tags everyTag=true }}
             </td>
           </tr>
-          <tr class="instructions">
+          <tr class="chat-instructions">
             <td></td>
             <td><label>{{i18n 'chat_integration.edit_rule_modal.instructions.tags'}}</label></td>
           </tr>
