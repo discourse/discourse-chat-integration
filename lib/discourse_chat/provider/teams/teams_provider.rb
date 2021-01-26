@@ -5,7 +5,7 @@ module DiscourseChat::Provider::TeamsProvider
   PROVIDER_ENABLED_SETTING = :chat_integration_teams_enabled
   CHANNEL_PARAMETERS = [
     { key: "name", regex: '^\S+$', unique: true },
-    { key: "webhook_url", regex: '^https:\/\/outlook\.office\.com\/webhook\/[A-Za-z0-9\-@\/]+\S+$', unique: true, hidden: true }
+    { key: "webhook_url", regex: '^https:\/\/\S+$', unique: true, hidden: true }
   ]
 
   def self.trigger_notification(post, channel, rule)
