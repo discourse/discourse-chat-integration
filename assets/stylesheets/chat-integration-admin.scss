@@ -55,6 +55,10 @@
   table {
     width: 100%;
 
+    tr {
+      border: none;
+    }
+
     tr.input td {
       padding-top: 10px;
 
@@ -68,7 +72,7 @@
       }
     }
 
-    tr.instructions label {
+    tr.chat-instructions label {
       color: var(--primary-medium, $primary-medium);
     }
   }
