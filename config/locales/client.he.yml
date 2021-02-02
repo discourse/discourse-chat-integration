@@ -9,29 +9,29 @@ he:
     admin:
       site_settings:
         categories:
-          chat_integration: "מיזוגי צ'אט"
+          chat_integration: "שילובי צ׳אט"
     chat_integration:
-      menu_title: "מיזוגי צ'אט"
+      menu_title: "שילובי צ׳אט"
       settings: "הגדרות"
       no_providers: "עליך לאפשר מספר ספקים בהגדרות התוסף"
       channels_with_errors: "בפעם האחרונה שנשלחו מסרים כמה ערוצים נכשלו עבור הספר הזה. לחץ על סמליל(י) השגיאה כדי לקבל עוד מידע"
       channel_exception: "אירעה שגיאה בלתי מזוהה בפעם האחרונה שנשלחה הודעה בערוץ זה."
       group_mention_template: "אזכורים של: ‎@%{name}‎"
       group_message_template: "הודעות אל: ‎@%{name}‎"
-      choose_group: "בחירת קבוצה"
-      all_categories: "כל הקטגוריות"
-      all_tags: "כל התגיות"
-      create_rule: "יצירת חוקיות"
+      choose_group: "(נא לבחור קבוצה)"
+      all_categories: "(כל הקטגוריות)"
+      all_tags: "(כל התגיות)"
+      create_rule: "יצירת כלל"
       create_channel: "יצירת ערוץ"
       delete_channel: "הסרה"
       test_channel: "נסיון"
       edit_channel: "עריכה"
-      channel_delete_confirm: "האם את/ה בטוח שברצונך למחוק את הערוץ הזה? כל הכללים המקושרים אליו ימחקו"
+      channel_delete_confirm: "למחוק את הערוץ הזה? כל הכללים המקושרים אליו ימחקו."
       test_modal:
         title: "שליחת הודעת ניסיון"
         topic: "נושא"
         send: "שליחת הודעת ניסיון"
-        close: "סגור"
+        close: "סגירה"
         error: "שגיאה לא מזוהה התרחשה בעת שליחת ההודעה. יש לבדוק את הלוגים של האתר עבור מידע נוסף."
         success: "ההודעה נשלחה בהצלחה"
       type:
@@ -47,7 +47,7 @@ he:
         filter: "סינון"
         category: "קטגוריה"
         tags: "תגיות"
-        edit_rule: "ערוך"
+        edit_rule: "עריכה"
         delete_rule: "הסרה"
       edit_channel_modal:
         title: "עריכת ערוץ"
@@ -190,3 +190,12 @@ he:
               help: "הכתובת שתסופק ביצירת התליית רשת נכנסת"
           errors:
             invalid_channel: "ערוץ זה לא קיים ב־WebEx"
+        google:
+          title: "Google Chat"
+          param:
+            name:
+              title: "שם"
+              help: "שם לערוץ (מופיע רק במנשק הניהול של Discourse)"
+            webhook_url:
+              title: "כתובת התלייה"
+              help: "הכתובת שתסופק ביצירת התליית רשת חדשה"

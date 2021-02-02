@@ -54,6 +54,8 @@ he:
     chat_integration_teams_excerpt_length: "אורך מהפוסט שמופיע בתקציר Microsoft Teams"
     chat_integration_webex_enabled: "הפעלת ספק שילוב הצ׳אט עם Webex Teams"
     chat_integration_webex_excerpt_length: "אורך מהפוסט שמופיע בתקציר Webex Teams"
+    chat_integration_google_enabled: "הפעלת ספק שילוב הצ׳אט עם ‚Google Chat’"
+    chat_integration_google_excerpt_length: "אורך מהפוסט שמופיע בתקציר ב־Google Chat"
   chat_integration:
     all_categories: "(כל הקטגוריות)"
     deleted_category: "(קטגוריה שנמחקה)"
@@ -198,3 +200,8 @@ he:
         message_title: "פורסם"
       groupme:
         message_title: "פורסם"
+      google:
+        new_post: "פוסט חדש באתר %{site_title}"
+        new_topic: "נושא חדש באתר %{site_title}"
+        author: "מאת ‎@%{username}"
+        link: "לצפייה באתר %{site_title}"

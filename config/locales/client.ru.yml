@@ -88,7 +88,7 @@ ru:
           title: "Telegram"
           param:
             name:
-              title: "Имя"
+              title: "Название"
               help: "Имя для описания канала. Оно не используется для подключения к Telegram."
             chat_id:
               title: ID чата
@@ -100,7 +100,7 @@ ru:
           title: "Discord"
           param:
             name:
-              title: "Имя"
+              title: "Название"
               help: "Имя для описания канала. Оно не используется для подключения к Discord."
             webhook_url:
               title: URL вебхука
@@ -117,8 +117,8 @@ ru:
           title: "Matrix"
           param:
             name:
-              title: "Имя"
-              help: "Имя для описания канала. Оно не используется для подключения к матрице."
+              title: "Название"
+              help: "Имя для описания канала. Оно не используется для подключения к Matrix."
             room_id:
               title: "ID комнаты"
               help: "'Частный идентификатор' для комнаты. Это должно выглядеть примерно как !abcdefg:matrix.org"
@@ -148,7 +148,7 @@ ru:
           title: "Gitter"
           param:
             name:
-              title: "Имя"
+              title: "Название"
               help: "Название комнаты Gitter, например, gitterHQ/services."
             webhook_url:
               title: "URL вебхука"
@@ -172,10 +172,11 @@ ru:
           title: "Microsoft Teams"
           param:
             name:
-              title: "Наименование"
+              title: "Название"
               help: "Наименование канала, например 'Дискурс'."
             webhook_url:
               title: "URL вебхука"
+              help: "URL-адрес, указанный при создании нового входящего вебхука"
           errors:
             invalid_channel: "Этот канал не существует в Microsoft Teams"
         webex:
@@ -189,3 +190,12 @@ ru:
               help: "URL-адрес, указанный при создании нового входящего вебхука"
           errors:
             invalid_channel: "Этот канал не существует в Webex"
+        google:
+          title: "Google Chat"
+          param:
+            name:
+              title: "Название"
+              help: "Имя канала (отображается только в интерфейсе администратора Discourse)"
+            webhook_url:
+              title: "URL вебхука"
+              help: "URL-адрес, указанный при создании нового вебхука"

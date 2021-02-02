@@ -190,3 +190,12 @@ pl_PL:
               help: "Adres URL podany podczas tworzenia nowego przychodzącego webhooka"
           errors:
             invalid_channel: "Ten kanał nie istnieje w Webex"
+        google:
+          title: "Google Chat"
+          param:
+            name:
+              title: "Nazwa"
+              help: "Nazwa kanału (wyświetlana tylko w interfejsie administratora Discourse)"
+            webhook_url:
+              title: "URL webhook"
+              help: "Adres URL podany podczas tworzenia nowego webhooka"
