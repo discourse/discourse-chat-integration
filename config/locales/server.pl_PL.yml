@@ -54,6 +54,8 @@ pl_PL:
     chat_integration_teams_excerpt_length: "Długość fragmentu postu Microsoft Team"
     chat_integration_webex_enabled: "Włącz dostawcę integracji czatu Webex Teams"
     chat_integration_webex_excerpt_length: "Długość skrótu wpisu na Webex Team"
+    chat_integration_google_enabled: "Włącz integrację z Google Chat"
+    chat_integration_google_excerpt_length: "Długość fragmentu posta na czacie Google Chat"
   chat_integration:
     all_categories: "(wszystkie kategorie)"
     deleted_category: "(usunięta kategoria)"
@@ -81,6 +83,23 @@ pl_PL:
         not_found:
           tag: "Tag o nazwie *%{name}* nie może zostać znaleziony."
           category: "Kategoria o nazwie *%{name}* nie może zostać znaleziona. Dostępne kategorie: *%{list}*"
+        help: |
+          *Nowa reguła:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (musisz określić typ reguły i co najmniej jedną kategorię lub tag)
+          - *thread* - powiadamiaj ten kanał o nowych tematach, oraz odpowiedziach, jeśli to możliwe
+          - *watch* - powiadamiaj ten kanał o nowych tematach i nowych odpowiedziach
+          - *follow* - powiadamiaj ten kanał o nowych tematach
+          - *mute* - blokuj powiadomienia na tym kanale
+
+          *Usuń regułę:* `/discourse remove [reguła]`
+          (`[numer reguły]` można znaleźć poprzez użycie `/discourse status`)
+
+          *Lista reguł:* `/discourse status`
+
+          *[Experimental] Transkrypcja postu:* `/discourse post [n]`
+          Utwórz projekt tematu na dysku zawierającego ostatnie `n` posty na tym kanale
+
+          *Pomoc:* `/discourse help`
         transcript:
           error: "Coś poszło nie tak podczas tworzenia transkryptu, przepraszamy!"
           post_to_discourse: "Kliknij tutaj, by szkicować wpis Discourse’a z transkryptem"
@@ -181,3 +200,8 @@ pl_PL:
         message_title: "wysłano"
       groupme:
         message_title: "wysłano"
+      google:
+        new_post: "Nowy post na %{site_title}"
+        new_topic: "Nowy temat na %{site_title}"
+        author: "przez @%{username}"
+        link: "Zobacz na %{site_title}"

@@ -54,6 +54,8 @@ sv:
     chat_integration_teams_excerpt_length: "Microsoft Team-inläggsutdragets längd"
     chat_integration_webex_enabled: "Aktivera chattintegreringsleverantör för Webex Teams"
     chat_integration_webex_excerpt_length: "Webex Team-inläggsutdragets längd"
+    chat_integration_google_enabled: "Aktivera chattintegreringsleverantör för 'Google Chatt'"
+    chat_integration_google_excerpt_length: "Google Chatt-inläggsutdragets längd"
   chat_integration:
     all_categories: "(alla kategorier)"
     deleted_category: "(raderad kategori)"
@@ -198,3 +200,8 @@ sv:
         message_title: "publicerade"
       groupme:
         message_title: "publicerade"
+      google:
+        new_post: "Nytt inlägg på %{site_title}"
+        new_topic: "Nytt ämne på %{site_title}"
+        author: "av @%{username}"
+        link: "Visa på %{site_title}"
