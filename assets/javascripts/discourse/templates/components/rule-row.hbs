@@ -16,7 +16,6 @@
   {{/if}}
 </td>
 
-
 {{#if siteSettings.tagging_enabled}}
   <td>
     {{#if rule.tags}}
@@ -33,12 +32,14 @@
     actionParam=rule
     icon="pencil-alt"
     class="edit"
-    title="chat_integration.rule_table.edit_rule"}}
+    title="chat_integration.rule_table.edit_rule"
+  }}
 
   {{d-button
     action=(action "delete")
     actionParam=rule
     icon="far-trash-alt"
     class="delete"
-    title="chat_integration.rule_table.delete_rule"}}
+    title="chat_integration.rule_table.delete_rule"
+  }}
 </td>
