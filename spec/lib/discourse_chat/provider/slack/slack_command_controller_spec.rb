@@ -307,6 +307,10 @@ describe 'Slack Command Controller', type: :request do
         end
 
         it 'deals with failed API calls correctly' do
+          command_stub = stub_request(:post, "https://slack.com/commands/1234")
+            .with(body: { text: I18n.t("chat_integration.provider.slack.transcript.error_users") })
+            .to_return(body: { ok: true }.to_json)
+
           stub_request(:post, "https://slack.com/api/users.list").to_return(status: 403)
 
           post "/chat-integration/slack/command.json", params: {
@@ -320,6 +324,8 @@ describe 'Slack Command Controller', type: :request do
           json = response.parsed_body
 
           expect(json["text"]).to include(I18n.t("chat_integration.provider.slack.transcript.loading"))
+
+          expect(command_stub).to have_been_requested
         end
 
         it 'errors correctly if there is no api key' do

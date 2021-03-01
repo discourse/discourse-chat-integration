@@ -167,6 +167,9 @@ en:
           change_first_message: "Change first message..."
           change_last_message: "Change last message..."
           loading: "Loading the transcript..."
+          error_users: "Error: unable to fetch users from Slack"
+          error_history: "Error: unable to fetch channel history from Slack"
+          error_ts: "Error: unable to fetch requested message from Slack"
 
       #######################################
       ########## TELEGRAM STRINGS ###########

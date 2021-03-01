@@ -19,6 +19,15 @@ module DiscourseChat::Provider::SlackProvider
       render json: message
     end
 
+    def interactive
+      json = JSON.parse(params[:payload], symbolize_names: true)
+      process_interactive(json)
+
+      render json: { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
+    end
+
+    private
+
     def process_command(params)
 
       tokens = params[:text].split(" ")
@@ -58,56 +67,54 @@ module DiscourseChat::Provider::SlackProvider
       end
 
       Scheduler::Defer.later "Processing slack transcript request" do
-        requested_messages = nil
-        first_message_ts = nil
-        requested_thread_ts = nil
-
-        thread_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p[0-9]{16}\?thread_ts=([0-9]{10}.[0-9]{6})\S*$/
-        slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
-
-        if tokens.size > 2 && tokens[1] == "thread" && match = slack_url_regex.match(tokens[2])
-          requested_thread_ts = match.captures[0].insert(10, '.')
-        elsif tokens.size > 1 && match = thread_url_regex.match(tokens[1])
-          requested_thread_ts = match.captures[0]
-        elsif tokens.size > 1 && match = slack_url_regex.match(tokens[1])
-          first_message_ts = match.captures[0].insert(10, '.')
-        elsif tokens.size > 1
-          begin
-            requested_messages = Integer(tokens[1], 10)
-          rescue ArgumentError
-            break { text: I18n.t("chat_integration.provider.slack.parse_error") }
-          end
-        end
-
-        error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
-
-        break error_message unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id, requested_thread_ts: requested_thread_ts)
-        break error_message unless transcript.load_user_data
-        break error_message unless transcript.load_chat_history
-
-        if first_message_ts
-          break error_message unless transcript.set_first_message_by_ts(first_message_ts)
-        elsif requested_messages
-          transcript.set_first_message_by_index(-requested_messages)
-        else
-          transcript.set_first_message_by_index(-10) unless transcript.guess_first_message
-        end
-
+        response = build_post_request_response(channel, tokens, slack_channel_id, channel_name, response_url)
         http = Net::HTTP.new("slack.com", 443)
         http.use_ssl = true
         req = Net::HTTP::Post.new(URI(response_url), 'Content-Type' => 'application/json')
-        req.body = transcript.build_slack_ui.to_json
-        response = http.request(req)
+        req.body = response.to_json
+        http.request(req)
       end
 
       { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
     end
 
-    def interactive
-      json = JSON.parse(params[:payload], symbolize_names: true)
-      process_interactive(json)
+    def build_post_request_response(channel, tokens, slack_channel_id, channel_name, response_url)
+      requested_messages = nil
+      first_message_ts = nil
+      requested_thread_ts = nil
 
-      render json: { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
+      thread_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p[0-9]{16}\?thread_ts=([0-9]{10}.[0-9]{6})\S*$/
+      slack_url_regex = /^https:\/\/\S+\.slack\.com\/archives\/\S+\/p([0-9]{16})\/?$/
+
+      if tokens.size > 2 && tokens[1] == "thread" && match = slack_url_regex.match(tokens[2])
+        requested_thread_ts = match.captures[0].insert(10, '.')
+      elsif tokens.size > 1 && match = thread_url_regex.match(tokens[1])
+        requested_thread_ts = match.captures[0]
+      elsif tokens.size > 1 && match = slack_url_regex.match(tokens[1])
+        first_message_ts = match.captures[0].insert(10, '.')
+      elsif tokens.size > 1
+        begin
+          requested_messages = Integer(tokens[1], 10)
+        rescue ArgumentError
+          return { text: I18n.t("chat_integration.provider.slack.parse_error") }
+        end
+      end
+
+      error_key = "chat_integration.provider.slack.transcript.error"
+
+      return { text: I18n.t(error_key) } unless transcript = SlackTranscript.new(channel_name: channel_name, channel_id: slack_channel_id, requested_thread_ts: requested_thread_ts)
+      return { text: I18n.t("#{error_key}_users") } unless transcript.load_user_data
+      return { text: I18n.t("#{error_key}_history") } unless transcript.load_chat_history
+
+      if first_message_ts
+        return { text: I18n.t("#{error_key}_ts") } unless transcript.set_first_message_by_ts(first_message_ts)
+      elsif requested_messages
+        transcript.set_first_message_by_index(-requested_messages)
+      else
+        transcript.set_first_message_by_index(-10) unless transcript.guess_first_message
+      end
+
+      transcript.build_slack_ui
     end
 
     def process_interactive(json)
