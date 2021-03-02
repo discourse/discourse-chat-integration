@@ -111,6 +111,9 @@ pl_PL:
           change_first_message: "Zmień pierwszą wiadomość…"
           change_last_message: "Zmień ostatnią wiadomość…"
           loading: "Ładowanie transkryptu…"
+          error_users: "Błąd: nie można pobrać użytkowników ze Slacka"
+          error_history: "Błąd: nie można pobrać historii kanału ze Slacka"
+          error_ts: "Błąd: nie można pobrać żądanej wiadomości ze Slacka"
       telegram:
         unknown_chat: "Czat nie jest skonfigurowany na %{site_title}. Poproś administratora o dodanie kanału z ID czatu: %{chat_id}."
         known_chat: "Czat nie jest skonfigurowany na %{site_title}. Skonfiguruj go w panelu administratora. (ID czatu: %{chat_id})"

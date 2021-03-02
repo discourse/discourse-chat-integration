@@ -111,6 +111,9 @@ sv:
           change_first_message: "Ändra första meddelandet..."
           change_last_message: "Ändra sista meddelandet..."
           loading: "Laddar transkriptet..."
+          error_users: "Fel: Det gick inte att hämta användare från Slack"
+          error_history: "Fel: Det gick inte att hämta kanalhistorik från Slack"
+          error_ts: "Fel: Det gick inte att hämta begärt meddelande från Slack"
       telegram:
         unknown_chat: "Denna chatt är inte konfigurerad för %{site_title}. Be en administratör att lägga till kanalen med 'Chat ID' %{chat_id}."
         known_chat: "Denna chatt är konfigurerad för %{site_title}. Konfigurera den från admin-panelen. (chatt-ID: %{chat_id})"
