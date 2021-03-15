@@ -72,6 +72,8 @@ module DiscourseChat
         I18n.t(
             "chat_integration.provider.telegram.message",
             user: display_name,
+            username: post.user.username,
+            fullname: full_name,
             post_url: post.full_url,
             title: CGI::escapeHTML(topic.title),
             post_excerpt: post.excerpt(SiteSetting.chat_integration_telegram_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
