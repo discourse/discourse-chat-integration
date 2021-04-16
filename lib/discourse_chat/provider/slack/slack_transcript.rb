@@ -125,6 +125,60 @@ module DiscourseChat::Provider::SlackProvider
       post_content
     end
 
+    def build_modal_ui
+      data = {
+        type: "modal",
+        title: {
+          type: "plain_text",
+          text: I18n.t("chat_integration.provider.slack.transcript.modal_title")
+        },
+        blocks: [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": I18n.t("chat_integration.provider.slack.transcript.modal_description")
+            }
+          }
+        ]
+      }
+
+      if @messages
+        post_content = build_transcript
+        secret = DiscourseChat::Helper.save_transcript(post_content)
+        link = "#{Discourse.base_url}/chat-transcript/#{secret}"
+
+        data[:blocks] << {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": ":writing_hand: *#{I18n.t("chat_integration.provider.slack.transcript.transcript_ready")}*"
+          },
+          "accessory": {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": I18n.t("chat_integration.provider.slack.transcript.continue_on_discourse"),
+              "emoji": true
+            },
+            "style": "primary",
+            "url": link,
+            "action_id": "null_action"
+          }
+        }
+      else
+        data[:blocks] << {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": ":writing_hand: #{I18n.t("chat_integration.provider.slack.transcript.loading")}"
+          }
+        }
+      end
+
+      data
+    end
+
     def build_slack_ui
       post_content = build_transcript
       secret = DiscourseChat::Helper.save_transcript(post_content)

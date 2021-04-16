@@ -22,8 +22,7 @@ module DiscourseChat::Provider::SlackProvider
     def interactive
       json = JSON.parse(params[:payload], symbolize_names: true)
       process_interactive(json)
-
-      render json: { text: I18n.t("chat_integration.provider.slack.transcript.loading") }
+      head :ok
     end
 
     private
@@ -118,30 +117,113 @@ module DiscourseChat::Provider::SlackProvider
     end
 
     def process_interactive(json)
-      action_name = json[:actions][0][:name]
-
-      constant_val = json[:callback_id]
-      changed_val = json[:actions][0][:selected_options][0][:value]
-
-      first_message = (action_name == 'first_message') ? changed_val : constant_val
-      last_message = (action_name == 'first_message') ? constant_val : changed_val
-
-      error_message = { text: I18n.t("chat_integration.provider.slack.transcript.error") }
-
       Scheduler::Defer.later "Processing slack transcript update" do
-        break error_message unless transcript = SlackTranscript.new(channel_name: "##{json[:channel][:name]}", channel_id: json[:channel][:id])
-        break error_message unless transcript.load_user_data
-        break error_message unless transcript.load_chat_history
-
-        break error_message unless transcript.set_first_message_by_ts(first_message)
-        break error_message unless transcript.set_last_message_by_ts(last_message)
-
         http = Net::HTTP.new("slack.com", 443)
         http.use_ssl = true
-        req = Net::HTTP::Post.new(URI(json[:response_url]), 'Content-Type' => 'application/json')
-        req.body = transcript.build_slack_ui.to_json
-        response = http.request(req)
+
+        if json[:type] == "block_actions" && json[:actions][0][:action_id] == "null_action"
+          # Do nothing
+        elsif json[:type] == "message_action" && json[:message][:thread_ts]
+          # Context menu used on a threaded message
+          transcript = SlackTranscript.new(
+            channel_name: "##{json[:channel][:name]}",
+            channel_id: json[:channel][:id],
+            requested_thread_ts: json[:message][:thread_ts]
+          )
+
+          # Send a loading modal within 3 seconds:
+          req = Net::HTTP::Post.new(
+            "https://slack.com/api/views.open",
+            'Content-Type' => 'application/json',
+            'Authorization' => "Bearer #{SiteSetting.chat_integration_slack_access_token}"
+          )
+          req.body = {
+            "trigger_id": json[:trigger_id],
+            "view": transcript.build_modal_ui
+          }.to_json
+          response = http.request(req)
+          view_id = JSON.parse(response.body).dig("view", "id")
+
+          # Now load the transcript
+          error_view = generate_error_view("users") unless transcript.load_user_data
+          error_view = generate_error_view("history") unless transcript.load_chat_history
+
+          # Then update the modal with the transcript link:
+          req = Net::HTTP::Post.new(
+            "https://slack.com/api/views.update",
+            'Content-Type' => 'application/json',
+            'Authorization' => "Bearer #{SiteSetting.chat_integration_slack_access_token}"
+          )
+          req.body = {
+            "view_id": view_id,
+            "view": error_view || transcript.build_modal_ui
+          }.to_json
+          response = http.request(req)
+        else
+          # Button clicked in one of our interactive messages
+          req = Net::HTTP::Post.new(URI(json[:response_url]), 'Content-Type' => 'application/json')
+          req.body = build_interactive_response(json).to_json
+          response = http.request(req)
+        end
       end
+    end
+
+    def build_interactive_response(json)
+      requested_thread = first_message = last_message = nil
+
+      if json[:type] == "message_action" # Slack "Shortcut" (for non-threaded messages)
+        first_message = json[:message][:ts]
+      else # Clicking buttons in our transcript UI message
+        action_name = json[:actions][0][:name]
+
+        constant_val = json[:callback_id]
+        changed_val = json[:actions][0][:selected_options][0][:value]
+
+        first_message = (action_name == 'first_message') ? changed_val : constant_val
+        last_message = (action_name == 'first_message') ? constant_val : changed_val
+      end
+
+      error_key = "chat_integration.provider.slack.transcript.error"
+
+      return { text: I18n.t(error_key) } unless transcript = SlackTranscript.new(
+        channel_name: "##{json[:channel][:name]}",
+        channel_id: json[:channel][:id],
+        requested_thread_ts: requested_thread
+      )
+      return { text: I18n.t("#{error_key}_users") } unless transcript.load_user_data
+      return { text: I18n.t("#{error_key}_history") } unless transcript.load_chat_history
+
+      if first_message
+        return { text: I18n.t("#{error_key}_ts") } unless transcript.set_first_message_by_ts(first_message)
+      end
+
+      if last_message
+        return { text: I18n.t("#{error_key}_ts") } unless transcript.set_last_message_by_ts(last_message)
+      end
+
+      transcript.build_slack_ui
+    end
+
+    def generate_error_view(type = nil)
+      error_key = "chat_integration.provider.slack.transcript.error"
+      error_key += "_#{type}" if type
+
+      {
+        type: "modal",
+        title: {
+          type: "plain_text",
+          text: I18n.t("chat_integration.provider.slack.transcript.modal_title")
+        },
+        blocks: [
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: ":warning: *#{I18n.t(error_key)}*"
+            }
+          }
+        ]
+      }
     end
 
     def slack_token_valid?
