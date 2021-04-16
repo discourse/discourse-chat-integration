@@ -157,7 +157,7 @@ en:
 
           *Help:* `/discourse help`
         transcript:
-          modal_title: "Build Transcript"
+          modal_title: "Create Transcript"
           modal_description: "All messages in the thread will be assembled into a single forum post. You will be given the opportunity to edit the transcript before posting."
           transcript_ready: "Transcript ready"
           continue_on_discourse: "Continue on Discourse"
