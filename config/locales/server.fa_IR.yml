@@ -5,5 +5,15 @@
 # https://translate.discourse.org/
 
 fa_IR:
+  site_settings:
+    chat_integration_enabled: 'فعال کردن افزونه یکپارچگی گفتگو دیسکورس'
   chat_integration:
     all_categories: "(تمام دسته بندی ها)"
+    provider:
+      slack:
+        status:
+          rule_string: "*%{index})* *%{filter}* نوشته در *%{category}*"
+        transcript:
+          posted_in: "نوشته شده در %{name}"
+      google:
+        new_post: "نوشته جدید در %{site_title}"

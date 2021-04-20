@@ -6,18 +6,37 @@
 
 fa_IR:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "یکپارچگی گفتگو"
     chat_integration:
+      menu_title: "یکپارچگی گفتگو"
       settings: "تنظیمات"
+      group_mention_template: "اشاره شده: @%{name}"
+      group_message_template: "پیغام‌ها به: @%{name}"
+      choose_group: "(یک گروه را انتخاب کنید)"
       all_categories: "(تمام دسته بندی ها)"
+      all_tags: "(تمام برچسب‌ها)"
+      create_rule: "ایجاد قانون"
+      create_channel: "ایجاد کانال"
       delete_channel: "حذف"
+      test_channel: "آزمایش"
       edit_channel: "ویرایش"
+      channel_delete_confirm: "آیا از حذف این کانال مطمئن هستید؟ تمام قوانین مرتبط حذف خواهد شد."
       test_modal:
+        title: "ارسال پیغام آزمایشی"
         topic: "موضوعات"
+        send: "ارسال پیغام آزمایشی"
         close: "بستن"
+        success: "پیغام با موفقیت ارسال شد"
       type:
         normal: معمولی
+        group_message: پیغام گروه
       filter:
         mute: 'بی صدا'
+        follow: 'فقط اولین نوشته'
+        watch: 'همه نوشته‌ها و پاسخ‌ها'
       rule_table:
         filter: "فیلتر"
         category: "دسته‌بندی"
@@ -25,16 +44,32 @@ fa_IR:
         edit_rule: "ویرایش"
         delete_rule: "حذف"
       edit_channel_modal:
+        title: "ویرایش کانال"
+        save: "ذخیره کانال"
         cancel: "لغو کردن"
+        provider: "ارائه‌دهنده"
+        channel_validation:
+          ok: "معتبر"
       edit_rule_modal:
+        title: ویرایش قانون
+        save: ذخیره قانون
         cancel: لغو کردن
+        provider: ارائه‌دهنده
         type: نوع
+        channel: کانال
         filter: فیلتر
         category: دسته‌بندی
         group: گروه
         tags: برچسبها
       provider:
+        slack:
+          title: "اسلک"
+          param:
+            identifier:
+              title: کانال
+              help: "به عنوان مثال #channel، @username."
         telegram:
+          title: "تلگرام"
           param:
             name:
               title: "نام"
@@ -43,6 +78,10 @@ fa_IR:
           param:
             name:
               title: "نام"
+        mattermost:
+          param:
+            identifier:
+              title: کانال
         matrix:
           param:
             name:
@@ -51,7 +90,23 @@ fa_IR:
           param:
             subject:
               title: "موضوع"
+        rocketchat:
+          param:
+            identifier:
+              title: کانال
         gitter:
+          param:
+            name:
+              title: "نام"
+        teams:
+          param:
+            name:
+              title: "نام"
+        webex:
+          param:
+            name:
+              title: "نام"
+        google:
           param:
             name:
               title: "نام"
