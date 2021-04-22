@@ -333,5 +333,117 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         expect(first_ui[:text]).to eq(transcript.first_message.raw_text)
       end
     end
+
+    describe "message formatting" do
+      it 'handles code block newlines' do
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "Here is some code```my code\nwith newline```",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq(<<~MD)
+          Here is some code
+          ```
+          my code
+          with newline
+          ```
+        MD
+      end
+
+      it 'handles multiple code blocks' do
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "Here is some code```my code\nwith newline```and another```some more code```",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq(<<~MD)
+          Here is some code
+          ```
+          my code
+          with newline
+          ```
+          and another
+          ```
+          some more code
+          ```
+        MD
+      end
+
+      it 'handles strikethrough' do
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "Some ~strikethrough~",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq("Some ~~strikethrough~~")
+      end
+
+      it 'handles slack links' do
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "A link to <https://google.com|google>, <https://autolinked.com|https://autolinked.com>, <https://notext.com>, <#channel>, <@user>",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq("A link to [google](https://google.com), <https://autolinked.com>, <https://notext.com>, #channel, @user")
+      end
+
+      it 'does not format things inside backticks' do
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "You can strikethrough like `~this~`, bold like `*this*` and link like `[https://example.com](https://example.com)`",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq("You can strikethrough like `~this~`, bold like `*this*` and link like `[https://example.com](https://example.com)`")
+      end
+
+      it 'unescapes html in backticks' do
+        # Because Slack escapes HTML entities, even in backticks
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "The code is `&lt;stuff&gt;`",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq("The code is `<stuff>`")
+      end
+
+      it 'updates emoji dashes to underscores' do
+        # Discourse does not allow dashes in emoji names, so this helps communities have matching custom emojis
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "This is :my-emoji:",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq("This is :my_emoji:")
+      end
+    end
+
   end
 end

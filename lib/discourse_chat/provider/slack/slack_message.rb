@@ -29,11 +29,27 @@ module DiscourseChat::Provider::SlackProvider
     def text
       text = @raw['text'].nil? ? "" : @raw['text']
 
+      pre = {}
+
+      # Extract code blocks and replace with placeholder
+      text = text.gsub(/```(.*?)```/m) do |match|
+        key = "pre:" + SecureRandom.alphanumeric(50)
+        pre[key] = HTMLEntities.new.decode $1
+        "\n```\n#{key}\n```\n"
+      end
+
+      # # Extract inline code and replace with placeholder
+      text = text.gsub(/(?<!`)`([^`]+?)`(?!`)/) do |match|
+        key = "pre:" + SecureRandom.alphanumeric(50)
+        pre[key] = HTMLEntities.new.decode $1
+        "`#{key}`"
+      end
+
       # Format links (don't worry about special cases @ # !)
       text = text.gsub(/<(.*?)>/) do |match|
         group = $1
         parts = group.split('|')
-        link = parts[0].start_with?('@', '#', '!') ? '' : parts[0]
+        link = parts[0].start_with?('@', '#', '!') ? nil : parts[0]
         text = parts.length > 1 ? parts[1] : parts[0]
 
         if parts[0].start_with?('@')
@@ -46,12 +62,33 @@ module DiscourseChat::Provider::SlackProvider
           next "@#{user_name}"
         end
 
-        "[#{text}](#{link})"
+        if link.nil?
+          text
+        elsif link == text
+          "<#{link}>"
+        else
+          "[#{text}](#{link})"
+        end
       end
 
       # Add an extra * to each side for bold
-      text = text.gsub(/\*(.*?)\*/) do |match|
+      text = text.gsub(/\*.*?\*/) do |match|
         "*#{match}*"
+      end
+
+      # Add an extra ~ to each side for strikethrough
+      text = text.gsub(/~.*?~/) do |match|
+        "~#{match}~"
+      end
+
+      # Replace emoji - with _
+      text = text.gsub(/:[a-z0-9_-]+:/) do |match|
+        match.gsub("-") { "_" }
+      end
+
+      # Restore pre-formatted code block content
+      pre.each do |key, value|
+        text = text.gsub(key) { value }
       end
 
       text
