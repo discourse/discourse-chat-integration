@@ -91,8 +91,7 @@ module DiscourseChat::Provider::SlackProvider
   end
 
   def self.send_via_api(post, channel, message)
-    http = Net::HTTP.new("slack.com", 443)
-    http.use_ssl = true
+    http = slack_api_http
 
     response = nil
     uri = ""
@@ -176,6 +175,13 @@ module DiscourseChat::Provider::SlackProvider
       self.send_via_api(post, channel_id, message)
     end
 
+  end
+
+  def self.slack_api_http
+    http = Net::HTTP.new("slack.com", 443)
+    http.use_ssl = true
+    http.read_timeout = 5 # seconds
+    http
   end
 end
 

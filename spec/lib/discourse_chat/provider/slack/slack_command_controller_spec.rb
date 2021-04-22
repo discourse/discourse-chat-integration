@@ -304,6 +304,36 @@ describe 'Slack Command Controller', type: :request do
 
             expect(command_stub).to have_been_requested
           end
+
+          it "supports using shortcuts to create a thread transcript" do
+            replies_stub = stub_request(:post, "https://slack.com/api/conversations.replies")
+              .with(body: /1501801629\.052212/)
+              .to_return(body: { ok: true, messages: messages_fixture }.to_json)
+
+            view_open_stub = stub_request(:post, "https://slack.com/api/views.open")
+              .with(body: /TRIGGERID/)
+              .to_return(body: { ok: true, view: { id: "VIEWID" } }.to_json)
+
+            view_update_stub = stub_request(:post, "https://slack.com/api/views.update")
+              .with(body: /VIEWID/)
+              .to_return(body: { ok: true }.to_json)
+
+            post "/chat-integration/slack/interactive.json", params: {
+              payload: {
+                type: "message_action",
+                channel: { name: 'general', id: 'C6029G78F' },
+                trigger_id: "TRIGGERID",
+                message: { thread_ts: "1501801629.052212" },
+                token: token
+              }.to_json
+            }
+
+            expect(response.status).to eq(200)
+
+            expect(view_open_stub).to have_been_requested
+            expect(view_update_stub).to have_been_requested
+          end
+
         end
 
         it 'deals with failed API calls correctly' do
