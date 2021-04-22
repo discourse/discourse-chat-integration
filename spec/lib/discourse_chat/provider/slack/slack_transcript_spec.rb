@@ -354,6 +354,29 @@ RSpec.describe DiscourseChat::Provider::SlackProvider::SlackTranscript do
         MD
       end
 
+      it 'handles multiple code blocks' do
+        message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
+          {
+            "type" => "message",
+            "user" => "U5Z773QLS",
+            "text" => "Here is some code```my code\nwith newline```and another```some more code```",
+            "ts" => "1501093331.439776"
+          },
+          transcript
+        )
+        expect(message.text).to eq(<<~MD)
+          Here is some code
+          ```
+          my code
+          with newline
+          ```
+          and another
+          ```
+          some more code
+          ```
+        MD
+      end
+
       it 'handles strikethrough' do
         message = DiscourseChat::Provider::SlackProvider::SlackMessage.new(
           {
