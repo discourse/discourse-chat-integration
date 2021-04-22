@@ -250,8 +250,7 @@ module DiscourseChat::Provider::SlackProvider
     end
 
     def load_user_data
-      http = Net::HTTP.new("slack.com", 443)
-      http.use_ssl = true
+      http = ::DiscourseChat::Provider::SlackProvider.slack_api_http
 
       cursor = nil
       req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
@@ -280,8 +279,7 @@ module DiscourseChat::Provider::SlackProvider
     end
 
     def load_chat_history(count: 500)
-      http = Net::HTTP.new("slack.com", 443)
-      http.use_ssl = true
+      http = DiscourseChat::Provider::SlackProvider.slack_api_http
 
       endpoint = @requested_thread_ts ? "replies" : "history"
 

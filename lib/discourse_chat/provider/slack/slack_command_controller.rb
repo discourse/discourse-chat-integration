@@ -67,8 +67,7 @@ module DiscourseChat::Provider::SlackProvider
 
       Scheduler::Defer.later "Processing slack transcript request" do
         response = build_post_request_response(channel, tokens, slack_channel_id, channel_name, response_url)
-        http = Net::HTTP.new("slack.com", 443)
-        http.use_ssl = true
+        http = DiscourseChat::Provider::SlackProvider.slack_api_http
         req = Net::HTTP::Post.new(URI(response_url), 'Content-Type' => 'application/json')
         req.body = response.to_json
         http.request(req)
@@ -118,8 +117,7 @@ module DiscourseChat::Provider::SlackProvider
 
     def process_interactive(json)
       Scheduler::Defer.later "Processing slack transcript update" do
-        http = Net::HTTP.new("slack.com", 443)
-        http.use_ssl = true
+        http = DiscourseChat::Provider::SlackProvider.slack_api_http
 
         if json[:type] == "block_actions" && json[:actions][0][:action_id] == "null_action"
           # Do nothing
