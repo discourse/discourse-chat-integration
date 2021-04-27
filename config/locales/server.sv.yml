@@ -101,6 +101,10 @@ sv:
 
           *Hjälp:* `/discourse help`
         transcript:
+          modal_title: "Skapa transkript"
+          modal_description: "Alla meddelanden i tråden kommer att samlas i ett enda foruminlägg. Du kommer att få möjlighet att redigera transkriptet innan du publicerar."
+          transcript_ready: "Transkriptet är klart"
+          continue_on_discourse: "Fortsätt i forum"
           error: "Tyvärr gick något fel när utskriften skapades!"
           post_to_discourse: "Klicka här för att utarbeta ett inlägg på Discourse genom ett transkript"
           api_required: "Tyvärr är den här integrationen inte konfigurerad till att stödja transkript som inlägg."
