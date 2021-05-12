@@ -21,16 +21,16 @@
     max-width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: var(--danger-low, $danger-low);
+    background-color: var(--danger-low);
     padding: 15px;
   }
 
   div.channel-details {
     margin: 20px 10px;
-    border: 1px solid var(--primary-low, $primary-low);
+    border: 1px solid var(--primary-low);
 
     div.channel-header {
-      background: var(--primary-low, $primary-low);
+      background: var(--primary-low);
       padding: 10px;
       overflow: auto;
 
@@ -73,7 +73,7 @@
     }
 
     tr.chat-instructions label {
-      color: var(--primary-medium, $primary-medium);
+      color: var(--primary-medium);
     }
   }
 
@@ -103,6 +103,6 @@
     max-width: 500px;
     max-height: 800px;
     overflow: scroll;
-    background: var(--primary-low, $primary-low);
+    background: var(--primary-low);
   }
 }
