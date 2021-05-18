@@ -74,6 +74,7 @@ de:
           tag: "Das %{name}* Schlagwort kann nicht gefunden werden."
           category: "Die *%{name}* Kategorie kann nicht gefunden werden. Verfügbare Kategorien: *%{list}*"
         transcript:
+          modal_title: "Transkription erstellen"
           error: "Entschuldige, beim Erstellen des Transkripts ist etwas schief gelaufen."
           post_to_discourse: "Klicke hier, um auf Discourse einen Beitrag mit einem Transkript zu entwerfen"
           api_required: "Entschuldige, diese Integration ist nicht dafür eingerichtet, Transkripte zu schreiben."
