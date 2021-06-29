@@ -168,3 +168,34 @@ zh_CN:
           errors:
             not_found: "你所要发布信息的路径不存在。检查站点设置中的Bot ID。"
             instance_names_issue: "实例名称错误或未提供"
+        teams:
+          title: "Microsoft Teams"
+          param:
+            name:
+              title: "名称"
+              help: "Teams 频道名称，例如 discourse"
+            webhook_url:
+              title: "Webhook 地址"
+              help: "创建入站 Webhook 时提供的 URL 链接。"
+          errors:
+            invalid_channel: "Microsoft Teams 上不存在此频道"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "名称"
+              help: "Webex 空间名称，例如 discourse"
+            webhook_url:
+              title: "Webhook 地址"
+              help: "创建入站 Webhook 时提供的 URL 链接。"
+          errors:
+            invalid_channel: "Webex 上不存在此频道"
+        google:
+          title: "Google Chat"
+          param:
+            name:
+              title: "名称"
+              help: "频道名称（仅在 Discourse 管理界面中显示）"
+            webhook_url:
+              title: "Webhook 地址"
+              help: "创建新 Webhook 时提供的 URL 链接。"
