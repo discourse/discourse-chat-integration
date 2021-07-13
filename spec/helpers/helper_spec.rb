@@ -100,9 +100,9 @@ RSpec.describe DiscourseChatIntegration::Manager do
       describe 'remove rule' do
         it 'removes the rule' do
           rule1 = DiscourseChatIntegration::Rule.create(channel: chan1,
-                                             filter: 'watch',
-                                             category_id: category.id,
-                                             tags: [tag1.name, tag2.name]
+                                                        filter: 'watch',
+                                                        category_id: category.id,
+                                                        tags: [tag1.name, tag2.name]
                                             )
 
           expect(DiscourseChatIntegration::Rule.all.size).to eq(1)
@@ -195,19 +195,19 @@ RSpec.describe DiscourseChatIntegration::Manager do
       # Status will be sorted by precedence
       # be in this order
       rule1 = DiscourseChatIntegration::Rule.create(channel: chan1,
-                                         filter: 'mute',
-                                         category_id: category.id,
-                                         tags: [tag1.name, tag2.name]
+                                                    filter: 'mute',
+                                                    category_id: category.id,
+                                                    tags: [tag1.name, tag2.name]
                                       )
       rule2 = DiscourseChatIntegration::Rule.create(channel: chan1,
-                                         filter: 'watch',
-                                         category_id: category2.id,
-                                         tags: [tag1.name, tag2.name]
+                                                    filter: 'watch',
+                                                    category_id: category2.id,
+                                                    tags: [tag1.name, tag2.name]
                                       )
       rule3 = DiscourseChatIntegration::Rule.create(channel: chan1,
-                                         filter: 'follow',
-                                         category_id: category3.id,
-                                         tags: [tag1.name, tag2.name]
+                                                    filter: 'follow',
+                                                    category_id: category3.id,
+                                                    tags: [tag1.name, tag2.name]
                                       )
 
       expect(DiscourseChatIntegration::Rule.all.size).to eq(3)
@@ -220,9 +220,9 @@ RSpec.describe DiscourseChatIntegration::Manager do
 
     it 'fails gracefully for out of range indexes' do
       rule1 = DiscourseChatIntegration::Rule.create(channel: chan1,
-                                         filter: 'watch',
-                                         category_id: category.id,
-                                         tags: [tag1.name, tag2.name]
+                                                    filter: 'watch',
+                                                    category_id: category.id,
+                                                    tags: [tag1.name, tag2.name]
                                         )
 
       expect(DiscourseChatIntegration::Helper.delete_by_index(chan1, -1)).to eq(false)
@@ -238,9 +238,9 @@ RSpec.describe DiscourseChatIntegration::Manager do
 
     it 'creates a rule when there are none' do
       val = DiscourseChatIntegration::Helper.smart_create_rule(channel: chan1,
-                                                    filter: 'watch',
-                                                    category_id: category.id,
-                                                    tags: [tag1.name]
+                                                               filter: 'watch',
+                                                               category_id: category.id,
+                                                               tags: [tag1.name]
                                                     )
       expect(val).to eq(:created)
 
@@ -253,15 +253,15 @@ RSpec.describe DiscourseChatIntegration::Manager do
 
     it 'updates a rule when it has the same category and tags' do
       existing = DiscourseChatIntegration::Rule.create!(channel: chan1,
-                                             filter: 'watch',
-                                             category_id: category.id,
-                                             tags: [tag2.name, tag1.name]
+                                                        filter: 'watch',
+                                                        category_id: category.id,
+                                                        tags: [tag2.name, tag1.name]
                                         )
 
       val = DiscourseChatIntegration::Helper.smart_create_rule(channel: chan1,
-                                                    filter: 'mute',
-                                                    category_id: category.id,
-                                                    tags: [tag1.name, tag2.name]
+                                                               filter: 'mute',
+                                                               category_id: category.id,
+                                                               tags: [tag1.name, tag2.name]
                                                     )
 
       expect(val).to eq(:updated)
@@ -272,15 +272,15 @@ RSpec.describe DiscourseChatIntegration::Manager do
 
     it 'updates a rule when it has the same category and filter' do
       existing = DiscourseChatIntegration::Rule.create(channel: chan1,
-                                            filter: 'watch',
-                                            category_id: category.id,
-                                            tags: [tag1.name, tag2.name]
+                                                       filter: 'watch',
+                                                       category_id: category.id,
+                                                       tags: [tag1.name, tag2.name]
                                             )
 
       val = DiscourseChatIntegration::Helper.smart_create_rule(channel: chan1,
-                                                    filter: 'watch',
-                                                    category_id: category.id,
-                                                    tags: [tag1.name, tag3.name]
+                                                               filter: 'watch',
+                                                               category_id: category.id,
+                                                               tags: [tag1.name, tag3.name]
                                                     )
 
       expect(val).to eq(:updated)
@@ -294,9 +294,9 @@ RSpec.describe DiscourseChatIntegration::Manager do
       DiscourseChatIntegration::Rule.create!(channel: chan1, filter: 'watch')
       expect(DiscourseChatIntegration::Rule.all.size).to eq(2)
       val = DiscourseChatIntegration::Helper.smart_create_rule(channel: chan1,
-                                                    filter: 'watch',
-                                                    category_id: nil,
-                                                    tags: nil
+                                                               filter: 'watch',
+                                                               category_id: nil,
+                                                               tags: nil
                                                     )
       expect(val).to eq(:updated)
       expect(DiscourseChatIntegration::Rule.all.size).to eq(1)

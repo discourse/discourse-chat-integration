@@ -31,9 +31,9 @@ RSpec.describe DiscourseChatIntegration::Rule do
     expect(DiscourseChatIntegration::Rule.all.length).to eq(0)
 
     rule = DiscourseChatIntegration::Rule.create(channel: channel,
-                                      category_id: category.id,
-                                      tags: [tag1.name, tag2.name],
-                                      filter: 'watch')
+                                                 category_id: category.id,
+                                                 tags: [tag1.name, tag2.name],
+                                                 filter: 'watch')
 
     expect(DiscourseChatIntegration::Rule.all.length).to eq(1)
 
@@ -49,8 +49,8 @@ RSpec.describe DiscourseChatIntegration::Rule do
   describe 'general operations' do
     before do
       rule = DiscourseChatIntegration::Rule.create(channel: channel,
-                                        category_id: category.id,
-                                        tags: [tag1.name, tag2.name])
+                                                   category_id: category.id,
+                                                   tags: [tag1.name, tag2.name])
     end
 
     it 'can be modified' do
@@ -154,8 +154,8 @@ RSpec.describe DiscourseChatIntegration::Rule do
 
     let(:rule) do
       DiscourseChatIntegration::Rule.create(filter: 'watch',
-                                 channel: channel,
-                                 category_id: category.id)
+                                            channel: channel,
+                                            category_id: category.id)
     end
 
     it 'validates channel correctly' do
