@@ -14,10 +14,10 @@ register_svg_icon "rocket" if respond_to?(:register_svg_icon)
 register_svg_icon "fa-arrow-circle-o-right" if respond_to?(:register_svg_icon)
 
 # Site setting validators must be loaded before initialize
-require_relative "lib/discourse_chat/provider/slack/slack_enabled_setting_validator"
+require_relative "lib/discourse_chat_integration/provider/slack/slack_enabled_setting_validator"
 
 after_initialize do
-  require_relative "app/initializers/discourse_chat"
+  require_relative "app/initializers/discourse_chat_integration"
 
   on(:post_created) do |post|
     # This will run for every post, even PMs. Don't worry, they're filtered out later.
@@ -29,7 +29,7 @@ after_initialize do
 
   AdminDashboardData.add_problem_check do
     error = false
-    DiscourseChat::Channel.find_each do |channel|
+    DiscourseChatIntegration::Channel.find_each do |channel|
       error = true unless channel.error_key.blank?
     end
 
@@ -39,5 +39,5 @@ after_initialize do
     end
   end
 
-  DiscourseChat::Provider.mount_engines
+  DiscourseChatIntegration::Provider.mount_engines
 end

@@ -6,7 +6,7 @@ module Jobs
       slack_installed = PluginStoreRow.where(plugin_name: 'discourse-slack-official').exists?
 
       if slack_installed
-        already_setup_rules = DiscourseChat::Channel.with_provider('slack').exists?
+        already_setup_rules = DiscourseChatIntegration::Channel.with_provider('slack').exists?
 
         already_setup_sitesettings =
           SiteSetting.chat_integration_slack_enabled ||
@@ -65,9 +65,9 @@ module Jobs
       rows.each do |row|
         # Load an existing channel with this identifier. If none, create it
         row[:channel] = "##{row[:channel]}" unless row[:channel].start_with?("#")
-        channel = DiscourseChat::Channel.with_provider('slack').with_data_value('identifier', row[:channel]).first
+        channel = DiscourseChatIntegration::Channel.with_provider('slack').with_data_value('identifier', row[:channel]).first
         if !channel
-          channel = DiscourseChat::Channel.create(provider: 'slack', data: { identifier: row[:channel] })
+          channel = DiscourseChatIntegration::Channel.create(provider: 'slack', data: { identifier: row[:channel] })
           if !channel.id
             Rails.logger.warn("Error creating channel for #{row}")
             next
@@ -75,7 +75,7 @@ module Jobs
         end
 
         # Create the rule, with clever logic for avoiding duplicates
-        success = DiscourseChat::Helper.smart_create_rule(channel: channel, filter: row[:filter], category_id: row[:category_id], tags: row[:tags])
+        success = DiscourseChatIntegration::Helper.smart_create_rule(channel: channel, filter: row[:filter], category_id: row[:category_id], tags: row[:tags])
       end
 
     end

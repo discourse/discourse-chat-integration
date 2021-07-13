@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DiscourseChat
+module DiscourseChatIntegation
   module Manager
 
     def self.guardian
@@ -23,11 +23,11 @@ module DiscourseChat
       if topic.archetype == Archetype.private_message
         group_ids_with_access = topic.topic_allowed_groups.pluck(:group_id)
         return if group_ids_with_access.empty?
-        matching_rules = DiscourseChat::Rule.with_type('group_message').with_group_ids(group_ids_with_access)
+        matching_rules = DiscourseChatIntegration::Rule.with_type('group_message').with_group_ids(group_ids_with_access)
       else
-        matching_rules = DiscourseChat::Rule.with_type('normal').with_category_id(topic.category_id)
+        matching_rules = DiscourseChatIntegration::Rule.with_type('normal').with_category_id(topic.category_id)
         if topic.category # Also load the rules for the wildcard category
-          matching_rules += DiscourseChat::Rule.with_type('normal').with_category_id(nil)
+          matching_rules += DiscourseChatIntegration::Rule.with_type('normal').with_category_id(nil)
         end
 
         # If groups are mentioned, check for any matching rules and append them
@@ -35,7 +35,7 @@ module DiscourseChat
         if mentions && mentions.length > 0
           groups = Group.where('LOWER(name) IN (?)', mentions)
           if groups.exists?
-            matching_rules += DiscourseChat::Rule.with_type('group_mention').with_group_ids(groups.map(&:id))
+            matching_rules += DiscourseChatIntegration::Rule.with_type('group_mention').with_group_ids(groups.map(&:id))
           end
         end
       end
@@ -76,14 +76,14 @@ module DiscourseChat
       matching_rules.each do |rule|
         # If there are any issues, skip to the next rule
         next unless channel = rule.channel
-        next unless provider = ::DiscourseChat::Provider.get_by_name(channel.provider)
-        next unless is_enabled = ::DiscourseChat::Provider.is_enabled(provider)
+        next unless provider = ::DiscourseChatIntegration::Provider.get_by_name(channel.provider)
+        next unless is_enabled = ::DiscourseChatIntegration::Provider.is_enabled(provider)
 
         begin
           provider.trigger_notification(post, channel, rule)
           channel.update_attribute('error_key', nil) if channel.error_key
         rescue => e
-          if e.class == (DiscourseChat::ProviderError) && e.info.key?(:error_key) && !e.info[:error_key].nil?
+          if e.class == (DiscourseChatIntegration::ProviderError) && e.info.key?(:error_key) && !e.info[:error_key].nil?
             channel.update_attribute('error_key', e.info[:error_key])
           else
             channel.update_attribute('error_key', 'chat_integration.channel_exception')
@@ -96,7 +96,7 @@ module DiscourseChat
           #   extra: { provider_name: provider::PROVIDER_NAME,
           #            channel: rule.channel,
           #            post_id: post.id,
-          #            error_info: e.class == DiscourseChat::ProviderError ? e.info : nil }
+          #            error_info: e.class == DiscourseChatIntegration::ProviderError ? e.info : nil }
           # )
         end
 

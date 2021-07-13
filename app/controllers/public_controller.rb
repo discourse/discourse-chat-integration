@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class DiscourseChat::PublicController < ApplicationController
-  requires_plugin DiscourseChat::PLUGIN_NAME
+class DiscourseChatIntegration::PublicController < ApplicationController
+  requires_plugin DiscourseChatIntegration::PLUGIN_NAME
 
   def post_transcript
     params.require(:secret)

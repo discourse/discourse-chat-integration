@@ -11,7 +11,7 @@ describe 'Public Controller', type: :request do
   describe 'loading a transcript' do
 
     it 'should be able to load a transcript' do
-      key = DiscourseChat::Helper.save_transcript("Some content here")
+      key = DiscourseChatIntegration::Helper.save_transcript("Some content here")
 
       get "/chat-transcript/#{key}.json"
 
