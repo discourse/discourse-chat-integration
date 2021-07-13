@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DiscourseChatIntegation
+module DiscourseChatIntegration
   module Manager
 
     def self.guardian

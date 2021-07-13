@@ -49,7 +49,7 @@ require_relative "../services/manager"
 
 require_relative "../jobs/regular/notify_chats"
 
-require_relative "../../lib/discourse_chat/provider"
+require_relative "../../lib/discourse_chat_integration/provider"
 
 require_relative "../jobs/onceoff/add_type_field"
 require_relative "../jobs/onceoff/migrate_from_slack_official"

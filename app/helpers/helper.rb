@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module DiscourseChatIntegation
+module DiscourseChatIntegration
   module Helper
 
     def self.process_command(channel, tokens)
