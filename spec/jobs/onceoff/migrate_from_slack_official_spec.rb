@@ -71,26 +71,26 @@ RSpec.describe Jobs::DiscourseChatMigrateFromSlackOfficial do
     it 'should create the right channels and rules' do
       described_class.new.execute_onceoff({})
 
-      expect(DiscourseChat::Channel.count).to eq(2)
-      expect(DiscourseChat::Rule.count).to eq(2)
+      expect(DiscourseChatIntegration::Channel.count).to eq(2)
+      expect(DiscourseChatIntegration::Rule.count).to eq(2)
 
-      channel = DiscourseChat::Channel.first
+      channel = DiscourseChatIntegration::Channel.first
 
       expect(channel.value['provider']).to eq("slack")
       expect(channel.value['data']['identifier']).to eq("#channel1")
 
-      rule = DiscourseChat::Rule.first
+      rule = DiscourseChatIntegration::Rule.first
 
       expect(rule.value['channel_id']).to eq(channel.id)
       expect(rule.value['filter']).to eq('mute')
       expect(rule.value['category_id']).to eq(nil)
 
-      channel = DiscourseChat::Channel.last
+      channel = DiscourseChatIntegration::Channel.last
 
       expect(channel.value['provider']).to eq("slack")
       expect(channel.value['data']['identifier']).to eq("#channel2")
 
-      rule = DiscourseChat::Rule.last
+      rule = DiscourseChatIntegration::Rule.last
 
       expect(rule.value['channel_id']).to eq(channel.id)
       expect(rule.value['filter']).to eq('follow')
@@ -113,7 +113,7 @@ RSpec.describe Jobs::DiscourseChatMigrateFromSlackOfficial do
     it 'should discard invalid tags' do
       described_class.new.execute_onceoff({})
 
-      rule = DiscourseChat::Rule.first
+      rule = DiscourseChatIntegration::Rule.first
 
       expect(rule.value['tags']).to eq([tag.name])
     end
@@ -132,12 +132,12 @@ RSpec.describe Jobs::DiscourseChatMigrateFromSlackOfficial do
     it 'should migrate the settings correctly' do
       described_class.new.execute_onceoff({})
 
-      channel = DiscourseChat::Channel.first
+      channel = DiscourseChatIntegration::Channel.first
 
       expect(channel.value['provider']).to eq("slack")
       expect(channel.value['data']['identifier']).to eq("#slack-channel")
 
-      rule = DiscourseChat::Rule.first
+      rule = DiscourseChatIntegration::Rule.first
 
       expect(rule.value['channel_id']).to eq(channel.id)
       expect(rule.value['filter']).to eq('mute')
@@ -158,8 +158,8 @@ RSpec.describe Jobs::DiscourseChatMigrateFromSlackOfficial do
     it 'should not migrate the settings' do
       described_class.new.execute_onceoff({})
 
-      expect(DiscourseChat::Channel.count).to eq(0)
-      expect(DiscourseChat::Rule.count).to eq(0)
+      expect(DiscourseChatIntegration::Channel.count).to eq(0)
+      expect(DiscourseChatIntegration::Rule.count).to eq(0)
     end
   end
 end

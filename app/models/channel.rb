@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiscourseChat::Channel < DiscourseChat::PluginModel
+class DiscourseChatIntegration::Channel < DiscourseChatIntegration::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :provider, :error_key, :error_info, :data ], coder: JSON
 
@@ -17,7 +17,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
   end
 
   def rules
-    DiscourseChat::Rule.with_channel_id(id).order_by_precedence
+    DiscourseChatIntegration::Rule.with_channel_id(id).order_by_precedence
   end
 
   private
@@ -31,16 +31,16 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
   end
 
   def provider_valid?
-    if !DiscourseChat::Provider.provider_names.include?(provider)
+    if !DiscourseChatIntegration::Provider.provider_names.include?(provider)
       errors.add(:provider, "#{provider} is not a valid provider")
     end
   end
 
   def data_valid?
     # If provider is invalid, don't try and check data
-    return unless ::DiscourseChat::Provider.provider_names.include? provider
+    return unless ::DiscourseChatIntegration::Provider.provider_names.include? provider
 
-    params = ::DiscourseChat::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
+    params = ::DiscourseChatIntegration::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
 
     unless params.map { |p| p[:key] }.sort == data.keys.sort
       errors.add(:data, "data does not match the required structure for provider #{provider}")
@@ -48,7 +48,7 @@ class DiscourseChat::Channel < DiscourseChat::PluginModel
     end
 
     check_unique = false
-    matching_channels = DiscourseChat::Channel.with_provider(provider).where.not(id: id)
+    matching_channels = DiscourseChatIntegration::Channel.with_provider(provider).where.not(id: id)
 
     data.each do |key, value|
       regex_string = params.find { |p| p[:key] == key }[:regex]

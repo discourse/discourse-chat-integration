@@ -3,41 +3,41 @@
 require 'rails_helper'
 require_relative '../dummy_provider'
 
-RSpec.describe DiscourseChat::Rule do
+RSpec.describe DiscourseChatIntegration::Rule do
   include_context "dummy provider"
 
   let(:tag1) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
 
-  let(:channel) { DiscourseChat::Channel.create(provider: 'dummy') }
+  let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy') }
   let(:category) { Fabricate(:category) }
   let(:group) { Fabricate(:group) }
 
   describe '.alloc_key' do
     it 'should return sequential numbers' do
-      expect(DiscourseChat::Rule.create(channel: channel).key).to eq("rule:1")
-      expect(DiscourseChat::Rule.create(channel: channel).key).to eq("rule:2")
-      expect(DiscourseChat::Rule.create(channel: channel).key).to eq("rule:3")
+      expect(DiscourseChatIntegration::Rule.create(channel: channel).key).to eq("rule:1")
+      expect(DiscourseChatIntegration::Rule.create(channel: channel).key).to eq("rule:2")
+      expect(DiscourseChatIntegration::Rule.create(channel: channel).key).to eq("rule:3")
     end
   end
 
   it 'should convert between channel and channel_id successfully' do
-    rule = DiscourseChat::Rule.create(channel: channel)
+    rule = DiscourseChatIntegration::Rule.create(channel: channel)
     expect(rule.channel_id).to eq(channel.id)
     expect(rule.channel.id).to eq(channel.id)
   end
 
   it 'should save and load successfully' do
-    expect(DiscourseChat::Rule.all.length).to eq(0)
+    expect(DiscourseChatIntegration::Rule.all.length).to eq(0)
 
-    rule = DiscourseChat::Rule.create(channel: channel,
-                                      category_id: category.id,
-                                      tags: [tag1.name, tag2.name],
-                                      filter: 'watch')
+    rule = DiscourseChatIntegration::Rule.create(channel: channel,
+                                                 category_id: category.id,
+                                                 tags: [tag1.name, tag2.name],
+                                                 filter: 'watch')
 
-    expect(DiscourseChat::Rule.all.length).to eq(1)
+    expect(DiscourseChatIntegration::Rule.all.length).to eq(1)
 
-    loadedRule = DiscourseChat::Rule.find(rule.id)
+    loadedRule = DiscourseChatIntegration::Rule.find(rule.id)
 
     expect(loadedRule.channel.id).to eq(channel.id)
     expect(loadedRule.category_id).to eq(category.id)
@@ -48,114 +48,114 @@ RSpec.describe DiscourseChat::Rule do
 
   describe 'general operations' do
     before do
-      rule = DiscourseChat::Rule.create(channel: channel,
-                                        category_id: category.id,
-                                        tags: [tag1.name, tag2.name])
+      rule = DiscourseChatIntegration::Rule.create(channel: channel,
+                                                   category_id: category.id,
+                                                   tags: [tag1.name, tag2.name])
     end
 
     it 'can be modified' do
-      rule = DiscourseChat::Rule.all.first
+      rule = DiscourseChatIntegration::Rule.all.first
       rule.tags = [tag1.name]
 
       rule.save!
 
-      rule = DiscourseChat::Rule.all.first
+      rule = DiscourseChatIntegration::Rule.all.first
       expect(rule.tags).to contain_exactly(tag1.name)
     end
 
     it 'can be deleted' do
-      DiscourseChat::Rule.new(channel: channel).save!
-      expect(DiscourseChat::Rule.all.length).to eq(2)
+      DiscourseChatIntegration::Rule.new(channel: channel).save!
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(2)
 
-      rule = DiscourseChat::Rule.all.first
+      rule = DiscourseChatIntegration::Rule.all.first
       rule.destroy
 
-      expect(DiscourseChat::Rule.all.length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(1)
     end
 
     it 'can delete all' do
-      DiscourseChat::Rule.create(channel: channel)
-      DiscourseChat::Rule.create(channel: channel)
-      DiscourseChat::Rule.create(channel: channel)
-      DiscourseChat::Rule.create(channel: channel)
+      DiscourseChatIntegration::Rule.create(channel: channel)
+      DiscourseChatIntegration::Rule.create(channel: channel)
+      DiscourseChatIntegration::Rule.create(channel: channel)
+      DiscourseChatIntegration::Rule.create(channel: channel)
 
-      expect(DiscourseChat::Rule.all.length).to eq(5)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(5)
 
-      DiscourseChat::Rule.destroy_all
+      DiscourseChatIntegration::Rule.destroy_all
 
-      expect(DiscourseChat::Rule.all.length).to eq(0)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(0)
     end
 
     it 'can be filtered by channel' do
-      channel2 = DiscourseChat::Channel.create(provider: 'dummy')
-      channel3 = DiscourseChat::Channel.create(provider: 'dummy')
+      channel2 = DiscourseChatIntegration::Channel.create(provider: 'dummy')
+      channel3 = DiscourseChatIntegration::Channel.create(provider: 'dummy')
 
-      rule2 = DiscourseChat::Rule.create(channel: channel)
-      rule3 = DiscourseChat::Rule.create(channel: channel)
-      rule4 = DiscourseChat::Rule.create(channel: channel2)
-      rule5 = DiscourseChat::Rule.create(channel: channel3)
+      rule2 = DiscourseChatIntegration::Rule.create(channel: channel)
+      rule3 = DiscourseChatIntegration::Rule.create(channel: channel)
+      rule4 = DiscourseChatIntegration::Rule.create(channel: channel2)
+      rule5 = DiscourseChatIntegration::Rule.create(channel: channel3)
 
-      expect(DiscourseChat::Rule.all.length).to eq(5)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(5)
 
-      expect(DiscourseChat::Rule.with_channel(channel).length).to eq(3)
-      expect(DiscourseChat::Rule.with_channel(channel2).length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_channel(channel).length).to eq(3)
+      expect(DiscourseChatIntegration::Rule.with_channel(channel2).length).to eq(1)
     end
 
     it 'can be filtered by category' do
-      rule2 = DiscourseChat::Rule.create(channel: channel, category_id: category.id)
-      rule3 = DiscourseChat::Rule.create(channel: channel, category_id: nil)
+      rule2 = DiscourseChatIntegration::Rule.create(channel: channel, category_id: category.id)
+      rule3 = DiscourseChatIntegration::Rule.create(channel: channel, category_id: nil)
 
-      expect(DiscourseChat::Rule.all.length).to eq(3)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(3)
 
-      expect(DiscourseChat::Rule.with_category_id(category.id).length).to eq(2)
-      expect(DiscourseChat::Rule.with_category_id(nil).length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_category_id(category.id).length).to eq(2)
+      expect(DiscourseChatIntegration::Rule.with_category_id(nil).length).to eq(1)
     end
 
     it 'can be filtered by group' do
       group1 = Fabricate(:group)
       group2 = Fabricate(:group)
-      rule2 = DiscourseChat::Rule.create!(channel: channel, type: 'group_message', group_id: group1.id)
-      rule3 = DiscourseChat::Rule.create!(channel: channel, type: 'group_message', group_id: group2.id)
+      rule2 = DiscourseChatIntegration::Rule.create!(channel: channel, type: 'group_message', group_id: group1.id)
+      rule3 = DiscourseChatIntegration::Rule.create!(channel: channel, type: 'group_message', group_id: group2.id)
 
-      expect(DiscourseChat::Rule.all.length).to eq(3)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(3)
 
-      expect(DiscourseChat::Rule.with_category_id(category.id).length).to eq(1)
-      expect(DiscourseChat::Rule.with_group_ids([group1.id, group2.id]).length).to eq(2)
-      expect(DiscourseChat::Rule.with_group_ids([group1.id]).length).to eq(1)
-      expect(DiscourseChat::Rule.with_group_ids([group2.id]).length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_category_id(category.id).length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_group_ids([group1.id, group2.id]).length).to eq(2)
+      expect(DiscourseChatIntegration::Rule.with_group_ids([group1.id]).length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_group_ids([group2.id]).length).to eq(1)
     end
 
     it 'can be filtered by type' do
       group1 = Fabricate(:group)
 
-      rule2 = DiscourseChat::Rule.create!(channel: channel, type: 'group_message', group_id: group1.id)
-      rule3 = DiscourseChat::Rule.create!(channel: channel, type: 'group_mention', group_id: group1.id)
+      rule2 = DiscourseChatIntegration::Rule.create!(channel: channel, type: 'group_message', group_id: group1.id)
+      rule3 = DiscourseChatIntegration::Rule.create!(channel: channel, type: 'group_mention', group_id: group1.id)
 
-      expect(DiscourseChat::Rule.all.length).to eq(3)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(3)
 
-      expect(DiscourseChat::Rule.with_type('group_message').length).to eq(1)
-      expect(DiscourseChat::Rule.with_type('group_mention').length).to eq(1)
-      expect(DiscourseChat::Rule.with_type('normal').length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_type('group_message').length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_type('group_mention').length).to eq(1)
+      expect(DiscourseChatIntegration::Rule.with_type('normal').length).to eq(1)
     end
 
     it 'can be sorted by precedence' do
-      rule2 = DiscourseChat::Rule.create(channel: channel, filter: 'mute')
-      rule3 = DiscourseChat::Rule.create(channel: channel, filter: 'follow')
-      rule4 = DiscourseChat::Rule.create(channel: channel, filter: 'thread')
-      rule5 = DiscourseChat::Rule.create(channel: channel, filter: 'mute')
+      rule2 = DiscourseChatIntegration::Rule.create(channel: channel, filter: 'mute')
+      rule3 = DiscourseChatIntegration::Rule.create(channel: channel, filter: 'follow')
+      rule4 = DiscourseChatIntegration::Rule.create(channel: channel, filter: 'thread')
+      rule5 = DiscourseChatIntegration::Rule.create(channel: channel, filter: 'mute')
 
-      expect(DiscourseChat::Rule.all.length).to eq(5)
+      expect(DiscourseChatIntegration::Rule.all.length).to eq(5)
 
-      expect(DiscourseChat::Rule.all.order_by_precedence.map(&:filter)).to eq(["mute", "mute", "thread", "watch", "follow"])
+      expect(DiscourseChatIntegration::Rule.all.order_by_precedence.map(&:filter)).to eq(["mute", "mute", "thread", "watch", "follow"])
     end
   end
 
   describe 'validations' do
 
     let(:rule) do
-      DiscourseChat::Rule.create(filter: 'watch',
-                                 channel: channel,
-                                 category_id: category.id)
+      DiscourseChatIntegration::Rule.create(filter: 'watch',
+                                            channel: channel,
+                                            category_id: category.id)
     end
 
     it 'validates channel correctly' do

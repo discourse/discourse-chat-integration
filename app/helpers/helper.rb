@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module DiscourseChat
+module DiscourseChatIntegration
   module Helper
 
     def self.process_command(channel, tokens)
-      guardian = DiscourseChat::Manager.guardian
+      guardian = DiscourseChatIntegration::Manager.guardian
 
       provider = channel.provider
 
@@ -47,7 +47,7 @@ module DiscourseChat
         end
 
         category_id = category.nil? ? nil : category.id
-        case DiscourseChat::Helper.smart_create_rule(channel: channel, filter: cmd, category_id: category_id, tags: tags)
+        case DiscourseChatIntegration::Helper.smart_create_rule(channel: channel, filter: cmd, category_id: category_id, tags: tags)
         when :created
           I18n.t("chat_integration.provider.#{provider}.create.created")
         when :updated
@@ -61,13 +61,13 @@ module DiscourseChat
         rule_number = tokens[0].to_i
         return error_text unless rule_number.to_s == tokens[0] # Check we were given a number
 
-        if DiscourseChat::Helper.delete_by_index(channel, rule_number)
+        if DiscourseChatIntegration::Helper.delete_by_index(channel, rule_number)
           I18n.t("chat_integration.provider.#{provider}.delete.success")
         else
           I18n.t("chat_integration.provider.#{provider}.delete.error")
         end
       when "status"
-        DiscourseChat::Helper.status_for_channel(channel)
+        DiscourseChatIntegration::Helper.status_for_channel(channel)
       when "help"
         I18n.t("chat_integration.provider.#{provider}.help")
       else
@@ -144,7 +144,7 @@ module DiscourseChat
     #     :created if a new rule has been created
     #     false if there was an error
     def self.smart_create_rule(channel:, filter:, category_id: nil, tags: nil)
-      existing_rules = DiscourseChat::Rule.with_channel(channel).with_type('normal')
+      existing_rules = DiscourseChatIntegration::Rule.with_channel(channel).with_type('normal')
 
       # Select the ones that have the same category
       same_category = existing_rules.select { |rule| rule.category_id == category_id }

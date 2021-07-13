@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiscourseChat::PluginModel < PluginStoreRow
+class DiscourseChatIntegration::PluginModel < PluginStoreRow
   PLUGIN_NAME = 'discourse-chat-integration'
 
   default_scope { self.default_scope }

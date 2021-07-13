@@ -2,7 +2,7 @@
 
 RSpec.shared_context "dummy provider" do
   before(:each) do
-    module ::DiscourseChat::Provider::DummyProvider
+    module ::DiscourseChatIntegration::Provider::DummyProvider
       PROVIDER_NAME = "dummy".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
       CHANNEL_PARAMETERS = []
@@ -33,15 +33,15 @@ RSpec.shared_context "dummy provider" do
   end
 
   after(:each) do
-    ::DiscourseChat::Provider.send(:remove_const, :DummyProvider)
+    ::DiscourseChatIntegration::Provider.send(:remove_const, :DummyProvider)
   end
 
-  let(:provider) { ::DiscourseChat::Provider::DummyProvider }
+  let(:provider) { ::DiscourseChatIntegration::Provider::DummyProvider }
 end
 
 RSpec.shared_context "validated dummy provider" do
   before(:each) do
-    module ::DiscourseChat::Provider::Dummy2Provider
+    module ::DiscourseChatIntegration::Provider::Dummy2Provider
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
       CHANNEL_PARAMETERS = [
@@ -62,6 +62,6 @@ RSpec.shared_context "validated dummy provider" do
   end
 
   after(:each) do
-    ::DiscourseChat::Provider.send(:remove_const, :Dummy2Provider)
+    ::DiscourseChatIntegration::Provider.send(:remove_const, :Dummy2Provider)
   end
 end

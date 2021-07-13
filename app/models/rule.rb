@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiscourseChat::Rule < DiscourseChat::PluginModel
+class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
   store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter ], coder: JSON
 
@@ -75,7 +75,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   # Mock foreign key
   # Could return nil
   def channel
-    DiscourseChat::Channel.find_by(id: channel_id)
+    DiscourseChatIntegration::Channel.find_by(id: channel_id)
   end
 
   def channel=(val)
@@ -85,7 +85,7 @@ class DiscourseChat::Rule < DiscourseChat::PluginModel
   private
 
   def channel_valid?
-    if !(DiscourseChat::Channel.where(id: channel_id).exists?)
+    if !(DiscourseChatIntegration::Channel.where(id: channel_id).exists?)
       errors.add(:channel_id, "#{channel_id} is not a valid channel id")
     end
   end

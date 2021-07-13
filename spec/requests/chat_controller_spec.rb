@@ -10,7 +10,7 @@ describe 'Chat Controller', type: :request do
   let(:category) { Fabricate(:category) }
   let(:category2) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
-  let(:channel) { DiscourseChat::Channel.create(provider: 'dummy') }
+  let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy') }
 
   include_context "dummy provider"
   include_context "validated dummy provider"
@@ -97,7 +97,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        rule = DiscourseChat::Rule.create(
+        rule = DiscourseChatIntegration::Rule.create(
           channel: channel,
           filter: 'follow',
           category_id: category.id,
@@ -149,7 +149,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response.status).to eq(200)
 
-        channel = DiscourseChat::Channel.all.last
+        channel = DiscourseChatIntegration::Channel.all.last
 
         expect(channel.provider).to eq('dummy')
       end
@@ -168,7 +168,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'updating a channel' do
-    let(:channel) { DiscourseChat::Channel.create(provider: 'dummy2', data: { val: "something" }) }
+    let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy2', data: { val: "something" }) }
 
     include_examples 'admin constraints', 'put', "/admin/plugins/chat/channels/1.json"
 
@@ -187,7 +187,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response.status).to eq(200)
 
-        channel = DiscourseChat::Channel.all.last
+        channel = DiscourseChatIntegration::Channel.all.last
         expect(channel.data).to eq("val" => "something-else")
       end
 
@@ -204,7 +204,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'deleting a channel' do
-    let(:channel) { DiscourseChat::Channel.create(provider: 'dummy', data: {}) }
+    let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy', data: {}) }
 
     include_examples 'admin constraints', 'delete', "/admin/plugins/chat/channels/1.json"
 
@@ -218,7 +218,7 @@ describe 'Chat Controller', type: :request do
         delete "/admin/plugins/chat/channels/#{channel.id}.json"
 
         expect(response.status).to eq(200)
-        expect(DiscourseChat::Channel.all.size).to eq(0)
+        expect(DiscourseChatIntegration::Channel.all.size).to eq(0)
       end
     end
   end
@@ -244,7 +244,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response.status).to eq(200)
 
-        rule = DiscourseChat::Rule.all.last
+        rule = DiscourseChatIntegration::Rule.all.last
 
         expect(rule.channel_id).to eq(channel.id)
         expect(rule.category_id).to eq(category.id)
@@ -269,7 +269,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'updating a rule' do
-    let(:rule) { DiscourseChat::Rule.create(channel: channel, filter: 'follow', category_id: category.id, tags: [tag.name]) }
+    let(:rule) { DiscourseChatIntegration::Rule.create(channel: channel, filter: 'follow', category_id: category.id, tags: [tag.name]) }
 
     include_examples 'admin constraints', 'put', "/admin/plugins/chat/rules/1.json"
 
@@ -291,7 +291,7 @@ describe 'Chat Controller', type: :request do
 
         expect(response.status).to eq(200)
 
-        rule = DiscourseChat::Rule.all.last
+        rule = DiscourseChatIntegration::Rule.all.last
         expect(rule.category_id).to eq(category2.id)
       end
 
@@ -312,7 +312,7 @@ describe 'Chat Controller', type: :request do
 
   describe 'deleting a rule' do
     let(:rule) do
-      DiscourseChat::Rule.create!(
+      DiscourseChatIntegration::Rule.create!(
         channel_id: channel.id,
         filter: 'follow',
         category_id: category.id,
@@ -332,7 +332,7 @@ describe 'Chat Controller', type: :request do
         delete "/admin/plugins/chat/rules/#{rule.id}.json"
 
         expect(response.status).to eq(200)
-        expect(DiscourseChat::Rule.all.size).to eq(0)
+        expect(DiscourseChatIntegration::Rule.all.size).to eq(0)
       end
     end
   end
