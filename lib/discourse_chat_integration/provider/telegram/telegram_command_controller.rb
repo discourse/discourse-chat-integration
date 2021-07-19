@@ -19,15 +19,17 @@ module DiscourseChatIntegration::Provider::TelegramProvider
         chat_id = params['message']['chat']['id']
 
         message_text = process_command(params['message'])
+        
+        if message_text
+          message = {
+            chat_id: chat_id,
+            text: message_text,
+            parse_mode: "html",
+            disable_web_page_preview: true,
+          }
 
-        message = {
-          chat_id: chat_id,
-          text: message_text,
-          parse_mode: "html",
-          disable_web_page_preview: true,
-        }
-
-        DiscourseChatIntegration::Provider::TelegramProvider.sendMessage(message)
+          DiscourseChatIntegration::Provider::TelegramProvider.sendMessage(message)
+        end
 
       elsif params.dig('channel_post', 'text')&.include?('/getchatid')
         chat_id = params['channel_post']['chat']['id']
