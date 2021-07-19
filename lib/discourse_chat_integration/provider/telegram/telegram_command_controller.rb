@@ -72,7 +72,7 @@ module DiscourseChatIntegration::Provider::TelegramProvider
         ""
       end
 
-      return if text_key == "silent"
+      return "" if text_key == "silent"
 
       if text_key.present?
         return  I18n.t(
