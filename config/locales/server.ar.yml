@@ -7,3 +7,6 @@
 ar:
   chat_integration:
     all_categories: "(جميع الأقسام)"
+    deleted_category: "(فئة محذوفة)"
+    group_mention_template: "الإشارات إلى: @%{name}"
+    group_message_template: "الرسائل إلى: @%{name}"

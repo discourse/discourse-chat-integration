@@ -6,8 +6,15 @@
 
 ar:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "إعدادات الدردشة"
     chat_integration:
+      menu_title: "إعدادات الدرشة"
       settings: "إعدادات"
+      no_providers: "تحتاج إلى تفعيل بعض المزودين في إعدادات الإضافة"
+      channels_with_errors: "فشلت بعض قنوات هذا المزود مؤخراً حينما تم إرسال رسائل. انقر على أيقونة (أيقونات) الخطأ لمعرفة المزيد."
       choose_group: "(اختر مجموعة)"
       all_categories: "(جميع الأقسام)"
       all_tags: "(جميع الوسوم)"
