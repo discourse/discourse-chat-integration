@@ -28,7 +28,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
       }
       this.set("loading", true);
 
-      ajax("/admin/plugins/chat/test", {
+      ajax("/admin/plugins/chat-integration/test", {
         data: {
           channel_id: this.get("model.channel.id"),
           topic_id: this.get("model.topic_id"),

@@ -5,7 +5,7 @@ export default DiscourseRoute.extend({
   model(params) {
     return Ember.RSVP.hash({
       channels: this.store.findAll("channel", { provider: params.provider }),
-      provider: this.modelFor("admin-plugins-chat").findBy(
+      provider: this.modelFor("admin-plugins-chat-integration").findBy(
         "id",
         params.provider
       ),

@@ -37,7 +37,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'listing providers' do
-    include_examples 'admin constraints', 'get', '/admin/plugins/chat/providers.json'
+    include_examples 'admin constraints', 'get', '/admin/plugins/chat-integration/providers.json'
 
     context 'when signed in as an admin' do
       before do
@@ -45,7 +45,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        get '/admin/plugins/chat/providers.json'
+        get '/admin/plugins/chat-integration/providers.json'
 
         expect(response.status).to eq(200)
 
@@ -63,7 +63,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'testing channels' do
-    include_examples 'admin constraints', 'get', '/admin/plugins/chat/test.json'
+    include_examples 'admin constraints', 'get', '/admin/plugins/chat-integration/test.json'
 
     context 'when signed in as an admin' do
       before do
@@ -71,7 +71,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should return the right response' do
-        post '/admin/plugins/chat/test.json', params: {
+        post '/admin/plugins/chat-integration/test.json', params: {
           channel_id: channel.id, topic_id: topic.id
         }
 
@@ -79,7 +79,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid channel' do
-        post '/admin/plugins/chat/test.json', params: {
+        post '/admin/plugins/chat-integration/test.json', params: {
           channel_id: 999, topic_id: topic.id
         }
 
@@ -89,7 +89,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'viewing channels' do
-    include_examples 'admin constraints', 'get', '/admin/plugins/chat/channels.json'
+    include_examples 'admin constraints', 'get', '/admin/plugins/chat-integration/channels.json'
 
     context 'when signed in as an admin' do
       before do
@@ -104,7 +104,7 @@ describe 'Chat Controller', type: :request do
           tags: [tag.name]
         )
 
-        get '/admin/plugins/chat/channels.json', params: { provider: 'dummy' }
+        get '/admin/plugins/chat-integration/channels.json', params: { provider: 'dummy' }
 
         expect(response.status).to eq(200)
 
@@ -123,7 +123,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid provider' do
-        get '/admin/plugins/chat/channels.json', params: { provider: 'someprovider' }
+        get '/admin/plugins/chat-integration/channels.json', params: { provider: 'someprovider' }
         expect(response.status).to eq(400)
       end
 
@@ -131,7 +131,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'adding a channel' do
-    include_examples 'admin constraints', 'post', '/admin/plugins/chat/channels.json'
+    include_examples 'admin constraints', 'post', '/admin/plugins/chat-integration/channels.json'
 
     context 'as an admin' do
 
@@ -140,7 +140,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able to add a new channel' do
-        post '/admin/plugins/chat/channels.json', params: {
+        post '/admin/plugins/chat-integration/channels.json', params: {
           channel: {
             provider: 'dummy',
             data: {}
@@ -155,7 +155,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid params' do
-        post '/admin/plugins/chat/channels.json', params: {
+        post '/admin/plugins/chat-integration/channels.json', params: {
           channel: {
             provider: 'dummy2',
             data: { val: 'something with whitespace' }
@@ -170,7 +170,7 @@ describe 'Chat Controller', type: :request do
   describe 'updating a channel' do
     let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy2', data: { val: "something" }) }
 
-    include_examples 'admin constraints', 'put', "/admin/plugins/chat/channels/1.json"
+    include_examples 'admin constraints', 'put', "/admin/plugins/chat-integration/channels/1.json"
 
     context 'as an admin' do
 
@@ -179,7 +179,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able update a channel' do
-        put "/admin/plugins/chat/channels/#{channel.id}.json", params: {
+        put "/admin/plugins/chat-integration/channels/#{channel.id}.json", params: {
           channel: {
             data: { val: "something-else" }
           }
@@ -192,7 +192,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid params' do
-        put "/admin/plugins/chat/channels/#{channel.id}.json", params: {
+        put "/admin/plugins/chat-integration/channels/#{channel.id}.json", params: {
           channel: {
             data: { val: "something with whitespace" }
           }
@@ -206,7 +206,7 @@ describe 'Chat Controller', type: :request do
   describe 'deleting a channel' do
     let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy', data: {}) }
 
-    include_examples 'admin constraints', 'delete', "/admin/plugins/chat/channels/1.json"
+    include_examples 'admin constraints', 'delete', "/admin/plugins/chat-integration/channels/1.json"
 
     context 'as an admin' do
 
@@ -215,7 +215,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able delete a channel' do
-        delete "/admin/plugins/chat/channels/#{channel.id}.json"
+        delete "/admin/plugins/chat-integration/channels/#{channel.id}.json"
 
         expect(response.status).to eq(200)
         expect(DiscourseChatIntegration::Channel.all.size).to eq(0)
@@ -224,7 +224,7 @@ describe 'Chat Controller', type: :request do
   end
 
   describe 'adding a rule' do
-    include_examples 'admin constraints', 'put', '/admin/plugins/chat/rules.json'
+    include_examples 'admin constraints', 'put', '/admin/plugins/chat-integration/rules.json'
 
     context 'as an admin' do
 
@@ -233,7 +233,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able to add a new rule' do
-        post '/admin/plugins/chat/rules.json', params: {
+        post '/admin/plugins/chat-integration/rules.json', params: {
           rule: {
             channel_id: channel.id,
             category_id: category.id,
@@ -254,7 +254,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid params' do
-        post '/admin/plugins/chat/rules.json', params: {
+        post '/admin/plugins/chat-integration/rules.json', params: {
           rule: {
             channel_id: channel.id,
             category_id: category.id,
@@ -271,7 +271,7 @@ describe 'Chat Controller', type: :request do
   describe 'updating a rule' do
     let(:rule) { DiscourseChatIntegration::Rule.create(channel: channel, filter: 'follow', category_id: category.id, tags: [tag.name]) }
 
-    include_examples 'admin constraints', 'put', "/admin/plugins/chat/rules/1.json"
+    include_examples 'admin constraints', 'put', "/admin/plugins/chat-integration/rules/1.json"
 
     context 'as an admin' do
 
@@ -280,7 +280,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able update a rule' do
-        put "/admin/plugins/chat/rules/#{rule.id}.json", params: {
+        put "/admin/plugins/chat-integration/rules/#{rule.id}.json", params: {
           rule: {
             channel_id: channel.id,
             category_id: category2.id,
@@ -296,7 +296,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should fail for invalid params' do
-        put "/admin/plugins/chat/rules/#{rule.id}.json", params: {
+        put "/admin/plugins/chat-integration/rules/#{rule.id}.json", params: {
           rule: {
             channel_id: channel.id,
             category_id: category.id,
@@ -320,7 +320,7 @@ describe 'Chat Controller', type: :request do
       )
     end
 
-    include_examples 'admin constraints', 'delete', "/admin/plugins/chat/rules/1.json"
+    include_examples 'admin constraints', 'delete', "/admin/plugins/chat-integration/rules/1.json"
 
     context 'as an admin' do
 
@@ -329,7 +329,7 @@ describe 'Chat Controller', type: :request do
       end
 
       it 'should be able delete a rule' do
-        delete "/admin/plugins/chat/rules/#{rule.id}.json"
+        delete "/admin/plugins/chat-integration/rules/#{rule.id}.json"
 
         expect(response.status).to eq(200)
         expect(DiscourseChatIntegration::Rule.all.size).to eq(0)

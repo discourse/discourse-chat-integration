@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Discourse::Application.routes.append do
-  mount ::DiscourseChatIntegration::AdminEngine, at: '/admin/plugins/chat', constraints: AdminConstraint.new
+  mount ::DiscourseChatIntegration::AdminEngine, at: '/admin/plugins/chat-integration', constraints: AdminConstraint.new
   mount ::DiscourseChatIntegration::PublicEngine, at: '/chat-transcript/', as: 'chat-transcript'
   mount ::DiscourseChatIntegration::Provider::HookEngine, at: '/chat-integration/'
 
