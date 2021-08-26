@@ -70,7 +70,10 @@ export default Ember.Controller.extend({
         groups: this.get("model.groups"),
       };
 
-      showModal("admin-plugins-chat-integration-edit-rule", { model, admin: true });
+      showModal("admin-plugins-chat-integration-edit-rule", {
+        model,
+        admin: true,
+      });
     },
 
     editRuleWithChannel(rule, channel) {
@@ -83,7 +86,10 @@ export default Ember.Controller.extend({
         groups: this.get("model.groups"),
       };
 
-      showModal("admin-plugins-chat-integration-edit-rule", { model, admin: true });
+      showModal("admin-plugins-chat-integration-edit-rule", {
+        model,
+        admin: true,
+      });
     },
 
     showError(channel) {
