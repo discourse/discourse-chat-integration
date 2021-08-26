@@ -16,7 +16,7 @@ acceptance("Chat Integration", function (needs) {
       ];
     };
 
-    server.get("/admin/plugins/chat/providers", () => {
+    server.get("/admin/plugins/chat-integration/providers", () => {
       return jsonResponse({
         providers: [
           {
@@ -28,7 +28,7 @@ acceptance("Chat Integration", function (needs) {
       });
     });
 
-    server.get("/admin/plugins/chat/channels", () => {
+    server.get("/admin/plugins/chat-integration/channels", () => {
       return jsonResponse({
         channels: [
           {
@@ -52,31 +52,31 @@ acceptance("Chat Integration", function (needs) {
       });
     });
 
-    server.post("/admin/plugins/chat/channels", () => {
+    server.post("/admin/plugins/chat-integration/channels", () => {
       return response({});
     });
 
-    server.put("/admin/plugins/chat/channels/:id", () => {
+    server.put("/admin/plugins/chat-integration/channels/:id", () => {
       return response({});
     });
 
-    server.delete("/admin/plugins/chat/channels/:id", () => {
+    server.delete("/admin/plugins/chat-integration/channels/:id", () => {
       return response({});
     });
 
-    server.post("/admin/plugins/chat/rules", () => {
+    server.post("/admin/plugins/chat-integration/rules", () => {
       return response({});
     });
 
-    server.put("/admin/plugins/chat/rules/:id", () => {
+    server.put("/admin/plugins/chat-integration/rules/:id", () => {
       return response({});
     });
 
-    server.delete("/admin/plugins/chat/rules/:id", () => {
+    server.delete("/admin/plugins/chat-integration/rules/:id", () => {
       return response({});
     });
 
-    server.post("/admin/plugins/chat/test", () => {
+    server.post("/admin/plugins/chat-integration/test", () => {
       return response({});
     });
 
@@ -86,7 +86,7 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Rules load successfully", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
 
     assert.ok(
       exists("#admin-plugin-chat table"),
@@ -101,7 +101,7 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Create channel works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
     await click("#create-channel");
 
     assert.ok(
@@ -129,7 +129,7 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Edit channel works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
     await click(".channel-header button:first");
 
     assert.ok(
@@ -162,7 +162,7 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Create rule works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
 
     assert.ok(
       exists(".channel-footer button:first"),
@@ -186,7 +186,7 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Edit rule works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
 
     assert.ok(exists(".edit:first"), "edit button is displayed");
 
@@ -210,7 +210,7 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Delete channel works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
 
     assert.ok(exists(".channel-header button:last"), "delete button exists");
     await click(".channel-header button:last");
@@ -222,14 +222,14 @@ acceptance("Chat Integration", function (needs) {
   });
 
   test("Delete rule works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
 
     assert.ok(exists(".delete:first"));
     await click(".delete:first");
   });
 
   test("Test channel works", async (assert) => {
-    await visit("/admin/plugins/chat");
+    await visit("/admin/plugins/chat-integration");
 
     await click(".btn-chat-test");
 
