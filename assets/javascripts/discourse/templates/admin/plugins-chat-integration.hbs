@@ -4,7 +4,7 @@
       <ul class="nav nav-pills">
         {{#each model as |provider|}}
           {{nav-item
-            route="adminPlugins.chat.provider"
+            route="adminPlugins.chat-integration.provider"
             routeParam=provider.name
             label=(concat "chat_integration.provider." provider.name ".title")
           }}

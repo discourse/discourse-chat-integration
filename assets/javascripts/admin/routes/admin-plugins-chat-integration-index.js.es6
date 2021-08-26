@@ -4,7 +4,7 @@ export default DiscourseRoute.extend({
   afterModel(model) {
     if (model.totalRows > 0) {
       this.transitionTo(
-        "adminPlugins.chat.provider",
+        "adminPlugins.chat-integration.provider",
         model.get("firstObject").name
       );
     }
