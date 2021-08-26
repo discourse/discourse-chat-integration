@@ -25,7 +25,7 @@ after_initialize do
     Jobs.enqueue_in(time, :notify_chats, post_id: post.id)
   end
 
-  add_admin_route 'chat_integration.menu_title', 'chat'
+  add_admin_route 'chat_integration.menu_title', 'chat-integration'
 
   AdminDashboardData.add_problem_check do
     error = false
