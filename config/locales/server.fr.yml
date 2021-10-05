@@ -56,7 +56,6 @@ fr:
     deleted_group: "(groupe supprimé)"
     group_mention_template: "mentions de : @%{name}"
     group_message_template: "messages à : @%{name}"
-    admin_error: "Certains canaux d'intégration de chat ont des erreurs. Visitez <a href='%{base_path}/admin/plugins/chat'>la section d'intégration de chat</a> pour en savoir plus."
     provider:
       slack:
         status:

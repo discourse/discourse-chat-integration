@@ -62,7 +62,7 @@ he:
     deleted_group: "(קבוצה שנמחקה)"
     group_mention_template: "אזכורים של: ‎‎@%{name}‎"
     group_message_template: "הודעות אל: ‎‎@%{name}‎"
-    admin_error: "בחלק מערוצי שילובי הצ׳אט יש שגיאות. נא לבקר ב<a href='%{base_path}/admin/plugins/chat'>אגף שילובי הצ׳אט</a> כדי להבין יותר."
+    admin_error: "בחלק מערוצי שילובי הצ׳אט יש שגיאות. נא לבקר ב<a href='%{base_path}/admin/plugins/chat-integration'>אגף שילובי הצ׳אט</a> כדי להבין יותר."
     provider:
       slack:
         status:

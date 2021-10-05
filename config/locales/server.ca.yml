@@ -52,7 +52,6 @@ ca:
     deleted_group: "(grup suprimit)"
     group_mention_template: "mencions de: @ %{name}"
     group_message_template: "missatges a: @%{name}"
-    admin_error: "Alguns canals d'integració de xat tenen errors. Visiteu <a href='%{base_path}/admin/plugins/chat'>la secció d'integració de xat</a> per a obtenir més informació."
     provider:
       slack:
         status:

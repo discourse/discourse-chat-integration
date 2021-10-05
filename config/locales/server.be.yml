@@ -51,7 +51,6 @@ be:
     deleted_group: "(Сцёрта група)"
     group_mention_template: "згадвання: @% {імя}"
     group_message_template: "паведамленні ў: @% {імя}"
-    admin_error: "Некаторыя каналы інтэграцыі чата ёсць памылкі. Наведаць хатнюю старонку <A HREF = '% {базовый_путь}"
     provider:
       slack:
         status:

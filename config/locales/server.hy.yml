@@ -51,7 +51,6 @@ hy:
     deleted_group: "(ջնջված խումբ)"
     group_mention_template: "նշումներ՝ @%{name}"
     group_message_template: "հաղորդագրություն դեպի՝ @%{name}"
-    admin_error: "Որոշ զրույցների ինտեգրումների ալիքներ ունեն սխալներ: Այցելեք <a href='%{base_path}/admin/plugins/chat'>զրույցի ինտեգրման բաժին</a> ՝ ավեին իմանալու համար:"
     provider:
       slack:
         status:
