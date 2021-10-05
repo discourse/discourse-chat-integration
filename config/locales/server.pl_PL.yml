@@ -62,7 +62,6 @@ pl_PL:
     deleted_group: "(usunięta grupa)"
     group_mention_template: "Wzmianki o: @%{name}"
     group_message_template: "Wiadomości do: @%{name}"
-    admin_error: "Niektóre kanały integracji mają błędy. Odwiedź <a href='%{base_path}/admin/plugins/chat'>ustawienia integracji czatu</a>, żeby dowiedzieć się więcej."
     provider:
       slack:
         status:

@@ -52,7 +52,6 @@ ur:
     deleted_group: "(حذف کردہ گروپ)"
     group_mention_template: "ذکر: @%{name} کے"
     group_message_template: "پیغامات: @%{name} کیلئے"
-    admin_error: "کچھ چَیٹ اِنٹیگرَیشَن چینلز میں خرابیاں ہیں۔ مزید جاننے کیلئے <a href='%{base_path}/admin/plugins/chat'>چَیٹ اِنٹیگرَیشَن سیکشن</a> پر جائیں۔"
     provider:
       slack:
         status:

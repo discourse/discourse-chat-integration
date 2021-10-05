@@ -62,7 +62,7 @@ ru:
     deleted_group: "(удаленная группа)"
     group_mention_template: "Упоминания о: @ %{name}"
     group_message_template: "сообщения для: @%{name}"
-    admin_error: "Некоторые каналы интеграции чата имеют ошибки. Посетите <a href='%{base_path}/admin/plugins/chat'>раздел интеграции чата,</a> чтобы узнать больше."
+    admin_error: "Некоторые каналы интеграции чата имеют ошибки. Посетите <a href='%{base_path}/admin/plugins/chat-integration'>раздел интеграции чата</a>, чтобы узнать больше."
     provider:
       slack:
         status:

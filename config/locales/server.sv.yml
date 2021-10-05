@@ -62,7 +62,7 @@ sv:
     deleted_group: "(raderad grupp)"
     group_mention_template: "omnämnanden av: @%{name}"
     group_message_template: "meddelanden till: @%{name}"
-    admin_error: "Vissa chattintegrationskanaler har felaktigheter. Besök <a href='%{base_path}/admin/plugins/chat'>chattintegreringssektionen</a> för att ta reda på mer."
+    admin_error: "Vissa chattintegrationskanaler har felaktigheter. Besök <a href='%{base_path}/admin/plugins/chat-integration'>chattintegreringssektionen</a> för att ta reda på mer."
     provider:
       slack:
         status:
