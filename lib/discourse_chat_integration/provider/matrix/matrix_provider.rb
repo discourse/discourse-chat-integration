@@ -20,7 +20,7 @@ module DiscourseChatIntegration
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
 
-        if room_id.start_with?("#")
+        if room_id.start_with?("#") || SiteSetting.chat_integration_matrix_auto_join
           url = "#{homeserver}/_matrix/client/r0/join/#{CGI::escape(room_id)}"
           uri = URI([url, url_params].join('?'))
 

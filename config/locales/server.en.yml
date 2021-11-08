@@ -50,6 +50,7 @@ en:
     chat_integration_matrix_access_token: "Access token for the bot's Matrix account"
     chat_integration_matrix_excerpt_length: "Matrix post excerpt length"
     chat_integration_matrix_use_notice: "Use notice instead of plain message"
+    chat_integration_matrix_auto_join: "Auto-join rooms even for cacnonical IDs"
 
     #######################################
     ########### ZULIP SETTINGS ############

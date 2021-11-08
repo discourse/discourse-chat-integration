@@ -79,6 +79,8 @@ chat_integration:
     default: 400
   chat_integration_matrix_use_notice:
     default: true
+  chat_integration_matrix_auto_join:
+    default: false
 
 #######################################
 ########### ZULIP SETTINGS ############
