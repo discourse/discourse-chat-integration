@@ -17,12 +17,29 @@ module DiscourseChatIntegration
 
         url_params = URI.encode_www_form(access_token: SiteSetting.chat_integration_matrix_access_token)
 
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+
+        if room_id.start_with?("#")
+          url = "#{homeserver}/_matrix/client/r0/join/#{CGI::escape(room_id)}"
+          uri = URI([url, url_params].join('?'))
+
+          req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
+          req.body = "{}"
+
+          response = http.request(req)
+
+          if !response.kind_of?(Net::HTTPSuccess)
+            return response
+          end
+
+          responseData = JSON.parse(response.body)
+          room_id = responseData["room_id"]
+        end
+
         url = "#{homeserver}/_matrix/client/r0/rooms/#{CGI::escape(room_id)}/send/#{event_type}/#{uid}"
 
         uri = URI([url, url_params].join('?'))
-
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
 
         req = Net::HTTP::Put.new(uri, 'Content-Type' => 'application/json')
         req.body = message.to_json
@@ -69,6 +86,8 @@ module DiscourseChatIntegration
               error_key = 'chat_integration.provider.matrix.errors.unknown_token'
             elsif responseData['errcode'] == "M_UNKNOWN"
               error_key = 'chat_integration.provider.matrix.errors.unknown_room'
+            elsif responseData['errcode'] == "M_FORBIDDEN"
+              error_key = 'chat_integration.provider.matrix.errors.forbidden'
             end
           ensure
             raise ::DiscourseChatIntegration::ProviderError.new info: { error_key: error_key, message: message, response_body: response.body }
