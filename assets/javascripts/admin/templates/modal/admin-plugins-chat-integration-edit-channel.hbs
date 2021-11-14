@@ -45,14 +45,14 @@
 <div class="modal-footer">
   {{d-button id="save-channel"
     class="btn-primary btn-large"
-    action="save"
+    action=(action "save")
     title="chat_integration.edit_channel_modal.save"
     label="chat_integration.edit_channel_modal.save"
     disabled=saveDisabled
   }}
 
   {{d-button class="btn-large"
-    action="cancel"
+    action=(action "cancel")
     title="chat_integration.edit_channel_modal.cancel"
     label="chat_integration.edit_channel_modal.cancel"
   }}
