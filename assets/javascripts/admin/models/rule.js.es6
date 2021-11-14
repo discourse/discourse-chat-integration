@@ -1,10 +1,7 @@
 import I18n from "I18n";
 import RestModel from "discourse/models/rest";
 import Category from "discourse/models/category";
-import {
-  default as computed,
-  observes,
-} from "discourse-common/utils/decorators";
+import computed, { observes } from "discourse-common/utils/decorators";
 
 export default RestModel.extend({
   @computed("channel.provider")
