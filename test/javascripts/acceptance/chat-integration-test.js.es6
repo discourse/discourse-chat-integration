@@ -1,4 +1,11 @@
-import { acceptance } from "discourse/tests/helpers/qunit-helpers";
+import {
+  acceptance,
+  exists,
+  query,
+  queryAll,
+} from "discourse/tests/helpers/qunit-helpers";
+import { test } from "qunit";
+import { click, fillIn, visit } from "@ember/test-helpers";
 
 acceptance("Chat Integration", function (needs) {
   needs.user();
