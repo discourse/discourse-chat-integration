@@ -20,14 +20,16 @@ module DiscourseChatIntegration::Provider::TelegramProvider
 
         message_text = process_command(params['message'])
 
-        message = {
-          chat_id: chat_id,
-          text: message_text,
-          parse_mode: "html",
-          disable_web_page_preview: true,
-        }
+        if message_text.present?
+          message = {
+            chat_id: chat_id,
+            text: message_text,
+            parse_mode: "html",
+            disable_web_page_preview: true,
+          }
 
-        DiscourseChatIntegration::Provider::TelegramProvider.sendMessage(message)
+          DiscourseChatIntegration::Provider::TelegramProvider.sendMessage(message)
+        end
 
       elsif params.dig('channel_post', 'text')&.include?('/getchatid')
         chat_id = params['channel_post']['chat']['id']
@@ -62,10 +64,15 @@ module DiscourseChatIntegration::Provider::TelegramProvider
 
       channel = DiscourseChatIntegration::Channel.with_provider(provider).with_data_value('chat_id', chat_id).first
 
-      text_key = "unknown_chat" if channel.nil?
-      # If slash commands disabled, send a generic message
-      text_key = "known_chat" if !SiteSetting.chat_integration_telegram_enable_slash_commands
-      text_key = "help" if message['text'].blank?
+      text_key = if channel.nil?
+        "unknown_chat"
+      elsif !SiteSetting.chat_integration_telegram_enable_slash_commands || !message['text'].start_with?('/')
+        "silent"
+      else
+        ""
+      end
+
+      return "" if text_key == "silent"
 
       if text_key.present?
         return  I18n.t(
