@@ -9,9 +9,7 @@ export default DiscourseRoute.extend({
         "id",
         params.provider
       ),
-      groups: Group.findAll().then((groups) => {
-        return groups.filter((g) => !g.get("automatic"));
-      }),
+      groups: Group.findAll(),
     }).then((value) => {
       value.channels.forEach((channel) => {
         channel.set(
