@@ -122,7 +122,6 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     json = JSON.parse(response.body)
-    puts json
 
     unless json["ok"] == true
       if json.key?("error") && (json["error"] == ('channel_not_found') || json["error"] == ('is_archived'))
@@ -185,7 +184,6 @@ module DiscourseChatIntegration::Provider::SlackProvider
   end
 
   def self.set_slack_thread_ts(topic, channel, value)
-    name = "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}"
     TopicCustomField.upsert({
         topic_id: topic.id,
         name: "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}",
