@@ -31,6 +31,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
           this._paramValidation
         )
       );
+      this.notifyPropertyChange("paramValidation");
     }
   },
 
