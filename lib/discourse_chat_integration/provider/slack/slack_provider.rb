@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
 module DiscourseChatIntegration::Provider::SlackProvider
-  PROVIDER_NAME = "slack".freeze
-  THREAD = "thread".freeze
+  PROVIDER_NAME = "slack"
+  THREAD_CUSTOM_FIELD_PREFIX = "slack_thread_id_"
+
+  # In the past, only one thread_ts was stored for each topic.
+  # Now, we store one thread_ts per Slack channel.
+  # Data will be automatically migrated when the next message is sent to the channel
+  # This logic could be removed after 2022-12 - it's unlikely people will care about
+  # threading messages to more-than-1-year-old Slack threads.
+  THREAD_LEGACY = "thread"
 
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
@@ -11,16 +18,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
                        ]
 
   require_dependency 'topic'
-  ::Topic.register_custom_field_type(DiscourseChatIntegration::Provider::SlackProvider::THREAD, :text)
-
-  class ::Topic
-    def slack_thread_id=(ts)
-      self.custom_fields[DiscourseChatIntegration::Provider::SlackProvider::THREAD] = ts
-    end
-    def slack_thread_id
-      self.custom_fields[DiscourseChatIntegration::Provider::SlackProvider::THREAD]
-    end
-  end
+  ::Topic.register_custom_field_type(DiscourseChatIntegration::Provider::SlackProvider::THREAD_LEGACY, :string)
 
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
     doc = Nokogiri::HTML5.fragment(post.excerpt(max_length,
@@ -69,8 +67,8 @@ module DiscourseChatIntegration::Provider::SlackProvider
       attachments: []
     }
 
-    if filter == "thread" && thread_ts = topic.slack_thread_id
-      message[:thread_ts] = thread_ts if not thread_ts.nil?
+    if filter == "thread" && thread_ts = get_slack_thread_ts(topic, channel)
+      message[:thread_ts] = thread_ts
     end
 
     summary = {
@@ -97,7 +95,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     uri = ""
 
     # <!--SLACK_CHANNEL_ID=#{@channel_id};SLACK_TS=#{@requested_thread_ts}-->
-    slack_thread_regex = /<!--SLACK_CHANNEL_ID=(\w+);SLACK_TS=([0-9]{10}.[0-9]{6})-->/
+    slack_thread_regex = /<!--SLACK_CHANNEL_ID=([^;.]+);SLACK_TS=([0-9]{10}.[0-9]{6})-->/
 
     req = Net::HTTP::Post.new(URI('https://slack.com/api/chat.postMessage'))
 
@@ -110,10 +108,9 @@ module DiscourseChatIntegration::Provider::SlackProvider
     }
     if message.key?(:thread_ts)
       data[:thread_ts] = message[:thread_ts]
-    elsif match = slack_thread_regex.match(post.raw)
+    elsif (match = slack_thread_regex.match(post.raw)) && match.captures[0] == channel
       data[:thread_ts] = match.captures[1]
-      post.topic.slack_thread_id = match.captures[1]
-      post.topic.save_custom_fields
+      set_slack_thread_ts(post.topic, channel, match.captures[1])
     end
 
     req.set_form_data(data)
@@ -125,6 +122,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     json = JSON.parse(response.body)
+    puts json
 
     unless json["ok"] == true
       if json.key?("error") && (json["error"] == ('channel_not_found') || json["error"] == ('is_archived'))
@@ -136,10 +134,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     ts = json["ts"]
-    if !ts.nil? && post.topic.slack_thread_id.nil?
-      post.topic.slack_thread_id = ts
-      post.topic.save_custom_fields
-    end
+    set_slack_thread_ts(post.topic, channel, ts) if !ts.nil?
 
     response
   end
@@ -182,6 +177,22 @@ module DiscourseChatIntegration::Provider::SlackProvider
     http.use_ssl = true
     http.read_timeout = 5 # seconds
     http
+  end
+
+  def self.get_slack_thread_ts(topic, channel)
+    field = TopicCustomField.where(topic: topic, name: "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}")
+    field.pluck_first(:value) || topic.custom_fields[THREAD_LEGACY]
+  end
+
+  def self.set_slack_thread_ts(topic, channel, value)
+    name = "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}"
+    TopicCustomField.upsert({
+        topic_id: topic.id,
+        name: "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}",
+        value: value,
+        created_at: Time.zone.now,
+        updated_at: Time.zone.now
+    }, unique_by: [:topic_id, :name])
   end
 end
 

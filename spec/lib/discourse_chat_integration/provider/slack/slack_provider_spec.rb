@@ -90,10 +90,11 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
       before do
         SiteSetting.chat_integration_slack_access_token = "magic"
         @ts = "#{Time.now.to_i}.012345"
+        @ts2 = "#{Time.now.to_i}.012346"
         @stub1 = stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(body: "success")
-        @thread_stub = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).with(body: hash_including("thread_ts" => @ts)).to_return(body: "{\"ok\":true, \"ts\": \"12345.67890\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
         @stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).to_return(body: "{\"ok\":true, \"ts\": \"#{@ts}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
-        @channel = DiscourseChatIntegration::Channel.create(provider: 'dummy')
+        @thread_stub = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).with(body: hash_including("thread_ts" => @ts)).to_return(body: "{\"ok\":true, \"ts\": \"#{@ts}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
+        @thread_stub2 = stub_request(:post, %r{https://slack.com/api/chat.postMessage}).with(body: hash_including("thread_ts" => @ts2)).to_return(body: "{\"ok\":true, \"ts\": \"#{@ts2}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }", headers: { 'Content-Type' => 'application/json' })
       end
 
       it 'sends an api request' do
@@ -103,32 +104,50 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
         described_class.trigger_notification(post, chan1, nil)
         expect(@stub1).to have_been_requested.times(0)
         expect(@stub2).to have_been_requested.once
-        expect(post.topic.slack_thread_id).to eq(@ts)
+        expect(described_class.get_slack_thread_ts(post.topic, chan1.data["identifier"])).to eq(@ts)
         expect(@thread_stub).to have_been_requested.times(0)
       end
 
       it 'sends thread id for thread' do
         expect(@thread_stub).to have_been_requested.times(0)
 
-        rule = DiscourseChatIntegration::Rule.create(channel: @channel, filter: "thread")
-        post.topic.slack_thread_id = @ts
+        rule = DiscourseChatIntegration::Rule.create(channel: chan1, filter: "thread")
+        described_class.set_slack_thread_ts(post.topic, chan1.data["identifier"], @ts)
 
         described_class.trigger_notification(post, chan1, rule)
         expect(@thread_stub).to have_been_requested.once
       end
 
+      it 'tracks threading in different channels separately' do
+        expect(@thread_stub).to have_been_requested.times(0)
+        chan2 = DiscourseChatIntegration::Channel.create(provider: 'dummy2', data: { "identifier" => "#random" })
+
+        rule = DiscourseChatIntegration::Rule.create(channel: chan1, filter: "thread")
+        rule2 = DiscourseChatIntegration::Rule.create(channel: chan2, filter: "thread")
+        described_class.set_slack_thread_ts(post.topic, chan1.data["identifier"], @ts)
+        described_class.set_slack_thread_ts(post.topic, chan2.data["identifier"], @ts2)
+
+        described_class.trigger_notification(post, chan1, rule)
+        described_class.trigger_notification(post, chan2, rule2)
+        expect(@thread_stub).to have_been_requested.once
+        expect(@thread_stub2).to have_been_requested.once
+
+        post.topic.reload
+        expect(described_class.get_slack_thread_ts(post.topic, "#general")).to eq(@ts)
+        expect(described_class.get_slack_thread_ts(post.topic, "#random")).to eq(@ts2)
+      end
+
       it 'recognizes slack thread ts in comment' do
         post.update!(cooked: "cooked", raw: <<~RAW
              My fingers are typing words that improve `raw_quality`
-             <!--SLACK_CHANNEL_ID=UIGNOREFORNOW;SLACK_TS=#{@ts}-->
+             <!--SLACK_CHANNEL_ID=#general;SLACK_TS=#{@ts}-->
         RAW
         )
 
-        rule = DiscourseChatIntegration::Rule.create(channel: @channel, filter: "thread")
-        post.topic.slack_thread_id = nil
+        rule = DiscourseChatIntegration::Rule.create(channel: chan1, filter: "thread")
 
         described_class.trigger_notification(post, chan1, rule)
-        expect(post.topic.slack_thread_id).to eq(@ts)
+        expect(described_class.get_slack_thread_ts(post.topic, chan1.data["identifier"])).to eq(@ts)
 
         expect(@thread_stub).to have_been_requested.times(1)
       end
