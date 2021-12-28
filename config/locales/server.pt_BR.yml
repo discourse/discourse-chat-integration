@@ -6,51 +6,63 @@
 
 pt_BR:
   site_settings:
-    chat_integration_enabled: 'Habilitar o plugin discourse-chat-integration'
-    chat_integration_discourse_username: 'Nome de usuário do usuário para atuar na busca de conteúdo.'
+    chat_integration_enabled: 'Ativar o plugin discourse-chat-integration'
+    chat_integration_discourse_username: 'Nome do(a) usuário(a) do(a) usuário(a) para atuar na busca de conteúdo.'
     chat_integration_delay_seconds: 'Número de segundos a aguardar após a criação de uma postagem antes de enviar notificações de bate-papo'
-    chat_integration_slack_enabled: 'Habilitar o provedor de integração de bate-papo do Slack'
+    chat_integration_slack_username: "O nome do(a) usuário(a) do robô com o qual postar o Slack"
+    chat_integration_slack_enabled: 'Ativar o provedor de integração de bate-papo do Slack'
     chat_integration_slack_access_token: 'Token de Acesso OAuth para autenticação com o Slack'
     chat_integration_slack_incoming_webhook_token: 'O token de verificação usado para autenticar solicitações recebidas'
-    chat_integration_slack_excerpt_length: 'Tamanho do treco da postagem do Slack'
+    chat_integration_slack_excerpt_length: 'Tamanho do trecho da postagem do Slack'
     chat_integration_slack_icon_url: 'Ícone para postagens no Slack (padrão é logotipo do fórum)'
-    chat_integration_slack_outbound_webhook_url: "Para usar o sistema 'Incoming Webhook' do Slack ao invés da API OAuth. Não recomendado."
+    chat_integration_slack_outbound_webhook_url: "Para usar o sistema \"Incoming Webhook\" do Slack em vez da API OAuth. Não recomendado."
     errors:
-      chat_integration_slack_api_configs_are_empty: "Você precisa inserir um URL de webhook de saída, ou um token de acesso"
-    chat_integration_telegram_enabled: "Habilitar o provedor de integração de bate-papo do Telegram"
+      chat_integration_slack_api_configs_are_empty: "Você precisa inserir uma URL de webhook de saída, ou um token de acesso"
+    chat_integration_telegram_enabled: "Ativar o provedor de integração de bate-papo do Telegram"
     chat_integration_telegram_access_token: "O token de acesso do seu robô do botfather do Telegram"
-    chat_integration_telegram_excerpt_length: "Tamanho do treco da postagem do Telegram"
-    chat_integration_telegram_enable_slash_commands: "Permitir que as assinaturas do Telegram sejam gerenciadas usando 'slash commands'"
-    chat_integration_discord_enabled: "Habilitar o provedor de integração de bate-papo do Discord"
+    chat_integration_telegram_excerpt_length: "Tamanho do trecho da postagem do Telegram"
+    chat_integration_telegram_enable_slash_commands: "Permitir que as assinaturas do Telegram sejam gerenciadas usando \"slash commands\""
+    chat_integration_discord_enabled: "Ativar o provedor de integração de bate-papo do Discord"
     chat_integration_discord_message_content: "A mensagem a ser incluída acima do resumo ao enviar uma notificação para Discord"
     chat_integration_discord_excerpt_length: "Tamanho do treco da postagem do Discord"
-    chat_integration_mattermost_enabled: "Habilitar o provedor de integração de bate-papo do Mattermost"
+    chat_integration_mattermost_enabled: "Ativar o provedor de integração de bate-papo do Mattermost"
     chat_integration_mattermost_webhook_url: 'URL para o webhook do Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'O token de verificação usado para autenticar solicitações recebidas'
     chat_integration_mattermost_icon_url: "Ícone para postagens no Mattermost (padrão é logotipo do fórum)"
     chat_integration_mattermost_excerpt_length: "Tamanho do treco da postagem do Mattermost"
-    chat_integration_matrix_enabled: "Habilitar o provedor de integração de bate-papo do Matrix"
+    chat_integration_matrix_enabled: "Ativar o provedor de integração de bate-papo do Matrix"
     chat_integration_matrix_homeserver: "Homeserver para se conectar. Certifique-se de incluir o protocolo"
     chat_integration_matrix_access_token: "Token de acesso para o robô da conta Matrix"
-    chat_integration_matrix_excerpt_length: "Tamanho do treco da postagem do Matrix"
-    chat_integration_matrix_use_notice: "Usar aviso ao invés de mensagem simples"
-    chat_integration_zulip_enabled: "Habilitar o provedor de integração de bate-papo do Zulip"
-    chat_integration_zulip_server: "O URL base do seu servidor Zulip. Certifique-se de incluir http(s)://"
+    chat_integration_matrix_excerpt_length: "Tamanho do trecho da postagem do Matrix"
+    chat_integration_matrix_use_notice: "Usar aviso em vez de mensagem simples"
+    chat_integration_zulip_enabled: "Ativar o provedor de integração de bate-papo do Zulip"
+    chat_integration_zulip_server: "A URL básica do seu servidor Zulip. Certifique-se de incluir http(s)://"
     chat_integration_zulip_bot_email_address: "O endereço de e-mail associado ao seu robô Zulip"
-    chat_integration_zulip_bot_api_key: "A chave API do seu robô Zulip"
-    chat_integration_zulip_excerpt_length: "Tamanho do treco da postagem do Zulip"
-    chat_integration_rocketchat_enabled: "Habilitar o provedor de integração de bate-papo do Rocket Chat"
-    chat_integration_rocketchat_webhook_url: "O URL para o webhook de integração do Rocket Chat"
-    chat_integration_rocketchat_excerpt_length: "Tamanho do treco da postagem do Rocket Chat"
-    chat_integration_gitter_enabled: "Habilitar o provedor de integração de bate-papo do Gitter"
-    chat_integration_flowdock_enabled: "Habilitar o provedor de integração de bate-papo do Flowdock"
-    chat_integration_flowdock_excerpt_length: "Tamanho do treco da postagem do Flowdock"
+    chat_integration_zulip_bot_api_key: "A chave da API do seu robô Zulip"
+    chat_integration_zulip_excerpt_length: "Tamanho do trecho da postagem do Zulip"
+    chat_integration_rocketchat_enabled: "Ativar o provedor de integração de bate-papo do Rocket Chat"
+    chat_integration_rocketchat_webhook_url: "A URL do webhook de integração do Rocket Chat"
+    chat_integration_rocketchat_excerpt_length: "Tamanho do trecho da postagem do Rocket Chat"
+    chat_integration_gitter_enabled: "Ativar o provedor de integração de bate-papo do Gitter"
+    chat_integration_flowdock_enabled: "Ativar o provedor de integração de bate-papo do Flowdock"
+    chat_integration_flowdock_excerpt_length: "Tamanho do trecho da postagem do Flowdock"
+    chat_integration_groupme_enabled: "Ative o provedor de integração de bate-papo do GroupMe"
+    chat_integration_groupme_excerpt_length: "Tamanho do trecho da postagem do GroupMe"
+    chat_integration_groupme_bot_ids: "IDs de Robô *necessárias*, separadas por \",\", se houver várias"
+    chat_integration_groupme_instance_names: " Nome do bate-papo do GroupMe *necessário*, separado por \",\", se houver vários (mesma ordem de IDs de Robô)"
+    chat_integration_teams_enabled: "Ativar o provedor de integração de bate-papo do Microsoft Teams"
+    chat_integration_teams_excerpt_length: "Tamanho do trecho da publicação do Microsoft Teams"
+    chat_integration_webex_enabled: "Ativar o provedor de integração de bate-papo do Webex Teams"
+    chat_integration_webex_excerpt_length: "Tamanho do trecho da postagem do Webex Teams"
+    chat_integration_google_enabled: "Ative o provedor de integração de bate-papo do \"Google Chat\""
+    chat_integration_google_excerpt_length: "Tamanho do trecho da postagem do Google Chat"
   chat_integration:
     all_categories: "(todas as categorias)"
     deleted_category: "(categoria excluída)"
     deleted_group: "(grupo excluído)"
     group_mention_template: "menções de: @%{name}"
     group_message_template: "mensagens para: @%{name}"
+    admin_error: "Alguns canais de integração de bate-papo contêm erros. Acesse <a href='%{base_path}/admin/plugins/chat-integration'>the chat integration section</a> para descobrir mais."
     provider:
       slack:
         status:
@@ -60,19 +72,40 @@ pt_BR:
           no_rules: "Não há regras configuradas para este canal. Execute `/discourse help` para instruções."
           rule_string: "*%{index})* *%{filter}* postagens em *%{category}*"
           rule_string_tags_suffix: " com etiquetas: *%{tags}*"
-        parse_error: "Desculpe, eu não entendi aquilo. Execute `/discourse help` para instruções."
+        parse_error: "Desculpe, eu não entendi isso. Execute `/discourse help` para instruções."
         create:
           created: "Regra criada com sucesso"
           updated: "Regra atualizada com sucesso"
-          error: "Desculpe, ocorreu um erro ao criar aquela regra."
+          error: "Desculpe, ocorreu um erro ao criar essa regra."
         delete:
           success: "Regra excluída com sucesso"
-          error: "Desculpe, ocorreu um erro ao excluir aquela regra. Execute `/discourse status` para uma lista de regras."
+          error: "Desculpe, ocorreu um erro ao excluir essa regra. Execute `/discourse status` para uma lista de regras."
         not_found:
           tag: "A etiqueta *%{name}* não pode ser encontrada."
           category: "A categoria *%{name}* não pode ser encontrada. Categorias disponíveis: *%{list}*"
+        help: |
+          *Nova Regra:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
+          (você deve especificar um tipo de regra e pelo menos uma categoria ou etiqueta)
+          - *thread* – notificar este canal para novos tópicos, respostas encadeadas, se possível
+          - *watch* – notificar este canal para novos tópicos e respostas
+          - *follow* – notificar este canal para novos tópicos
+          - *mute* – bloquear notificações para este canal
+
+          *Remover regra:* `/discourse remove [rule number]`
+          (`[rule number]` pode ser encontrado executando `/discourse status`)
+
+          *Regras de lista:* `/discourse status`
+
+          *[Experimental] Transcrição de publicação:* `/discourse post [n]`
+          Cria um tópico de rascunho contendo as últimas "n" postagens neste canal
+
+          *Ajuda:* `/discourse help`
         transcript:
-          error: "Algo deu errado ao construir a transcrição, desculpe!"
+          modal_title: "Criar transcrição"
+          modal_description: "Todas as mensagens na conversa serão reunidas em uma única publicação no fórum. Você terá oportunidade de editar a transcrição antes de postar."
+          transcript_ready: "Transcrição pronta"
+          continue_on_discourse: "Continuar no fórum"
+          error: "Algo deu errado ao criar a transcrição, desculpe!"
           post_to_discourse: "Clique aqui para elaborar uma postagem no Discourse com uma transcrição"
           api_required: "Desculpe, esta integração não está configurada para suportar postagens de transcrições."
           view_on_slack: "Visualizar em %{name} no Slack"
@@ -82,6 +115,9 @@ pt_BR:
           change_first_message: "Alterar a primeira mensagem…"
           change_last_message: "Alterar a última mensagem…"
           loading: "Carregando a transcrição…"
+          error_users: "Erro: não é possível buscar no Slack"
+          error_history: "Erro: não é possível buscar histórico de canais no Slack"
+          error_ts: "Erro: não é possível buscar mensagem solicitada no Slack"
       telegram:
         unknown_chat: "Este bate-papo não está configurado em %{site_title}. Peça a um administrador para adicionar um canal com \"ID de Bate-Papo\" %{chat_id}."
         known_chat: "Este bate-papo está configurado em %{site_title}. Configure-o no painel de administração. (ID do Bate-Papo: %{chat_id})"
@@ -96,14 +132,14 @@ pt_BR:
           no_rules: "Não há regras configuradas para este canal. Execute <code>/help</code> para instruções."
           rule_string: "<b>%{index})</b> <b>%{filter}</b> postagens em <b>%{category}</b>"
           rule_string_tags_suffix: " com etiquetas: <b>%{tags}</b>"
-        parse_error: "Desculpe, eu não entendi aquilo. Execute <code>/help</code> para instruções."
+        parse_error: "Desculpe, eu não entendi isso. Execute <code>/help</code> para instruções."
         create:
           created: "Regra criada com sucesso"
           updated: "Regra atualizada com sucesso"
-          error: "Desculpe, ocorreu um erro ao criar aquela regra."
+          error: "Desculpe, ocorreu um erro ao criar essa regra."
         delete:
           success: "Regra excluída com sucesso"
-          error: "Desculpe, ocorreu um erro ao excluir aquela regra. Execute <code>/status</code> para uma lista de regras."
+          error: "Desculpe, ocorreu um erro ao excluir essa regra. Execute <code>/status</code> para uma lista de regras."
         not_found:
           tag: "A etiqueta <b>%{name}</b> não pode ser encontrada."
           category: "A categoria <b>%{name}</b> não pode ser encontrada. Categorias disponíveis: <b>%{list}</b>"
@@ -130,11 +166,11 @@ pt_BR:
           no_rules: "Não há regras configuradas para este canal. Execute `/discourse help` para instruções."
           rule_string: "*%{index})* *%{filter}* postagens em *%{category}*"
           rule_string_tags_suffix: "com etiquetas: *%{tags}*"
-        parse_error: "Desculpe, eu não entendi aquilo. Execute `/discourse help` para instruções."
+        parse_error: "Desculpe, eu não entendi isso. Execute /help para instruções."
         create:
           created: "Regra criada com sucesso"
           updated: "Regra atualizada com sucesso"
-          error: "Desculpe, ocorreu um erro ao criar aquela regra."
+          error: "Desculpe, ocorreu um erro ao criar essa regra."
         delete:
           success: "Regra excluída com sucesso"
           error: "Desculpe, ocorreu um erro ao excluir aquela regra. Execute `/discourse status` para uma lista de regras."
@@ -168,6 +204,11 @@ pt_BR:
           %{excerpt}
           ~~~
       flowdock:
-        message_title: "postado"
+        message_title: "postou"
       groupme:
-        message_title: "postado"
+        message_title: "postou"
+      google:
+        new_post: "Nova publicação em %{site_title}"
+        new_topic: "Novo tópico em %{site_title}"
+        author: "por @%{username}"
+        link: "Visualizar em %{site_title}"

@@ -20,7 +20,7 @@ pt_BR:
       group_message_template: "Mensagens para: @%{name}"
       choose_group: "(escolha um grupo)"
       all_categories: "(todas as categorias)"
-      all_tags: "(todas as tags)"
+      all_tags: "(todas as etiquetas)"
       create_rule: "Criar Regra"
       create_channel: "Criar Canal"
       delete_channel: "Excluir"
@@ -42,6 +42,7 @@ pt_BR:
         mute: 'Silenciar'
         follow: 'Somente a primeira postagem'
         watch: 'Todas as postagens e respostas'
+        thread: 'Todas as postagens encadeadas'
       rule_table:
         filter: "Filtro"
         category: "Categoria"
@@ -79,7 +80,7 @@ pt_BR:
           param:
             identifier:
               title: Canal
-              help: "ex.: #canal, @nome_de_usuário."
+              help: "ex.: #canal, @username."
           errors:
             action_prohibited: "Este robô não tem permissão para postar naquele canal"
             channel_not_found: "O canal especificado não existe no Slack"
@@ -102,14 +103,14 @@ pt_BR:
               title: "Nome"
               help: "Um nome para descrever o canal. Não é usado para a conexão ao Discord."
             webhook_url:
-              title: Webhook URL
+              title: URL do Webhook
               help: A URL do webhook criada nas configurações do seu servidor Discord
         mattermost:
           title: "Mattermost"
           param:
             identifier:
               title: Canal
-              help: "ex.: #canal, @nome_de_usuário."
+              help: "ex.: #canal, @username."
           errors:
             channel_not_found: "O canal especificado não existe no Mattermost"
         matrix:
@@ -120,7 +121,7 @@ pt_BR:
               help: "Um nome para descrever o canal. Não é usado para a conexão com o Matrix."
             room_id:
               title: "ID da Sala"
-              help: "O 'identificador privado' para a sala. Precisa ser algo como !abcdefg:matrix.org"
+              help: "O \"identificador privado\" para a sala. Precisa ser algo como !abcdefg:matrix.org"
           errors:
             unknown_token: "O token de acesso é inválido"
             unknown_room: "O ID da sala é inválido"
@@ -128,19 +129,19 @@ pt_BR:
           title: "Zulip"
           param:
             stream:
-              title: "Stream"
-              help: "O nome da stream do Zulip para a qual a mensagem deve ser enviada. ex.: 'geral'"
+              title: "Transmissão"
+              help: "O nome da transmissão do Zulip para a qual a mensagem deve ser enviada. ex.: \"geral'"
             subject:
               title: "Assunto"
-              help: "O assunto que estas mensagens enviadas pelo robô devem ser dadas"
+              help: "O assunto com que estas mensagens enviadas pelo robô devem ser dadas"
           errors:
-            does_not_exist: "Esta stream não existe no Zulip"
+            does_not_exist: "Esta transmissão não existe no Zulip"
         rocketchat:
           title: "Rocket.Chat"
           param:
             identifier:
               title: Canal
-              help: "ex.: #canal, @nome_de_usuário."
+              help: "ex.: #canal, @username."
           errors:
             invalid_channel: "Este canal não existe no Rocket Chat"
         gitter:
@@ -151,7 +152,7 @@ pt_BR:
               help: "O nome de uma sala Gitter, ex.: gitterHQ/services."
             webhook_url:
               title: "URL do Webhook"
-              help: "O URL fornecido quando você cria uma nova integração em uma sala Gitter."
+              help: "A URL fornecida quando você cria uma nova integração em uma sala Gitter."
         flowdock:
           title: "Flowdock"
           param:
@@ -159,8 +160,13 @@ pt_BR:
               title: "Token de Fluxo"
               help: "O token de fluxo fornecido depois de criar uma fonte para um fluxo no qual você deseja enviar mensagens."
         groupme:
+          title: "GroupMe"
+          param:
+            groupme_instance_name:
+              title: "Nome da instância GroupMe"
+              help: "o nome da instância GroupMe como listado nas configurações do site. Use \"todas\" para enviar a todas as instâncias"
           errors:
-            not_found: "O caminho para qual você tentou publicar sua mensagem não foi encontrado. Verifique o ID do Bot nas Configurações do Site."
+            not_found: "O caminho para qual você tentou publicar sua mensagem não foi encontrado. Verifique o ID de Robô nas Configurações do Site."
             instance_names_issue: "Nomes de instância formatados incorretamente ou não fornecidos"
         teams:
           title: "Microsoft Teams"
@@ -170,7 +176,7 @@ pt_BR:
               help: "Um nome de canal do Teams, por exemplo: discourse"
             webhook_url:
               title: "Webhook URL"
-              help: "O URL fornecido quando você cria um novo webhook de entrada"
+              help: "A URL fornecida quando você cria um novo webhook de entrada"
           errors:
             invalid_channel: "Este canal não existe no Microsoft Teams"
         webex:
@@ -180,8 +186,8 @@ pt_BR:
               title: "Nome"
               help: "Um nome de espaço do Webex, exemplo: discourse"
             webhook_url:
-              title: "Webhook URL"
-              help: "O URL fornecido quando você cria um novo webhook de entrada"
+              title: "URL do Webhook"
+              help: "A URL fornecida quando você cria um novo webhook de entrada"
           errors:
             invalid_channel: "Este canal não existe no Webex"
         google:
@@ -191,5 +197,5 @@ pt_BR:
               title: "Nome"
               help: "Um nome para o canal (exibido apenas na interface de administração do Discourse)"
             webhook_url:
-              title: "Webhook URL"
-              help: "O URL fornecido quando você cria um novo webhook de entrada"
+              title: "URL do Webhook"
+              help: "A URL fornecida quando você cria um novo webhook de entrada"
