@@ -176,7 +176,6 @@ ar:
               help: "اسم قناة Teams، مثل \"مناقشة\""
             webhook_url:
               title: "عنوان URL لخطاف الويب"
-              help: "عنوان URL الذي يتم إدخاله عند إنشاء خطاف ويب وارد جديد"
           errors:
             invalid_channel: "هذه القناة غير موجودة على Microsoft Teams"
         webex:

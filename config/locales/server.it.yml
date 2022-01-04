@@ -87,9 +87,9 @@ it:
           *Nuova regola:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
           (devi specificare un tipo di regola e almeno una categoria o tag)
           - *thread* – notifica questo canale per nuovi argomenti, risposte ai thread se possibile
-          - *osservazione* – notifica questo canale per nuovi argomenti e nuove risposte
-          - *segui* – notifica questo canale per nuovi argomenti
-          - *silenzia* – blocca le notifiche a questo canale
+          - *watch* – notifica questo canale per nuovi argomenti e nuove risposte
+          - *follow* – notifica questo canale per nuovi argomenti
+          - *mute* – blocca le notifiche a questo canale
 
           *Rimuovi regola:* `/discourse remove [numero regola]`
           (`[numero regola]` può essere trovato eseguendo `/discourse status`)
