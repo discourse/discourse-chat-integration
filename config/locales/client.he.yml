@@ -176,7 +176,7 @@ he:
               help: "שם ערוץ ב־Teams, למשל: discourse"
             webhook_url:
               title: "כתובת התלייה"
-              help: "הכתובת שתסופק ביצירת התליית רשת נכנסת"
+              help: "הכתובת שתסופק ביצירת התליית רשת נכנסת חדשה"
           errors:
             invalid_channel: "ערוץ זה לא קיים ב־Microsoft Teams"
         webex:

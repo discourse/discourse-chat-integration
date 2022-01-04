@@ -176,7 +176,6 @@ zh_CN:
               help: "Teams 频道名称，例如 discourse"
             webhook_url:
               title: "网络钩子 URL"
-              help: "创建新的入站网络钩子时提供的 URL"
           errors:
             invalid_channel: "该频道在 Microsoft Teams 上不存在"
         webex:

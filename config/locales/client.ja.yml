@@ -14,7 +14,7 @@ ja:
       menu_title: "チャットの統合"
       settings: "設定"
       no_providers: "プラグイン設定でいくつかのプロバイダーを有効にする必要があります"
-      channels_with_errors: "このプロバイダーの一部のチャンネルは、最後にメッセージが送信されたときに失敗しました。詳細については、エレア―アイコンをクリックしてください。"
+      channels_with_errors: "このプロバイダーの一部のチャンネルは、最後にメッセージが送信されたときに失敗しました。詳細については、エラーアイコンをクリックしてください。"
       channel_exception: "メッセージがこのチャンネルに最後に送信されたときに、不明なエラーが発生しました。"
       group_mention_template: "メンション: @%{name}"
       group_message_template: "メッセージの宛先: @%{name}"
@@ -23,7 +23,7 @@ ja:
       all_tags: "（すべてのタグ）"
       create_rule: "ルールを作成"
       create_channel: "チャンネルを作成"
-      delete_channel: "削除する"
+      delete_channel: "削除"
       test_channel: "テスト"
       edit_channel: "編集"
       channel_delete_confirm: "このチャンネルを削除してもよろしいですか？関連するすべてのルールが削除されます。"
@@ -31,11 +31,11 @@ ja:
         title: "テストメッセージの送信"
         topic: "トピック"
         send: "テストメッセージを送信"
-        close: "投票をクローズする"
+        close: "閉じる"
         error: "メッセージの送信中に不明なエラーが発生しました。詳細については、サイトログをご覧ください。"
         success: "メッセージは正常に送信されました"
       type:
-        normal: デフォルト
+        normal: 標準
         group_message: グループメッセージ
         group_mention: グループメンション
       filter:
@@ -48,7 +48,7 @@ ja:
         category: "カテゴリ"
         tags: "タグ"
         edit_rule: "編集"
-        delete_rule: "削除する"
+        delete_rule: "削除"
       edit_channel_modal:
         title: "チャンネルを編集"
         save: "チャンネルを保存"
@@ -149,7 +149,7 @@ ja:
           param:
             name:
               title: "名前"
-              help: "Gitter のルーム名。例: gitterHQ/services。"
+              help: "Gitter ルームの名前。例: gitterHQ/services。"
             webhook_url:
               title: "Webhook の URL"
               help: "Gitter ルームで新しい統合を作成するときに提供される URL。"
@@ -167,7 +167,7 @@ ja:
               help: "サイト設定にリストされている GroupMe インスタンスの名前。すべてのインスタンスに送信するには「all」を使用します"
           errors:
             not_found: "メッセージの投稿先のパスが見つかりません。サイト設定でボット ID を確認してください。"
-            instance_names_issue: "インスタンス名の形式が誤っているか、指定されていません"
+            instance_names_issue: "インスタンス名のフォーマットが誤っているか、指定されていません"
         teams:
           title: "Microsoft Teams"
           param:
@@ -176,7 +176,6 @@ ja:
               help: "Teams チャンネル名。例: discourse"
             webhook_url:
               title: "Webhook の URL"
-              help: "新しい着信 Webhook を作成するときに提供される URL"
           errors:
             invalid_channel: "そのチャンネルは Microsoft Teams に存在しません"
         webex:

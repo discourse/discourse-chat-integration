@@ -176,7 +176,6 @@ fr:
               help: "Un nom de canal Teams, p. ex., « discourse »"
             webhook_url:
               title: "URL du webhook"
-              help: "L'adresse URL fournie lorsque vous créez un nouveau webhook entrant"
           errors:
             invalid_channel: "Ce canal n'existe pas sur Microsoft Teams"
         webex:
