@@ -1,5 +1,6 @@
 import DiscourseRoute from "discourse/routes/discourse";
 import Group from "discourse/models/group";
+import { action } from "@ember/object";
 
 export default DiscourseRoute.extend({
   model(params) {
@@ -30,18 +31,18 @@ export default DiscourseRoute.extend({
     return { provider: model["provider"].get("id") };
   },
 
-  actions: {
-    closeModal() {
-      if (this.get("controller.modalShowing")) {
-        this.refresh();
-        this.set("controller.modalShowing", false);
-      }
-
-      return true; // Continue bubbling up, so the modal actually closes
-    },
-
-    refreshProvider() {
+  @action
+  closeModal() {
+    if (this.get("controller.modalShowing")) {
       this.refresh();
-    },
+      this.set("controller.modalShowing", false);
+    }
+
+    return true; // Continue bubbling up, so the modal actually closes
+  },
+
+  @action
+  refreshProvider() {
+    this.refresh();
   },
 });
