@@ -104,3 +104,7 @@ hu:
               title: "Webhook URL"
         flowdock:
           title: "Flowdock"
+        teams:
+          param:
+            webhook_url:
+              help: "Az új bejövő webhook létrehozásakor megadott URL"
