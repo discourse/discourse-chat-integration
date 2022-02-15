@@ -8,11 +8,11 @@ module DiscourseChatIntegration
 
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+' },
-        { key: "webhook_url", regex: '^https:\/\/discord(?:app)?\.com\/api\/webhooks\/', unique: true, hidden: true }
+        { key: "webhook_url", regex: '^https:\/\/discord\.com\/api\/webhooks\/', unique: true, hidden: true }
       ].freeze
 
       def self.send_message(url, message)
-        http = Net::HTTP.new("discordapp.com", 443)
+        http = Net::HTTP.new("discord.com", 443)
         http.use_ssl = true
 
         uri = URI(url)
