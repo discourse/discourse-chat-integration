@@ -10,16 +10,16 @@ RSpec.describe DiscourseChatIntegration::Provider::DiscordProvider do
       SiteSetting.chat_integration_discord_enabled = true
     end
 
-    let(:chan1) { DiscourseChatIntegration::Channel.create!(provider: 'discord', data: { name: "Awesome Channel", webhook_url: 'https://discordapp.com/api/webhooks/1234/abcd' }) }
+    let(:chan1) { DiscourseChatIntegration::Channel.create!(provider: 'discord', data: { name: "Awesome Channel", webhook_url: 'https://discord.com/api/webhooks/1234/abcd' }) }
 
     it 'sends a webhook request' do
-      stub1 = stub_request(:post, 'https://discordapp.com/api/webhooks/1234/abcd?wait=true').to_return(status: 200)
+      stub1 = stub_request(:post, 'https://discord.com/api/webhooks/1234/abcd?wait=true').to_return(status: 200)
       described_class.trigger_notification(post, chan1, nil)
       expect(stub1).to have_been_requested.once
     end
 
     it 'includes the protocol in the avatar URL' do
-      stub1 = stub_request(:post, 'https://discordapp.com/api/webhooks/1234/abcd?wait=true')
+      stub1 = stub_request(:post, 'https://discord.com/api/webhooks/1234/abcd?wait=true')
         .with(body: hash_including(embeds: [hash_including(author: hash_including(url: /^https?:\/\//))]))
         .to_return(status: 200)
       described_class.trigger_notification(post, chan1, nil)
@@ -27,7 +27,7 @@ RSpec.describe DiscourseChatIntegration::Provider::DiscordProvider do
     end
 
     it 'handles errors correctly' do
-      stub1 = stub_request(:post, "https://discordapp.com/api/webhooks/1234/abcd?wait=true").to_return(status: 400)
+      stub1 = stub_request(:post, "https://discord.com/api/webhooks/1234/abcd?wait=true").to_return(status: 400)
       expect(stub1).to have_been_requested.times(0)
       expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(::DiscourseChatIntegration::ProviderError)
       expect(stub1).to have_been_requested.once
