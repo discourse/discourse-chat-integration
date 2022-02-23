@@ -40,4 +40,62 @@ after_initialize do
   end
 
   DiscourseChatIntegration::Provider.mount_engines
+
+  if defined?(DiscourseAutomation)
+    add_automation_scriptable('send_slack_message') do
+      field :message, component: :message, required: true, accepts_placeholders: true
+      field :url, component: :text, required: true
+      field :channel, component: :text, required: true
+
+      version 1
+
+      triggerables %i[point_in_time recurring]
+
+      script do |context, fields, automation|
+        sender = Discourse.system_user
+
+        content = fields.dig('message', 'value')
+        url = fields.dig('url', 'value')
+        full_content = "#{content} - #{url}"
+        channel_name = fields.dig('channel', 'value')
+        channel = DiscourseChatIntegration::Channel.new(provider: "slack", data: { identifier: "##{channel_name}" })
+
+        icon_url =
+          if SiteSetting.chat_integration_slack_icon_url.present?
+            "#{Discourse.base_url}#{SiteSetting.chat_integration_slack_icon_url}"
+          elsif (url = (SiteSetting.try(:site_logo_small_url) || SiteSetting.logo_small_url)).present?
+            "#{Discourse.base_url}#{url}"
+          end
+
+        slack_username =
+          if SiteSetting.chat_integration_slack_username.present?
+            SiteSetting.chat_integration_slack_username
+          else
+            SiteSetting.title || "Discourse"
+          end
+
+        message = {
+          channel: "##{channel_name}",
+          username: slack_username,
+          icon_url: icon_url,
+          attachments: []
+        }
+
+        summary = {
+          fallback: content.truncate(100),
+          author_name: sender,
+          color: nil,
+          text: full_content,
+          mrkdwn_in: ["text"],
+          title: content.truncate(100),
+          title_link: url,
+          thumb_url: nil
+        }
+
+        message[:attachments].push(summary)
+
+        DiscourseChatIntegration::Provider::SlackProvider.send_via_api(nil, channel, message)
+      end
+    end
+  end
 end

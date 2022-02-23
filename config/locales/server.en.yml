@@ -104,6 +104,10 @@ en:
     chat_integration_google_enabled: "Enable the 'Google Chat' chat integration provider"
     chat_integration_google_excerpt_length: "Google Chat post excerpt length"
 
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: Send Slack message
   chat_integration:
 
     all_categories: "(all categories)"

@@ -106,11 +106,14 @@ module DiscourseChatIntegration::Provider::SlackProvider
       channel: message[:channel].gsub('#', ''),
       attachments: message[:attachments].to_json
     }
-    if message.key?(:thread_ts)
-      data[:thread_ts] = message[:thread_ts]
-    elsif (match = slack_thread_regex.match(post.raw)) && match.captures[0] == channel
-      data[:thread_ts] = match.captures[1]
-      set_slack_thread_ts(post.topic, channel, match.captures[1])
+
+    if post
+      if message.key?(:thread_ts)
+        data[:thread_ts] = message[:thread_ts]
+      elsif (match = slack_thread_regex.match(post.raw)) && match.captures[0] == channel
+        data[:thread_ts] = match.captures[1]
+        set_slack_thread_ts(post.topic, channel, match.captures[1])
+      end
     end
 
     req.set_form_data(data)
@@ -133,7 +136,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     ts = json["ts"]
-    set_slack_thread_ts(post.topic, channel, ts) if !ts.nil?
+    set_slack_thread_ts(post.topic, channel, ts) if !ts.nil? && !post.nil?
 
     response
   end

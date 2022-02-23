@@ -236,3 +236,14 @@ en:
             webhook_url:
               title: "Webhook URL"
               help: "The URL provided when you create a new webhook"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Send Slack message
+          fields:
+            message:
+              label: Message
+            url:
+              label: URL
+            channel:
+              label: Channel
