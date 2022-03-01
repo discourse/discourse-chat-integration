@@ -199,3 +199,14 @@ he:
             webhook_url:
               title: "כתובת התלייה"
               help: "הכתובת שתסופק ביצירת התליית רשת חדשה"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: שליחת הודעה ב־Slack
+          fields:
+            message:
+              label: הודעה
+            url:
+              label: כתובת
+            channel:
+              label: ערוץ

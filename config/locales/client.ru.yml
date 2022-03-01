@@ -199,3 +199,14 @@ ru:
             webhook_url:
               title: "URL вебхука"
               help: "URL-адрес, указанный при создании нового вебхука"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Отправить Slack-сообщение
+          fields:
+            message:
+              label: Сообщение
+            url:
+              label: URL
+            channel:
+              label: Канал

@@ -7,6 +7,10 @@
 fa_IR:
   site_settings:
     chat_integration_enabled: 'فعال کردن افزونه یکپارچگی گفتگو دیسکورس'
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: ارسال پیام اسلک
   chat_integration:
     all_categories: "(تمام دسته بندی ها)"
     provider:
