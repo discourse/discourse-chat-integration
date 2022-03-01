@@ -110,3 +110,14 @@ fa_IR:
           param:
             name:
               title: "نام"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: ارسال پیام اسلک
+          fields:
+            message:
+              label: پیام
+            url:
+              label: نشانی اینترنتی
+            channel:
+              label: کانال
