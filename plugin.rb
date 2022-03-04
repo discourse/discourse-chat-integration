@@ -5,6 +5,7 @@
 # version: 0.1
 # url: https://github.com/discourse/discourse-chat-integration
 # author: David Taylor
+# transpile_js: true
 
 enabled_site_setting :chat_integration_enabled
 
