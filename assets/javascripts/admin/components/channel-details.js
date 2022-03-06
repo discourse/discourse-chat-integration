@@ -1,7 +1,9 @@
+import Component from "@ember/component";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import I18n from "I18n";
+import bootbox from "bootbox";
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ["channel-details"],
 
   actions: {

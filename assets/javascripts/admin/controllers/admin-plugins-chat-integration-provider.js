@@ -1,7 +1,8 @@
+import Controller from "@ember/controller";
 import showModal from "discourse/lib/show-modal";
 import computed from "discourse-common/utils/decorators";
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   modalShowing: false,
 
   @computed("model.channels")

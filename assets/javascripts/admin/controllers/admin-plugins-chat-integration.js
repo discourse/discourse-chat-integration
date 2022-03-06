@@ -1,1 +1,3 @@
-export default Ember.Controller.extend({});
+import Controller from "@ember/controller";
+
+export default Controller.extend({});

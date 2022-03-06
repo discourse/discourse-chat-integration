@@ -1,13 +1,18 @@
+import Controller from "@ember/controller";
 import I18n from "I18n";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import EmberObject from "@ember/object";
+import EmberObject, {
+  defineProperty,
+  computed as emberComputed,
+} from "@ember/object";
 import computed, { observes, on } from "discourse-common/utils/decorators";
+import { schedule } from "@ember/runloop";
 
-export default Ember.Controller.extend(ModalFunctionality, {
+export default Controller.extend(ModalFunctionality, {
   @on("init")
   setupKeydown() {
-    Ember.run.schedule("afterRender", () => {
+    schedule("afterRender", () => {
       $("#chat-integration-edit-channel-modal").keydown((e) => {
         if (e.keyCode === 13) {
           this.send("save");
@@ -23,10 +28,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
       const theKeys = this.get("model.provider.channel_parameters").map(
         (param) => param["key"]
       );
-      Ember.defineProperty(
+      defineProperty(
         this,
         "paramValidation",
-        Ember.computed(
+        emberComputed(
           `model.channel.data.{${theKeys.join(",")}}`,
           this._paramValidation
         )

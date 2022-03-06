@@ -1,10 +1,11 @@
 import DiscourseRoute from "discourse/routes/discourse";
 import Group from "discourse/models/group";
 import { action } from "@ember/object";
+import RSVP from "rsvp";
 
 export default DiscourseRoute.extend({
   model(params) {
-    return Ember.RSVP.hash({
+    return RSVP.hash({
       channels: this.store.findAll("channel", { provider: params.provider }),
       provider: this.modelFor("admin-plugins-chat-integration").findBy(
         "id",

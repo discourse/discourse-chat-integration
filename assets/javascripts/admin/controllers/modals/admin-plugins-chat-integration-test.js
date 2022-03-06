@@ -1,13 +1,15 @@
+import Controller from "@ember/controller";
 import I18n from "I18n";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import computed, { on } from "discourse-common/utils/decorators";
+import { schedule } from "@ember/runloop";
 
-export default Ember.Controller.extend(ModalFunctionality, {
+export default Controller.extend(ModalFunctionality, {
   @on("init")
   setupKeydown() {
-    Ember.run.schedule("afterRender", () => {
+    schedule("afterRender", () => {
       $("#chat_integration_test_modal").keydown((e) => {
         if (e.keyCode === 13) {
           this.send("send");
