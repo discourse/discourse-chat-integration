@@ -498,10 +498,10 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-discourse@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-discourse/-/eslint-config-discourse-1.1.4.tgz#cff9f93f17dfcefe4852bb417f747c28444b4bd7"
-  integrity sha512-4Yilkkmdkz/LdEiQCbng6evI2w33HDs9lXgiae0DutjTboqs/TauQXySusxHagKr9GFtefPOxovzNKwD2s1ggw==
+eslint-config-discourse@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-discourse/-/eslint-config-discourse-2.0.0.tgz#811ab2cf4e32c1f0d41bd57d9736d578fe80b741"
+  integrity sha512-enjsLU++iibJXM64YM6Y/yUM5580wKtkti9fQdrJDFkfLJnvv8/f2j7QmNbX//MoqWfIQfY2RkHH6VTfRUg4Mw==
   dependencies:
     babel-eslint "^10.1.0"
     ember-template-lint "^2.11.0"
@@ -511,7 +511,7 @@ eslint-config-discourse@^1.1.4:
     eslint-plugin-ember "^6.10.0"
     eslint-plugin-lodash "^7.1.0"
     eslint-plugin-node "^8.0.0"
-    prettier "^2.1.1"
+    prettier "2.2.1"
 
 eslint-plugin-discourse-ember@latest:
   version "0.0.3"
@@ -1204,10 +1204,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@^2.1.1:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.2.tgz#3050700dae2e4c8b67c4c3f666cdb8af405e1ce5"
-  integrity sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==
+prettier@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
+  integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
 
 progress@^2.0.0:
   version "2.0.3"

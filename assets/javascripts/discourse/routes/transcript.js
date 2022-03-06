@@ -1,6 +1,7 @@
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import DiscourseRoute from "discourse/routes/discourse";
+import { next } from "@ember/runloop";
 
 export default DiscourseRoute.extend({
   model(params) {
@@ -9,7 +10,7 @@ export default DiscourseRoute.extend({
 
       this.replaceWith("discovery.latest").then((e) => {
         if (this.controllerFor("navigation/default").get("canCreateTopic")) {
-          Ember.run.next(() => {
+          next(() => {
             ajax(`chat-transcript/${secret}`).then((result) => {
               e.send(
                 "createNewTopicViaParams",

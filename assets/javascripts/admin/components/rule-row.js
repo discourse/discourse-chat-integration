@@ -1,7 +1,8 @@
+import Component from "@ember/component";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import computed from "discourse-common/utils/decorators";
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: "tr",
 
   @computed("rule.type")
