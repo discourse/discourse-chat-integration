@@ -5,6 +5,7 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 import EmberObject, { defineProperty } from "@ember/object";
 import computed, { observes, on } from "discourse-common/utils/decorators";
 import { schedule } from "@ember/runloop";
+import { emberComputed } from "@ember/object";
 
 export default Controller.extend(ModalFunctionality, {
   @on("init")
@@ -28,7 +29,7 @@ export default Controller.extend(ModalFunctionality, {
       defineProperty(
         this,
         "paramValidation",
-        computed(
+        emberComputed(
           `model.channel.data.{${theKeys.join(",")}}`,
           this._paramValidation
         )
