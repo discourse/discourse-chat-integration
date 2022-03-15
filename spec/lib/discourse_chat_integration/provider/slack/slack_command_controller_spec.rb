@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 describe 'Slack Command Controller', type: :request do
+  before do
+    Discourse.cache.clear
+  end
+
   let(:category) { Fabricate(:category) }
   let(:tag) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }
