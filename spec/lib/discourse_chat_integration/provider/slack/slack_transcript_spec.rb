@@ -3,6 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe DiscourseChatIntegration::Provider::SlackProvider::SlackTranscript do
+  before do
+    Discourse.cache.clear
+  end
 
   let(:messages_fixture) {
     [
@@ -132,14 +135,14 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider::SlackTranscrip
       stub_request(:post, "https://slack.com/api/users.list")
         .to_return(status: 500, body: '')
 
-      expect(transcript.load_user_data).to be_falsey
+      expect(transcript.load_user_data).to eq(false)
     end
 
     it 'handles slack failure' do
       stub_request(:post, "https://slack.com/api/users.list")
         .to_return(status: 200, body: { ok: false }.to_json)
 
-      expect(transcript.load_user_data).to be_falsey
+      expect(transcript.load_user_data).to eq(false)
     end
   end
 

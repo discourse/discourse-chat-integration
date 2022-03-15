@@ -2,6 +2,8 @@
 
 module DiscourseChatIntegration::Provider::SlackProvider
   class SlackTranscript
+    class UserFetchError < RuntimeError; end
+
     attr_reader :users, :channel_id, :messages
 
     def initialize(channel_name:, channel_id:, requested_thread_ts: nil)
@@ -250,19 +252,29 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     def load_user_data
+      key = "slack_user_info_#{Digest::SHA1.hexdigest(SiteSetting.chat_integration_slack_access_token)}"
+      @users = Discourse.cache.fetch(key, expires_in: 10.minutes) do
+        fetch_user_data
+      end
+      true
+    rescue UserFetchError
+      false
+    end
+
+    def fetch_user_data
       http = ::DiscourseChatIntegration::Provider::SlackProvider.slack_api_http
 
       cursor = nil
       req = Net::HTTP::Post.new(URI('https://slack.com/api/users.list'))
 
-      @users = {}
+      users = {}
       loop do
         break if cursor == ""
         req.set_form_data(token: SiteSetting.chat_integration_slack_access_token, limit: 200, cursor: cursor)
         response = http.request(req)
-        return false unless response.kind_of? Net::HTTPSuccess
+        raise UserFetchError.new unless response.kind_of? Net::HTTPSuccess
         json = JSON.parse(response.body)
-        return false unless json['ok']
+        raise UserFetchError.new unless json['ok']
         cursor = json['response_metadata']['next_cursor']
         json['members'].each do |user|
           # Slack uses display_name and falls back to real_name if it is not set
@@ -272,10 +284,10 @@ module DiscourseChatIntegration::Provider::SlackProvider
             user['_transcript_username'] = user['profile']['display_name']
           end
           user['_transcript_username'] = user['_transcript_username'].gsub(' ', '_')
-          @users[user['id']] = user
+          users[user['id']] = user
         end
       end
-      true
+      users
     end
 
     def load_chat_history(count: 500)
