@@ -198,7 +198,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider::SlackTranscrip
 
       it 'includes slack thread identifiers in body' do
         text = thread_transcript.build_transcript
-        expect(text).to include("<!--SLACK_CHANNEL_ID=G1234;SLACK_TS=1501801629.052212-->")
+        expect(text).to include("<!--SLACK_CHANNEL_ID=#general;SLACK_TS=1501801629.052212-->")
       end
 
     end
