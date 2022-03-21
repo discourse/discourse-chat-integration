@@ -121,7 +121,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
       end
 
       if not @requested_thread_ts.nil?
-        post_content << "<!--SLACK_CHANNEL_ID=#{@channel_id};SLACK_TS=#{@requested_thread_ts}-->"
+        post_content << "<!--SLACK_CHANNEL_ID=#{@channel_name};SLACK_TS=#{@requested_thread_ts}-->"
       end
 
       post_content
