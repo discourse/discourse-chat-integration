@@ -199,3 +199,14 @@ sv:
             webhook_url:
               title: "Webhook-URL"
               help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Skicka Slack-meddelande
+          fields:
+            message:
+              label: Meddelande
+            url:
+              label: URL
+            channel:
+              label: Kanal
