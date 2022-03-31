@@ -29,7 +29,7 @@ after_initialize do
   add_admin_route 'chat_integration.menu_title', 'chat-integration'
 
   AdminDashboardData.add_problem_check do
-    break if !SiteSetting.chat_integration_enabled
+    next if !SiteSetting.chat_integration_enabled
 
     error = false
     DiscourseChatIntegration::Channel.find_each do |channel|
