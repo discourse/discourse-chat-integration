@@ -82,7 +82,8 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     def build_transcript
-      post_content = +"[quote]\n"
+      post_content = +""
+      post_content << "[quote]\n" if SiteSetting.chat_integration_slack_transcript_quote
       post_content << "[**#{I18n.t('chat_integration.provider.slack.transcript.view_on_slack', name: @channel_name)}**](#{first_message.url})\n"
 
       all_avatars = {}
@@ -114,7 +115,8 @@ module DiscourseChatIntegration::Provider::SlackProvider
         post_content << "\n"
       end
 
-      post_content << "[/quote]\n\n"
+      post_content << "[/quote]" if SiteSetting.chat_integration_slack_transcript_quote
+      post_content << "\n\n"
 
       all_avatars.each do |username, url|
         post_content << "[#{username}]: #{url}\n"

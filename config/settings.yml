@@ -26,6 +26,8 @@ chat_integration:
     regex: '^https:\/\/hooks\.slack\.com\/services\/.+$'
   chat_integration_slack_icon_url:
     default: ''
+  chat_integration_slack_transcript_quote:
+    default: true
 
 #######################################
 ######### TELEGRAM SETTINGS ###########

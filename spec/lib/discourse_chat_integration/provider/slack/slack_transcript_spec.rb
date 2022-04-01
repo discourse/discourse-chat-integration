@@ -317,6 +317,20 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider::SlackTranscrip
         expect(text).to eq(expected)
       end
 
+      it 'omits quote tags when disabled' do
+        transcript.set_last_message_by_index(1)
+
+        text = transcript.build_transcript
+        expect(text).to include("[quote]")
+        expect(text).to include("[/quote]")
+
+        SiteSetting.chat_integration_slack_transcript_quote = false
+
+        text = transcript.build_transcript
+        expect(text).not_to include("[quote]")
+        expect(text).not_to include("[/quote]")
+      end
+
       it 'creates the slack UI correctly' do
         transcript.set_last_message_by_index(1)
         ui = transcript.build_slack_ui
