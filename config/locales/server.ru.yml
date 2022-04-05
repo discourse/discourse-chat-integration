@@ -16,6 +16,7 @@ ru:
     chat_integration_slack_excerpt_length: 'Размер сообщения в Slack'
     chat_integration_slack_icon_url: 'URL логотипа для отображения в Slack (по умолчанию используется логотип форума)'
     chat_integration_slack_outbound_webhook_url: "URL для использования 'Incoming Webhook' в Slack вместо OAuth API. Использовать не рекомендуется."
+    chat_integration_slack_transcript_quote: Помещать slack-содержимое в теги [quote] ?
     errors:
       chat_integration_slack_api_configs_are_empty: "Вы должны ввести либо исходящий URL-адрес вебхука, либо токен доступа"
     chat_integration_telegram_enabled: "Включить чат-интеграцию с Telegram"
