@@ -16,6 +16,7 @@ he:
     chat_integration_slack_excerpt_length: 'אורך מהפוסט שמופיע בתקציר ב־Slack'
     chat_integration_slack_icon_url: 'סמל לצד ההודעות שנשלחות ל־Slack (בררת המחדל היא לוגו הפורום)'
     chat_integration_slack_outbound_webhook_url: "לטובת שימוש במערכת ‚ההתליות הנכנסות’ במקום ב־API של OAuth. לא מומלץ."
+    chat_integration_slack_transcript_quote: לעטוף את התמלול מ־Slack בתגיות [quote]?
     errors:
       chat_integration_slack_api_configs_are_empty: "עליך לציין כתובת התלייה יוצאת או אסימון גישה"
     chat_integration_telegram_enabled: "הפעלת ספק שילוב הצ׳אט עם טלגרם"
