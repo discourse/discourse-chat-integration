@@ -118,7 +118,7 @@ class DiscourseChatIntegration::ChatController < ApplicationController
 
   def create_rule
     begin
-      hash = params.require(:rule).permit(:channel_id, :type, :filter, :group_id, :category_id, tags: [])
+      hash = params.require(:rule).permit(:channel_id, :type, :filter, :new_topic_prefix, :new_reply_prefix, :group_id, :category_id, tags: [])
       rule = DiscourseChatIntegration::Rule.new(hash)
 
       if !rule.save
@@ -134,7 +134,7 @@ class DiscourseChatIntegration::ChatController < ApplicationController
   def update_rule
     begin
       rule = DiscourseChatIntegration::Rule.find(params[:id].to_i)
-      hash = params.require(:rule).permit(:type, :filter, :group_id, :category_id, tags: [])
+      hash = params.require(:rule).permit(:type, :filter, :new_topic_prefix, :new_reply_prefix, :group_id, :category_id, tags: [])
 
       if !rule.update(hash)
         raise Discourse::InvalidParameters, 'Rule is not valid'

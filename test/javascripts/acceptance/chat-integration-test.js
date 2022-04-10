@@ -47,6 +47,8 @@ acceptance("Chat Integration", function (needs) {
                 type: "normal",
                 tags: [],
                 filter: "watch",
+                new_topic_prefix: "New topic test.",
+                new_reply_prefix: "New reply test.",
                 error_key: null,
               },
             ],

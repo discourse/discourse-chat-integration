@@ -2,7 +2,7 @@
 
 class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter ], coder: JSON
+  store :value, accessors: [ :channel_id, :type, :group_id, :category_id, :tags, :filter, :new_topic_prefix, :new_reply_prefix ], coder: JSON
 
   scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s) }
   scope :with_channel, ->(channel) { with_channel_id(channel.id) }

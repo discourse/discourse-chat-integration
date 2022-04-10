@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DiscourseChatIntegration::RuleSerializer < ApplicationSerializer
-  attributes :id, :channel_id, :type, :group_id, :group_name, :category_id, :tags, :filter
+  attributes :id, :channel_id, :type, :group_id, :group_name, :category_id, :tags, :filter, :new_topic_prefix, :new_reply_prefix
 
   def group_name
     if object.group_id

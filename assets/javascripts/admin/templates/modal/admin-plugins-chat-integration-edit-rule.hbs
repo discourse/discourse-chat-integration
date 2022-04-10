@@ -51,6 +51,30 @@
             <td><label>{{i18n "chat_integration.edit_rule_modal.instructions.filter"}}</label></td>
           </tr>
 
+          <tr class="input">
+            <td class="label"><label for="new_topic_prefix">New Topic Prefix</label></td>
+            <td>
+              {{input type="text" class="prefix_input" name="new_topic_prefix" value=model.rule.new_topic_prefix size="200"}}
+            </td>
+          </tr>
+
+          <tr class="chat-instructions">
+            <td></td>
+            <td><label title={{model.rule.MSG_FIELDS}}>Prefix message to add onto alert when rule is triggered from a new topic.</label></td>
+          </tr>
+
+          <tr class="input">
+            <td class="label"><label for="new_reply_prefix">New Reply Prefix</label></td>
+            <td>
+              {{input type="text" class="prefix_input" name="new_reply_prefix" value=model.rule.new_reply_prefix size="200"}}
+            </td>
+          </tr>
+
+          <tr class="chat-instructions">
+            <td></td>
+            <td><label title={{model.rule.MSG_FIELDS}}>Prefix message to add onto alert when rule is triggered from a new reply.</label></td>
+          </tr>          
+
           {{#if showCategory}}
             <tr class="input">
               <td class="label"><label for="category">{{i18n "chat_integration.edit_rule_modal.category"}}</label></td>
