@@ -51,6 +51,10 @@ chat_integration:
     default: false
   chat_integration_discord_message_content:
     default: ""
+  chat_integration_discord_message_footer_logo_url:
+    default: ""
+  chat_integration_discord_default_thumbnail_url:
+    default: ""
   chat_integration_discord_excerpt_length:
     default: 400
 
