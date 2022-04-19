@@ -16,6 +16,7 @@ sv:
     chat_integration_slack_excerpt_length: 'Slack-inläggsutdragets längd'
     chat_integration_slack_icon_url: 'Ikon för inlägg till Slack (standard är forumets logotyp)'
     chat_integration_slack_outbound_webhook_url: "För att använda Slacks 'inkommande webhook' som system istället för OAuth API. Rekommenderas inte."
+    chat_integration_slack_transcript_quote: Slå in slack transkript i [quote] -taggar?
     errors:
       chat_integration_slack_api_configs_are_empty: "Du måste ange antingen en utgående webhook-URL, eller ett behörighetsbevis"
     chat_integration_telegram_enabled: "Aktivera chattintegreringsleverantören för Telegram"
