@@ -196,5 +196,23 @@ module DiscourseChatIntegration
       secret
     end
 
+    def self.formatted_display_name(user)
+      if !SiteSetting.enable_names || user.name.blank?
+        return "@#{user.username}"
+      end
+
+      full_name = user.name
+      full_name_normalized = User.normalize_username(full_name.strip)
+      similar = full_name_normalized.gsub(' ', '_') == user.username_lower || full_name_normalized.gsub(' ', '') == user.username_lower
+      if similar && SiteSetting.prioritize_username_in_ux?
+        "@#{user.username}"
+      elsif similar
+        full_name
+      elsif SiteSetting.prioritize_username_in_ux?
+        "@#{user.username} (#{full_name})"
+      else
+        "#{full_name} (@#{user.username})"
+      end
+    end
   end
 end

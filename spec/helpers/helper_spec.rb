@@ -324,4 +324,32 @@ RSpec.describe DiscourseChatIntegration::Manager do
     end
   end
 
+  describe ".formatted_display_name" do
+    let(:user) { Fabricate(:user, name: "John Smith", username: 'js1') }
+
+    it "prioritizes correctly" do
+      SiteSetting.prioritize_username_in_ux = true
+      expect(DiscourseChatIntegration::Helper.formatted_display_name(user)).to eq("@#{user.username} (John Smith)")
+      SiteSetting.prioritize_username_in_ux = false
+      expect(DiscourseChatIntegration::Helper.formatted_display_name(user)).to eq("John Smith (@#{user.username})")
+    end
+
+    it "only displays one when name/username are similar" do
+      user.update!(username: "john_smith")
+      SiteSetting.prioritize_username_in_ux = true
+      expect(DiscourseChatIntegration::Helper.formatted_display_name(user)).to eq("@#{user.username}")
+      SiteSetting.prioritize_username_in_ux = false
+      expect(DiscourseChatIntegration::Helper.formatted_display_name(user)).to eq("John Smith")
+    end
+
+    it "only displays username when names are disabled" do
+      SiteSetting.enable_names = false
+
+      SiteSetting.prioritize_username_in_ux = true
+      expect(DiscourseChatIntegration::Helper.formatted_display_name(user)).to eq("@#{user.username}")
+      SiteSetting.prioritize_username_in_ux = false
+      expect(DiscourseChatIntegration::Helper.formatted_display_name(user)).to eq("@#{user.username}")
+    end
+  end
+
 end
