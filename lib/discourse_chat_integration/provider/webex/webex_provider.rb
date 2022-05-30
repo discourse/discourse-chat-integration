@@ -37,8 +37,7 @@ module DiscourseChatIntegration::Provider::WebexProvider
   end
 
   def self.get_message(post)
-    display_name = "@#{post.user.username}"
-    full_name = post.user.name || ""
+    display_name = ::DiscourseChatIntegration::Helper.formatted_display_name(post.user)
 
     topic = post.topic
 
@@ -52,7 +51,7 @@ module DiscourseChatIntegration::Provider::WebexProvider
 
     markdown = "**#{topic.title}**: #{category}"
     markdown += " #{topic.tags.map(&:name).join(', ')} " if topic.tags.present?
-    markdown += "(#{post.full_url}) from #{full_name} (#{display_name}):\n"
+    markdown += "(#{post.full_url}) from #{display_name}:\n"
     markdown += post.excerpt(SiteSetting.chat_integration_webex_excerpt_length,
                              text_entities: true,
                              strip_links: true,
