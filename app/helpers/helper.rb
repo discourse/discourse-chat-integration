@@ -203,7 +203,7 @@ module DiscourseChatIntegration
 
       full_name = user.name
       full_name_normalized = User.normalize_username(full_name.strip)
-      similar = full_name_normalized.gsub(' ', '_') == user.username_lower  || full_name_normalized.gsub(' ', '') == user.username_lower
+      similar = full_name_normalized.gsub(' ', '_') == user.username_lower || full_name_normalized.gsub(' ', '') == user.username_lower
       if similar && SiteSetting.prioritize_username_in_ux?
         "@#{user.username}"
       elsif similar
