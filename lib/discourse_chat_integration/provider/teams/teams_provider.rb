@@ -32,7 +32,7 @@ module DiscourseChatIntegration::Provider::TeamsProvider
 
   def self.get_message(post)
     display_name = "@#{post.user.username}"
-    full_name = post.user.name || ""
+    full_name = SiteSetting.enable_names ? post.user.name : ""
 
     topic = post.topic
 

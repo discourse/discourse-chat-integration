@@ -47,6 +47,17 @@
       overflow: auto;
     }
   }
+
+  .admin-controls {
+    padding: 10px;
+    .nav-pills {
+      padding: 0;
+    }
+  }
+}
+
+.admin-controls-chat-providers {
+  margin-right: auto;
 }
 
 #chat-integration-edit-channel-modal,

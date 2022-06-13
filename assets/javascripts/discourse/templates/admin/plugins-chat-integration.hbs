@@ -1,6 +1,6 @@
 <div id="admin-plugin-chat">
   <div class="admin-controls">
-    <div class="span15">
+    <div class="admin-controls-chat-providers">
       <ul class="nav nav-pills">
         {{#each model as |provider|}}
           {{nav-item
@@ -12,14 +12,12 @@
       </ul>
     </div>
 
-    <div class="pull-right">
-      {{d-button
-        action=(route-action "showSettings")
-        icon="cog"
-        title="chat_integration.settings"
-        label="chat_integration.settings"
-      }}
-    </div>
+    {{d-button
+      action=(route-action "showSettings")
+      icon="cog"
+      title="chat_integration.settings"
+      label="chat_integration.settings"
+    }}
   </div>
 
   {{#unless model.totalRows}}

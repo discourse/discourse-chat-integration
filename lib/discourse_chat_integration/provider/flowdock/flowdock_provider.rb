@@ -22,12 +22,7 @@ module DiscourseChatIntegration::Provider::FlowdockProvider
   end
 
   def self.generate_flowdock_message(post, flow_token)
-    display_name = "@#{post.user.username}"
-    full_name = post.user.name || ""
-
-    if !(full_name.strip.empty?) && (full_name.strip.gsub(' ', '_').casecmp(post.user.username) != 0) && (full_name.strip.gsub(' ', '').casecmp(post.user.username) != 0)
-      display_name = "#{full_name} @#{post.user.username}"
-    end
+    display_name = ::DiscourseChatIntegration::Helper.formatted_display_name(post.user)
 
     message = {
       flow_token: flow_token,

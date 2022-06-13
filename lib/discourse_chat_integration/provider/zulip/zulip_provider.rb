@@ -26,12 +26,7 @@ module DiscourseChatIntegration
       end
 
       def self.generate_zulip_message(post, stream, subject)
-        display_name = "@#{post.user.username}"
-        full_name = post.user.name || ""
-
-        if !(full_name.strip.empty?) && (full_name.strip.gsub(' ', '_').casecmp(post.user.username) != 0) && (full_name.strip.gsub(' ', '').casecmp(post.user.username) != 0)
-          display_name = "#{full_name} @#{post.user.username}"
-        end
+        display_name = ::DiscourseChatIntegration::Helper.formatted_display_name(post.user)
 
         message = I18n.t('chat_integration.provider.zulip.message', user: display_name,
                                                                     post_url: post.full_url,
