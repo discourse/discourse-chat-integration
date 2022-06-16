@@ -25,6 +25,18 @@ RSpec.describe DiscourseChatIntegration::Provider::TeamsProvider do
       expect(stub1).to have_been_requested.once
     end
 
+    describe 'with nil user.name' do
+      before do
+        post.user.update!(name: nil)
+      end
+
+      it 'handles nil username correctly' do
+        message = described_class.get_message(post)
+        name = message[:sections].first[:facts].first[:name]
+        expect(name).to eq("")
+      end
+    end
+
   end
 
 end
