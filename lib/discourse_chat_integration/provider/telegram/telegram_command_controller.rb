@@ -58,6 +58,8 @@ module DiscourseChatIntegration::Provider::TelegramProvider
     end
 
     def process_command(message)
+      return unless message['text'] # No command to be processed
+
       chat_id = params['message']['chat']['id']
 
       provider = DiscourseChatIntegration::Provider::TelegramProvider::PROVIDER_NAME

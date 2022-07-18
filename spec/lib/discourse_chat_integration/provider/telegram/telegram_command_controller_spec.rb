@@ -135,6 +135,18 @@ describe 'Telegram Command Controller', type: :request do
         expect(response.status).to eq(200)
         expect(stub).to have_been_requested.times(1)
       end
+
+      context "when 'text' is missing" do
+        it "does not break" do
+          post '/chat-integration/telegram/command/shhh.json', params: {
+            message: { chat: { id: 123 } }
+          }
+
+          expect(response).to have_http_status :ok
+          expect(DiscourseChatIntegration::Rule.count).to eq(0)
+          expect(DiscourseChatIntegration::Channel.count).to eq(1)
+        end
+      end
     end
   end
 end
