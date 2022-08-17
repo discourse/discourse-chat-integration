@@ -37,11 +37,11 @@ module DiscourseChatIntegration
             url: post.full_url,
             description: post.excerpt(SiteSetting.chat_integration_guilded_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
             thumbnail: {
-              url: ""
+              url: SiteSetting.logo_small_url
             },
             footer: {
-              #icon_url: ensure_protocol(post.user.small_avatar_url),
-              #text: display_name
+              icon_url: ensure_protocol(post.user.small_avatar_url),
+              text: display_name
             }
           }]
         }
