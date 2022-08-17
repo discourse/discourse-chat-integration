@@ -40,8 +40,8 @@ module DiscourseChatIntegration
               url: ""
             },
             footer: {
-              icon_url: ensure_protocol(post.user.small_avatar_url),
-              text: display_name
+              #icon_url: ensure_protocol(post.user.small_avatar_url),
+              #text: display_name
             }
           }]
         }
