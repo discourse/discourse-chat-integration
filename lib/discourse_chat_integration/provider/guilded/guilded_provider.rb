@@ -11,7 +11,7 @@ module DiscourseChatIntegration
           { key: "webhook_url", regex: '^https:\/\/media\.guilded\.gg\/webhooks\/', unique: true, hidden: true }
       ].freeze
       
-      def self.trigger_notification(post, channel)
+      def self.trigger_notification(post, channel, rule)
         webhook_url = channel.data['webhook_url']
         message = generate_guilded_message(post)
         response = send_message(webhook_url, message)
