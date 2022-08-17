@@ -31,14 +31,19 @@ module DiscourseChatIntegration
         end
         display_name = ::DiscourseChatIntegration::Helper.formatted_display_name(post.user)
         
+        icon_url = 
+          if (url = (SiteSetting.try(:site_logo_small_url) || SiteSetting.logo_small_url)).present?
+            "#{Discourse.base_url}#{url}"
+          end
+        
         message = {
           embeds: [{
             title: "#{topic.title} #{(category == '[uncategorized]') ? '' : category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
             url: post.full_url,
             description: post.excerpt(SiteSetting.chat_integration_guilded_excerpt_length, text_entities: true, strip_links: true, remap_emoji: true),
-            #thumbnail: {
-              #url: SiteSetting.logo_small_url
-            #},
+            thumbnail: {
+              url: SiteSetting.logo_small_url
+            },
             footer: {
               icon_url: ensure_protocol(post.user.small_avatar_url),
               text: display_name
