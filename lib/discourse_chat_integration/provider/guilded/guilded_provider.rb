@@ -63,12 +63,11 @@ module DiscourseChatIntegration
         response
       end
 
-
       def self.ensure_protocol(url)
         return url if !url.start_with?('//')
         "http:#{url}"
       end
 
     end
-  end       
+  end
 end
