@@ -53,6 +53,15 @@ chat_integration:
     default: ""
   chat_integration_discord_excerpt_length:
     default: 400
+  
+#######################################
+########## GUILDED SETTINGS ###########
+#######################################
+  chat_integration_guilded_enabled:
+    default: false
+  chat_integration_guilded_excerpt_length:
+    default: 400
+  
 
 #######################################
 ######## MATTERMOST SETTINGS ##########

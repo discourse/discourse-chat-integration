@@ -112,6 +112,19 @@ en:
             webhook_url:
               title: Webhook URL
               help: The webhook URL created in your Discord server settings
+                
+        #######################################
+        ########### GUILDED STRINGS ###########
+        #######################################
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "Name"
+              help: "A name to describe the channel. It is not used for the connection to Guilded"
+            webhook_url:
+              title: Webhook URL
+              help: The webhook URL created in your Guilded server settings
 
         #######################################
         ######### MATTERMOST STRINGS ##########
