@@ -16,6 +16,8 @@ tr_TR:
       no_providers: "Eklenti ayarlarında bazı sağlayıcıları etkinleştirmeniz gerekiyor"
       channels_with_errors: "Bu sağlayıcı için bazı kanallar en son mesaj gönderildiğinde başarısız oldu. Daha fazla bilgi edinmek için hata simgelerini tıklayın."
       channel_exception: "Bu kanala en son mesaj gönderildiğinde bilinmeyen bir hata oluştu."
+      group_mention_template: "@%{name} senden bahsetti."
+      group_message_template: "@%{name} sana mesaj gönderdi"
       choose_group: "(bir grup seçin)"
       all_categories: "(tüm kategoriler)"
       all_tags: "(tüm etiketler)"
