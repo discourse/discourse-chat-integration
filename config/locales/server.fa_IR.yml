@@ -7,6 +7,8 @@
 fa_IR:
   site_settings:
     chat_integration_enabled: 'فعال کردن افزونه یکپارچگی گفتگو دیسکورس'
+    chat_integration_guilded_enabled: "فعال کردن ارائه دهنده یکپارچه‌سازی گفتگوی Guilded"
+    chat_integration_guilded_excerpt_length: "طول چکیده نوشته Guilded"
   discourse_automation:
     scriptables:
       send_slack_message:

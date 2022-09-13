@@ -105,6 +105,15 @@ he:
             webhook_url:
               title: כתובת התלייה
               help: כתובת ההתלייה נוצרה בהגדרות שרת ה־Discord שלך
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "שם"
+              help: "שם לתיאור הערוץ. לא משמש לחיבור אל Guilded"
+            webhook_url:
+              title: כתובת התלייה
+              help: כתובת ההתלייה נוצרה בהגדרות שרת ה־Guilded שלך
         mattermost:
           title: "Mattermost"
           param:

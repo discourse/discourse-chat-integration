@@ -105,6 +105,15 @@ ru:
             webhook_url:
               title: URL вебхука
               help: URL-адрес вебхука, созданный в настройках сервера Discord
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "Название"
+              help: "Имя для описания канала. Оно не используется для подключения к Guilded"
+            webhook_url:
+              title: URL вебхука
+              help: URL-адрес вебхука, созданный в настройках сервера Guilded
         mattermost:
           title: "Mattermost"
           param:

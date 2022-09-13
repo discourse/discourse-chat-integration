@@ -33,6 +33,7 @@ fa_IR:
       type:
         normal: معمولی
         group_message: پیغام گروه
+        group_mention: اشاره گروهی
       filter:
         mute: 'بی صدا'
         follow: 'فقط اولین نوشته'
@@ -78,6 +79,15 @@ fa_IR:
           param:
             name:
               title: "نام"
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "نام"
+              help: "نامی برای توصیف کانال. برای اتصال به Guilded استفاده نمی‌شود"
+            webhook_url:
+              title: نشانی اینترنتی وب‌هوک
+              help: نشانی اینترنتی وب‌هوک که در سرور Guilded شما ایجاد شده
         mattermost:
           param:
             identifier:

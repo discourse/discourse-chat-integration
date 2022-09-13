@@ -26,6 +26,8 @@ ru:
     chat_integration_discord_enabled: "Включить провайдера для чат-интеграции c Discord"
     chat_integration_discord_message_content: "Сообщение, размещаемое над сводкой при отправке уведомления в Discord"
     chat_integration_discord_excerpt_length: "Размер сообщения в Discord"
+    chat_integration_guilded_enabled: "Включить провайдера для чат-интеграции с Guilded"
+    chat_integration_guilded_excerpt_length: "Размер сообщения в Guilded"
     chat_integration_mattermost_enabled: "Включить провайдера для чат-интеграции c Mattermost"
     chat_integration_mattermost_webhook_url: 'URL для вебхука в Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'Токен подтверждения, используемый для аутентификации входящих запросов'
