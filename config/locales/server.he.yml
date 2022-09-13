@@ -26,6 +26,8 @@ he:
     chat_integration_discord_enabled: "הפעלת ספק שילוב הצ׳אט עם Discord"
     chat_integration_discord_message_content: "ההודעה שיש לכלול מעל לסיכום בעת שליחת התראות ל־Discord"
     chat_integration_discord_excerpt_length: "אורך מהפוסט שמופיע בתקציר ב־Discord"
+    chat_integration_guilded_enabled: "הפעלת ספק שילוב הצ׳אט עם Guilded"
+    chat_integration_guilded_excerpt_length: "אורך מהפוסט שמופיע בתקציר ב־Guilded"
     chat_integration_mattermost_enabled: "הפעלת ספק שילוב הצ׳אט עם Mattermost"
     chat_integration_mattermost_webhook_url: 'כתובת התלייה של Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'אסימון הווידוא שמשמש לאמת בקשות נכנסות'
