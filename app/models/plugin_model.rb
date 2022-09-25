@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DiscourseChatIntegration::PluginModel < PluginStoreRow
-  PLUGIN_NAME = 'discourse-chat-integration'
+  PLUGIN_NAME = "discourse-chat-integration"
 
   default_scope { self.default_scope }
 
@@ -9,13 +9,14 @@ class DiscourseChatIntegration::PluginModel < PluginStoreRow
   before_save :set_key
 
   def self.default_scope
-    where(type_name: 'JSON')
-      .where(plugin_name: self::PLUGIN_NAME)
-      .where("key LIKE ?", "#{self.key_prefix}%")
+    where(type_name: "JSON").where(plugin_name: self::PLUGIN_NAME).where(
+      "key LIKE ?",
+      "#{self.key_prefix}%",
+    )
   end
 
   def self.key_prefix
-    raise 'Not implemented'
+    raise "Not implemented"
   end
 
   private
@@ -25,7 +26,7 @@ class DiscourseChatIntegration::PluginModel < PluginStoreRow
   end
 
   def init_plugin_model
-    self.type_name ||= 'JSON'
+    self.type_name ||= "JSON"
     self.plugin_name ||= PLUGIN_NAME
   end
 
@@ -37,5 +38,4 @@ class DiscourseChatIntegration::PluginModel < PluginStoreRow
       "#{self.key_prefix}#{max_id}"
     end
   end
-
 end

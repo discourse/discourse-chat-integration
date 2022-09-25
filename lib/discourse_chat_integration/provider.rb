@@ -12,15 +12,11 @@ module DiscourseChatIntegration
 
   module Provider
     def self.providers
-      constants.select do |constant|
-        constant.to_s =~ /Provider$/
-      end.map(&method(:const_get))
+      constants.select { |constant| constant.to_s =~ /Provider$/ }.map(&method(:const_get))
     end
 
     def self.enabled_providers
-      self.providers.select do |provider|
-        self.is_enabled(provider)
-      end
+      self.providers.select { |provider| self.is_enabled(provider) }
     end
 
     def self.provider_names
@@ -36,7 +32,7 @@ module DiscourseChatIntegration
     end
 
     def self.is_enabled(provider)
-      if defined? provider::PROVIDER_ENABLED_SETTING
+      if defined?(provider::PROVIDER_ENABLED_SETTING)
         SiteSetting.public_send(provider::PROVIDER_ENABLED_SETTING)
       else
         false
@@ -51,9 +47,10 @@ module DiscourseChatIntegration
     class HookController < ::ApplicationController
       requires_plugin DiscourseChatIntegration::PLUGIN_NAME
 
-      class ProviderDisabled < StandardError; end
+      class ProviderDisabled < StandardError
+      end
 
-      rescue_from ProviderDisabled  do
+      rescue_from ProviderDisabled do
         rescue_discourse_actions(:not_found, 404)
       end
 
@@ -72,22 +69,20 @@ module DiscourseChatIntegration
     def self.mount_engines
       engines = []
       DiscourseChatIntegration::Provider.providers.each do |provider|
-        engine = provider.constants.select do |constant|
-          constant.to_s =~ (/Engine$/) && (constant.to_s != "HookEngine")
-        end.map(&provider.method(:const_get)).first
+        engine =
+          provider
+            .constants
+            .select { |constant| constant.to_s =~ (/Engine$/) && (constant.to_s != "HookEngine") }
+            .map(&provider.method(:const_get))
+            .first
 
-        if engine
-          engines.push(engine: engine, name: provider::PROVIDER_NAME)
-        end
+        engines.push(engine: engine, name: provider::PROVIDER_NAME) if engine
       end
 
       DiscourseChatIntegration::Provider::HookEngine.routes.draw do
-        engines.each do |engine|
-          mount engine[:engine], at: engine[:name]
-        end
+        engines.each { |engine| mount engine[:engine], at: engine[:name] }
       end
     end
-
   end
 end
 

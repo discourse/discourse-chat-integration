@@ -2,10 +2,11 @@
 
 class DiscourseChatIntegration::Channel < DiscourseChatIntegration::PluginModel
   # Setup ActiveRecord::Store to use the JSON field to read/write these values
-  store :value, accessors: [ :provider, :error_key, :error_info, :data ], coder: JSON
+  store :value, accessors: %i[provider error_key error_info data], coder: JSON
 
   scope :with_provider, ->(provider) { where("value::json->>'provider'=?", provider) }
-  scope :with_data_value, ->(key, value) { where("(value::json->>'data')::json->>?=?", key.to_s, value.to_s) }
+  scope :with_data_value,
+        ->(key, value) { where("(value::json->>'data')::json->>?=?", key.to_s, value.to_s) }
 
   after_initialize :init_data
   after_destroy :destroy_rules
@@ -13,7 +14,7 @@ class DiscourseChatIntegration::Channel < DiscourseChatIntegration::PluginModel
   validate :provider_valid?, :data_valid?
 
   def self.key_prefix
-    'channel:'.freeze
+    "channel:".freeze
   end
 
   def rules
@@ -52,9 +53,7 @@ class DiscourseChatIntegration::Channel < DiscourseChatIntegration::PluginModel
 
     data.each do |key, value|
       regex_string = params.find { |p| p[:key] == key }[:regex]
-      if !Regexp.new(regex_string).match(value)
-        errors.add(:data, "data.#{key} is invalid")
-      end
+      errors.add(:data, "data.#{key} is invalid") if !Regexp.new(regex_string).match(value)
 
       unique = params.find { |p| p[:key] == key }[:unique]
       if unique
@@ -63,8 +62,6 @@ class DiscourseChatIntegration::Channel < DiscourseChatIntegration::PluginModel
       end
     end
 
-    if check_unique && matching_channels.exists?
-      errors.add(:data, "matches an existing channel")
-    end
+    errors.add(:data, "matches an existing channel") if check_unique && matching_channels.exists?
   end
 end

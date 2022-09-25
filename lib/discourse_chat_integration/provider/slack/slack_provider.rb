@@ -13,18 +13,19 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
 
-  CHANNEL_PARAMETERS = [
-                        { key: "identifier", regex: '^[@#]?\S*$', unique: true }
-                       ]
+  CHANNEL_PARAMETERS = [{ key: "identifier", regex: '^[@#]?\S*$', unique: true }]
 
-  require_dependency 'topic'
-  ::Topic.register_custom_field_type(DiscourseChatIntegration::Provider::SlackProvider::THREAD_LEGACY, :string)
+  require_dependency "topic"
+  ::Topic.register_custom_field_type(
+    DiscourseChatIntegration::Provider::SlackProvider::THREAD_LEGACY,
+    :string,
+  )
 
   def self.excerpt(post, max_length = SiteSetting.chat_integration_slack_excerpt_length)
-    doc = Nokogiri::HTML5.fragment(post.excerpt(max_length,
-      remap_emoji: true,
-      keep_onebox_source: true
-    ))
+    doc =
+      Nokogiri::HTML5.fragment(
+        post.excerpt(max_length, remap_emoji: true, keep_onebox_source: true),
+      )
 
     SlackMessageFormatter.format(doc.to_html)
   end
@@ -34,11 +35,18 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
     topic = post.topic
 
-    category = ''
+    category = ""
     if topic.category&.uncategorized?
-      category = "[#{I18n.t('uncategorized_category_name')}]"
+      category = "[#{I18n.t("uncategorized_category_name")}]"
     elsif topic.category
-      category = (topic.category.parent_category) ? "[#{topic.category.parent_category.name}/#{topic.category.name}]" : "[#{topic.category.name}]"
+      category =
+        (
+          if (topic.category.parent_category)
+            "[#{topic.category.parent_category.name}/#{topic.category.name}]"
+          else
+            "[#{topic.category.name}]"
+          end
+        )
     end
 
     icon_url =
@@ -55,12 +63,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
         SiteSetting.title || "Discourse"
       end
 
-    message = {
-      channel: channel,
-      username: slack_username,
-      icon_url: icon_url,
-      attachments: []
-    }
+    message = { channel: channel, username: slack_username, icon_url: icon_url, attachments: [] }
 
     if filter == "thread" && thread_ts = get_slack_thread_ts(topic, channel)
       message[:thread_ts] = thread_ts
@@ -73,9 +76,10 @@ module DiscourseChatIntegration::Provider::SlackProvider
       color: topic.category ? "##{topic.category.color}" : nil,
       text: excerpt(post),
       mrkdwn_in: ["text"],
-      title: "#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(', ') : ''}",
+      title:
+        "#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(", ") : ""}",
       title_link: post.full_url,
-      thumb_url: post.full_url
+      thumb_url: post.full_url,
     }
 
     message[:attachments].push(summary)
@@ -92,14 +96,14 @@ module DiscourseChatIntegration::Provider::SlackProvider
     # <!--SLACK_CHANNEL_ID=#{@channel_id};SLACK_TS=#{@requested_thread_ts}-->
     slack_thread_regex = /<!--SLACK_CHANNEL_ID=([^;.]+);SLACK_TS=([0-9]{10}.[0-9]{6})-->/
 
-    req = Net::HTTP::Post.new(URI('https://slack.com/api/chat.postMessage'))
+    req = Net::HTTP::Post.new(URI("https://slack.com/api/chat.postMessage"))
 
     data = {
       token: SiteSetting.chat_integration_slack_access_token,
       username: message[:username],
       icon_url: message[:icon_url],
-      channel: message[:channel].gsub('#', ''),
-      attachments: message[:attachments].to_json
+      channel: message[:channel].gsub("#", ""),
+      attachments: message[:attachments].to_json,
     }
 
     if post
@@ -116,18 +120,28 @@ module DiscourseChatIntegration::Provider::SlackProvider
     response = http.request(req)
 
     unless response.kind_of? Net::HTTPSuccess
-      raise ::DiscourseChatIntegration::ProviderError.new info: { request: uri, response_code: response.code, response_body: response.body }
+      raise ::DiscourseChatIntegration::ProviderError.new info: {
+                                                            request: uri,
+                                                            response_code: response.code,
+                                                            response_body: response.body,
+                                                          }
     end
 
     json = JSON.parse(response.body)
 
     unless json["ok"] == true
-      if json.key?("error") && (json["error"] == ('channel_not_found') || json["error"] == ('is_archived'))
-        error_key = 'chat_integration.provider.slack.errors.channel_not_found'
+      if json.key?("error") &&
+           (json["error"] == ("channel_not_found") || json["error"] == ("is_archived"))
+        error_key = "chat_integration.provider.slack.errors.channel_not_found"
       else
         error_key = nil
       end
-      raise ::DiscourseChatIntegration::ProviderError.new info: { error_key: error_key, request: uri, response_code: response.code, response_body: response.body }
+      raise ::DiscourseChatIntegration::ProviderError.new info: {
+                                                            error_key: error_key,
+                                                            request: uri,
+                                                            response_code: response.code,
+                                                            response_body: response.body,
+                                                          }
     end
 
     ts = json["ts"]
@@ -139,25 +153,33 @@ module DiscourseChatIntegration::Provider::SlackProvider
   def self.send_via_webhook(message)
     http = Net::HTTP.new("hooks.slack.com", 443)
     http.use_ssl = true
-    req = Net::HTTP::Post.new(URI(SiteSetting.chat_integration_slack_outbound_webhook_url), 'Content-Type' => 'application/json')
+    req =
+      Net::HTTP::Post.new(
+        URI(SiteSetting.chat_integration_slack_outbound_webhook_url),
+        "Content-Type" => "application/json",
+      )
     req.body = message.to_json
     response = http.request(req)
 
     unless response.kind_of? Net::HTTPSuccess
-      if response.code.to_s == '403'
-        error_key = 'chat_integration.provider.slack.errors.action_prohibited'
-      elsif response.body == ('channel_not_found') || response.body == ('channel_is_archived')
-        error_key = 'chat_integration.provider.slack.errors.channel_not_found'
+      if response.code.to_s == "403"
+        error_key = "chat_integration.provider.slack.errors.action_prohibited"
+      elsif response.body == ("channel_not_found") || response.body == ("channel_is_archived")
+        error_key = "chat_integration.provider.slack.errors.channel_not_found"
       else
         error_key = nil
       end
-      raise ::DiscourseChatIntegration::ProviderError.new info: { error_key: error_key, request: req.body, response_code: response.code, response_body: response.body }
+      raise ::DiscourseChatIntegration::ProviderError.new info: {
+                                                            error_key: error_key,
+                                                            request: req.body,
+                                                            response_code: response.code,
+                                                            response_body: response.body,
+                                                          }
     end
-
   end
 
   def self.trigger_notification(post, channel, rule)
-    channel_id = channel.data['identifier']
+    channel_id = channel.data["identifier"]
     filter = rule.nil? ? "" : rule.filter
     message = slack_message(post, channel_id, filter)
 
@@ -166,7 +188,6 @@ module DiscourseChatIntegration::Provider::SlackProvider
     else
       self.send_via_api(post, channel_id, message)
     end
-
   end
 
   def self.slack_api_http
@@ -182,13 +203,16 @@ module DiscourseChatIntegration::Provider::SlackProvider
   end
 
   def self.set_slack_thread_ts(topic, channel, value)
-    TopicCustomField.upsert({
+    TopicCustomField.upsert(
+      {
         topic_id: topic.id,
         name: "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}",
         value: value,
         created_at: Time.zone.now,
-        updated_at: Time.zone.now
-    }, unique_by: [:topic_id, :name])
+        updated_at: Time.zone.now,
+      },
+      unique_by: %i[topic_id name],
+    )
   end
 end
 

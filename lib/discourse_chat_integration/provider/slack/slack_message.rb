@@ -12,7 +12,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
         user["_transcript_username"]
       elsif @raw.key?("username")
         # This is for bot messages
-        @raw["username"].gsub(' ', '_')
+        @raw["username"].gsub(" ", "_")
       end
     end
 
@@ -22,74 +22,69 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
     def url
       channel_id = @transcript.channel_id
-      ts = @raw['ts'].gsub('.', '')
+      ts = @raw["ts"].gsub(".", "")
       "https://slack.com/archives/#{channel_id}/p#{ts}"
     end
 
     def text
-      text = @raw['text'].nil? ? "" : @raw['text']
+      text = @raw["text"].nil? ? "" : @raw["text"]
 
       pre = {}
 
       # Extract code blocks and replace with placeholder
-      text = text.gsub(/```(.*?)```/m) do |match|
-        key = "pre:" + SecureRandom.alphanumeric(50)
-        pre[key] = HTMLEntities.new.decode $1
-        "\n```\n#{key}\n```\n"
-      end
+      text =
+        text.gsub(/```(.*?)```/m) do |match|
+          key = "pre:" + SecureRandom.alphanumeric(50)
+          pre[key] = HTMLEntities.new.decode $1
+          "\n```\n#{key}\n```\n"
+        end
 
       # # Extract inline code and replace with placeholder
-      text = text.gsub(/(?<!`)`([^`]+?)`(?!`)/) do |match|
-        key = "pre:" + SecureRandom.alphanumeric(50)
-        pre[key] = HTMLEntities.new.decode $1
-        "`#{key}`"
-      end
+      text =
+        text.gsub(/(?<!`)`([^`]+?)`(?!`)/) do |match|
+          key = "pre:" + SecureRandom.alphanumeric(50)
+          pre[key] = HTMLEntities.new.decode $1
+          "`#{key}`"
+        end
 
       # Format links (don't worry about special cases @ # !)
-      text = text.gsub(/<(.*?)>/) do |match|
-        group = $1
-        parts = group.split('|')
-        link = parts[0].start_with?('@', '#', '!') ? nil : parts[0]
-        text = parts.length > 1 ? parts[1] : parts[0]
+      text =
+        text.gsub(/<(.*?)>/) do |match|
+          group = $1
+          parts = group.split("|")
+          link = parts[0].start_with?("@", "#", "!") ? nil : parts[0]
+          text = parts.length > 1 ? parts[1] : parts[0]
 
-        if parts[0].start_with?('@')
-          user_id = parts[0][1..-1]
-          if user = @transcript.users[user_id]
-            user_name = user['_transcript_username']
-          else
-            user_name = user_id
+          if parts[0].start_with?("@")
+            user_id = parts[0][1..-1]
+            if user = @transcript.users[user_id]
+              user_name = user["_transcript_username"]
+            else
+              user_name = user_id
+            end
+            next "@#{user_name}"
           end
-          next "@#{user_name}"
-        end
 
-        if link.nil?
-          text
-        elsif link == text
-          "<#{link}>"
-        else
-          "[#{text}](#{link})"
+          if link.nil?
+            text
+          elsif link == text
+            "<#{link}>"
+          else
+            "[#{text}](#{link})"
+          end
         end
-      end
 
       # Add an extra * to each side for bold
-      text = text.gsub(/\*.*?\*/) do |match|
-        "*#{match}*"
-      end
+      text = text.gsub(/\*.*?\*/) { |match| "*#{match}*" }
 
       # Add an extra ~ to each side for strikethrough
-      text = text.gsub(/~.*?~/) do |match|
-        "~#{match}~"
-      end
+      text = text.gsub(/~.*?~/) { |match| "~#{match}~" }
 
       # Replace emoji - with _
-      text = text.gsub(/:[a-z0-9_-]+:/) do |match|
-        match.gsub("-") { "_" }
-      end
+      text = text.gsub(/:[a-z0-9_-]+:/) { |match| match.gsub("-") { "_" } }
 
       # Restore pre-formatted code block content
-      pre.each do |key, value|
-        text = text.gsub(key) { value }
-      end
+      pre.each { |key, value| text = text.gsub(key) { value } }
 
       text
     end
@@ -97,9 +92,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     def attachments_string
       string = ""
       string += "\n" if !attachments.empty?
-      attachments.each do |attachment|
-        string += " - #{attachment}\n"
-      end
+      attachments.each { |attachment| string += " - #{attachment}\n" }
       string
     end
 
@@ -108,7 +101,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     def raw_text
-      raw_text = @raw['text'].nil? ? "" : @raw['text']
+      raw_text = @raw["text"].nil? ? "" : @raw["text"]
       raw_text += attachments_string
       raw_text
     end
@@ -116,7 +109,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     def attachments
       attachments = []
 
-      return attachments unless @raw.key?('attachments')
+      return attachments unless @raw.key?("attachments")
 
       @raw["attachments"].each do |attachment|
         next unless attachment.key?("fallback")
