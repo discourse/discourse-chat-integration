@@ -42,6 +42,7 @@ tr_TR:
         mute: 'Sustur'
         follow: 'Yalnızca ilk gönderi'
         watch: 'Tüm gönderiler ve yanıtlar'
+        thread: 'Başlıklı yanıt içeren tüm gönderiler'
       rule_table:
         filter: "Süzgeç"
         category: "Kategori"
@@ -104,6 +105,15 @@ tr_TR:
             webhook_url:
               title: 'Webhook URL&#39;si'
               help: 'Discord sunucusu ayarlarınızda oluşturulan webhook URL&#39;si'
+        guilded:
+          title: "Lonca"
+          param:
+            name:
+              title: "Ad"
+              help: "Kanalı tanımlayan bir ad. Discord bağlantısı için kullanılmaz"
+            webhook_url:
+              title: Web kancası URL'si
+              help: 'Discord sunucusu ayarlarınızda oluşturulan webhook URL&#39;si'
         mattermost:
           title: "Mattermost"
           param:
@@ -158,3 +168,54 @@ tr_TR:
             flow_token:
               title: "Akış Jetonu"
               help: "İleti göndermek istediğiniz akış için bir kaynak oluşturduktan sonra sağlanan akış belirteci."
+        groupme:
+          title: "Gruplarım"
+          param:
+            groupme_instance_name:
+              title: "Gönderilecek grup adı"
+              help: "Site Ayarlarında listelenen gruplarım örneğinin adı. tüm örneklere göndermek için 'hepsi' kullanın"
+          errors:
+            not_found: "Mesajınızı göndermeye çalıştığınız yol bulunamadı. Site Ayarlarında Bot Kimliğini kontrol edin."
+            instance_names_issue: "örnek adları yanlış biçimlendirilmiş veya sağlanmamıştır"
+        teams:
+          title: "Microsoft Ekipleri"
+          param:
+            name:
+              title: "Ad"
+              help: "Bir takım kanal adı, ör: discourse"
+            webhook_url:
+              title: "Web kancası URL'si"
+              help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
+          errors:
+            invalid_channel: "Bu kanal Microsoft Teams'de mevcut değil"
+        webex:
+          title: "Webex Ekipleri"
+          param:
+            name:
+              title: "Ad"
+              help: "Bir Webex alan adı, ör. söylem"
+            webhook_url:
+              title: "Web kancası URL'si"
+              help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
+          errors:
+            invalid_channel: "Bu kanal Webex'te mevcut değil"
+        google:
+          title: "Google Sohbet"
+          param:
+            name:
+              title: "Ad"
+              help: "Kanal için bir ad (yalnızca Discourse yönetici arayüzünde gösterilir)"
+            webhook_url:
+              title: "Web kancası URL'si"
+              help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Slack mesajı gönder
+          fields:
+            message:
+              label: İleti
+            url:
+              label: URL
+            channel:
+              label: Kanal
