@@ -95,7 +95,7 @@ describe 'Mattermost Command Controller', type: :request do
           expect(rule.tags).to eq(nil)
         end
 
-        context 'from an unknown channel' do
+        describe 'from an unknown channel' do
           it 'creates the channel' do
             post "/chat-integration/mattermost/command.json", params: {
               text: "watch #{category.slug}",

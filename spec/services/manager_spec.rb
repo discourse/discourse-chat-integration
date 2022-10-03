@@ -15,7 +15,7 @@ RSpec.describe DiscourseChatIntegration::Manager do
   let(:second_post) { Fabricate(:post, topic: topic, post_number: 2) }
 
   describe '.trigger_notifications' do
-    include_context "dummy provider"
+    include_context "with dummy provider"
 
     let(:chan1) { DiscourseChatIntegration::Channel.create!(provider: 'dummy') }
     let(:chan2) { DiscourseChatIntegration::Channel.create!(provider: 'dummy') }

@@ -108,7 +108,7 @@ describe 'Telegram Command Controller', type: :request do
           expect(rule.tags).to eq(nil)
         end
 
-        context 'from an unknown channel' do
+        describe 'from an unknown channel' do
           it 'does nothing' do
             post '/chat-integration/telegram/command/shhh.json', params: {
               message: { chat: { id: 456 }, text: "/watch #{category.slug}" }

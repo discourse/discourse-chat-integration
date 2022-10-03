@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_context "dummy provider" do
+RSpec.shared_context "with dummy provider" do
   before(:each) do
     module ::DiscourseChatIntegration::Provider::DummyProvider
       PROVIDER_NAME = "dummy".freeze
@@ -39,7 +39,7 @@ RSpec.shared_context "dummy provider" do
   let(:provider) { ::DiscourseChatIntegration::Provider::DummyProvider }
 end
 
-RSpec.shared_context "validated dummy provider" do
+RSpec.shared_context "with validated dummy provider" do
   before(:each) do
     module ::DiscourseChatIntegration::Provider::Dummy2Provider
       PROVIDER_NAME = "dummy2".freeze

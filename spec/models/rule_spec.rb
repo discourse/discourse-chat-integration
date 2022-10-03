@@ -4,7 +4,7 @@ require 'rails_helper'
 require_relative '../dummy_provider'
 
 RSpec.describe DiscourseChatIntegration::Rule do
-  include_context "dummy provider"
+  include_context "with dummy provider"
 
   let(:tag1) { Fabricate(:tag) }
   let(:tag2) { Fabricate(:tag) }

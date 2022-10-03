@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe DiscourseChatIntegration::Provider::SlackProvider::SlackMessageFormatter do
   describe '.format' do
-    context 'links' do
+    context 'with links' do
       it 'should return the right message' do
         expect(described_class.format("<a href='http://somepath.com'>test</a>"))
           .to eq('<http://somepath.com|test>')
