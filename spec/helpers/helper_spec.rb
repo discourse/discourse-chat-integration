@@ -4,7 +4,7 @@ require 'rails_helper'
 require_relative '../dummy_provider'
 
 RSpec.describe DiscourseChatIntegration::Manager do
-  include_context "dummy provider"
+  include_context "with dummy provider"
 
   let(:chan1) { DiscourseChatIntegration::Channel.create!(provider: 'dummy') }
   let(:chan2) { DiscourseChatIntegration::Channel.create!(provider: 'dummy') }

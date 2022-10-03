@@ -12,8 +12,8 @@ describe 'Chat Controller', type: :request do
   let(:tag) { Fabricate(:tag) }
   let(:channel) { DiscourseChatIntegration::Channel.create(provider: 'dummy') }
 
-  include_context "dummy provider"
-  include_context "validated dummy provider"
+  include_context "with dummy provider"
+  include_context "with validated dummy provider"
 
   before do
     SiteSetting.chat_integration_enabled = true

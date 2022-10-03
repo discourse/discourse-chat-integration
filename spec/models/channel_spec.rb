@@ -4,8 +4,8 @@ require 'rails_helper'
 require_relative '../dummy_provider'
 
 RSpec.describe DiscourseChatIntegration::Channel do
-  include_context "dummy provider"
-  include_context "validated dummy provider"
+  include_context "with dummy provider"
+  include_context "with validated dummy provider"
 
   it 'should save and load successfully' do
     expect(DiscourseChatIntegration::Channel.all.length).to eq(0)
