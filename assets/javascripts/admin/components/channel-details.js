@@ -13,9 +13,9 @@ export default Component.extend({
         message: I18n.t("chat_integration.channel_delete_confirm"),
         didConfirm: () => {
           return channel
-          .destroyRecord()
-          .then(() => this.refresh())
-          .catch(popupAjaxError);
+            .destroyRecord()
+            .then(() => this.refresh())
+            .catch(popupAjaxError);
         },
       });
     },
