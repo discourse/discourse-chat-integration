@@ -33,7 +33,7 @@ module DiscourseChatIntegration
       end
 
       def self.do_api_request(methodName, message)
-        http = Net::HTTP.new("api.telegram.org", 443)
+        http = FinalDestination::HTTP.new("api.telegram.org", 443)
         http.use_ssl = true
 
         access_token = SiteSetting.chat_integration_telegram_access_token

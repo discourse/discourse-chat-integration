@@ -13,7 +13,7 @@ module DiscourseChatIntegration
       def self.send_message(message)
         uri = URI("#{SiteSetting.chat_integration_zulip_server}/api/v1/messages")
 
-        http = Net::HTTP.new(uri.host, uri.port)
+        http = FinalDestination::HTTP.new(uri.host, uri.port)
         http.use_ssl = (uri.scheme == 'https')
 
         req = Net::HTTP::Post.new(uri)

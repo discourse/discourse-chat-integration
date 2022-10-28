@@ -21,7 +21,7 @@ module DiscourseChatIntegration
 
         uri = URI([url, url_params].join('?'))
 
-        http = Net::HTTP.new(uri.host, uri.port)
+        http = FinalDestination::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
 
         req = Net::HTTP::Put.new(uri, 'Content-Type' => 'application/json')

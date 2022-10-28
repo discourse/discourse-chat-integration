@@ -46,7 +46,7 @@ module DiscourseChatIntegration::Provider::GroupmeProvider
     instance_names.each { |instance_name|
       bot_id = name_to_id["#{instance_name}"]
       uri = URI("https://api.groupme.com/v3/bots/post")
-      http = Net::HTTP.new(uri.host, uri.port)
+      http = FinalDestination::HTTP.new(uri.host, uri.port)
       http.use_ssl = (uri.scheme == 'https')
       req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
       message[:bot_id] = bot_id

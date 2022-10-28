@@ -13,7 +13,7 @@ module DiscourseChatIntegration
 
         uri = URI(SiteSetting.chat_integration_mattermost_webhook_url)
 
-        http = Net::HTTP.new(uri.host, uri.port)
+        http = FinalDestination::HTTP.new(uri.host, uri.port)
         http.use_ssl = (uri.scheme == 'https')
         req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
         req.body = message.to_json
