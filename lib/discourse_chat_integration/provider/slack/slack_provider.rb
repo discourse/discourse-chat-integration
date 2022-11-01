@@ -137,7 +137,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
   end
 
   def self.send_via_webhook(message)
-    http = Net::HTTP.new("hooks.slack.com", 443)
+    http = FinalDestination::HTTP.new("hooks.slack.com", 443)
     http.use_ssl = true
     req = Net::HTTP::Post.new(URI(SiteSetting.chat_integration_slack_outbound_webhook_url), 'Content-Type' => 'application/json')
     req.body = message.to_json
@@ -170,7 +170,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
   end
 
   def self.slack_api_http
-    http = Net::HTTP.new("slack.com", 443)
+    http = FinalDestination::HTTP.new("slack.com", 443)
     http.use_ssl = true
     http.read_timeout = 5 # seconds
     http

@@ -15,7 +15,7 @@ module DiscourseChatIntegration::Provider::WebexProvider
     message = get_message(post)
     uri = URI(channel.data['webhook_url'])
 
-    http = Net::HTTP.new(uri.host, uri.port)
+    http = FinalDestination::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == 'https')
 
     req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')

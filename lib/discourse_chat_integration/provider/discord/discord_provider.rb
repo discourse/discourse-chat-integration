@@ -12,7 +12,7 @@ module DiscourseChatIntegration
       ].freeze
 
       def self.send_message(url, message)
-        http = Net::HTTP.new("discord.com", 443)
+        http = FinalDestination::HTTP.new("discord.com", 443)
         http.use_ssl = true
 
         uri = URI(url)
