@@ -16,6 +16,7 @@ pt_BR:
     chat_integration_slack_excerpt_length: 'Tamanho do trecho da postagem do Slack'
     chat_integration_slack_icon_url: 'Ícone para postagens no Slack (padrão é logotipo do fórum)'
     chat_integration_slack_outbound_webhook_url: "Para usar o sistema \"Incoming Webhook\" do Slack em vez da API OAuth. Não recomendado."
+    chat_integration_slack_transcript_quote: Envolver transcrição de slack nas tags [quote]?
     errors:
       chat_integration_slack_api_configs_are_empty: "Você precisa inserir uma URL de webhook de saída, ou um token de acesso"
     chat_integration_telegram_enabled: "Ativar o provedor de integração de bate-papo do Telegram"
@@ -25,6 +26,8 @@ pt_BR:
     chat_integration_discord_enabled: "Ativar o provedor de integração de bate-papo do Discord"
     chat_integration_discord_message_content: "A mensagem a ser incluída acima do resumo ao enviar uma notificação para Discord"
     chat_integration_discord_excerpt_length: "Tamanho do treco da postagem do Discord"
+    chat_integration_guilded_enabled: "Ativar o provedor de integração de bate-papo do Guilded"
+    chat_integration_guilded_excerpt_length: "Tamanho do trecho da postagem do Guilded"
     chat_integration_mattermost_enabled: "Ativar o provedor de integração de bate-papo do Mattermost"
     chat_integration_mattermost_webhook_url: 'URL para o webhook do Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'O token de verificação usado para autenticar solicitações recebidas'
@@ -56,6 +59,10 @@ pt_BR:
     chat_integration_webex_excerpt_length: "Tamanho do trecho da postagem do Webex Teams"
     chat_integration_google_enabled: "Ative o provedor de integração de bate-papo do \"Google Chat\""
     chat_integration_google_excerpt_length: "Tamanho do trecho da postagem do Google Chat"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: Enviar uma mensagem do Slack
   chat_integration:
     all_categories: "(todas as categorias)"
     deleted_category: "(categoria excluída)"

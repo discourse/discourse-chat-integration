@@ -10,52 +10,59 @@ zh_CN:
     chat_integration_discourse_username: '获取内容时用作的用户的用户名。'
     chat_integration_delay_seconds: '创建帖子后发送聊天通知之前等待的秒数'
     chat_integration_slack_username: "发布到 Slack 时使用的机器人的用户名"
-    chat_integration_slack_enabled: '启用 Slack 聊天集成提供商'
+    chat_integration_slack_enabled: '启用 Slack 聊天集成提供程序'
     chat_integration_slack_access_token: '用于向 Slack 进行身份验证的 OAuth 访问令牌'
     chat_integration_slack_incoming_webhook_token: '用于验证传入请求的验证令牌'
     chat_integration_slack_excerpt_length: 'Slack 帖子摘要长度'
     chat_integration_slack_icon_url: '发布到 Slack 时使用的图标（默认为论坛徽标）'
     chat_integration_slack_outbound_webhook_url: "用于使用 Slack 的“传入 Webhook”系统而不是 OAuth API。不建议。"
+    chat_integration_slack_transcript_quote: 将 Slack 语音稿包含到“[quote]”标签中？
     errors:
       chat_integration_slack_api_configs_are_empty: "您必须输入出站网络钩子 URL 或访问令牌"
-    chat_integration_telegram_enabled: "启用 Telegram 聊天集成提供商"
+    chat_integration_telegram_enabled: "启用 Telegram 聊天集成提供程序"
     chat_integration_telegram_access_token: "来自 Telegram botfather 的机器人访问令牌"
     chat_integration_telegram_excerpt_length: "Telegram 帖子摘要长度"
     chat_integration_telegram_enable_slash_commands: "允许使用“斜杠命令”管理 Telegram 订阅"
-    chat_integration_discord_enabled: "启用 Discord 聊天集成提供商"
+    chat_integration_discord_enabled: "启用 Discord 聊天集成提供程序"
     chat_integration_discord_message_content: "向 Discord 发送通知时要包含在摘要上方的消息"
     chat_integration_discord_excerpt_length: "Discord 帖子摘要长度"
-    chat_integration_mattermost_enabled: "启用 Mattermost 聊天集成提供商"
+    chat_integration_guilded_enabled: "启用 Guilded 聊天集成提供程序"
+    chat_integration_guilded_excerpt_length: "Guilded 帖子摘要长度"
+    chat_integration_mattermost_enabled: "启用 Mattermost 聊天集成提供程序"
     chat_integration_mattermost_webhook_url: 'Mattermost 网络钩子的 URL'
     chat_integration_mattermost_incoming_webhook_token: '用于验证传入请求的验证令牌'
     chat_integration_mattermost_icon_url: "发布到 Mattermost 时使用的图标（默认为论坛徽标）"
     chat_integration_mattermost_excerpt_length: "Mattermost 帖子摘要长度"
-    chat_integration_matrix_enabled: "启用 Matrix 聊天集成提供商"
+    chat_integration_matrix_enabled: "启用 Matrix 聊天集成提供程序"
     chat_integration_matrix_homeserver: "要连接的主服务器。请确保包含协议"
     chat_integration_matrix_access_token: "机器人的 Matrix 帐户的访问令牌"
     chat_integration_matrix_excerpt_length: "Matrix 帖子摘要长度"
     chat_integration_matrix_use_notice: "使用通知代替普通消息"
-    chat_integration_zulip_enabled: "启用 Zulip 聊天集成提供商"
+    chat_integration_zulip_enabled: "启用 Zulip 聊天集成提供程序"
     chat_integration_zulip_server: "Zulip 服务器的基础 URL。确保包含 http(s)://"
     chat_integration_zulip_bot_email_address: "与您的 Zulip 机器人关联的电子邮件地址"
     chat_integration_zulip_bot_api_key: "Zulip 机器人的 API 密钥"
     chat_integration_zulip_excerpt_length: "Zulip 帖子摘要长度"
-    chat_integration_rocketchat_enabled: "启用 Rocket Chat 聊天集成提供商"
+    chat_integration_rocketchat_enabled: "启用 Rocket Chat 聊天集成提供程序"
     chat_integration_rocketchat_webhook_url: "Rocket Chat 集成网络钩子的 URL"
     chat_integration_rocketchat_excerpt_length: "Rocket Chat 帖子摘要长度"
-    chat_integration_gitter_enabled: "启用 Gitter 聊天集成提供商"
-    chat_integration_flowdock_enabled: "启用 Flowdock 聊天集成提供商"
+    chat_integration_gitter_enabled: "启用 Gitter 聊天集成提供程序"
+    chat_integration_flowdock_enabled: "启用 Flowdock 聊天集成提供程序"
     chat_integration_flowdock_excerpt_length: "Flowdock 帖子摘要长度"
-    chat_integration_groupme_enabled: "启用 Groupme 聊天集成提供商"
+    chat_integration_groupme_enabled: "启用 Groupme 聊天集成提供程序"
     chat_integration_groupme_excerpt_length: "GroupMe 帖子摘要长度"
     chat_integration_groupme_bot_ids: "*必填* 机器人 ID，有多个时使用 ',' 分隔"
     chat_integration_groupme_instance_names: "*必填* GroupMe 聊天的名称，有多个时使用 ',' 分隔（与机器人 ID 的顺序相同）"
-    chat_integration_teams_enabled: "启用 Microsoft Teams 聊天集成提供商"
+    chat_integration_teams_enabled: "启用 Microsoft Teams 聊天集成提供程序"
     chat_integration_teams_excerpt_length: "Microsoft Team 帖子摘要长度"
-    chat_integration_webex_enabled: "启用 Webex Teams 聊天集成提供商"
+    chat_integration_webex_enabled: "启用 Webex Teams 聊天集成提供程序"
     chat_integration_webex_excerpt_length: "Webex Team 帖子摘要长度"
-    chat_integration_google_enabled: "启用 Google Chat 聊天集成提供商"
+    chat_integration_google_enabled: "启用 Google Chat 聊天集成提供程序"
     chat_integration_google_excerpt_length: "Google Chat 帖子摘要长度"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: 发送 Slack 消息
   chat_integration:
     all_categories: "（所有类别）"
     deleted_category: "（已删除的类别）"
@@ -70,7 +77,7 @@ zh_CN:
             *此频道的规则*
             （如果一个帖子匹配多个规则，将执行最顶端的规则）
           no_rules: "此频道没有设置任何规则。运行 `/discourse help` 获取说明。"
-          rule_string: "*%{index})* *%{filter}*帖子在*%{category}*"
+          rule_string: "*%{index})* *%{filter}**%{category}*中的帖子"
           rule_string_tags_suffix: "包括标签：*%{tags}*"
         parse_error: "抱歉，无法识别。运行 `/discourse help` 获取说明。"
         create:
@@ -130,7 +137,7 @@ zh_CN:
             <b>此频道的规则</b>
             （如果一个帖子匹配多个规则，将执行最顶端的规则）
           no_rules: "此频道没有设置任何规则。运行 <code>/help</code> 获取说明。"
-          rule_string: "<b>%{index})</b><b>%{filter}</b>发表在<b>%{category}</b>"
+          rule_string: "<b>%{index})</b> <b>%{filter}</b><b>%{category}</b>中的帖子"
           rule_string_tags_suffix: "包括标签：<b>%{tags}</b>"
         parse_error: "抱歉，无法识别。运行 <code>/help</code> 获取说明。"
         create:
@@ -164,7 +171,7 @@ zh_CN:
             *此频道的规则*
             （如果一个帖子匹配多个规则，将执行最顶端的规则）
           no_rules: "此频道没有设置任何规则。运行 `/discourse help` 获取说明。"
-          rule_string: "*%{index})* *%{filter}*帖子在*%{category}*"
+          rule_string: "*%{index})* *%{filter}**%{category}*中的帖子"
           rule_string_tags_suffix: "包括标签：*%{tags}*"
         parse_error: "抱歉，无法识别。运行 `/discourse help` 获取说明。"
         create:

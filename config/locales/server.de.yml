@@ -16,6 +16,7 @@ de:
     chat_integration_slack_excerpt_length: 'Auszugslänge für Slack-Beiträge'
     chat_integration_slack_icon_url: 'Icon, mit dem auf Slack geschrieben wird (standardmäßig das Forenlogo)'
     chat_integration_slack_outbound_webhook_url: "Zur Verwendung des „Eingehender Webhook“-Systems von Slack statt der OAuth-API. Nicht empfohlen."
+    chat_integration_slack_transcript_quote: Slack-Transkript in [quote]-Tags einbetten?
     errors:
       chat_integration_slack_api_configs_are_empty: "Du musst entweder eine ausgehende Webhook-URL eingeben oder ein Zugriffstoken"
     chat_integration_telegram_enabled: "Aktiviere den Chat-Integration-Provider für Telegram"
@@ -25,6 +26,8 @@ de:
     chat_integration_discord_enabled: "Aktiviere den Chat-Integration-Provider für Discord"
     chat_integration_discord_message_content: "Die Nachricht, die beim Versenden einer Benachrichtigung an Discord oberhalb der Zusammenfassung eingefügt wird"
     chat_integration_discord_excerpt_length: "Auszugslänge für Discord-Beiträge"
+    chat_integration_guilded_enabled: "Aktiviere den Chat-Integration-Provider für Guilded"
+    chat_integration_guilded_excerpt_length: "Auszugslänge für Guilded-Beiträge"
     chat_integration_mattermost_enabled: "Aktiviere den Chat-Integration-Provider für Mattermost"
     chat_integration_mattermost_webhook_url: 'URL für den Mattermost-Webhook'
     chat_integration_mattermost_incoming_webhook_token: 'Das Verifizierungstoken, das zur Authentifizierung eingehender Anfragen verwendet wird'
@@ -56,6 +59,10 @@ de:
     chat_integration_webex_excerpt_length: "Auszugslänge für „Webex Teams“-Beiträge"
     chat_integration_google_enabled: "Aktiviere den Chat-Integration-Provider für Google Chat"
     chat_integration_google_excerpt_length: "Auszugslänge für „Google Chat“-Beiträge"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: Slack-Nachricht senden
   chat_integration:
     all_categories: "(alle Kategorien)"
     deleted_category: "(Kategorie gelöscht)"
