@@ -16,6 +16,7 @@ ar:
     chat_integration_slack_excerpt_length: 'طول المقتطف من منشور Slack'
     chat_integration_slack_icon_url: 'أيقونة لاستخدامها في النشر في Slack (الأيقونة الافتراضية هي أيقونة المنتدى)'
     chat_integration_slack_outbound_webhook_url: "لاستخدام نظام \"خطاف الويب الوارد\" من Slack بدلًا من OAuth API. لا يوصى بذلك."
+    chat_integration_slack_transcript_quote: هل تريد تضمين نص Slack في علامات [quote]؟
     errors:
       chat_integration_slack_api_configs_are_empty: "يجب عليك إدخال عنوان URL لخطاف ويب صادر أو رمز وصول"
     chat_integration_telegram_enabled: "تفعيل مقدِّم خدمة تكامل الدردشة Telegram"
@@ -25,6 +26,8 @@ ar:
     chat_integration_discord_enabled: "تفعيل مقدِّم خدمة تكامل الدردشة Discord"
     chat_integration_discord_message_content: "الرسالة التي سيتم تضمينها أعلى الملخص عند إرسال إشعار إلى Discord"
     chat_integration_discord_excerpt_length: "طول المقتطف من منشور Discord"
+    chat_integration_guilded_enabled: "تفعيل مقدِّم خدمة تكامل الدردشة Guilded"
+    chat_integration_guilded_excerpt_length: "طول المقتطف من منشور Guilded"
     chat_integration_mattermost_enabled: "تفعيل مقدِّم خدمة تكامل الدردشة Mattermost"
     chat_integration_mattermost_webhook_url: 'عنوان URL لخطاف الويب من Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'رمز التحقُّق المُستخدَم لمصادقة الطلبات الواردة'
@@ -56,6 +59,10 @@ ar:
     chat_integration_webex_excerpt_length: "طول المقتطف من منشور Webex Team"
     chat_integration_google_enabled: "تفعيل مقدِّم خدمة تكامل الدردشة Google Chat"
     chat_integration_google_excerpt_length: "طول المقتطف من منشور Google Chat"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: إرسال رسالة Slack
   chat_integration:
     all_categories: "(جميع الفئات)"
     deleted_category: "(فئة محذوفة)"

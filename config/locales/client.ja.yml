@@ -105,6 +105,15 @@ ja:
             webhook_url:
               title: Webhook の URL
               help: Discord サーバー設定で作成された Webhook URL
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "名前"
+              help: "チャンネルを説明する名前。Guilded への接続には使用されません。"
+            webhook_url:
+              title: Webhook の URL
+              help: Guilded サーバー設定で作成された Webhook URL
         mattermost:
           title: "Mattermost"
           param:
@@ -199,3 +208,14 @@ ja:
             webhook_url:
               title: "Webhook の URL"
               help: "新しい Webhook を作成するときに提供される URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Slack メッセージを送信する
+          fields:
+            message:
+              label: メッセージ
+            url:
+              label: URL
+            channel:
+              label: チャンネル

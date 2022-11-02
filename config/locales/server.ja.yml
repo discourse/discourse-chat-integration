@@ -16,6 +16,7 @@ ja:
     chat_integration_slack_excerpt_length: 'Slack 投稿の抜粋の長さ'
     chat_integration_slack_icon_url: 'Slack に投稿する際のアイコン（デフォルトはフォーラムのロゴ）'
     chat_integration_slack_outbound_webhook_url: "OAuth API の代わりに Slack の「着信 Webhook」システムを使用する場合。推奨されません。"
+    chat_integration_slack_transcript_quote: Slack トランスクリプトを [quote] タグで囲みますか？
     errors:
       chat_integration_slack_api_configs_are_empty: "送信 Webhook URL またはアクセストークンを入力する必要があります"
     chat_integration_telegram_enabled: "Telegram の chat-integration プロバイダーを有効にする"
@@ -25,6 +26,8 @@ ja:
     chat_integration_discord_enabled: "Discord の chat-integration プロバイダーを有効にする"
     chat_integration_discord_message_content: "Discord に通知を送信するときに要約の上に含めるメッセージ"
     chat_integration_discord_excerpt_length: "Discord 投稿の抜粋の長さ"
+    chat_integration_guilded_enabled: "Guilded チャット統合プロバイダーを有効にする"
+    chat_integration_guilded_excerpt_length: "Guilded 投稿の抜粋の長さ"
     chat_integration_mattermost_enabled: "Mattermost の chat-integration プロバイダーを有効にする"
     chat_integration_mattermost_webhook_url: 'Mttermost の Webhook の URL'
     chat_integration_mattermost_incoming_webhook_token: '着信リクエストの認証に使用される検証トークン'
@@ -56,6 +59,10 @@ ja:
     chat_integration_webex_excerpt_length: "Webex Teams 投稿の抜粋の長さ"
     chat_integration_google_enabled: "Google チャット チャット統合プロバイダーを有効にする"
     chat_integration_google_excerpt_length: "Google チャット投稿の抜粋の長さ"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: Slack メッセージを送信する
   chat_integration:
     all_categories: "(すべてのカテゴリ)"
     deleted_category: "（削除されたカテゴリ）"

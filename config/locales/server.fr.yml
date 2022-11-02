@@ -16,6 +16,7 @@ fr:
     chat_integration_slack_excerpt_length: 'Longueur des extraits de messages Slack'
     chat_integration_slack_icon_url: 'Icône à utiliser pour publier sur Slack (par défaut, le logo du forum est utilisé)'
     chat_integration_slack_outbound_webhook_url: "Pour utiliser le système « Webhook entrant » de Slack au lieu de l'API OAuth. Non recommandé."
+    chat_integration_slack_transcript_quote: Envelopper la transcription de Slack dans [quote] étiquettes ?
     errors:
       chat_integration_slack_api_configs_are_empty: "Vous devez saisir soit une URL de webhook sortant, soit un jeton d'accès"
     chat_integration_telegram_enabled: "Activer le fournisseur d'intégration de chat Telegram"
@@ -25,6 +26,8 @@ fr:
     chat_integration_discord_enabled: "Activer le fournisseur d'intégration de chat Discord"
     chat_integration_discord_message_content: "Message à inclure au-dessus du résumé lors de l'envoi d'une notification à Discord"
     chat_integration_discord_excerpt_length: "Longueur des extraits de messages Discord"
+    chat_integration_guilded_enabled: "Activer le fournisseur d'intégration de chat Guilded"
+    chat_integration_guilded_excerpt_length: "Longueur des extraits de messages Guilded"
     chat_integration_mattermost_enabled: "Activer le fournisseur d'intégration de chat Mattermost"
     chat_integration_mattermost_webhook_url: 'URL pour le webhook Mattermost'
     chat_integration_mattermost_incoming_webhook_token: 'Le jeton de vérification utilisé pour authentifier les demandes entrantes'
@@ -56,6 +59,10 @@ fr:
     chat_integration_webex_excerpt_length: "Longueur des extraits de messages Webex Teams"
     chat_integration_google_enabled: "Activer le fournisseur d'intégration de chat Google Chat"
     chat_integration_google_excerpt_length: "Longueur des extraits de messages Google Chat"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: Envoyer un message Slack
   chat_integration:
     all_categories: "(toutes les catégories)"
     deleted_category: "(catégorie supprimée)"

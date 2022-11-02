@@ -105,6 +105,15 @@ zh_CN:
             webhook_url:
               title: 网络钩子 URL
               help: 在您的 Discord 服务器设置中创建的网络钩子 URL
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "名称"
+              help: "用于描述频道的名称。它不用于连接到 Guilded"
+            webhook_url:
+              title: 网络钩子 URL
+              help: 在您的 Guilded 服务器设置中创建的网络钩子 URL
         mattermost:
           title: "Mattermost"
           param:
@@ -199,3 +208,14 @@ zh_CN:
             webhook_url:
               title: "网络钩子 URL"
               help: "创建新的网络钩子时提供的 URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: 发送 Slack 消息
+          fields:
+            message:
+              label: 消息
+            url:
+              label: URL
+            channel:
+              label: 频道

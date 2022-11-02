@@ -105,6 +105,15 @@ de:
             webhook_url:
               title: Webhook-URL
               help: Die Webhook-URL, die in den Einstellungen deines Discord-Servers erstellt wurde
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "Name"
+              help: "Ein Name, um den Kanal zu beschreiben. Dieser wird nicht verwendet, um die Verbindung mit Guilded herzustellen"
+            webhook_url:
+              title: Webhook-URL
+              help: Die Webhook-URL, die in den Einstellungen deines Guilded-Servers erstellt wurde
         mattermost:
           title: "Mattermost"
           param:
@@ -199,3 +208,14 @@ de:
             webhook_url:
               title: "Webhook-URL"
               help: "Die URL, welche beim Erstellen eines neuen Webhook angegeben wird"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Slack-Nachricht senden
+          fields:
+            message:
+              label: Nachricht
+            url:
+              label: URL
+            channel:
+              label: Kanal

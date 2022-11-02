@@ -105,6 +105,15 @@ fi:
             webhook_url:
               title: Webhookin URL
               help: Webhookin URL, joka on luotu Discordin palvelinasetuksissa
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "Nimi"
+              help: "Kanavaa kuvaava nimi. Sitä ei käytetä Guildediin yhdistämiseen"
+            webhook_url:
+              title: Webhookin URL
+              help: Webhookin URL, joka on luotu Guildedin palvelinasetuksissa
         mattermost:
           title: "Mattermost"
           param:
@@ -199,3 +208,14 @@ fi:
             webhook_url:
               title: "Webhookin URL"
               help: "URL-osoite, joka annetaan, kun luot uuden webhookin"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Lähetä Slack-viesti
+          fields:
+            message:
+              label: Viesti
+            url:
+              label: URL
+            channel:
+              label: Kanava
