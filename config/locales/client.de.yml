@@ -173,7 +173,7 @@ de:
           param:
             groupme_instance_name:
               title: "Name der GroupMe-Instanz"
-              help: "Name der GroupMe-Instanz, wie er in den Website-Einstellungen aufgeführt ist. Verwende „alle“, um an alle Instanzen zu senden"
+              help: "Name der GroupMe-Instanz, wie er in den Website-Einstellungen aufgeführt ist. Verwende „all“, um an alle Instanzen zu senden"
           errors:
             not_found: "Der Pfad, unter dem du versucht hast, deine Nachricht zu veröffentlichen, wurde nicht gefunden. Überprüfe die Bot-ID in den Website-Einstellungen."
             instance_names_issue: "Instanznamen falsch formatiert oder nicht angegeben"
