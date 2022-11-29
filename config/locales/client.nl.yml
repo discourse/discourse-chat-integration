@@ -13,8 +13,8 @@ nl:
     chat_integration:
       menu_title: "Chatintegraties"
       settings: "Instellingen"
-      no_providers: "U dient enkele providers in te schakelen in de plug-in-instellingen"
-      channels_with_errors: "De laatste keer dat berichten werden verstuurd, werkten sommige kanalen niet voor deze provider. Klik op de foutpictogrammen voor meer info."
+      no_providers: "Je moet enkele providers inschakelen in de plug-ininstellingen"
+      channels_with_errors: "De laatste keer dat berichten werden gestuurd, werkten sommige kanalen niet voor deze provider. Klik op de foutpictogrammen voor meer informatie."
       channel_exception: "De laatste keer dat een bericht naar dit kanaal werd gestuurd, is een onbekende fout opgetreden."
       group_mention_template: "Vermeldingen van: @%{name}"
       group_message_template: "Berichten naar: @%{name}"
@@ -26,23 +26,23 @@ nl:
       delete_channel: "Verwijderen"
       test_channel: "Testen"
       edit_channel: "Bewerken"
-      channel_delete_confirm: "Weet u zeker dat u dit kanaal wilt verwijderen? Alle gekoppelde regels worden verwijderd."
+      channel_delete_confirm: "Weet je zeker dat je dit kanaal wilt verwijderen? Alle bijbehorende regels worden verwijderd."
       test_modal:
-        title: "Een testbericht sturen"
+        title: "Stuur een testbericht"
         topic: "Topic"
         send: "Testbericht sturen"
         close: "Sluiten"
-        error: "Tijdens het versturen van het bericht is een onbekende fout opgetreden. Bekijk de websitelogboeken voor meer informatie."
-        success: "Bericht is verstuurd"
+        error: "Tijdens het verzenden van het bericht is een onbekende fout opgetreden. Zie de sitelogs voor meer informatie."
+        success: "Bericht verzonden"
       type:
         normal: Normaal
         group_message: Groepsbericht
         group_mention: Groepsvermelding
       filter:
-        mute: 'Negeren'
+        mute: 'Dempen'
         follow: 'Alleen eerste bericht'
         watch: 'Alle berichten en antwoorden'
-        thread: 'Alle berichten met discussieantwoorden'
+        thread: 'Alle berichten met antwoorden in draad'
       rule_table:
         filter: "Filter"
         category: "Categorie"
@@ -69,30 +69,30 @@ nl:
         group: Groep
         tags: Tags
         instructions:
-          type: "Het type voor het activeren van meldingen voor groepsberichten of -vermeldingen wijzigen"
-          filter: "Meldingsniveau. Dempen overschrijft andere afstemmingsregels"
+          type: "Wijzig het type om meldingen te activeren voor groepsberichten of -vermeldingen"
+          filter: "Meldingsniveau. Dempen heeft voorrang op andere matchingregels"
           category: "Deze regel wordt alleen toegepast op topics in de opgegeven categorie"
           group: "Deze regel wordt toegepast op alle berichten die naar deze groep verwijzen"
-          tags: "Wanneer opgegeven, wordt deze regel alleen toegepast op topics die minstens een van deze tags bevatten"
+          tags: "Wanneer opgegeven, wordt deze regel alleen toegepast op topics die minimaal een van deze tags bevatten"
       provider:
         slack:
           title: "Slack"
           param:
             identifier:
               title: Kanaal
-              help: "bv. #kanaal, @gebruikersnaam."
+              help: "bijvoorbeeld #kanaal, @gebruikersnaam."
           errors:
             action_prohibited: "De bot heeft geen toestemming om berichten in dat kanaal te plaatsen"
-            channel_not_found: "Het opgegeven kanaal bestaat niet op slack"
+            channel_not_found: "Het opgegeven kanaal bestaat niet op Slack"
         telegram:
           title: "Telegram"
           param:
             name:
               title: "Naam"
-              help: "Een naam ter beschrijving van het kanaal. Deze wordt niet voor de verbinding met Telegram gebruikt."
+              help: "Een naam om het kanaal te beschrijven. Deze wordt niet gebruikt voor de verbinding met Telegram."
             chat_id:
               title: Chat-ID
-              help: Een door de bot aan u gegeven nummer, of een broadcastkanaal-ID in de vorm @kanaalnaam
+              help: Een door de bot aan jou gegeven nummer, of een broadcastkanaal-ID in de vorm @kanaalnaam
           errors:
             channel_not_found: "Het opgegeven kanaal bestaat niet op Telegram"
             forbidden: "De bot heeft geen toestemming om berichten in dit kanaal te plaatsen"
@@ -101,16 +101,25 @@ nl:
           param:
             name:
               title: "Naam"
-              help: "Een naam ter beschrijving van het kanaal. Deze wordt niet voor de verbinding met Discord gebruikt."
+              help: "Een naam om het kanaal te beschrijven. Deze wordt niet gebruikt voor de verbinding met Discord."
             webhook_url:
               title: Webhook-URL
-              help: De in uw Discourse-serverinstellingen gemaakte webhook-URL
+              help: De in je Discourse-serverinstellingen gemaakte webhook-URL
+        guilded:
+          title: "Guilded"
+          param:
+            name:
+              title: "Naam"
+              help: "Een naam om het kanaal te beschrijven. Deze wordt niet gebruikt voor de verbinding met Guilded"
+            webhook_url:
+              title: Webhook-URL
+              help: De in je Guilded-serverinstellingen gemaakte webhook-URL
         mattermost:
           title: "Mattermost"
           param:
             identifier:
               title: Kanaal
-              help: "bv. #kanaal, @gebruikersnaam."
+              help: "bijvoorbeeld #kanaal, @gebruikersnaam."
           errors:
             channel_not_found: "Het opgegeven kanaal bestaat niet op Mattermost"
         matrix:
@@ -118,10 +127,10 @@ nl:
           param:
             name:
               title: "Naam"
-              help: "Een naam ter beschrijving van het kanaal. Deze wordt niet voor de verbinding met Matrix gebruikt."
+              help: "Een naam om het kanaal te beschrijven. Deze wordt niet gebruikt voor de verbinding met Matrix."
             room_id:
               title: "Ruimte-ID"
-              help: "De 'privé-ID' voor de ruimte. Deze dient er ongeveer uit te zien als !abcdefg:matrix.org"
+              help: "De 'privé-ID' voor de ruimte. Deze dient eruit te zien als !abcdefg:matrix.org"
           errors:
             unknown_token: "Toegangstoken is ongeldig"
             unknown_room: "Ruimte-ID is ongeldig"
@@ -130,10 +139,10 @@ nl:
           param:
             stream:
               title: "Stream"
-              help: "De naam van de Zulip-stream waarnaar het bericht moet worden verstuurd. bv. 'algemeen'"
+              help: "De naam van de Zulip-stream waarnaar het bericht moet worden gestuurd, bijvoorbeeld 'algemeen'"
             subject:
               title: "Onderwerp"
-              help: "Het onderwerp dat aan deze door de bot verstuurde berichten moet worden gegeven"
+              help: "Het onderwerp dat aan deze door de bot gestuurde berichten moet worden gegeven"
           errors:
             does_not_exist: "Die stream bestaat niet op Zulip"
         rocketchat:
@@ -141,7 +150,7 @@ nl:
           param:
             identifier:
               title: Kanaal
-              help: "bv. #kanaal, @gebruikersnaam."
+              help: "bijvoorbeeld #kanaal, @gebruikersnaam."
           errors:
             invalid_channel: "Dat kanaal bestaat niet op Rocket Chat"
         gitter:
@@ -149,31 +158,64 @@ nl:
           param:
             name:
               title: "Naam"
-              help: "De naam van een Gitter-ruimte, bv. gitterHQ/services."
+              help: "De naam van een Gitter-ruimte, bijvoorbeeld gitterHQ/services."
             webhook_url:
               title: "Webhook-URL"
-              help: "De opgegeven URL wanneer u een nieuwe integratie in een Gitter-ruimte maakt."
+              help: "De opgegeven URL wanneer je een nieuwe integratie maakt in een Gitter-ruimte."
         flowdock:
           title: "Flowdock"
           param:
             flow_token:
-              title: "Flow-token"
-              help: "Het opgegeven flow-token na het maken van een bron voor een flow waarin u berichten wilt versturen."
+              title: "Flowtoken"
+              help: "Het opgegeven flowtoken na het maken van een bron voor een flow waarin je berichten wilt sturen."
         groupme:
           title: "GroupMe"
           param:
             groupme_instance_name:
               title: "Naam van GroupMe-instantie"
-              help: "Naam van de Groupme-instantie zoals vermeld in Website-instellingen. Gebruik 'all' om naar alle instanties te versturen."
+              help: "Naam van de Groupme-instantie zoals vermeld in Site-instellingen. Gebruik 'all' om naar alle instanties te sturen."
           errors:
-            not_found: "Het pad waarnaar u uw bericht probeerde te versturen kon niet worden gevonden. Controleer de Bot-ID in Website-instellingen."
-            instance_names_issue: "instantienamen onjuist opgesteld of niet opgegeven"
+            not_found: "Het pad waarin je je bericht probeerde te plaatsen, kon niet worden gevonden. Controleer de Bot-ID in Site-instellingen."
+            instance_names_issue: "instantienamen onjuist geschreven of niet opgegeven"
         teams:
           title: "Microsoft Teams"
           param:
             name:
               title: "Naam"
+              help: "Een Teams-kanaalnaam, bijvoorbeeld Discourse"
             webhook_url:
-              title: "Webhook URL"
+              title: "Webhook-URL"
+              help: "De opgegeven URL wanneer je een nieuwe inkomende webhook maakt"
           errors:
             invalid_channel: "Dat kanaal bestaat niet op Microsoft Teams"
+        webex:
+          title: "Webex Teams"
+          param:
+            name:
+              title: "Naam"
+              help: "Een Webex-ruimtenaam, bijvoorbeeld Discourse"
+            webhook_url:
+              title: "Webhook-URL"
+              help: "De opgegeven URL wanneer je een nieuwe inkomende webhook maakt"
+          errors:
+            invalid_channel: "Dat kanaal bestaat niet op Webex"
+        google:
+          title: "Google Chat"
+          param:
+            name:
+              title: "Naam"
+              help: "Een naam voor het kanaal (alleen weergegeven in de beheerinterface van Discourse)"
+            webhook_url:
+              title: "Webhook-URL"
+              help: "De opgegeven URL wanneer je een nieuwe webhook maakt"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          title: Slack-bericht sturen
+          fields:
+            message:
+              label: Bericht
+            url:
+              label: URL
+            channel:
+              label: Kanaal
