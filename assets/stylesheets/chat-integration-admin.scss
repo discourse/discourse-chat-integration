@@ -66,6 +66,10 @@
   table {
     width: 100%;
 
+    tbody {
+      border-top: none;
+    }
+
     tr {
       border: none;
     }
