@@ -14,6 +14,13 @@ export default class AdminPluginsChatIntegrationTest extends Controller {
   @tracked loading = false;
 
   @action
+  handleKeydown(e) {
+    if (e.code === "Enter" && !this.sendDisabled) {
+      this.send();
+    }
+  }
+
+  @action
   send() {
     if (this.sendDisabled) {
       return;
@@ -29,9 +36,9 @@ export default class AdminPluginsChatIntegrationTest extends Controller {
     })
       .then(() => {
         this.loading = false;
-        this.appEvents.trigger("modal-body:flash", { 
-          I18n.t("chat_integration.test_modal.success"), 
-          "success" 
+        this.appEvents.trigger("modal-body:flash", {
+          text: I18n.t("chat_integration.test_modal.success"),
+          messageClass: "success",
         });
       })
       .catch(popupAjaxError);
