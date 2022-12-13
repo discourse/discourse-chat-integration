@@ -1,12 +1,24 @@
-{{#d-modal-body id="chat-integration-edit-channel-modal" title="chat_integration.edit_channel_modal.title"}}
+<DModalBody
+  @title="chat_integration.edit_channel_modal.title"
+  @id="chat-integration-edit-channel-modal"
+  {{on "keydown" this.handleKeyDown}}
+>
   <div>
     <form {{action "save" on="submit"}}>
       <table>
         <tbody>
           <tr class="input">
-            <td class="label"><label for="provider">{{i18n "chat_integration.edit_channel_modal.provider"}}</label></td>
+            <td class="label">
+              <label for="provider">
+                {{i18n "chat_integration.edit_channel_modal.provider"}}
+              </label>
+            </td>
             <td>
-              {{i18n (concat "chat_integration.provider." model.channel.provider ".title")}}
+              {{i18n
+                (concat
+                  "chat_integration.provider." model.channel.provider ".title"
+                )
+              }}
             </td>
           </tr>
 
@@ -15,45 +27,34 @@
             <td></td>
           </tr>
 
-          {{#each model.provider.channel_parameters as |param|}}
-            <tr class="input">
-              <td class="label"><label for="param-{{param.key}}">{{i18n (concat "chat_integration.provider." model.channel.provider ".param." param.key ".title")}}</label></td>
-              <td>
-                {{text-field
-                  name=(concat "param-" param.key)
-                  value=(mut (get model.channel.data param.key))
-                }}
-
-                &nbsp;
-                {{#if (get model.channel.data param.key)}}
-                  {{input-tip validation=(get paramValidation param.key)}}
-                {{/if}}
-              </td>
-            </tr>
-
-            <tr class="chat-instructions">
-              <td></td>
-              <td><label>{{i18n (concat "chat_integration.provider." model.channel.provider ".param." param.key ".help")}}</label></td>
-            </tr>
+          {{#each this.model.provider.channel_parameters as |param|}}
+            <ChannelParamRow
+              @param={{param}}
+              @model={{this.model}}
+              @validParams={{this.validParams}}
+              @isValidParams={{this.isValidParams}}
+            />
           {{/each}}
         </tbody>
       </table>
     </form>
   </div>
-{{/d-modal-body}}
+</DModalBody>
 
 <div class="modal-footer">
-  {{d-button id="save-channel"
-    class="btn-primary btn-large"
-    action=(action "save")
-    title="chat_integration.edit_channel_modal.save"
-    label="chat_integration.edit_channel_modal.save"
-    disabled=saveDisabled
-  }}
+  <DButton
+    @class="btn-primary btn-large"
+    @id="save-channel"
+    @title="chat_integration.edit_channel_modal.save"
+    @label="chat_integration.edit_channel_modal.save"
+    @action={{action "save"}}
+    @disabled={{(not this.validParams)}}
+  />
 
-  {{d-button class="btn-large"
-    action=(action "cancel")
-    title="chat_integration.edit_channel_modal.cancel"
-    label="chat_integration.edit_channel_modal.cancel"
-  }}
+  <DButton
+    @class="btn-large"
+    @title="chat_integration.edit_channel_modal.cancel"
+    @label="chat_integration.edit_channel_modal.cancel"
+    @action={{action "cancel"}}
+  />
 </div>

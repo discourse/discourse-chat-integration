@@ -14,7 +14,7 @@ export default class AdminPluginsChatIntegrationTest extends Controller {
   @tracked loading = false;
 
   @action
-  handleKeydown(e) {
+  handleKeyDown(e) {
     if (e.code === "Enter" && !this.sendDisabled) {
       this.send();
     }
