@@ -8,7 +8,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
       @excerpt = +""
     end
 
-    def self.format(html = '')
+    def self.format(html = "")
       me = self.new
       parser = Nokogiri::HTML::SAX::Parser.new(me)
       parser.parse(html)
@@ -20,7 +20,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
       when "a"
         attributes = Hash[*attributes.flatten]
         @in_a = true
-        @excerpt << "<#{absolute_url(attributes['href'])}|"
+        @excerpt << "<#{absolute_url(attributes["href"])}|"
       end
     end
 
@@ -40,13 +40,18 @@ module DiscourseChatIntegration::Provider::SlackProvider
     private
 
     def absolute_url(url)
-      uri = URI(url) rescue nil
+      uri =
+        begin
+          URI(url)
+        rescue StandardError
+          nil
+        end
 
       return Discourse.current_hostname unless uri
       return uri.to_s if uri.scheme == "mailto"
 
       uri.host = Discourse.current_hostname if !uri.host
-      uri.scheme = (SiteSetting.force_https ? 'https' : 'http') if !uri.scheme
+      uri.scheme = (SiteSetting.force_https ? "https" : "http") if !uri.scheme
       uri.to_s
     end
   end

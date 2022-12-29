@@ -2,7 +2,6 @@
 
 module DiscourseChatIntegration
   module Helper
-
     def self.process_command(channel, tokens)
       guardian = DiscourseChatIntegration::Manager.guardian
 
@@ -16,13 +15,19 @@ module DiscourseChatIntegration
       when "thread", "watch", "follow", "mute"
         return error_text if tokens.empty?
         # If the first token in the command is a tag, this rule applies to all categories
-        category_name = tokens[0].start_with?('tag:') ? nil : tokens.shift
+        category_name = tokens[0].start_with?("tag:") ? nil : tokens.shift
 
         if category_name
           category = Category.find_by(slug: category_name)
           unless category
-            cat_list = (CategoryList.new(guardian).categories.map(&:slug)).join(', ')
-            return I18n.t("chat_integration.provider.#{provider}.not_found.category", name: category_name, list: cat_list)
+            cat_list = (CategoryList.new(guardian).categories.map(&:slug)).join(", ")
+            return(
+              I18n.t(
+                "chat_integration.provider.#{provider}.not_found.category",
+                name: category_name,
+                list: cat_list,
+              )
+            )
           end
         else
           category = nil # All categories
@@ -32,8 +37,8 @@ module DiscourseChatIntegration
         # Every remaining token must be a tag. If not, abort and send help text
         while tokens.size > 0
           token = tokens.shift
-          if token.start_with?('tag:')
-            tag_name = token.sub(/^tag:/, '')
+          if token.start_with?("tag:")
+            tag_name = token.sub(/^tag:/, "")
           else
             return error_text
           end
@@ -47,7 +52,12 @@ module DiscourseChatIntegration
         end
 
         category_id = category.nil? ? nil : category.id
-        case DiscourseChatIntegration::Helper.smart_create_rule(channel: channel, filter: cmd, category_id: category_id, tags: tags)
+        case DiscourseChatIntegration::Helper.smart_create_rule(
+          channel: channel,
+          filter: cmd,
+          category_id: category_id,
+          tags: tags,
+        )
         when :created
           I18n.t("chat_integration.provider.#{provider}.create.created")
         when :updated
@@ -107,23 +117,25 @@ module DiscourseChatIntegration
           end
         end
 
-        text << I18n.t("chat_integration.provider.#{provider}.status.rule_string",
+        text << I18n.t(
+          "chat_integration.provider.#{provider}.status.rule_string",
           index: i,
           filter: rule.filter,
-          category: category_name
+          category: category_name,
         )
 
         if SiteSetting.tagging_enabled && (!rule.tags.nil?)
-          text << I18n.t("chat_integration.provider.#{provider}.status.rule_string_tags_suffix", tags: rule.tags.join(', '))
+          text << I18n.t(
+            "chat_integration.provider.#{provider}.status.rule_string_tags_suffix",
+            tags: rule.tags.join(", "),
+          )
         end
 
         text << "\n"
         i += 1
       end
 
-      if rules.size == 0
-        text << I18n.t("chat_integration.provider.#{provider}.status.no_rules")
-      end
+      text << I18n.t("chat_integration.provider.#{provider}.status.no_rules") if rules.size == 0
 
       text
     end
@@ -144,12 +156,15 @@ module DiscourseChatIntegration
     #     :created if a new rule has been created
     #     false if there was an error
     def self.smart_create_rule(channel:, filter:, category_id: nil, tags: nil)
-      existing_rules = DiscourseChatIntegration::Rule.with_channel(channel).with_type('normal')
+      existing_rules = DiscourseChatIntegration::Rule.with_channel(channel).with_type("normal")
 
       # Select the ones that have the same category
       same_category = existing_rules.select { |rule| rule.category_id == category_id }
 
-      same_category_and_tags = same_category.select { |rule| (rule.tags.nil? ? [] : rule.tags.sort) == (tags.nil? ? [] : tags.sort) }
+      same_category_and_tags =
+        same_category.select do |rule|
+          (rule.tags.nil? ? [] : rule.tags.sort) == (tags.nil? ? [] : tags.sort)
+        end
 
       if same_category_and_tags.size > 0
         # These rules have exactly the same criteria as what we're trying to create
@@ -185,7 +200,9 @@ module DiscourseChatIntegration
       end
 
       # This rule is unique! Create a new one:
-      return :created if Rule.new(channel: channel, filter: filter, category_id: category_id, tags: tags).save
+      if Rule.new(channel: channel, filter: filter, category_id: category_id, tags: tags).save
+        return :created
+      end
       false
     end
 
@@ -197,13 +214,13 @@ module DiscourseChatIntegration
     end
 
     def self.formatted_display_name(user)
-      if !SiteSetting.enable_names || user.name.blank?
-        return "@#{user.username}"
-      end
+      return "@#{user.username}" if !SiteSetting.enable_names || user.name.blank?
 
       full_name = user.name
       full_name_normalized = User.normalize_username(full_name.strip)
-      similar = full_name_normalized.gsub(' ', '_') == user.username_lower || full_name_normalized.gsub(' ', '') == user.username_lower
+      similar =
+        full_name_normalized.gsub(" ", "_") == user.username_lower ||
+          full_name_normalized.gsub(" ", "") == user.username_lower
       if similar && SiteSetting.prioritize_username_in_ux?
         "@#{user.username}"
       elsif similar

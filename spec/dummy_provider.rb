@@ -11,9 +11,7 @@ RSpec.shared_context "with dummy provider" do
       @@raise_exception = nil
 
       def self.trigger_notification(post, channel, rule)
-        if @@raise_exception
-          raise @@raise_exception
-        end
+        raise @@raise_exception if @@raise_exception
 
         @@sent_messages.push(post: post.id, channel: channel)
       end
@@ -32,9 +30,7 @@ RSpec.shared_context "with dummy provider" do
     end
   end
 
-  after(:each) do
-    ::DiscourseChatIntegration::Provider.send(:remove_const, :DummyProvider)
-  end
+  after(:each) { ::DiscourseChatIntegration::Provider.send(:remove_const, :DummyProvider) }
 
   let(:provider) { ::DiscourseChatIntegration::Provider::DummyProvider }
 end
@@ -44,9 +40,7 @@ RSpec.shared_context "with validated dummy provider" do
     module ::DiscourseChatIntegration::Provider::Dummy2Provider
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
-      CHANNEL_PARAMETERS = [
-                            { key: "val", regex: '^\S+$', unique: true }
-                           ]
+      CHANNEL_PARAMETERS = [{ key: "val", regex: '^\S+$', unique: true }]
 
       @@sent_messages = []
 
@@ -58,10 +52,7 @@ RSpec.shared_context "with validated dummy provider" do
         @@sent_messages
       end
     end
-
   end
 
-  after(:each) do
-    ::DiscourseChatIntegration::Provider.send(:remove_const, :Dummy2Provider)
-  end
+  after(:each) { ::DiscourseChatIntegration::Provider.send(:remove_const, :Dummy2Provider) }
 end
