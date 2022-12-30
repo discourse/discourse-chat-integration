@@ -112,7 +112,7 @@ en:
             webhook_url:
               title: Webhook URL
               help: The webhook URL created in your Discord server settings
-                
+
         #######################################
         ########### GUILDED STRINGS ###########
         #######################################
@@ -237,7 +237,7 @@ en:
               help: "A Webex space name e.g. discourse"
             webhook_url:
               title: "Webhook URL"
-              help: "The URL provided when you create a new incomming webhook"
+              help: "The URL provided when you create a new incoming webhook"
           errors:
             invalid_channel: "That channel does not exist on Webex"
         google:
