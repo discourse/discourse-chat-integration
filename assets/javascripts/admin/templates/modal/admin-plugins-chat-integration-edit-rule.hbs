@@ -1,12 +1,21 @@
-{{#d-modal-body id="chat-integration-edit-rule_modal" title="chat_integration.edit_rule_modal.title"}}
+{{#d-modal-body
+  id="chat-integration-edit-rule_modal"
+  title="chat_integration.edit_rule_modal.title"
+}}
   <div>
     <form {{action "save" on="submit"}}>
       <table>
         <tbody>
           <tr class="input">
-            <td class="label"><label for="provider">{{i18n "chat_integration.edit_rule_modal.provider"}}</label></td>
+            <td class="label"><label for="provider">{{i18n
+                  "chat_integration.edit_rule_modal.provider"
+                }}</label></td>
             <td>
-              {{i18n (concat "chat_integration.provider." model.channel.provider ".title")}}
+              {{i18n
+                (concat
+                  "chat_integration.provider." model.channel.provider ".title"
+                )
+              }}
             </td>
           </tr>
 
@@ -16,7 +25,9 @@
           </tr>
 
           <tr class="input">
-            <td class="label"><label for="channel">{{i18n "chat_integration.edit_rule_modal.channel"}}</label></td>
+            <td class="label"><label for="channel">{{i18n
+                  "chat_integration.edit_rule_modal.channel"
+                }}</label></td>
             <td>
               {{channel-data provider=model.provider channel=model.channel}}
             </td>
@@ -28,32 +39,50 @@
           </tr>
 
           <tr class="input">
-            <td class="label"><label for="filter">{{i18n "chat_integration.edit_rule_modal.type"}}</label></td>
+            <td class="label"><label for="filter">{{i18n
+                  "chat_integration.edit_rule_modal.type"
+                }}</label></td>
             <td>
-              {{combo-box name="type" content=model.rule.available_types value=model.rule.type}}
+              {{combo-box
+                name="type"
+                content=model.rule.available_types
+                value=model.rule.type
+              }}
             </td>
           </tr>
 
           <tr class="chat-instructions">
             <td></td>
-            <td><label>{{i18n "chat_integration.edit_rule_modal.instructions.type"}}</label></td>
+            <td><label>{{i18n
+                  "chat_integration.edit_rule_modal.instructions.type"
+                }}</label></td>
           </tr>
 
           <tr class="input">
-            <td class="label"><label for="filter">{{i18n "chat_integration.edit_rule_modal.filter"}}</label></td>
+            <td class="label"><label for="filter">{{i18n
+                  "chat_integration.edit_rule_modal.filter"
+                }}</label></td>
             <td>
-              {{combo-box name="filter" content=model.rule.available_filters value=model.rule.filter}}
+              {{combo-box
+                name="filter"
+                content=model.rule.available_filters
+                value=model.rule.filter
+              }}
             </td>
           </tr>
 
           <tr class="chat-instructions">
             <td></td>
-            <td><label>{{i18n "chat_integration.edit_rule_modal.instructions.filter"}}</label></td>
+            <td><label>{{i18n
+                  "chat_integration.edit_rule_modal.instructions.filter"
+                }}</label></td>
           </tr>
 
           {{#if showCategory}}
             <tr class="input">
-              <td class="label"><label for="category">{{i18n "chat_integration.edit_rule_modal.category"}}</label></td>
+              <td class="label"><label for="category">{{i18n
+                    "chat_integration.edit_rule_modal.category"
+                  }}</label></td>
               <td>
                 {{category-chooser
                   name="category"
@@ -65,33 +94,53 @@
 
             <tr class="chat-instructions">
               <td></td>
-              <td><label>{{i18n "chat_integration.edit_rule_modal.instructions.category"}}</label></td>
+              <td><label>{{i18n
+                    "chat_integration.edit_rule_modal.instructions.category"
+                  }}</label></td>
             </tr>
           {{else}}
             <tr class="input">
-              <td class="label"><label for="group">{{i18n "chat_integration.edit_rule_modal.group"}}</label></td>
+              <td class="label"><label for="group">{{i18n
+                    "chat_integration.edit_rule_modal.group"
+                  }}</label></td>
               <td>
-                {{combo-box content=model.groups valueAttribute="id" value=model.rule.group_id none="chat_integration.choose_group"}}
+                {{combo-box
+                  content=model.groups
+                  valueAttribute="id"
+                  value=model.rule.group_id
+                  none="chat_integration.choose_group"
+                }}
               </td>
             </tr>
 
             <tr class="chat-instructions">
               <td></td>
-              <td><label>{{i18n "chat_integration.edit_rule_modal.instructions.group"}}</label></td>
+              <td><label>{{i18n
+                    "chat_integration.edit_rule_modal.instructions.group"
+                  }}</label></td>
             </tr>
           {{/if}}
 
           {{#if siteSettings.tagging_enabled}}
             <tr class="input">
-              <td class="label"><label for="tags">{{i18n "chat_integration.edit_rule_modal.tags"}}</label></td>
+              <td class="label"><label for="tags">{{i18n
+                    "chat_integration.edit_rule_modal.tags"
+                  }}</label></td>
               <td>
-                {{tag-chooser placeholderKey="chat_integration.all_tags" name="tags" tags=model.rule.tags everyTag=true }}
+                {{tag-chooser
+                  placeholderKey="chat_integration.all_tags"
+                  name="tags"
+                  tags=model.rule.tags
+                  everyTag=true
+                }}
               </td>
             </tr>
 
             <tr class="chat-instructions">
               <td></td>
-              <td><label>{{i18n "chat_integration.edit_rule_modal.instructions.tags"}}</label></td>
+              <td><label>{{i18n
+                    "chat_integration.edit_rule_modal.instructions.tags"
+                  }}</label></td>
             </tr>
           {{/if}}
         </tbody>
@@ -101,7 +150,8 @@
 {{/d-modal-body}}
 
 <div class="modal-footer">
-  {{d-button id="save-rule"
+  {{d-button
+    id="save-rule"
     class="btn-primary btn-large"
     action=(action "save")
     actionParam=model.rule
@@ -110,7 +160,8 @@
     disabled=saveDisabled
   }}
 
-  {{d-button class="btn-large"
+  {{d-button
+    class="btn-large"
     action=(route-action "closeModal")
     title="chat_integration.edit_rule_modal.cancel"
     label="chat_integration.edit_rule_modal.cancel"

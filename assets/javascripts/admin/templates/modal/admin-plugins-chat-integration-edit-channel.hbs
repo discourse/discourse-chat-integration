@@ -1,12 +1,21 @@
-{{#d-modal-body id="chat-integration-edit-channel-modal" title="chat_integration.edit_channel_modal.title"}}
+{{#d-modal-body
+  id="chat-integration-edit-channel-modal"
+  title="chat_integration.edit_channel_modal.title"
+}}
   <div>
     <form {{action "save" on="submit"}}>
       <table>
         <tbody>
           <tr class="input">
-            <td class="label"><label for="provider">{{i18n "chat_integration.edit_channel_modal.provider"}}</label></td>
+            <td class="label"><label for="provider">{{i18n
+                  "chat_integration.edit_channel_modal.provider"
+                }}</label></td>
             <td>
-              {{i18n (concat "chat_integration.provider." model.channel.provider ".title")}}
+              {{i18n
+                (concat
+                  "chat_integration.provider." model.channel.provider ".title"
+                )
+              }}
             </td>
           </tr>
 
@@ -17,7 +26,15 @@
 
           {{#each model.provider.channel_parameters as |param|}}
             <tr class="input">
-              <td class="label"><label for="param-{{param.key}}">{{i18n (concat "chat_integration.provider." model.channel.provider ".param." param.key ".title")}}</label></td>
+              <td class="label"><label for="param-{{param.key}}">{{i18n
+                    (concat
+                      "chat_integration.provider."
+                      model.channel.provider
+                      ".param."
+                      param.key
+                      ".title"
+                    )
+                  }}</label></td>
               <td>
                 {{text-field
                   name=(concat "param-" param.key)
@@ -33,7 +50,15 @@
 
             <tr class="chat-instructions">
               <td></td>
-              <td><label>{{i18n (concat "chat_integration.provider." model.channel.provider ".param." param.key ".help")}}</label></td>
+              <td><label>{{i18n
+                    (concat
+                      "chat_integration.provider."
+                      model.channel.provider
+                      ".param."
+                      param.key
+                      ".help"
+                    )
+                  }}</label></td>
             </tr>
           {{/each}}
         </tbody>
@@ -43,7 +68,8 @@
 {{/d-modal-body}}
 
 <div class="modal-footer">
-  {{d-button id="save-channel"
+  {{d-button
+    id="save-channel"
     class="btn-primary btn-large"
     action=(action "save")
     title="chat_integration.edit_channel_modal.save"
@@ -51,7 +77,8 @@
     disabled=saveDisabled
   }}
 
-  {{d-button class="btn-large"
+  {{d-button
+    class="btn-large"
     action=(action "cancel")
     title="chat_integration.edit_channel_modal.cancel"
     label="chat_integration.edit_channel_modal.cancel"
