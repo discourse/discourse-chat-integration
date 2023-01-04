@@ -1,10 +1,15 @@
-{{#d-modal-body id="chat_integration_test_modal" title="chat_integration.test_modal.title"}}
+{{#d-modal-body
+  id="chat_integration_test_modal"
+  title="chat_integration.test_modal.title"
+}}
   <div>
     <form {{action "send" on="submit"}}>
       <table>
         <tbody>
           <tr class="input">
-            <td class="label"><label for="channel">{{i18n "chat_integration.test_modal.topic"}}</label></td>
+            <td class="label"><label for="channel">{{i18n
+                  "chat_integration.test_modal.topic"
+                }}</label></td>
             <td>
               {{choose-topic selectedTopicId=model.topic_id}}
             </td>
