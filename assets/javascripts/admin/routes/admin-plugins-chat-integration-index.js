@@ -1,6 +1,6 @@
 import DiscourseRoute from "discourse/routes/discourse";
 
-export default DiscourseRoute.extend({
+export default class AdminPluginsChatIntegrationIndex extends DiscourseRoute {
   afterModel(model) {
     if (model.totalRows > 0) {
       this.transitionTo(
@@ -8,5 +8,5 @@ export default DiscourseRoute.extend({
         model.get("firstObject").name
       );
     }
-  },
-});
+  }
+}

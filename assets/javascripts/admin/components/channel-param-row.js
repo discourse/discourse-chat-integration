@@ -1,19 +1,14 @@
 import Component from "@glimmer/component";
 import EmberObject, { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
-import { action } from "@ember/object";
 
 export default class ChannelParamRow extends Component {
-  @tracked inputValue = this.args.model.channel.data[this.args.param.key];
+  @tracked inputValue = this.args.model.channel.data[this.args.param.key] || "";
 
   get validate() {
     const parameter = this.args.param;
     const regString = parameter.regex;
     const regex = new RegExp(regString);
-
-    if (this.inputValue === undefined) {
-      this.inputValue = "";
-    }
 
     if (this.inputValue === "") {
       // Fail silently if field blank

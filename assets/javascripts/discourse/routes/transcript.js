@@ -3,7 +3,7 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 import DiscourseRoute from "discourse/routes/discourse";
 import { next } from "@ember/runloop";
 
-export default DiscourseRoute.extend({
+export default class Trascript extends DiscourseRoute {
   model(params) {
     if (this.currentUser) {
       const secret = params.secret;
@@ -28,5 +28,5 @@ export default DiscourseRoute.extend({
       this.session.set("shouldRedirectToUrl", window.location.href);
       this.replaceWith("login");
     }
-  },
-});
+  }
+}

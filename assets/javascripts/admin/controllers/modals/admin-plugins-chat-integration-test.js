@@ -9,7 +9,9 @@ import { schedule } from "@ember/runloop";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 
-export default class AdminPluginsChatIntegrationTest extends Controller {
+export default class AdminPluginsChatIntegrationTest extends Controller.extend(
+  ModalFunctionality
+) {
   @not("model.topic_id") sendDisabled;
   @tracked loading = false;
 
@@ -36,10 +38,7 @@ export default class AdminPluginsChatIntegrationTest extends Controller {
     })
       .then(() => {
         this.loading = false;
-        this.appEvents.trigger("modal-body:flash", {
-          text: I18n.t("chat_integration.test_modal.success"),
-          messageClass: "success",
-        });
+        this.flash(I18n.t("chat_integration.test_modal.success"), "success");
       })
       .catch(popupAjaxError);
   }

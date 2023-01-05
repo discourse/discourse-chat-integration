@@ -3,7 +3,7 @@ import Group from "discourse/models/group";
 import { action } from "@ember/object";
 import RSVP from "rsvp";
 
-export default DiscourseRoute.extend({
+export default class AdminPluginsChatIntegrationProvider extends DiscourseRoute {
   model(params) {
     return RSVP.hash({
       channels: this.store.findAll("channel", { provider: params.provider }),
@@ -26,24 +26,24 @@ export default DiscourseRoute.extend({
 
       return value;
     });
-  },
+  }
 
   serialize(model) {
     return { provider: model["provider"].get("id") };
-  },
+  }
 
   @action
   closeModal() {
-    if (this.get("controller.modalShowing")) {
+    if (this.controller.modalShowing) {
       this.refresh();
-      this.set("controller.modalShowing", false);
+      this.controller.modalShowing = false;
     }
 
     return true; // Continue bubbling up, so the modal actually closes
-  },
+  }
 
   @action
   refreshProvider() {
     this.refresh();
-  },
-});
+  }
+}

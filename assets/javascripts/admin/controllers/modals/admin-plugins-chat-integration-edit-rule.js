@@ -3,36 +3,33 @@ import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import computed, { on } from "discourse-common/utils/decorators";
 import { schedule } from "@ember/runloop";
+import { tracked } from "@glimmer/tracking";
+import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
 
-export default Controller.extend(ModalFunctionality, {
-  saveDisabled: false,
+export default class AdminPluginsChatIntegrationEditRule extends Controller.extend(
+  ModalFunctionality
+) {
+  @tracked saveDisabled = false;
+  @tracked showCategory = this.model.rule.type === "normal";
+  @service siteSettings;
 
-  @on("init")
-  setupKeydown() {
-    schedule("afterRender", () => {
-      $("#chat-integration-edit-channel-modal").keydown((e) => {
-        if (e.keyCode === 13) {
-          this.send("save");
-        }
-      });
-    });
-  },
+  @action
+  save(rule) {
+    if (this.saveDisabled) {
+      return;
+    }
 
-  @computed("model.rule.type")
-  showCategory(type) {
-    return type === "normal";
-  },
+    rule
+      .save()
+      .then(() => this.send("closeModal"))
+      .catch(popupAjaxError);
+  }
 
-  actions: {
-    save(rule) {
-      if (this.get("saveDisabled")) {
-        return;
-      }
-
-      rule
-        .save()
-        .then(() => this.send("closeModal"))
-        .catch(popupAjaxError);
-    },
-  },
-});
+  @action
+  handleKeyDown(e) {
+    if (e.code === "Enter") {
+      this.save();
+    }
+  }
+}
