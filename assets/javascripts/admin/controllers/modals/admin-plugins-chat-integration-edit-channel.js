@@ -15,7 +15,7 @@ export default class AdminPluginsChatIntegrationEditChannel extends Controller.e
   }
 
   @action
-  handleKeyDown(e) {
+  handleKeyUp(e) {
     if (e.code === "Enter" && this.validParams) {
       this.save();
     }

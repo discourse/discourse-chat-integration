@@ -1,7 +1,7 @@
 <DModalBody
   @title="chat_integration.edit_channel_modal.title"
   @id="chat-integration-edit-channel-modal"
-  {{on "keydown" this.handleKeyDown}}
+  {{on "keyup" this.handleKeyUp}}
 >
   <div>
     <form {{action "save" on="submit"}}>

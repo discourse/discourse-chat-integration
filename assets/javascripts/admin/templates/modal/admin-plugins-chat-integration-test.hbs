@@ -1,7 +1,7 @@
 <DModalBody
   @title="chat_integration.test_modal.title"
   @id="chat_integration_test_modal"
-  {{on "keydown" this.handleKeyDown}}
+  {{on "keyup" this.handleKeyUp}}
 >
   <div>
     <form {{action "send" on="submit"}}>

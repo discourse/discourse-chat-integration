@@ -14,7 +14,7 @@ export default class AdminPluginsChatIntegrationTest extends Controller.extend(
   @not("model.topic_id") sendDisabled;
 
   @action
-  handleKeyDown(e) {
+  handleKeyUp(e) {
     if (e.code === "Enter" && !this.sendDisabled) {
       this.send();
     }

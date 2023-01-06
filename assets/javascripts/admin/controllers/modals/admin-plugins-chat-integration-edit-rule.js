@@ -26,7 +26,7 @@ export default class AdminPluginsChatIntegrationEditRule extends Controller.exte
   }
 
   @action
-  handleKeyDown(e) {
+  handleKeyUp(e) {
     if (e.code === "Enter") {
       this.save();
     }
