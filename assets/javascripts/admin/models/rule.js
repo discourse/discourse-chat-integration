@@ -1,10 +1,28 @@
 import I18n from "I18n";
 import RestModel from "discourse/models/rest";
 import Category from "discourse/models/category";
-import computed, { observes } from "discourse-common/utils/decorators";
 import { tracked } from "@glimmer/tracking";
 
 export default class Rule extends RestModel {
+  @tracked available_types = [
+    { id: "normal", name: I18n.t("chat_integration.type.normal") },
+    {
+      id: "group_message",
+      name: I18n.t("chat_integration.type.group_message"),
+    },
+    {
+      id: "group_mention",
+      name: I18n.t("chat_integration.type.group_mention"),
+    },
+  ];
+
+  @tracked type = "normal";
+  category_id = null;
+  tags = null;
+  channel_id = null;
+  filter = "watch";
+  error_key = null;
+
   get available_filters() {
     const available = [];
     const provider = this.channel.provider;
@@ -36,37 +54,6 @@ export default class Rule extends RestModel {
     );
 
     return available;
-  }
-
-  @tracked available_types = [
-    { id: "normal", name: I18n.t("chat_integration.type.normal") },
-    {
-      id: "group_message",
-      name: I18n.t("chat_integration.type.group_message"),
-    },
-    {
-      id: "group_mention",
-      name: I18n.t("chat_integration.type.group_mention"),
-    },
-  ];
-
-  category_id = null;
-  tags = null;
-  channel_id = null;
-  filter = "watch";
-  type = "normal";
-  error_key = null;
-
-  // TODO: convert observers to tracked properties
-  @observes("type")
-  removeUnneededInfo() {
-    const type = this.get("type");
-
-    if (type === "normal") {
-      this.group_id = null;
-    } else {
-      this.category_id = null;
-    }
   }
 
   get category() {

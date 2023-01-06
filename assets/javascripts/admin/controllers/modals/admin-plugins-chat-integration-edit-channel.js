@@ -1,11 +1,12 @@
 import Controller from "@ember/controller";
-import I18n from "I18n";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 
-export default class AdminPluginsChatIntegrationEditChannel extends Controller {
+export default class AdminPluginsChatIntegrationEditChannel extends Controller.extend(
+  ModalFunctionality
+) {
   @tracked validParams = false;
 
   @action

@@ -4,16 +4,14 @@ import I18n from "I18n";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import computed, { on } from "discourse-common/utils/decorators";
-import { schedule } from "@ember/runloop";
 import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
 
 export default class AdminPluginsChatIntegrationTest extends Controller.extend(
   ModalFunctionality
 ) {
-  @not("model.topic_id") sendDisabled;
   @tracked loading = false;
+  @not("model.topic_id") sendDisabled;
 
   @action
   handleKeyDown(e) {

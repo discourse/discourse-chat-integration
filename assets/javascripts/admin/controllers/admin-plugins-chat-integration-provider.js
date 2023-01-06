@@ -1,6 +1,5 @@
 import Controller from "@ember/controller";
 import showModal from "discourse/lib/show-modal";
-import computed from "discourse-common/utils/decorators";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 

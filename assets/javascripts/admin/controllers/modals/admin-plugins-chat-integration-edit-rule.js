@@ -1,8 +1,6 @@
 import Controller from "@ember/controller";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import computed, { on } from "discourse-common/utils/decorators";
-import { schedule } from "@ember/runloop";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
@@ -10,9 +8,10 @@ import { inject as service } from "@ember/service";
 export default class AdminPluginsChatIntegrationEditRule extends Controller.extend(
   ModalFunctionality
 ) {
+  @service siteSettings;
   @tracked saveDisabled = false;
   @tracked showCategory = this.model.rule.type === "normal";
-  @service siteSettings;
+  @tracked currentRuleType = this.model.rule.type;
 
   @action
   save(rule) {
@@ -30,6 +29,17 @@ export default class AdminPluginsChatIntegrationEditRule extends Controller.exte
   handleKeyDown(e) {
     if (e.code === "Enter") {
       this.save();
+    }
+  }
+
+  @action
+  onChangeRuleType(type) {
+    this.model.rule.type = type;
+    this.currentRuleType = type;
+    if (type !== "normal") {
+      this.showCategory = false;
+    } else {
+      this.showCategory = true;
     }
   }
 }

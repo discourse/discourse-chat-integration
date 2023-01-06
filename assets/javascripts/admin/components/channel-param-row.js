@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import EmberObject, { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import I18n from "I18n";
 
 export default class ChannelParamRow extends Component {
   @tracked inputValue = this.args.model.channel.data[this.args.param.key] || "";
