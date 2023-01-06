@@ -143,9 +143,9 @@ acceptance("Chat Integration", function (needs) {
 
     // Press enter
     await triggerKeyEvent(
-      "#chat-integration-edit-channel-modal input",
+      "#chat-integration-edit-channel-modal",
       "keydown",
-      13
+      "Enter"
     );
 
     assert.notOk(
