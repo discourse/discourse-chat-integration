@@ -15,7 +15,8 @@
   <td>
     <Input
       @name={{concat "param-" @param.key}}
-      @value={{mut this.inputValue}}
+      @value={{this.inputValue}}
+      {{on "change" this.updateValue}}
     />
 
     <InputTip @validation={{this.validate}} />

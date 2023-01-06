@@ -42,4 +42,9 @@ export default class ChannelParamRow extends Component {
       });
     }
   }
+
+  @action
+  updateValue(event) {
+    this.args.model.channel.data[this.args.param.key] = event.target.value;
+  }
 }
