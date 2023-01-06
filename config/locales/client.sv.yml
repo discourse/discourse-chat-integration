@@ -187,7 +187,6 @@ sv:
               help: "Ett utrymmesnamn för Webex, t.ex. Discourse"
             webhook_url:
               title: "Webhook-URL"
-              help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
           errors:
             invalid_channel: "Den kanalen finns inte på Webex"
         google:

@@ -186,7 +186,6 @@ gl:
               help: "Un nome de espazo Webex i.e. discourse"
             webhook_url:
               title: "URL do gancho"
-              help: "O URL ofrecido cando vostede crea un novo gancho de entradas"
           errors:
             invalid_channel: "Esa canle non existe en Webex"
         google:
