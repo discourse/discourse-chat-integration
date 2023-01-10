@@ -212,8 +212,6 @@ es:
           ~~~
       flowdock:
         message_title: "publicó"
-      groupme:
-        message_title: "publicó"
       google:
         new_post: "Nueva publicación en %{site_title}"
         new_topic: "Nuevo tema en %{site_title}"

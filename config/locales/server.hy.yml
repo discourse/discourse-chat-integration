@@ -169,5 +169,3 @@ hy:
           ~~~
       flowdock:
         message_title: "հրապարակված"
-      groupme:
-        message_title: "հրապարակված"

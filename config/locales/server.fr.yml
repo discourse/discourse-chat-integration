@@ -212,8 +212,6 @@ fr:
           ~~~
       flowdock:
         message_title: "publié"
-      groupme:
-        message_title: "publié"
       google:
         new_post: "Nouveau message sur %{site_title}"
         new_topic: "Nouveau sujet sur %{site_title}"

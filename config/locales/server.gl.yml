@@ -197,8 +197,6 @@ gl:
           ~~~
       flowdock:
         message_title: "publicado"
-      groupme:
-        message_title: "publicado"
       google:
         new_post: "Nova publicación en %{site_title}"
         new_topic: "Novo tema en %{site_title}"

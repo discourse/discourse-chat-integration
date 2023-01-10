@@ -207,8 +207,6 @@ pl_PL:
           ~~~
       flowdock:
         message_title: "wysłano"
-      groupme:
-        message_title: "wysłano"
       google:
         new_post: "Nowy post na %{site_title}"
         new_topic: "Nowy temat na %{site_title}"
