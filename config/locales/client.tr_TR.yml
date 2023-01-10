@@ -196,6 +196,7 @@ tr_TR:
               help: "Bir Webex alan adı, ör. söylem"
             webhook_url:
               title: "Web kancası URL'si"
+              help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
           errors:
             invalid_channel: "Bu kanal Webex'te mevcut değil"
         google:

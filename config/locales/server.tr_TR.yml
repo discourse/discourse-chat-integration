@@ -16,6 +16,7 @@ tr_TR:
     chat_integration_slack_excerpt_length: 'Slack post alıntı uzunluğu'
     chat_integration_slack_icon_url: 'Slack''te yayınlanacak simge (varsayılan olarak forum logosudur)'
     chat_integration_slack_outbound_webhook_url: "Slack&#39;in OAuth API yerine &#39;Incoming Webhook&#39; sistemini kullanmak için. Tavsiye edilmez."
+    chat_integration_slack_transcript_quote: Gevşek transkript [quote] etikete sarılsın mı?
     errors:
       chat_integration_slack_api_configs_are_empty: "Giden bir webhook URL&#39;si veya bir erişim belirteci girmelisiniz"
     chat_integration_telegram_enabled: "Telegram sohbet entegrasyonu sağlayıcısını etkinleştirme"
@@ -25,6 +26,8 @@ tr_TR:
     chat_integration_discord_enabled: "Discord sohbet entegrasyon sağlayıcısını etkinleştirme"
     chat_integration_discord_message_content: "Discord&#39;a bildirim gönderirken özetin üzerine eklenecek mesaj"
     chat_integration_discord_excerpt_length: "Discord alıntı uzunluğu"
+    chat_integration_guilded_enabled: "Guilded sohbet entegrasyon sağlayıcısını etkinleştirin"
+    chat_integration_guilded_excerpt_length: "Guilded gönderi alıntı uzunluğu"
     chat_integration_mattermost_enabled: "Mattermost sohbet entegrasyonu sağlayıcısını etkinleştirin"
     chat_integration_mattermost_webhook_url: 'Mattermost entegrasyonu için URL'
     chat_integration_mattermost_incoming_webhook_token: 'Gelen isteklerin kimliğini doğrulamak için kullanılan doğrulama belirteci'
@@ -46,12 +49,27 @@ tr_TR:
     chat_integration_gitter_enabled: "Gitter sohbet entegrasyon sağlayıcısını etkinleştirme"
     chat_integration_flowdock_enabled: "Flowdock sohbet entegrasyon sağlayıcısını etkinleştirin"
     chat_integration_flowdock_excerpt_length: "Flowdock post alıntı uzunluğu"
+    chat_integration_groupme_enabled: "Groupme sohbet entegrasyon sağlayıcısını etkinleştirin"
+    chat_integration_groupme_excerpt_length: "Groupme gönderi alıntı uzunluğu"
+    chat_integration_groupme_bot_ids: "*gerekli* Bot kimlikleri, birden fazla varsa \",\" ile ayrılmış şekilde"
+    chat_integration_groupme_instance_names: " *gerekli* GroupMe sohbetinin adı, birden fazla varsa \",\" ile ayrılmış şekilde (Bot Kimlikleri ile aynı sırada)"
+    chat_integration_teams_enabled: "Microsoft Teams sohbet tümleştirme sağlayıcısını etkinleştirin"
+    chat_integration_teams_excerpt_length: "Microsoft Team gönderi alıntı uzunluğu"
+    chat_integration_webex_enabled: "Webex Teams sohbet entegrasyonu sağlayıcısını etkinleştirin"
+    chat_integration_webex_excerpt_length: "Webex Team yayın alıntı uzunluğu"
+    chat_integration_google_enabled: "\"Google Chat\" sohbet entegrasyon sağlayıcısını etkinleştirin"
+    chat_integration_google_excerpt_length: "Google Chat gönderi alıntı uzunluğu"
+  discourse_automation:
+    scriptables:
+      send_slack_message:
+        title: Slack mesajı gönder
   chat_integration:
     all_categories: "(tüm kategoriler)"
     deleted_category: "(silinen kategori)"
     deleted_group: "(silinen grup)"
     group_mention_template: "Şunlardan bahsediyor: @ %{name}"
     group_message_template: "kişisine mesaj: @ %{name}"
+    admin_error: "Bazı sohbet entegrasyon kanallarında hatalar var. Daha fazla bilgi edinmek için <a href='%{base_path}/admin/plugins/chat-integration'>sohbet entegrasyonu bölümünü</a> ziyaret edin."
     provider:
       slack:
         status:
@@ -72,7 +90,28 @@ tr_TR:
         not_found:
           tag: "*%{name}* etiketi bulunamadı."
           category: "*%{name}* kategorisi bulunamadı. Mevcut kategoriler: *%{list}*"
+        help: |
+          *Yeni kural:* "/discourse [thread|watch|follow|mute] [category] [tag:name]"
+          (bir kural türü ve en az bir kategori veya etiket belirtmelisiniz)
+          - *thread* - yeni konular için bu kanalı bilgilendirin, mümkünse konu yanıtlarıyla
+          - *watch* - yeni konular ve yeni yanıtlar için bu kanalı bilgilendirin
+          - *follow* - yeni konular için bu kanalı bilgilendirin
+          - *mute* - bu kanala bildirimleri engelleyin
+
+          *Remove rule:* "/discourse remove [rule number]"
+          ("[kural sayısı]", "/discourse status" çalıştırılarak bulunabilir)
+
+          *List rules:* "/discourse status"
+
+          *[Experimental] Post transcript:* "/discourse post [n]"
+          Discourse'ta bu kanalda son "n" gönderiyi içeren bir taslak konu oluşturun
+
+          *Help:* "/discourse help"
         transcript:
+          modal_title: "Transkript Oluştur"
+          modal_description: "Başlıktaki tüm mesajlar tek bir forum gönderisinde toplanır. Göndermeden önce transkripti düzenleme fırsatı verilir."
+          transcript_ready: "Transkript hazır"
+          continue_on_discourse: "Forumda devam et"
           error: "Transkript oluşturulurken bir şeyler ters gitti, üzgünüm!"
           post_to_discourse: "Konuşma metni ile forum hakkında bir gönderi hazırlamak için buraya tıklayın"
           api_required: "Maalesef bu entegrasyon, konuşma metni yayınlarını destekleyecek şekilde ayarlanmamış."
@@ -83,6 +122,9 @@ tr_TR:
           change_first_message: "İlk mesajı değiştir..."
           change_last_message: "Son mesajı değiştir..."
           loading: "Konuşma metni yükleniyor..."
+          error_users: "Hata: Slack'ten kullanıcı alınamıyor"
+          error_history: "Hata: Slack'ten kanal geçmişi alınamıyor"
+          error_ts: "Hata: Slack'ten talep edilen mesaj alınamıyor"
       telegram:
         unknown_chat: "Bu sohbet %{site_title} üzerinde ayarlanmamış. Bir moderatörden &#39;Chat ID&#39; %{chat_id} ile kanal eklemesini isteyin."
         known_chat: "Bu mesajlaşma %{site_title} üzerine kurulu. Admin paneline entegre. (Konuşma ID: %{chat_id})"
@@ -169,5 +211,8 @@ tr_TR:
           ~~~
       flowdock:
         message_title: "gönderildi"
-      groupme:
-        message_title: "gönderildi"
+      google:
+        new_post: "%{site_title} üzerinde yeni gönderi"
+        new_topic: "%{site_title} üzerinde yeni konu"
+        author: "@%{username} tarafından"
+        link: "%{site_title} üzerinde görüntüle"

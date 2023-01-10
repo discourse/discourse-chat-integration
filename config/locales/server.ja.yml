@@ -200,8 +200,6 @@ ja:
           ~~~
       flowdock:
         message_title: "投稿しました"
-      groupme:
-        message_title: "投稿しました"
       google:
         new_post: "「%{site_title}」に新しい投稿があります"
         new_topic: "「%{site_title}」に新しいトピックがあります"

@@ -212,8 +212,6 @@ he:
           ~~~
       flowdock:
         message_title: "פורסם"
-      groupme:
-        message_title: "פורסם"
       google:
         new_post: "פוסט חדש באתר %{site_title}"
         new_topic: "נושא חדש באתר %{site_title}"

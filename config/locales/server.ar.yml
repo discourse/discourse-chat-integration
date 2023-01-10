@@ -212,8 +212,6 @@ ar:
           ~~~
       flowdock:
         message_title: "تم النشر"
-      groupme:
-        message_title: "تم النشر"
       google:
         new_post: "منشور جديد على %{site_title}"
         new_topic: "منشور جديد على %{site_title}"

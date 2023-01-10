@@ -170,5 +170,3 @@ ca:
           ~~~
       flowdock:
         message_title: "publicat"
-      groupme:
-        message_title: "publicat"

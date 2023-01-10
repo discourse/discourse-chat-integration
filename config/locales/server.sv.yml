@@ -210,8 +210,6 @@ sv:
           ~~~
       flowdock:
         message_title: "publicerade"
-      groupme:
-        message_title: "publicerade"
       google:
         new_post: "Nytt inlägg på %{site_title}"
         new_topic: "Nytt ämne på %{site_title}"

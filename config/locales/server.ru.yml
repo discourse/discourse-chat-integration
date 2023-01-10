@@ -206,8 +206,6 @@ ru:
         message: "**%{user}** опубликовано в **[%{title}] (%{post_url})**\n~~~ цитата \n%{excerpt}\n~~~\n"
       flowdock:
         message_title: "отправлено"
-      groupme:
-        message_title: "отправлено"
       google:
         new_post: "Новое сообщение на %{site_title}"
         new_topic: "Новая тема на %{site_title}"

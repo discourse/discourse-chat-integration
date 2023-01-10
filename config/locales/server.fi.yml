@@ -212,8 +212,6 @@ fi:
           ~~~
       flowdock:
         message_title: "lähetti viestin"
-      groupme:
-        message_title: "lähetti viestin"
       google:
         new_post: "Uusi viesti sivustolla %{site_title}"
         new_topic: "Uusi ketju sivustolla %{site_title}"

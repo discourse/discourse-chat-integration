@@ -212,8 +212,6 @@ pt_BR:
           ~~~
       flowdock:
         message_title: "postou"
-      groupme:
-        message_title: "postou"
       google:
         new_post: "Nova publicação em %{site_title}"
         new_topic: "Novo tópico em %{site_title}"

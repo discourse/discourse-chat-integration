@@ -212,8 +212,6 @@ nl:
           ~~~
       flowdock:
         message_title: "geplaatst"
-      groupme:
-        message_title: "geplaatst"
       google:
         new_post: "Nieuw bericht op %{site_title}"
         new_topic: "Nieuw topic op %{site_title}"

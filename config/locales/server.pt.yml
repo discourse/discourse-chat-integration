@@ -111,5 +111,3 @@ pt:
           ~~~
       flowdock:
         message_title: "publicou"
-      groupme:
-        message_title: "publicou"
