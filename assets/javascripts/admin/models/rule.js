@@ -4,7 +4,14 @@ import Category from "discourse/models/category";
 import { tracked } from "@glimmer/tracking";
 
 export default class Rule extends RestModel {
-  @tracked available_types = [
+  @tracked type = "normal";
+  @tracked category_id = null;
+  @tracked tags = null;
+  @tracked channel_id = null;
+  @tracked filter = "watch";
+  @tracked error_key = null;
+
+  available_types = [
     { id: "normal", name: I18n.t("chat_integration.type.normal") },
     {
       id: "group_message",
@@ -15,13 +22,6 @@ export default class Rule extends RestModel {
       name: I18n.t("chat_integration.type.group_mention"),
     },
   ];
-
-  @tracked type = "normal";
-  category_id = null;
-  tags = null;
-  channel_id = null;
-  filter = "watch";
-  error_key = null;
 
   get available_filters() {
     const available = [];
