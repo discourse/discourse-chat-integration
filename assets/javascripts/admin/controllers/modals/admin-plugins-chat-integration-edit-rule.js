@@ -10,8 +10,14 @@ export default class AdminPluginsChatIntegrationEditRule extends Controller.exte
 ) {
   @service siteSettings;
   @tracked saveDisabled = false;
-  @tracked showCategory = this.model.rule.type === "normal";
-  @tracked currentRuleType = this.model.rule.type;
+
+  get showCategory() {
+    return this.model.rule.type === "normal";
+  }
+
+  get currentRuleType() {
+    return this.model.rule.type;
+  }
 
   @action
   save(rule) {
