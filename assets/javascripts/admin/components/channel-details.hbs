@@ -1,0 +1,78 @@
+<div class="channel-details">
+  <div class="channel-header">
+    <div class="pull-right">
+      <DButton
+        @icon="pencil-alt"
+        @title="chat_integration.edit_channel"
+        @label="chat_integration.edit_channel"
+        @action={{action @editChannel @channel}}
+      />
+
+      <DButton
+        @icon="rocket"
+        @title="chat_integration.test_channel"
+        @label="chat_integration.test_channel"
+        @action={{action @test @channel}}
+        @class="btn-chat-test"
+      />
+
+      <DButton
+        @icon="trash-alt"
+        @title="chat_integration.delete_channel"
+        @label="chat_integration.delete_channel"
+        @action={{action this.deleteChannel @channel}}
+        @class="cancel delete-channel"
+      />
+    </div>
+
+    <span class="channel-title">
+      {{#if @channel.error_key}}
+        <DButton
+          @class="delete btn-danger"
+          @icon="exclamation-triangle"
+          @action={{action @showError @channel}}
+        />
+      {{/if}}
+
+      <ChannelData @provider={{@provider}} @channel={{@channel}} />
+    </span>
+  </div>
+  <div class="channel-body">
+    <table>
+      <thead>
+        <tr>
+          <th>{{i18n "chat_integration.rule_table.filter"}}</th>
+          <th>{{i18n "chat_integration.rule_table.category"}}</th>
+
+          {{#if this.siteSettings.tagging_enabled}}
+            <th>{{i18n "chat_integration.rule_table.tags"}}</th>
+          {{/if}}
+
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each @channel.rules as |rule|}}
+          <RuleRow
+            @rule={{rule}}
+            @edit={{action @editRuleWithChannel rule @channel}}
+            @refresh={{@refresh}}
+          />
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="channel-footer">
+    <div class="pull-right">
+      <DButton
+        @class=""
+        @icon="plus"
+        @title="chat_integration.create_rule"
+        @label="chat_integration.create_rule"
+        @action={{action @createRule @channel}}
+      />
+    </div>
+  </div>
+</div>

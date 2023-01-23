@@ -1,12 +1,20 @@
 import Controller from "@ember/controller";
 import showModal from "discourse/lib/show-modal";
-import computed from "discourse-common/utils/decorators";
+import { tracked } from "@glimmer/tracking";
+import { action } from "@ember/object";
 
-export default Controller.extend({
-  modalShowing: false,
+const MODALS = {
+  editChannel: "admin-plugins-chat-integration-edit-channel",
+  testChannel: "admin-plugins-chat-integration-test",
+  editRule: "admin-plugins-chat-integration-edit-rule",
+  channelError: "admin-plugins-chat-integration-channel-error",
+};
 
-  @computed("model.channels")
-  anyErrors(channels) {
+export default class AdminPluginsChatIntegrationEditRule extends Controller {
+  @tracked modalShowing = false;
+
+  get anyErrors() {
+    const channels = this.model.channels;
     let anyErrors = false;
 
     channels.forEach((channel) => {
@@ -16,90 +24,83 @@ export default Controller.extend({
     });
 
     return anyErrors;
-  },
+  }
 
-  actions: {
-    createChannel() {
-      this.set("modalShowing", true);
+  triggerModal(model, modal) {
+    this.modalShowing = true;
 
-      const model = {
+    showModal(modal, {
+      model,
+      admin: true,
+    });
+  }
+
+  @action
+  createChannel() {
+    return this.triggerModal(
+      {
         channel: this.store.createRecord("channel", {
-          provider: this.get("model.provider.id"),
+          provider: this.model.provider.id,
           data: {},
         }),
-        provider: this.get("model.provider"),
-      };
+        provider: this.model.provider,
+      },
+      MODALS.editChannel
+    );
+  }
 
-      showModal("admin-plugins-chat-integration-edit-channel", {
-        model,
-        admin: true,
-      });
-    },
-
-    editChannel(channel) {
-      this.set("modalShowing", true);
-
-      const model = {
+  @action
+  editChannel(channel) {
+    return this.triggerModal(
+      {
         channel,
-        provider: this.get("model.provider"),
-      };
+        provider: this.model.provider,
+      },
+      MODALS.editChannel
+    );
+  }
 
-      showModal("admin-plugins-chat-integration-edit-channel", {
-        model,
-        admin: true,
-      });
-    },
+  @action
+  testChannel(channel) {
+    return this.triggerModal({ channel }, MODALS.testChannel);
+  }
 
-    testChannel(channel) {
-      this.set("modalShowing", true);
-      showModal("admin-plugins-chat-integration-test", {
-        model: { channel },
-        admin: true,
-      });
-    },
-
-    createRule(channel) {
-      this.set("modalShowing", true);
-
-      const model = {
+  @action
+  createRule(channel) {
+    return this.triggerModal(
+      {
         rule: this.store.createRecord("rule", {
           channel_id: channel.id,
           channel,
         }),
         channel,
-        provider: this.get("model.provider"),
-        groups: this.get("model.groups"),
-      };
+        provider: this.model.provider,
+        groups: this.model.groups,
+      },
+      MODALS.editRule
+    );
+  }
 
-      showModal("admin-plugins-chat-integration-edit-rule", {
-        model,
-        admin: true,
-      });
-    },
-
-    editRuleWithChannel(rule, channel) {
-      this.set("modalShowing", true);
-
-      const model = {
+  @action
+  editRuleWithChannel(rule, channel) {
+    return this.triggerModal(
+      {
         rule,
         channel,
-        provider: this.get("model.provider"),
-        groups: this.get("model.groups"),
-      };
+        provider: this.model.provider,
+        groups: this.model.groups,
+      },
+      MODALS.editRule
+    );
+  }
 
-      showModal("admin-plugins-chat-integration-edit-rule", {
-        model,
-        admin: true,
-      });
-    },
+  @action
+  showError(channel) {
+    return this.triggerModal({ channel }, MODALS.channelError);
+  }
 
-    showError(channel) {
-      this.set("modalShowing", true);
-
-      showModal("admin-plugins-chat-integration-channel-error", {
-        model: channel,
-        admin: true,
-      });
-    },
-  },
-});
+  @action
+  refresh() {
+    this.send("refreshProvider");
+  }
+}

@@ -1,3 +1,3 @@
 import RestModel from "discourse/models/rest";
 
-export default RestModel.extend({});
+export default class Provider extends RestModel {}

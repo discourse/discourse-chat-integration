@@ -1,12 +1,31 @@
 import I18n from "I18n";
 import RestModel from "discourse/models/rest";
 import Category from "discourse/models/category";
-import computed, { observes } from "discourse-common/utils/decorators";
+import { tracked } from "@glimmer/tracking";
 
-export default RestModel.extend({
-  @computed("channel.provider")
-  available_filters(provider) {
+export default class Rule extends RestModel {
+  @tracked type = "normal";
+  @tracked category_id = null;
+  @tracked tags = null;
+  @tracked channel_id = null;
+  @tracked filter = "watch";
+  @tracked error_key = null;
+
+  available_types = [
+    { id: "normal", name: I18n.t("chat_integration.type.normal") },
+    {
+      id: "group_message",
+      name: I18n.t("chat_integration.type.group_message"),
+    },
+    {
+      id: "group_mention",
+      name: I18n.t("chat_integration.type.group_mention"),
+    },
+  ];
+
+  get available_filters() {
     const available = [];
+    const provider = this.channel.provider;
 
     if (provider === "slack") {
       available.push({
@@ -35,51 +54,21 @@ export default RestModel.extend({
     );
 
     return available;
-  },
+  }
 
-  available_types: [
-    { id: "normal", name: I18n.t("chat_integration.type.normal") },
-    {
-      id: "group_message",
-      name: I18n.t("chat_integration.type.group_message"),
-    },
-    {
-      id: "group_mention",
-      name: I18n.t("chat_integration.type.group_mention"),
-    },
-  ],
+  get category() {
+    const categoryId = this.category_id;
 
-  category_id: null,
-  tags: null,
-  channel_id: null,
-  filter: "watch",
-  type: "normal",
-  error_key: null,
-
-  @observes("type")
-  removeUnneededInfo() {
-    const type = this.get("type");
-
-    if (type === "normal") {
-      this.set("group_id", null);
-    } else {
-      this.set("category_id", null);
-    }
-  },
-
-  @computed("category_id")
-  category(categoryId) {
     if (categoryId) {
       return Category.findById(categoryId);
     } else {
       return false;
     }
-  },
+  }
 
-  @computed("filter")
-  filterName(filter) {
-    return I18n.t(`chat_integration.filter.${filter}`);
-  },
+  get filterName() {
+    return I18n.t(`chat_integration.filter.${this.filter}`);
+  }
 
   updateProperties() {
     return this.getProperties([
@@ -89,7 +78,7 @@ export default RestModel.extend({
       "tags",
       "filter",
     ]);
-  },
+  }
 
   createProperties() {
     return this.getProperties([
@@ -100,5 +89,5 @@ export default RestModel.extend({
       "tags",
       "filter",
     ]);
-  },
-});
+  }
+}

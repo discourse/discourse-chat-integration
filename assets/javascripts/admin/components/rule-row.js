@@ -1,31 +1,27 @@
-import Component from "@ember/component";
+import { action } from "@ember/object";
+import Component from "@glimmer/component";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import computed from "discourse-common/utils/decorators";
+import { inject as service } from "@ember/service";
+export default class RuleRow extends Component {
+  @service siteSettings;
 
-export default Component.extend({
-  tagName: "tr",
+  get isCategory() {
+    return this.args.rule.type === "normal";
+  }
 
-  @computed("rule.type")
-  isCategory(type) {
-    return type === "normal";
-  },
+  get isMessage() {
+    return this.args.rule.type === "group_message";
+  }
 
-  @computed("rule.type")
-  isMessage(type) {
-    return type === "group_message";
-  },
+  get isMention() {
+    return this.args.rule.type === "group_mention";
+  }
 
-  @computed("rule.type")
-  isMention(type) {
-    return type === "group_mention";
-  },
-
-  actions: {
-    delete(rule) {
-      rule
-        .destroyRecord()
-        .then(() => this.refresh())
-        .catch(popupAjaxError);
-    },
-  },
-});
+  @action
+  delete(rule) {
+    rule
+      .destroyRecord()
+      .then(() => this.args.refresh())
+      .catch(popupAjaxError);
+  }
+}

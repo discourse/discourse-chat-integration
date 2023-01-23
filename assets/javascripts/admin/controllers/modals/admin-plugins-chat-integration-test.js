@@ -1,47 +1,43 @@
 import Controller from "@ember/controller";
+import { not } from "@ember/object/computed";
 import I18n from "I18n";
 import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import computed, { on } from "discourse-common/utils/decorators";
-import { schedule } from "@ember/runloop";
+import { action } from "@ember/object";
+import { tracked } from "@glimmer/tracking";
 
-export default Controller.extend(ModalFunctionality, {
-  @on("init")
-  setupKeydown() {
-    schedule("afterRender", () => {
-      $("#chat_integration_test_modal").keydown((e) => {
-        if (e.keyCode === 13) {
-          this.send("send");
-        }
-      });
-    });
-  },
+export default class AdminPluginsChatIntegrationTest extends Controller.extend(
+  ModalFunctionality
+) {
+  @tracked loading = false;
+  @not("model.topic_id") sendDisabled;
 
-  @computed("model.topic_id")
-  sendDisabled(topicId) {
-    return !topicId;
-  },
+  @action
+  handleKeyUp(e) {
+    if (e.code === "Enter" && !this.sendDisabled) {
+      this.send();
+    }
+  }
 
-  actions: {
-    send() {
-      if (this.get("sendDisabled")) {
-        return;
-      }
-      this.set("loading", true);
+  @action
+  send() {
+    if (this.sendDisabled) {
+      return;
+    }
+    this.loading = true;
 
-      ajax("/admin/plugins/chat-integration/test", {
-        data: {
-          channel_id: this.get("model.channel.id"),
-          topic_id: this.get("model.topic_id"),
-        },
-        type: "POST",
+    ajax("/admin/plugins/chat-integration/test", {
+      data: {
+        channel_id: this.model.channel.id,
+        topic_id: this.model.topic_id,
+      },
+      type: "POST",
+    })
+      .then(() => {
+        this.loading = false;
+        this.flash(I18n.t("chat_integration.test_modal.success"), "success");
       })
-        .then(() => {
-          this.set("loading", false);
-          this.flash(I18n.t("chat_integration.test_modal.success"), "success");
-        })
-        .catch(popupAjaxError);
-    },
-  },
-});
+      .catch(popupAjaxError);
+  }
+}

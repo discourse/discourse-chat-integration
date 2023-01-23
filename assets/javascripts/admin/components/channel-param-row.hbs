@@ -1,0 +1,42 @@
+<tr class="input">
+  <td class="label">
+    <label for="param-{{@param.key}}">
+      {{i18n
+        (concat
+          "chat_integration.provider."
+          @model.channel.provider
+          ".param."
+          @param.key
+          ".title"
+        )
+      }}
+    </label>
+  </td>
+  <td>
+    <Input
+      name={{concat "param-" @param.key}}
+      @value={{this.inputValue}}
+      {{on "change" this.updateValue}}
+    />
+
+    <InputTip @validation={{this.validate}} />
+
+  </td>
+</tr>
+
+<tr class="chat-instructions">
+  <td></td>
+  <td>
+    <label>
+      {{i18n
+        (concat
+          "chat_integration.provider."
+          @model.channel.provider
+          ".param."
+          @param.key
+          ".help"
+        )
+      }}
+    </label>
+  </td>
+</tr>

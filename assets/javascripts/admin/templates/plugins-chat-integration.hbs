@@ -1,0 +1,30 @@
+<div id="admin-plugin-chat">
+  <div class="admin-controls">
+    <div class="admin-controls-chat-providers">
+      <ul class="nav nav-pills">
+        {{#each this.model as |provider|}}
+          <NavItem
+            @route="adminPlugins.chat-integration.provider"
+            @routeParam={{provider.name}}
+            @label={{(concat
+              "chat_integration.provider." provider.name ".title"
+            )}}
+          />
+        {{/each}}
+      </ul>
+    </div>
+
+    <DButton
+      @icon="cog"
+      @title="chat_integration.settings"
+      @label="chat_integration.settings"
+      @action={{route-action "showSettings"}}
+    />
+  </div>
+
+  {{#unless this.model.totalRows}}
+    {{i18n "chat_integration.no_providers"}}
+  {{/unless}}
+
+  {{outlet}}
+</div>

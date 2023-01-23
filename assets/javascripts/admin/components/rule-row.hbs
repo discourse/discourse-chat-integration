@@ -1,0 +1,47 @@
+<tr>
+  <td>
+    {{@rule.filterName}}
+  </td>
+
+  <td>
+    {{#if this.isCategory}}
+      {{#if @rule.category}}
+        {{category-link @rule.category allowUncategorized="true" link="false"}}
+      {{else}}
+        {{i18n "chat_integration.all_categories"}}
+      {{/if}}
+    {{else if this.isMention}}
+      {{i18n "chat_integration.group_mention_template" name=@rule.group_name}}
+    {{else if this.isMessage}}
+      {{i18n "chat_integration.group_message_template" name=@rule.group_name}}
+    {{/if}}
+  </td>
+
+  <td>
+    {{#if this.siteSettings.tagging_enabled}}
+      {{#if @rule.tags}}
+        {{@rule.tags}}
+      {{else}}
+        {{i18n "chat_integration.all_tags"}}
+      {{/if}}
+    {{/if}}
+  </td>
+
+  <td>
+    <DButton
+      @class="edit"
+      @icon="pencil-alt"
+      @title="chat_integration.rule_table.edit_rule"
+      @action={{@edit}}
+      @actionParam={{@rule}}
+    />
+
+    <DButton
+      @class="delete"
+      @icon="far-trash-alt"
+      @title="chat_integration.rule_table.delete_rule"
+      @action={{action this.delete}}
+      @actionParam={{@rule}}
+    />
+  </td>
+</tr>

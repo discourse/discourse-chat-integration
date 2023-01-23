@@ -66,6 +66,10 @@
   table {
     width: 100%;
 
+    tbody {
+      border-top: none;
+    }
+
     tr {
       border: none;
     }
@@ -85,6 +89,8 @@
 
     tr.chat-instructions label {
       color: var(--primary-medium);
+      font-size: var(--font-down-1);
+      margin-top: 0.5rem;
     }
   }
 
