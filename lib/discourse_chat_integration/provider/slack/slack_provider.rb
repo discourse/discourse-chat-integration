@@ -144,7 +144,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
                                                           }
     end
 
-    ts = json["ts"]
+    ts = json.dig("message", "thread_ts") || json["ts"]
     set_slack_thread_ts(post.topic, channel, ts) if !ts.nil? && !post.nil?
 
     response

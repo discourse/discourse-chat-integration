@@ -99,6 +99,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
         SiteSetting.chat_integration_slack_access_token = "magic"
         @ts = "#{Time.now.to_i}.012345"
         @ts2 = "#{Time.now.to_i}.012346"
+        @ts3 = "#{Time.now.to_i}.0123467"
         @stub1 =
           stub_request(:post, SiteSetting.chat_integration_slack_outbound_webhook_url).to_return(
             body: "success",
@@ -116,17 +117,17 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
             body: hash_including("thread_ts" => @ts),
           ).to_return(
             body:
-              "{\"ok\":true, \"ts\": \"#{@ts}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }",
+              "{\"ok\":true, \"ts\": \"#{@ts}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\", \"thread_ts\":\"#{@ts}\"} }",
             headers: {
               "Content-Type" => "application/json",
             },
           )
         @thread_stub2 =
           stub_request(:post, %r{https://slack.com/api/chat.postMessage}).with(
-            body: hash_including("thread_ts" => @ts2),
+            body: hash_including("thread_ts" => @ts),
           ).to_return(
             body:
-              "{\"ok\":true, \"ts\": \"#{@ts2}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\"} }",
+              "{\"ok\":true, \"ts\": \"#{@ts3}\", \"message\": {\"attachments\": [], \"username\":\"blah\", \"text\":\"blah2\", \"thread_ts\":\"#{@ts}\"} }",
             headers: {
               "Content-Type" => "application/json",
             },
@@ -176,7 +177,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
 
         post.topic.reload
         expect(described_class.get_slack_thread_ts(post.topic, "#general")).to eq(@ts)
-        expect(described_class.get_slack_thread_ts(post.topic, "#random")).to eq(@ts2)
+        expect(described_class.get_slack_thread_ts(post.topic, "#random")).to eq(@ts)
       end
 
       it "recognizes slack thread ts in comment" do
