@@ -15,8 +15,8 @@ ru:
     chat_integration_slack_incoming_webhook_token: 'Токен подтверждения, используемый для аутентификации входящих запросов'
     chat_integration_slack_excerpt_length: 'Размер сообщения в Slack'
     chat_integration_slack_icon_url: 'URL логотипа для отображения в Slack (по умолчанию используется логотип форума)'
-    chat_integration_slack_outbound_webhook_url: "URL для использования 'Incoming Webhook' в Slack вместо OAuth API. Использовать не рекомендуется."
-    chat_integration_slack_transcript_quote: Помещать slack-содержимое в теги [quote] ?
+    chat_integration_slack_outbound_webhook_url: "URL для использования входящих вебхуков в Slack вместо API OAuth. Использовать не рекомендуется."
+    chat_integration_slack_transcript_quote: Помещать slack-содержимое в теги [quote]?
     errors:
       chat_integration_slack_api_configs_are_empty: "Вы должны ввести либо исходящий URL-адрес вебхука, либо токен доступа"
     chat_integration_telegram_enabled: "Включить чат-интеграцию с Telegram"
@@ -69,7 +69,7 @@ ru:
     deleted_group: "(удаленная группа)"
     group_mention_template: "Упоминания о: @ %{name}"
     group_message_template: "сообщения для: @%{name}"
-    admin_error: "Некоторые каналы интеграции чата имеют ошибки. Посетите <a href='%{base_path}/admin/plugins/chat-integration'>раздел интеграции чата</a>, чтобы узнать больше."
+    admin_error: "В некоторых каналах интеграции чата есть ошибки. Подробнее — в <a href='%{base_path}/admin/plugins/chat-integration'>разделе интеграции чата</a>."
     provider:
       slack:
         status:
@@ -78,7 +78,7 @@ ru:
           no_rules: "Для этого канала нет правил. Запустите `/discourse help` для получения инструкций."
           rule_string: "*%{index})* *%{filter}* сообщений в разделе *%{category}*"
           rule_string_tags_suffix: " с тегами: *%{tags}*"
-        parse_error: "Извините, я этого не понял. Запустите `/discourse help` для получения инструкций."
+        parse_error: "Непонятно. Для получения инструкций запустите `/discourse help`."
         create:
           created: "Правило успешно создано"
           updated: "Правило успешно обновлено"
@@ -90,33 +90,33 @@ ru:
           tag: "Тег *%{name}* не найден."
           category: "Раздел *%{name}* не найден. Доступные разделы: *%{list}*"
         help: |
-          *New rule:* `/discourse [thread|watch|follow|mute] [category] [tag:name]`
-          (you must specify a rule type and at least one category or tag)
-          - *thread* – notify this channel for new topics, thread replies if possible
-          - *watch* – notify this channel for new topics and new replies
-          - *follow* – notify this channel for new topics
-          - *mute* – block notifications to this channel
+          *Новое правило:* `/discourse [thread|watch|follow|mute] [категория] [tag:название]`
+          (необходимо указать тип правила и хотя бы одну категорию или тег)
+          - *thread* — уведомлять канал о новых темах, ответы по возможности в цепочках.
+          - *watch* — уведомлять этот канал о новых темах и новых ответах.
+          - *follow* — уведомлять этот канал о новых темах.
+          - *mute* — не уведомлять этот канал.
 
-          *Remove rule:* `/discourse remove [rule number]`
-          (`[rule number]` can be found by running `/discourse status`)
+          *Удаление правила:* `/discourse remove [номер правила]`
+          (`[номер правила]` можно найти, запустив `/discourse status`)
 
-          *List rules:* `/discourse status`
+          *Вывести правила:* `/discourse status`
 
-          *[Experimental] Post transcript:* `/discourse post [n]`
-          Create a draft topic on discourse containing the last `n` posts in this channel
+          *[Экспериментальная функция] Содержимое записи:* `/discourse post [n]`
+          Создать черновик темы на Discourse с последними `n` сообщениями в этом канале.
 
-          *Help:* `/discourse help`
+          *Справка:* `/discourse help`
         transcript:
           modal_title: "Создать стенограмму"
           modal_description: "Все сообщения в ветке обсуждения будут собраны в единое сообщение на форуме. Вам будет предоставлена возможность отредактировать стенограмму перед публикацией."
           transcript_ready: "Стенограмма готова"
           continue_on_discourse: "Продолжить на форуме"
           error: "Что-то пошло не так при создании стенограммы, извините!"
-          post_to_discourse: "Нажмите здесь, чтобы составить пост на Дискурсе с транскриптом"
-          api_required: "Извините, эта интеграция не настроена для поддержки записи стенограмм."
+          post_to_discourse: "Нажмите здесь, чтобы создать черновик записи на Discourse с содержимым"
+          api_required: "Эта интеграция не настроена для поддержки публикации содержимого."
           view_on_slack: "Посмотреть в %{name} на Slack"
-          first_message_pretext: "начиная %{n} сообщения назад:"
-          last_message_pretext: "и заканчивая %{n} сообщениями назад:"
+          first_message_pretext: "начало, сообщений назад — %{n}:"
+          last_message_pretext: "и конец, сообщений назад — %{n}:"
           posted_in: "размещено в %{name}"
           change_first_message: "Изменить первое сообщение..."
           change_last_message: "Изменить последнее сообщение..."
@@ -128,7 +128,9 @@ ru:
         unknown_chat: "Этот чат не настроен на %{site_title}. Попросите администратора добавить канал с идентификатором чата %{chat_id}."
         known_chat: "Этот чат настроен на %{site_title}. Настройте его в панели администратора. (Идентификатор чата: %{chat_id})"
         message: |-
-          <b>%{user}</b> размещено в <a href="%{post_url}">%{title}</a> <pre> %{post_excerpt} </pre>
+          <b>%{user}</b> размещено в <a href="%{post_url}">%{title}</a>
+
+          <pre>%{post_excerpt}</pre>
         status:
           header: |
             <b>Правила для этого канала</b>
@@ -136,7 +138,7 @@ ru:
           no_rules: "Для этого канала нет правил. Запустите <code>/help</code> для получения инструкций."
           rule_string: "<b>%{index})</b> <b>%{filter}</b> сообщений в разделе <b>%{category}</b>"
           rule_string_tags_suffix: " с тегами: <b>%{tags}</b>"
-        parse_error: "Извини, я этого не понял. Запустите <code>/help</code> для получения инструкций."
+        parse_error: "Непонятно. Для получения инструкций запустите <code>/help</code>."
         create:
           created: "Правило успешно создано"
           updated: "Правило успешно обновлено"
@@ -148,20 +150,20 @@ ru:
           tag: "Тег <b>%{name}</b> не найден."
           category: "Раздел <b>%{name}</b> не найден. Доступные разделы: <b>%{list}</b>"
         help: |
-          <b>New rule:</b> <code>/[watch|follow|mute] [category] [tag:name]</code>
-          (you must specify a rule type and at least one category or tag)
-          - <b>watch</b> – notify this channel for new topics and new replies
-          - <b>follow</b> – notify this channel for new topics
-          - <b>mute</b> – block notifications to this channel
+          <b>Новое правило:</b> <code>/[watch|follow|mute] [категория] [tag:название]</code>
+          (необходимо указать тип правила и хотя бы одну категорию или тег)
+          - <b>watch</b> — уведомлять этот канал о новых темах и новых ответах.
+          - <b>follow</b> — уведомлять этот канал о новых темах.
+          - <b>mute</b> — не уведомлять этот канал.
 
-          <b>Remove rule:</b> <code>/remove [rule number]</code>
-          (<code>[rule number]</code> can be found by running <code>/status</code>)
+          <b>Удаление правила:</b> <code>/remove [номер правила]</code>
+          (<code>[номер правила]</code> можно найти, запустив <code>/status</code>)
 
-          <b>List rules:</b> <code>/status</code>
+          <b>Вывести правила:</b> <code>/status</code>
 
-          <b>Help:</b> <code>/help</code>
+          <b>Справка:</b> <code>/help</code>
       hipchat:
-        message: <b>%{user}</b> размещено в <a href="%{post_url}">%{title}</a>
+        message: <b>%{user}</b> разместил(а) запись в <a href="%{post_url}">%{title}</a>
       mattermost:
         status:
           header: |
@@ -182,23 +184,22 @@ ru:
           tag: "Тег *%{name}* не найден."
           category: "Категория * %{name} * не найдена. Доступные категории: * %{list} *"
         help: |
-          *New rule:* `/discourse [watch|follow|mute] [category] [tag:name]`
-          (you must specify a rule type and at least one category or tag)
-          - *watch* – notify this channel for new topics and new replies
-          - *follow* – notify this channel for new topics
-          - *mute* – block notifications to this channel
+          *Новое правило:* `/discourse [watch|follow|mute] [категория] [tag:название]`
+          (необходимо указать тип правила и хотя бы одну категорию или тег)
+          - *watch* — уведомлять этот канал о новых темах и новых ответах.
+          - *follow* — уведомлять этот канал о новых темах.
+          - *mute* — не уведомлять этот канал.
 
-          *Remove rule:* `/discourse remove [rule number]`
-          (`[rule number]` can be found by running `/discourse status`)
+          *Удаление правила:* `/discourse remove [номер правила]`
+          (`[номер правила]` можно найти, запустив `/discourse status`)
 
-          *List rules:* `/discourse status`
+          *Вывести правила:* `/discourse status`
 
-          *Help:* `/discourse help`
+          *Справка:* `/discourse help`
       matrix:
         text_message: "%{user} размещено в %{title} - %{post_url}"
         formatted_message: |
-          <b>%{user}</b> размещено в <b><a href='%{post_url}'>%{title}</a></b>
-
+          <b>%{user}</b> разместил(а) запись <b><a href='%{post_url}'>%{title}</a></b>
           <blockquote>
           %{excerpt}
           </blockquote>
