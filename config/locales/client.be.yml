@@ -40,6 +40,10 @@ be:
           param:
             name:
               title: "Назва"
+        guilded:
+          param:
+            name:
+              title: "Назва"
         matrix:
           param:
             name:
@@ -52,3 +56,23 @@ be:
           param:
             name:
               title: "Назва"
+        teams:
+          param:
+            name:
+              title: "Назва"
+        webex:
+          param:
+            name:
+              title: "Назва"
+        google:
+          param:
+            name:
+              title: "Назва"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Паказаць выдаленыя паведамленні...
+            url:
+              label: URL спасылка

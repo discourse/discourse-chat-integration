@@ -105,6 +105,12 @@ sv:
             webhook_url:
               title: Webhook-URL
               help: Webhook-URL som skapats i dina Discord-serverinställningar
+        guilded:
+          param:
+            name:
+              title: "Namn"
+            webhook_url:
+              title: Webhook-URL
         mattermost:
           title: "Mattermost"
           param:
@@ -187,6 +193,7 @@ sv:
               help: "Ett utrymmesnamn för Webex, t.ex. Discourse"
             webhook_url:
               title: "Webhook-URL"
+              help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
           errors:
             invalid_channel: "Den kanalen finns inte på Webex"
         google:

@@ -43,6 +43,10 @@ bg:
           param:
             name:
               title: "Име"
+        guilded:
+          param:
+            name:
+              title: "Име"
         matrix:
           param:
             name:
@@ -55,3 +59,23 @@ bg:
           param:
             name:
               title: "Име"
+        teams:
+          param:
+            name:
+              title: "Име"
+        webex:
+          param:
+            name:
+              title: "Име"
+        google:
+          param:
+            name:
+              title: "Име"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Съобщение
+            url:
+              label: URL

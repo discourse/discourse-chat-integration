@@ -196,6 +196,7 @@ ja:
               help: "Webex スペース名。例: discourse"
             webhook_url:
               title: "Webhook の URL"
+              help: "新しい着信 Webhook を作成するときに提供される URL"
           errors:
             invalid_channel: "そのチャンネルは Webex に存在しません"
         google:

@@ -42,6 +42,10 @@ id:
           param:
             name:
               title: "Nama"
+        guilded:
+          param:
+            name:
+              title: "Nama"
         matrix:
           param:
             name:
@@ -54,3 +58,21 @@ id:
           param:
             name:
               title: "Nama"
+        teams:
+          param:
+            name:
+              title: "Nama"
+        webex:
+          param:
+            name:
+              title: "Nama"
+        google:
+          param:
+            name:
+              title: "Nama"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: pesan

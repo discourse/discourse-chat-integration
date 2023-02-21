@@ -19,6 +19,7 @@ da:
       group_message_template: "Meddelelser til: @%{name}"
       choose_group: "(vælg en gruppe)"
       all_categories: "(alle kategorier)"
+      all_tags: "(alle mærker)"
       create_rule: "Opret Regel"
       create_channel: "Opret Kanal"
       delete_channel: "Slet"
@@ -59,6 +60,10 @@ da:
           param:
             name:
               title: "Navn"
+        guilded:
+          param:
+            name:
+              title: "Navn"
         matrix:
           param:
             name:
@@ -71,3 +76,23 @@ da:
           param:
             name:
               title: "Navn"
+        teams:
+          param:
+            name:
+              title: "Navn"
+        webex:
+          param:
+            name:
+              title: "Navn"
+        google:
+          param:
+            name:
+              title: "Navn"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Meddelelse
+            url:
+              label: URL

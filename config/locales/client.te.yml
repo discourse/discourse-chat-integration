@@ -40,6 +40,10 @@ te:
           param:
             name:
               title: "పేరు"
+        guilded:
+          param:
+            name:
+              title: "పేరు"
         matrix:
           param:
             name:
@@ -52,3 +56,21 @@ te:
           param:
             name:
               title: "పేరు"
+        teams:
+          param:
+            name:
+              title: "పేరు"
+        webex:
+          param:
+            name:
+              title: "పేరు"
+        google:
+          param:
+            name:
+              title: "పేరు"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            url:
+              label: యూఆర్ యల్

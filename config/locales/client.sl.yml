@@ -41,9 +41,14 @@ sl:
             name:
               title: "Polno ime"
         discord:
+          title: "Discord"
           param:
             name:
               title: "Polno ime"
+        guilded:
+          param:
+            name:
+              title: "Ime"
         matrix:
           param:
             name:
@@ -56,3 +61,23 @@ sl:
           param:
             name:
               title: "Polno ime"
+        teams:
+          param:
+            name:
+              title: "Ime"
+        webex:
+          param:
+            name:
+              title: "Ime"
+        google:
+          param:
+            name:
+              title: "Ime"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Opozorilo
+            url:
+              label: URL

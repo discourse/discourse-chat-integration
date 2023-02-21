@@ -101,6 +101,15 @@ hr:
           param:
             name:
               title: "Ime"
+        guilded:
+          param:
+            name:
+              title: "Ime"
+        mattermost:
+          param:
+            identifier:
+              title: Kanal
+              help: "npr. #channel, @username."
         matrix:
           param:
             name:
@@ -109,11 +118,36 @@ hr:
           param:
             subject:
               title: "predmet"
+        rocketchat:
+          param:
+            identifier:
+              title: Kanal
+              help: "npr. #channel, @username."
         gitter:
+          param:
+            name:
+              title: "Ime"
+        teams:
+          param:
+            name:
+              title: "Ime"
+        webex:
           param:
             name:
               title: "Ime"
         google:
           param:
+            name:
+              title: "Ime"
             webhook_url:
               help: "URL koji ste dobili prilikom izrade novog webhooka"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Poruka
+            url:
+              label: URL
+            channel:
+              label: Kanal

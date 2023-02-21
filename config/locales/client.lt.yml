@@ -13,7 +13,9 @@ lt:
     chat_integration:
       menu_title: "Pokalbių integracijos"
       settings: "Nustatymai"
+      all_categories: "(Visos kategorijos)"
       delete_channel: "Pašalinti"
+      test_channel: "Bandymas"
       edit_channel: "Redaguoti"
       test_modal:
         topic: "Tema"
@@ -43,6 +45,11 @@ lt:
             name:
               title: "Vardas"
         discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Vardas"
+        guilded:
           param:
             name:
               title: "Vardas"
@@ -58,3 +65,23 @@ lt:
           param:
             name:
               title: "Vardas"
+        teams:
+          param:
+            name:
+              title: "Vardas"
+        webex:
+          param:
+            name:
+              title: "Vardas"
+        google:
+          param:
+            name:
+              title: "Vardas"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Žinutės
+            url:
+              label: Nuoroda

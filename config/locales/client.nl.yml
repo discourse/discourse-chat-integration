@@ -196,6 +196,7 @@ nl:
               help: "Een Webex-ruimtenaam, bijvoorbeeld Discourse"
             webhook_url:
               title: "Webhook-URL"
+              help: "De opgegeven URL wanneer je een nieuwe inkomende webhook maakt"
           errors:
             invalid_channel: "Dat kanaal bestaat niet op Webex"
         google:

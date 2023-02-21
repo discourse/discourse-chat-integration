@@ -196,6 +196,7 @@ it:
               help: "Il nome di uno spazio Webex, ad es., discourse"
             webhook_url:
               title: "URL Webhook"
+              help: "L'URL fornito quando si crea una nuovo webhook in ingresso"
           errors:
             invalid_channel: "Quel canale non esiste su Webex"
         google:

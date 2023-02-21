@@ -5,3 +5,5 @@
 # https://translate.discourse.org/
 
 cs:
+  chat_integration:
+    all_categories: "(všechny kategorie)"

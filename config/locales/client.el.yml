@@ -8,7 +8,9 @@ el:
   js:
     chat_integration:
       settings: "Ρυθμίσεις"
+      all_categories: "(όλες οι κατηγορίες)"
       delete_channel: "Σβήσιμο"
+      test_channel: "Δοκιμή"
       edit_channel: "Επεξεργασία"
       test_modal:
         topic: "Νήμα"
@@ -38,6 +40,11 @@ el:
             name:
               title: "Όνομα"
         discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Όνομα"
+        guilded:
           param:
             name:
               title: "Όνομα"
@@ -53,3 +60,23 @@ el:
           param:
             name:
               title: "Όνομα"
+        teams:
+          param:
+            name:
+              title: "Όνομα"
+        webex:
+          param:
+            name:
+              title: "Όνομα"
+        google:
+          param:
+            name:
+              title: "Όνομα"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Μήνυμα
+            url:
+              label: URL

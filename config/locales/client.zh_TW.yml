@@ -8,6 +8,8 @@ zh_TW:
   js:
     chat_integration:
       settings: "設定"
+      all_categories: "(所有分類)"
+      all_tags: "(所有標籤)"
       delete_channel: "刪除"
       edit_channel: "編輯"
       test_modal:
@@ -41,6 +43,10 @@ zh_TW:
           param:
             name:
               title: "名稱"
+        guilded:
+          param:
+            name:
+              title: "名稱"
         matrix:
           param:
             name:
@@ -53,3 +59,23 @@ zh_TW:
           param:
             name:
               title: "名稱"
+        teams:
+          param:
+            name:
+              title: "名稱"
+        webex:
+          param:
+            name:
+              title: "名稱"
+        google:
+          param:
+            name:
+              title: "名稱"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: 訊息
+            url:
+              label: 網址

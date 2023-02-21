@@ -74,6 +74,11 @@ ro:
             name:
               title: "Nume"
         discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Nume"
+        guilded:
           param:
             name:
               title: "Nume"
@@ -97,3 +102,25 @@ ro:
           param:
             name:
               title: "Nume"
+        teams:
+          param:
+            name:
+              title: "Nume"
+        webex:
+          param:
+            name:
+              title: "Nume"
+        google:
+          param:
+            name:
+              title: "Nume"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Mesaj
+            url:
+              label: URL
+            channel:
+              label: Canal

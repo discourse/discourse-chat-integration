@@ -7,6 +7,7 @@
 da:
   chat_integration:
     all_categories: "(alle kategorier)"
+    group_message_template: "meddelelser til: @%{name}"
     provider:
       slack:
         transcript:

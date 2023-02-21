@@ -6,6 +6,10 @@
 
 vi:
   js:
+    admin:
+      site_settings:
+        categories:
+          chat_integration: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
     chat_integration:
       menu_title: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
       settings: "Xác lập"
@@ -61,6 +65,10 @@ vi:
           param:
             name:
               title: "Tên"
+        guilded:
+          param:
+            name:
+              title: "Tên"
         mattermost:
           param:
             identifier:
@@ -81,3 +89,23 @@ vi:
           param:
             name:
               title: "Tên"
+        teams:
+          param:
+            name:
+              title: "Tên"
+        webex:
+          param:
+            name:
+              title: "Tên"
+        google:
+          param:
+            name:
+              title: "Tên"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Tin nhắn
+            url:
+              label: URL

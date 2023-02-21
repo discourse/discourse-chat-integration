@@ -196,6 +196,7 @@ fi:
               help: "Webex-tilan nimi, esim. discourse"
             webhook_url:
               title: "Webhookin URL"
+              help: "URL-osoite, joka annetaan, kun luot uuden saapuvan webhookin"
           errors:
             invalid_channel: "Tätä kanavaa ei ole olemassa Webexissä"
         google:
