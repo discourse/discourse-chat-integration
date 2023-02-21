@@ -16,6 +16,7 @@ uk:
       no_providers: "Потрібно включити деяких постачальників у налаштуваннях плагіна"
       channels_with_errors: "Деякі канали цього провайдера не вдавалися, коли останній раз надсилалися повідомлення. Клацніть піктограму помилок, щоб дізнатися більше."
       channel_exception: "Невідома помилка сталася під час останнього надсилання повідомлення на цей канал."
+      group_message_template: "Повідомлення до: @ %{name}"
       choose_group: "(виберіть групу)"
       all_categories: "(усі категорії)"
       all_tags: "(усі теги)"
@@ -102,6 +103,12 @@ uk:
             webhook_url:
               title: Webhook URL
               help: URL-адреса webhook, створена у налаштуваннях вашого сервера Discord
+        guilded:
+          param:
+            name:
+              title: "Імʼя"
+            webhook_url:
+              title: Webhook URL
         mattermost:
           title: "Найважливіше"
           param:
@@ -156,3 +163,31 @@ uk:
             flow_token:
               title: "Flow Token"
               help: "Token потоку надається після створення джерела для потоку, в який потрібно відправляти повідомлення."
+        teams:
+          param:
+            name:
+              title: "Імʼя"
+            webhook_url:
+              title: "Webhook URL"
+        webex:
+          param:
+            name:
+              title: "Імʼя"
+            webhook_url:
+              title: "Webhook URL"
+        google:
+          param:
+            name:
+              title: "Імʼя"
+            webhook_url:
+              title: "Webhook URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Повідомлення
+            url:
+              label: Посилання
+            channel:
+              label: Канал

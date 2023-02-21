@@ -16,6 +16,8 @@ hy:
       no_providers: "Դուք պետք է միացնեք որոշ մատակարարների պլագինի կարգավորումներում"
       channels_with_errors: "Այս մատակարարի որոշ ալիքներ ձախողվել են վերջին անգամ հաղորդագրությունները ուղարկելիս: Սեղմեք սխալի պատկերակ(ներ)ին՝ ավելին իմանալու համար:"
       channel_exception: "Վերջին անգամ այս ալիքին հաղորդագրություն ուղարկելիս տեղի է ունեցել անհայտ սխալ:"
+      group_mention_template: "Նշումներ՝ @%{name}"
+      group_message_template: "Հաղորդագրություն դեպի՝ @%{name}"
       choose_group: "(ընտրեք խումբ)"
       all_categories: "(բոլոր կատեգորիաները)"
       all_tags: "(բոլոր թեգերը)"
@@ -102,6 +104,12 @@ hy:
             webhook_url:
               title: Webhook -ի URL
               help: Ձեր Discord սերվերի կարգավորումներում ստեղծված webhook -ի URL -ը
+        guilded:
+          param:
+            name:
+              title: "Անուն"
+            webhook_url:
+              title: Webhook -ի URL
         mattermost:
           title: "Mattermost"
           param:
@@ -156,3 +164,31 @@ hy:
             flow_token:
               title: "Հոսքի Տոկեն"
               help: "Հոսքի տոկեն, որը տրամադրվում է հոսքի համար սկզբնաղյուր ստեղծելուց հետո, որի մեջ Դուք ցանկանում եք ուղարկել հաղորդագրություններ:"
+        teams:
+          param:
+            name:
+              title: "Անուն"
+            webhook_url:
+              title: "Webhook -ի URL"
+        webex:
+          param:
+            name:
+              title: "Անուն"
+            webhook_url:
+              title: "Webhook -ի URL"
+        google:
+          param:
+            name:
+              title: "Անուն"
+            webhook_url:
+              title: "Webhook -ի URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Նոր Հաղորդագրություն
+            url:
+              label: URL
+            channel:
+              label: Ալիք

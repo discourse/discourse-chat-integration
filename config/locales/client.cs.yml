@@ -8,6 +8,7 @@ cs:
   js:
     chat_integration:
       settings: "Nastavení"
+      all_categories: "(všechny kategorie)"
       delete_channel: "Smazat"
       edit_channel: "Upravit"
       test_modal:
@@ -42,6 +43,10 @@ cs:
           param:
             name:
               title: "Název"
+        guilded:
+          param:
+            name:
+              title: "Jméno"
         matrix:
           param:
             name:
@@ -54,3 +59,23 @@ cs:
           param:
             name:
               title: "Jméno"
+        teams:
+          param:
+            name:
+              title: "Jméno"
+        webex:
+          param:
+            name:
+              title: "Jméno"
+        google:
+          param:
+            name:
+              title: "Jméno"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Zpráva
+            url:
+              label: URL

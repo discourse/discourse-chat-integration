@@ -5,3 +5,5 @@
 # https://translate.discourse.org/
 
 zh_TW:
+  chat_integration:
+    all_categories: "(所有分類)"

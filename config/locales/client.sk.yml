@@ -75,6 +75,10 @@ sk:
           param:
             name:
               title: "Meno"
+        guilded:
+          param:
+            name:
+              title: "Meno"
         mattermost:
           title: "Mattermost"
           param:
@@ -103,3 +107,25 @@ sk:
           param:
             name:
               title: "Meno"
+        teams:
+          param:
+            name:
+              title: "Meno"
+        webex:
+          param:
+            name:
+              title: "Meno"
+        google:
+          param:
+            name:
+              title: "Meno"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Správa
+            url:
+              label: URL
+            channel:
+              label: Kanál

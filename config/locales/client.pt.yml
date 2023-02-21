@@ -100,6 +100,12 @@ pt:
             webhook_url:
               title: URL de Webhook
               help: O URL de ''webhook'' criado nas definições do seu servidor Discord
+        guilded:
+          param:
+            name:
+              title: "Nome"
+            webhook_url:
+              title: URL de Webhook
         mattermost:
           title: "Mattermost"
           param:
@@ -147,3 +153,31 @@ pt:
               title: "URL de Webhook"
         flowdock:
           title: "Flowdock"
+        teams:
+          param:
+            name:
+              title: "Nome"
+            webhook_url:
+              title: "URL de Webhook"
+        webex:
+          param:
+            name:
+              title: "Nome"
+            webhook_url:
+              title: "URL de Webhook"
+        google:
+          param:
+            name:
+              title: "Nome"
+            webhook_url:
+              title: "URL de Webhook"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Mensagem
+            url:
+              label: URL
+            channel:
+              label: Canal

@@ -105,6 +105,12 @@ gl:
             webhook_url:
               title: URL do gancho
               help: O URL do gancho creado na configuración do seu servidor Discord
+        guilded:
+          param:
+            name:
+              title: "Nome"
+            webhook_url:
+              title: URL do gancho
         mattermost:
           title: "Mattermost"
           param:
@@ -197,3 +203,13 @@ gl:
             webhook_url:
               title: "URL do gancho"
               help: "O URL ofrecido cando vostede crea un novo gancho"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Mensaxe
+            url:
+              label: URL
+            channel:
+              label: Canle

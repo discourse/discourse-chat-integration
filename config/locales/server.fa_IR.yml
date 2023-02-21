@@ -15,11 +15,16 @@ fa_IR:
         title: ارسال پیام اسلک
   chat_integration:
     all_categories: "(تمام دسته بندی ها)"
+    group_mention_template: "اشاره شده: @%{name}"
+    group_message_template: "پیغام‌ها به: @%{name}"
     provider:
       slack:
         status:
           rule_string: "*%{index})* *%{filter}* نوشته در *%{category}*"
         transcript:
           posted_in: "نوشته شده در %{name}"
+      mattermost:
+        status:
+          rule_string: "*%{index})* *%{filter}* نوشته در *%{category}*"
       google:
         new_post: "نوشته جدید در %{site_title}"

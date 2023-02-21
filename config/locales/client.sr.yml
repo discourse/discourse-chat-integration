@@ -26,6 +26,7 @@ sr:
         cancel: "Odustani"
       edit_rule_modal:
         cancel: Odustani
+        type: Tip
         filter: Filter
         category: Kategorija
         group: Grupa
@@ -35,6 +36,10 @@ sr:
             name:
               title: "Ime foruma"
         discord:
+          param:
+            name:
+              title: "Ime foruma"
+        guilded:
           param:
             name:
               title: "Ime foruma"
@@ -50,3 +55,23 @@ sr:
           param:
             name:
               title: "Ime foruma"
+        teams:
+          param:
+            name:
+              title: "Ime foruma"
+        webex:
+          param:
+            name:
+              title: "Ime foruma"
+        google:
+          param:
+            name:
+              title: "Ime foruma"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Privatna poruka
+            url:
+              label: URL

@@ -40,6 +40,10 @@ th:
           param:
             name:
               title: "ชื่อ"
+        guilded:
+          param:
+            name:
+              title: "ชื่อ"
         matrix:
           param:
             name:
@@ -52,3 +56,23 @@ th:
           param:
             name:
               title: "ชื่อ"
+        teams:
+          param:
+            name:
+              title: "ชื่อ"
+        webex:
+          param:
+            name:
+              title: "ชื่อ"
+        google:
+          param:
+            name:
+              title: "ชื่อ"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: ข้อความ
+            url:
+              label: URL

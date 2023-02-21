@@ -76,6 +76,10 @@ et:
           param:
             name:
               title: "Nimi"
+        guilded:
+          param:
+            name:
+              title: "Nimi"
         mattermost:
           param:
             identifier:
@@ -105,3 +109,25 @@ et:
               title: "Nimi"
         flowdock:
           title: "Flowdock"
+        teams:
+          param:
+            name:
+              title: "Nimi"
+        webex:
+          param:
+            name:
+              title: "Nimi"
+        google:
+          param:
+            name:
+              title: "Nimi"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Sõnum
+            url:
+              label: URL
+            channel:
+              label: Kanal

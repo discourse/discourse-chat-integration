@@ -16,6 +16,8 @@ ur:
       no_providers: "آپ کو پلَگ اِن کی سیٹِنگ میں کچھ پرووَائیڈرز کو فعال کرنے کی ضرورت ہے"
       channels_with_errors: "پچھلی دفعہ پیغامات بھیجنے پر اِس پرووَائیڈر کے کچھ چینلز ناکام ہوگئے تھے۔ مزید جاننے کیلئے خرابی کے آئکن پر کلک کریں۔"
       channel_exception: "آخری دفعہ اِس چینل کو پیغام بھیجنے پر ایک نامعلوم خرابی کا سامنا کرنا پڑا۔"
+      group_mention_template: "ذکر: @%{name} کے"
+      group_message_template: "پیغامات: @%{name} کیلئے"
       choose_group: "(ایک گروپ منتخب کریں)"
       all_categories: "(تمام زُمرَہ جات)"
       all_tags: "(تمام ٹَیگز)"
@@ -102,6 +104,12 @@ ur:
             webhook_url:
               title: وَیب ھُوک URL
               help: آپ کے ڈِسکَورڈ سروَر کی سیٹِنگ میں بنایا گیا وَیب ھُوک URL
+        guilded:
+          param:
+            name:
+              title: "نام"
+            webhook_url:
+              title: وَیب ھُوک URL
         mattermost:
           title: "مَیٹرمَوسٹ"
           param:
@@ -156,3 +164,31 @@ ur:
             flow_token:
               title: "فلَو ٹوکن"
               help: "ایک فلَو کا سَورس بنانے کے بعد فراہم ہونے والا فلَو ٹوکن جس میں آپ پیغامات بھیجنا چاہتے ہیں"
+        teams:
+          param:
+            name:
+              title: "نام"
+            webhook_url:
+              title: "وَیب ھُوک URL"
+        webex:
+          param:
+            name:
+              title: "نام"
+            webhook_url:
+              title: "وَیب ھُوک URL"
+        google:
+          param:
+            name:
+              title: "نام"
+            webhook_url:
+              title: "وَیب ھُوک URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: پیغام
+            url:
+              label: URL
+            channel:
+              label: چَینل

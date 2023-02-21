@@ -79,6 +79,11 @@ nb_NO:
             chat_id:
               title: Sludre-ID
         discord:
+          title: "Discord"
+          param:
+            name:
+              title: "Navn"
+        guilded:
           param:
             name:
               title: "Navn"
@@ -119,3 +124,25 @@ nb_NO:
             name:
               title: "Navn"
               help: "Et Gitter-romnavn f.eks. gitterHQ/services."
+        teams:
+          param:
+            name:
+              title: "Navn"
+        webex:
+          param:
+            name:
+              title: "Navn"
+        google:
+          param:
+            name:
+              title: "Navn"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: Send
+            url:
+              label: URL
+            channel:
+              label: Kanal

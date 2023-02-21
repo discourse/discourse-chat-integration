@@ -16,6 +16,8 @@ ko:
       no_providers: "플러그인 설정에서 일부 제공자를 활성화해야합니다"
       channels_with_errors: "이 제공자의 일부 채널은 마지막으로 메시지를 송신 할 때 실패했습니다. 자세한 내용을 보려면 오류 아이콘을 클릭하십시오."
       channel_exception: "메시지가이 채널로 마지막으로 전송 될 때 알 수없는 오류가 발생했습니다."
+      group_mention_template: "언급 : @ %{name}"
+      group_message_template: "메시지 : @ %{name}"
       choose_group: "(그룹을 선택하십시오)"
       all_categories: "(전체 카테고리)"
       all_tags: "(모든 태그)"
@@ -102,6 +104,12 @@ ko:
             webhook_url:
               title: 웹 후크 URL
               help: Discord 서버 설정에서 생성 된 웹 후크 URL
+        guilded:
+          param:
+            name:
+              title: "그룹명"
+            webhook_url:
+              title: 웹 후크 URL
         mattermost:
           title: "가장 중요한"
           param:
@@ -140,3 +148,31 @@ ko:
               title: "이름"
             webhook_url:
               title: "웹 후크 URL"
+        teams:
+          param:
+            name:
+              title: "그룹명"
+            webhook_url:
+              title: "웹 후크 URL"
+        webex:
+          param:
+            name:
+              title: "그룹명"
+            webhook_url:
+              title: "웹 후크 URL"
+        google:
+          param:
+            name:
+              title: "그룹명"
+            webhook_url:
+              title: "웹 후크 URL"
+    discourse_automation:
+      scriptables:
+        send_slack_message:
+          fields:
+            message:
+              label: 메시지 보내기
+            url:
+              label: URL
+            channel:
+              label: 채널
