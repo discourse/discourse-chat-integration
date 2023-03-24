@@ -5,7 +5,6 @@ class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
   store :value, accessors: %i[channel_id type group_id category_id tags filter], coder: JSON
 
   scope :with_type, ->(type) { where("value::json->>'type'=?", type.to_s) }
-  scope :with_filter, ->(type) { where("value::json->>'filter'=?", type.to_s) }
   scope :with_channel, ->(channel) { with_channel_id(channel.id) }
   scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s) }
 

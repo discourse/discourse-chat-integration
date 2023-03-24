@@ -15,6 +15,9 @@ module DiscourseChatIntegration
       # Abort if the post is blank
       return if post.blank?
 
+      # Abort if post is not either regular, or a 'tags_changed' small action
+      return if (post.post_type != Post.types[:regular]) && !(post.post_type == Post.types[:small_action] && post.action_code == "tags_changed")
+
       topic = post.topic
       return if topic.blank?
 
@@ -27,32 +30,32 @@ module DiscourseChatIntegration
             group_ids_with_access,
           )
 
-      elsif post.action_code == "tags_changed" && SiteSetting.create_small_action_post_for_tag_changes
+        # elsif post.action_code == "tags_changed" && SiteSetting.create_small_action_post_for_tag_changes
         # Post is a small_action post regarding tags changing for the topic. Check if any tags were _added_
         # and if so, corresponding rules with `filter: tag_added`
-        tags_added = post.custom_fields["tags_added"]
-        tags_added = [tags_added].compact if !tags_added.is_a?(Array)
-        return if tags_added.blank?
+        # tags_added = post.custom_fields["tags_added"]
+        # tags_added = [tags_added].compact if !tags_added.is_a?(Array)
+        # return if tags_added.blank?
 
-        tags_removed = post.custom_fields["tags_removed"]
-        tags_removed = [tags_removed].compact if !tags_removed.is_a?(Array)
+        # tags_removed = post.custom_fields["tags_removed"]
+        # tags_removed = [tags_removed].compact if !tags_removed.is_a?(Array)
 
-        unchanged_tags = topic.tags.map(&:name) - tags_added - tags_removed
+        # unchanged_tags = topic.tags.map(&:name) - tags_added - tags_removed
 
-        tag_rules_matching_category = DiscourseChatIntegration::Rule.with_filter("tag_added").with_category_id(topic.category_id)
+        # tag_rules_matching_category = DiscourseChatIntegration::Rule.with_filter("tag_added").with_category_id(topic.category_id)
 
-        matching_rules = tag_rules_matching_category.select do |rule|
-          next true if rule.tags.blank?
+        # matching_rules = tag_rules_matching_category.select do |rule|
+          # next true if rule.tags.blank?
 
           # Skip if the topic already has one of the tags in the rule, applied
-          next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
+          # next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
 
           # We don't need to do any additional filtering here because topics are filtered
           # by tag later
-          true
-        end
+          # true
+        # end
 
-      elsif post.post_type == Post.types[:regular]
+      else
         matching_rules =
           DiscourseChatIntegration::Rule.with_type("normal").with_category_id(topic.category_id)
         if topic.category # Also load the rules for the wildcard category
@@ -70,9 +73,34 @@ module DiscourseChatIntegration
               )
           end
         end
-      else
-        return # No matching rules found - safe to return.
       end
+
+      if post.action_code == "tags_changed"
+        # Post is a small_action post regarding tags changing for the topic. Check if any tags were _added_
+        # and if so, corresponding rules with `filter: tag_added`
+        tags_added = post.custom_fields["tags_added"]
+        tags_added = [tags_added].compact if !tags_added.is_a?(Array)
+        return if tags_added.blank?
+
+        tags_removed = post.custom_fields["tags_removed"]
+        tags_removed = [tags_removed].compact if !tags_removed.is_a?(Array)
+
+        unchanged_tags = topic.tags.map(&:name) - tags_added - tags_removed
+
+        matching_rules = matching_rules.select do |rule|
+          # Only rules that match this post, are ones where the filter is "tag_added"
+          next false if rule.filter != "tag_added"
+          next true if rule.tags.blank?
+
+          # Skip if the topic already has one of the tags in the rule, applied
+          next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
+
+          # We don't need to do any additional filtering here because topics are filtered
+          # by tag later
+          true
+        end
+      end
+
 
       # If tagging is enabled, thow away rules that don't apply to this topic
       if SiteSetting.tagging_enabled

@@ -398,6 +398,15 @@ RSpec.describe DiscourseChatIntegration::Manager do
           manager.trigger_notifications(post.id)
           expect(provider.sent_to_channel_ids).to contain_exactly
         end
+
+        it "doesn't notify for small action 'tags_changed' posts unless a matching rule exists" do
+          post = set_new_tags_and_return_small_action_post([additional_tag.name])
+
+          DiscourseChatIntegration::Rule.create!(channel: chan1, filter: "watch", category_id: nil) # Wildcard watch
+
+          manager.trigger_notifications(post.id)
+          expect(provider.sent_to_channel_ids).to contain_exactly
+        end
       end
     end
   end
