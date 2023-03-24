@@ -12,8 +12,8 @@ module DiscourseChatIntegration
       # Abort if the chat_user doesn't have permission to see the post
       return if !guardian.can_see?(post)
 
-      # Abort if the post is blank, or is non-regular (e.g. a "topic closed" notification)
-      return if post.blank? || post.post_type != Post.types[:regular]
+      # Abort if the post is blank
+      return if post.blank?
 
       topic = post.topic
       return if topic.blank?
@@ -26,7 +26,33 @@ module DiscourseChatIntegration
           DiscourseChatIntegration::Rule.with_type("group_message").with_group_ids(
             group_ids_with_access,
           )
-      else
+
+      elsif post.action_code == "tags_changed" && SiteSetting.create_small_action_post_for_tag_changes
+        # Post is a small_action post regarding tags changing for the topic. Check if any tags were _added_
+        # and if so, corresponding rules with `filter: tag_added`
+        tags_added = post.custom_fields["tags_added"]
+        tags_added = [tags_added].compact if !tags_added.is_a?(Array)
+        return if tags_added.blank?
+
+        tags_removed = post.custom_fields["tags_removed"]
+        tags_removed = [tags_removed].compact if !tags_removed.is_a?(Array)
+
+        unchanged_tags = topic.tags.map(&:name) - tags_added - tags_removed
+
+        tag_rules_matching_category = DiscourseChatIntegration::Rule.with_filter("tag_added").with_category_id(topic.category_id)
+
+        matching_rules = tag_rules_matching_category.select do |rule|
+          next true if rule.tags.blank?
+
+          # Skip if the topic already has one of the tags in the rule, applied
+          next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
+
+          # We don't need to do any additional filtering here because topics are filtered
+          # by tag later
+          true
+        end
+
+      elsif post.post_type == Post.types[:regular]
         matching_rules =
           DiscourseChatIntegration::Rule.with_type("normal").with_category_id(topic.category_id)
         if topic.category # Also load the rules for the wildcard category
@@ -44,6 +70,8 @@ module DiscourseChatIntegration
               )
           end
         end
+      else
+        return # No matching rules found - safe to return.
       end
 
       # If tagging is enabled, thow away rules that don't apply to this topic

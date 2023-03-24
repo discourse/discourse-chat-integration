@@ -345,6 +345,60 @@ RSpec.describe DiscourseChatIntegration::Manager do
 
         expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
       end
+
+      describe "with create_small_action_post_for_tag_changes enabled" do
+        fab!(:admin) { Fabricate(:admin) }
+        fab!(:additional_tag) { Fabricate(:tag) }
+
+        before { SiteSetting.create_small_action_post_for_tag_changes = true }
+
+        def set_new_tags_and_return_small_action_post(tags)
+          PostRevisor.new(tagged_first_post).revise!(admin, tags: tags)
+
+          tagged_topic.ordered_posts.last
+        end
+
+        it "should notify when rule is set up for tag additions for a category with no tag filter" do
+          post = set_new_tags_and_return_small_action_post([tag.name, additional_tag.name])
+
+          DiscourseChatIntegration::Rule.create!(
+            channel: chan1,
+            filter: "tag_added",
+            category_id: category.id
+          )
+
+          manager.trigger_notifications(post.id)
+          expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
+        end
+
+        it "notifies when topic has a tag added that matches the rule" do
+          post = set_new_tags_and_return_small_action_post([tag.name, additional_tag.name])
+
+          DiscourseChatIntegration::Rule.create!(
+            channel: chan1,
+            filter: "tag_added",
+            category_id: category.id,
+            tags: [additional_tag.name]
+          )
+
+          manager.trigger_notifications(post.id)
+          expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
+        end
+
+        it "doesn't notify when topic has an unchanged tag present in the rule, even if a new tag is added" do
+          post = set_new_tags_and_return_small_action_post([tag.name, additional_tag.name])
+
+          DiscourseChatIntegration::Rule.create!(
+            channel: chan1,
+            filter: "tag_added",
+            category_id: category.id,
+            tags: [tag.name]
+          )
+
+          manager.trigger_notifications(post.id)
+          expect(provider.sent_to_channel_ids).to contain_exactly
+        end
+      end
     end
   end
 end

@@ -36,6 +36,7 @@ en:
         mute: 'Mute'
         follow: 'First post only'
         watch: 'All posts and replies'
+        tag_added: 'Tag added to topic'
         thread: 'All posts with threaded replies'
       rule_table:
         filter: "Filter"
