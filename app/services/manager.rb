@@ -16,7 +16,10 @@ module DiscourseChatIntegration
       return if post.blank?
 
       # Abort if post is not either regular, or a 'tags_changed' small action
-      return if (post.post_type != Post.types[:regular]) && !(post.post_type == Post.types[:small_action] && post.action_code == "tags_changed")
+      if (post.post_type != Post.types[:regular]) &&
+           !(post.post_type == Post.types[:small_action] && post.action_code == "tags_changed")
+        return
+      end
 
       topic = post.topic
       return if topic.blank?
@@ -61,20 +64,20 @@ module DiscourseChatIntegration
 
         unchanged_tags = topic.tags.map(&:name) - tags_added - tags_removed
 
-        matching_rules = matching_rules.select do |rule|
-          # Only rules that match this post, are ones where the filter is "tag_added"
-          next false if rule.filter != "tag_added"
-          next true if rule.tags.blank?
+        matching_rules =
+          matching_rules.select do |rule|
+            # Only rules that match this post, are ones where the filter is "tag_added"
+            next false if rule.filter != "tag_added"
+            next true if rule.tags.blank?
 
-          # Skip if the topic already has one of the tags in the rule, applied
-          next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
+            # Skip if the topic already has one of the tags in the rule, applied
+            next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
 
-          # We don't need to do any additional filtering here because topics are filtered
-          # by tag later
-          true
-        end
+            # We don't need to do any additional filtering here because topics are filtered
+            # by tag later
+            true
+          end
       end
-
 
       # If tagging is enabled, thow away rules that don't apply to this topic
       if SiteSetting.tagging_enabled

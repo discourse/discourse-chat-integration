@@ -364,7 +364,7 @@ RSpec.describe DiscourseChatIntegration::Manager do
           DiscourseChatIntegration::Rule.create!(
             channel: chan1,
             filter: "tag_added",
-            category_id: category.id
+            category_id: category.id,
           )
 
           manager.trigger_notifications(post.id)
@@ -378,7 +378,7 @@ RSpec.describe DiscourseChatIntegration::Manager do
             channel: chan1,
             filter: "tag_added",
             category_id: category.id,
-            tags: [additional_tag.name]
+            tags: [additional_tag.name],
           )
 
           manager.trigger_notifications(post.id)
@@ -392,7 +392,7 @@ RSpec.describe DiscourseChatIntegration::Manager do
             channel: chan1,
             filter: "tag_added",
             category_id: category.id,
-            tags: [tag.name]
+            tags: [tag.name],
           )
 
           manager.trigger_notifications(post.id)
