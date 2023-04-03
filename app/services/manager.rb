@@ -92,7 +92,7 @@ module DiscourseChatIntegration
 
       # Sort by order of precedence
       t_prec = { "group_message" => 0, "group_mention" => 1, "normal" => 2 } # Group things win
-      f_prec = { "mute" => 0, "thread" => 1, "watch" => 2, "follow" => 3 } #(mute always wins; thread beats watch beats follow)
+      f_prec = { "mute" => 0, "thread" => 1, "watch" => 2, "follow" => 3, "tag_added" => 4 } #(mute always wins; thread beats watch beats follow)
       sort_func =
         proc { |a, b| [t_prec[a.type], f_prec[a.filter]] <=> [t_prec[b.type], f_prec[b.filter]] }
       matching_rules = matching_rules.sort(&sort_func)
