@@ -350,7 +350,7 @@ RSpec.describe DiscourseChatIntegration::Manager do
         fab!(:admin) { Fabricate(:admin) }
         fab!(:additional_tag) { Fabricate(:tag) }
 
-        before { SiteSetting.create_small_action_post_for_tag_changes = true }
+        before { SiteSetting.create_post_for_category_and_tag_changes = true }
 
         def set_new_tags_and_return_small_action_post(tags)
           PostRevisor.new(tagged_first_post).revise!(admin, tags: tags)
