@@ -37,7 +37,8 @@ class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
       WHEN value::json->>'filter' = 'mute' THEN 1
       WHEN value::json->>'filter' = 'thread' THEN 2
       WHEN value::json->>'filter' = 'watch' THEN 3
-      WHEN value::json->>'filter' = 'follow' THEN 4
+      WHEN value::json->>'filter' = 'tag_added' THEN 4
+      WHEN value::json->>'filter' = 'follow' THEN 5
      END
     ",
           )
@@ -47,7 +48,7 @@ class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
 
   validates :filter,
             inclusion: {
-              in: %w[thread watch follow mute],
+              in: %w[thread watch follow tag_added mute],
               message: "%{value} is not a valid filter",
             }
 
