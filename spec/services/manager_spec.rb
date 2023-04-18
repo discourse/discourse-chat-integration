@@ -316,6 +316,35 @@ RSpec.describe DiscourseChatIntegration::Manager do
       expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
     end
 
+    describe "With `create_post_for_category_and_tag_changes` enabled" do
+      before(:each) { SiteSetting.create_post_for_category_and_tag_changes = true }
+
+      let(:admin) { Fabricate(:admin) }
+      let(:other_topic) { Fabricate(:topic) }
+      let(:other_topic_post) { Fabricate(:post, topic: topic) }
+
+      it "should trigger follow rules for specific categories when topic category changes" do
+        DiscourseChatIntegration::Rule.create!(channel: chan1, filter: "follow", category_id: category.id)
+
+        PostRevisor.new(other_topic_post).revise!(admin, category_id: category.id)
+
+        manager.trigger_notifications(topic.ordered_posts.last.id)
+
+        expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
+      end
+
+      it "shouldn't trigger follow rules with wildcard category match" do
+        DiscourseChatIntegration::Rule.create!(channel: chan1, filter: "follow", category_id: nil)
+
+        PostRevisor.new(other_topic_post).revise!(admin, category_id: category.id)
+
+        manager.trigger_notifications(topic.ordered_posts.last.id)
+
+        expect(provider.sent_to_channel_ids).to contain_exactly
+
+      end
+    end
+
     describe "with tags enabled" do
       let(:tag) { Fabricate(:tag, name: "gsoc") }
       let(:tagged_topic) { Fabricate(:topic, category_id: category.id, tags: [tag]) }
