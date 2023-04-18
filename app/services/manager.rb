@@ -15,7 +15,7 @@ module DiscourseChatIntegration
       # Abort if the post is blank
       return if post.blank?
 
-      # Abort if post is not either regular, or a 'tags_changed' small action
+      # Abort if post is not either regular, or a 'tags_changed'/'category_changed' small action
       if (post.post_type != Post.types[:regular]) &&
            !(
              post.post_type == Post.types[:small_action] &&
