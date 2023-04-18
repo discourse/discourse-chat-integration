@@ -324,7 +324,11 @@ RSpec.describe DiscourseChatIntegration::Manager do
       let(:other_topic_post) { Fabricate(:post, topic: topic) }
 
       it "should trigger follow rules for specific categories when topic category changes" do
-        DiscourseChatIntegration::Rule.create!(channel: chan1, filter: "follow", category_id: category.id)
+        DiscourseChatIntegration::Rule.create!(
+          channel: chan1,
+          filter: "follow",
+          category_id: category.id,
+        )
 
         PostRevisor.new(other_topic_post).revise!(admin, category_id: category.id)
 
@@ -341,7 +345,6 @@ RSpec.describe DiscourseChatIntegration::Manager do
         manager.trigger_notifications(topic.ordered_posts.last.id)
 
         expect(provider.sent_to_channel_ids).to contain_exactly
-
       end
     end
 
