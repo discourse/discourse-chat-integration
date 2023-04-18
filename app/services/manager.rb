@@ -15,9 +15,12 @@ module DiscourseChatIntegration
       # Abort if the post is blank
       return if post.blank?
 
-      # Abort if post is not either regular, or a 'tags_changed' small action
+      # Abort if post is not either regular, or a 'tags_changed'/'category_changed' small action
       if (post.post_type != Post.types[:regular]) &&
-           !(post.post_type == Post.types[:small_action] && post.action_code == "tags_changed")
+           !(
+             post.post_type == Post.types[:small_action] &&
+               %w[tags_changed category_changed].include?(post.action_code)
+           )
         return
       end
 
@@ -104,9 +107,16 @@ module DiscourseChatIntegration
       # If a matching rule is set to mute, we can discard it now
       matching_rules = matching_rules.select { |rule| rule.filter != "mute" }
 
-      # If this is not the first post, discard all "follow" rules
+      # If this is not the first post, discard all "follow" rules. Unless it's a
+      # category_changed action post. If category changed, filter out and rules
+      # that aren't specific to a category
       if !post.is_first_post?
-        matching_rules = matching_rules.select { |rule| rule.filter != "follow" }
+        matching_rules =
+          if post.action_code == "category_changed"
+            matching_rules.select { |rule| rule.category_id.present? }
+          else
+            matching_rules.select { |rule| rule.filter != "follow" }
+          end
       end
 
       # All remaining rules now require a notification to be sent
