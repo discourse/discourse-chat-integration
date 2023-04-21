@@ -417,6 +417,19 @@ RSpec.describe DiscourseChatIntegration::Manager do
           expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
         end
 
+        it "doesn't notify when a new regular post is created" do
+          DiscourseChatIntegration::Rule.create!(
+            channel: chan1,
+            filter: "tag_added",
+            category_id: nil,
+            tags: [tag.name],
+          )
+
+          post = Fabricate(:post, topic: tagged_topic)
+          manager.trigger_notifications(post.id)
+          expect(provider.sent_to_channel_ids).to contain_exactly
+        end
+
         it "doesn't notify when topic has an unchanged tag present in the rule, even if a new tag is added" do
           post = set_new_tags_and_return_small_action_post([tag.name, additional_tag.name])
 
