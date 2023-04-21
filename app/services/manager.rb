@@ -80,6 +80,8 @@ module DiscourseChatIntegration
             # by tag later
             true
           end
+      else
+        matching_rules = matching_rules.select { |rule| rule.filter != "tag_added" }
       end
 
       # If tagging is enabled, thow away rules that don't apply to this topic
