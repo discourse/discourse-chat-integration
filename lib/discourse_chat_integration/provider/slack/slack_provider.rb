@@ -199,7 +199,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
   def self.get_slack_thread_ts(topic, channel)
     field = TopicCustomField.where(topic: topic, name: "#{THREAD_CUSTOM_FIELD_PREFIX}#{channel}")
-    field.pluck_first(:value) || topic.custom_fields[THREAD_LEGACY]
+    field.pick(:value) || topic.custom_fields[THREAD_LEGACY]
   end
 
   def self.set_slack_thread_ts(topic, channel, value)
