@@ -42,6 +42,7 @@ fr:
         mute: 'Mettre en sourdine'
         follow: 'Premier message seulement'
         watch: 'Tous les messages et réponses'
+        tag_added: 'Étiquette ajoutée au sujet'
         thread: 'Tous les messages avec des réponses par fil'
       rule_table:
         filter: "Filtrer"
