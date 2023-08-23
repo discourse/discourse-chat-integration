@@ -42,6 +42,7 @@ de:
         mute: 'Stummschalten'
         follow: 'Nur der erste Beitrag'
         watch: 'Alle Beiträge und Antworten'
+        tag_added: 'Tag zum Thema hinzugefügt'
         thread: 'Alle Beiträge mit Thread-Antworten'
       rule_table:
         filter: "Filter"

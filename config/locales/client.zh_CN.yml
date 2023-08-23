@@ -42,6 +42,7 @@ zh_CN:
         mute: '免打扰'
         follow: '仅第一个帖子'
         watch: '所有帖子和回复'
+        tag_added: '标签已添加到话题'
         thread: '所有带有按线索组织的回复的帖子'
       rule_table:
         filter: "筛选器"

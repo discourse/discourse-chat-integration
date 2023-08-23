@@ -42,6 +42,7 @@ es:
         mute: 'Silenciar'
         follow: 'Solo la primera publicación'
         watch: 'Todas las publicaciones y respuestas'
+        tag_added: 'Etiqueta añadida al tema'
         thread: 'Todas las publicaciones con respuestas en hilo'
       rule_table:
         filter: "Filtrar"

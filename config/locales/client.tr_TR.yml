@@ -42,6 +42,7 @@ tr_TR:
         mute: 'Sessize al'
         follow: 'Yalnızca ilk gönderi'
         watch: 'Tüm gönderiler ve yanıtlar'
+        tag_added: 'Etiket konuya eklendi'
         thread: 'Başlıklı yanıt içeren tüm gönderiler'
       rule_table:
         filter: "Filtre"

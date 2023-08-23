@@ -42,6 +42,7 @@ nl:
         mute: 'Dempen'
         follow: 'Alleen eerste bericht'
         watch: 'Alle berichten en antwoorden'
+        tag_added: 'Tag toegevoegd aan topic'
         thread: 'Alle berichten met antwoorden in draad'
       rule_table:
         filter: "Filter"

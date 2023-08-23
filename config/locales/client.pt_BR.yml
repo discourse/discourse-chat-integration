@@ -42,6 +42,7 @@ pt_BR:
         mute: 'Silenciar'
         follow: 'Somente a primeira postagem'
         watch: 'Todas as postagens e respostas'
+        tag_added: 'Etiqueta adicionada ao tópico'
         thread: 'Todas as postagens encadeadas'
       rule_table:
         filter: "Filtro"

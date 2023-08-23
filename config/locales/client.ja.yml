@@ -42,6 +42,7 @@ ja:
         mute: 'ミュート'
         follow: '最初の投稿のみ'
         watch: 'すべての投稿と返信'
+        tag_added: 'トピックにタグが追加されました'
         thread: '返信スレッドのあるすべての投稿'
       rule_table:
         filter: "フィルター"

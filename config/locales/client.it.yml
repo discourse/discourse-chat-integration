@@ -42,6 +42,7 @@ it:
         mute: 'Silenzia'
         follow: 'Solo il primo messaggio'
         watch: 'Tutti i messaggi e le risposte'
+        tag_added: 'Etichetta aggiunta all''argomento'
         thread: 'Tutti i messaggi con risposte in thread'
       rule_table:
         filter: "Filtro"
