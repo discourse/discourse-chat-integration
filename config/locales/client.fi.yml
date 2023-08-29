@@ -42,6 +42,7 @@ fi:
         mute: 'Vaimenna'
         follow: 'Vain ensimmäinen viesti'
         watch: 'Kaikki viestit ja vastaukset'
+        tag_added: 'Tunniste lisätty ketjuun'
         thread: 'Kaikki viestit, joissa on ketjutettuja vastauksia'
       rule_table:
         filter: "Suodatin"
