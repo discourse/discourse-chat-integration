@@ -2,6 +2,7 @@
 
 # name: discourse-chat-integration
 # about: This plugin integrates discourse with a number of chat providers
+# meta_topic_id: 66522
 # version: 0.1
 # url: https://github.com/discourse/discourse-chat-integration
 # author: David Taylor
