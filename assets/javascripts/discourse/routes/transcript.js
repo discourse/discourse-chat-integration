@@ -20,7 +20,7 @@ export default class Trascript extends DiscourseRoute {
     await this.router.replaceWith("discovery.latest").followRedirects();
 
     try {
-      const result = await ajax(`chat-transcript/${secret}`);
+      const result = await ajax(`/chat-transcript/${secret}`);
       this.composer.openNewTopic({
         body: result.content,
       });
