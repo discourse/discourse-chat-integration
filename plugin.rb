@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # name: discourse-chat-integration
-# about: Allows integration with several external chat system providers 
+# about: Allows integration with several external chat system providers
 # meta_topic_id: 66522
 # version: 0.1
 # url: https://github.com/discourse/discourse-chat-integration
