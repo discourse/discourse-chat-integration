@@ -48,7 +48,7 @@
     @title="chat_integration.edit_channel_modal.save"
     @label="chat_integration.edit_channel_modal.save"
     @action={{action "save"}}
-    @disabled={{(not this.validParams)}}
+    @disabled={{not this.validParams}}
   />
 
   <DButton

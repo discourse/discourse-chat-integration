@@ -1,9 +1,9 @@
-import Controller from "@ember/controller";
-import ModalFunctionality from "discourse/mixins/modal-functionality";
-import { popupAjaxError } from "discourse/lib/ajax-error";
 import { tracked } from "@glimmer/tracking";
+import Controller from "@ember/controller";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
+import { popupAjaxError } from "discourse/lib/ajax-error";
+import ModalFunctionality from "discourse/mixins/modal-functionality";
 
 export default class AdminPluginsChatIntegrationEditRule extends Controller.extend(
   ModalFunctionality

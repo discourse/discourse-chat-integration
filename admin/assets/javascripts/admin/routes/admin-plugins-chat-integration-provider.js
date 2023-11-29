@@ -1,7 +1,7 @@
-import DiscourseRoute from "discourse/routes/discourse";
-import Group from "discourse/models/group";
 import { action } from "@ember/object";
 import RSVP from "rsvp";
+import Group from "discourse/models/group";
+import DiscourseRoute from "discourse/routes/discourse";
 
 export default class AdminPluginsChatIntegrationProvider extends DiscourseRoute {
   model(params) {
