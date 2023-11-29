@@ -13,19 +13,19 @@ export default class ChannelParamRow extends Component {
 
     if (this.inputValue === "") {
       // Fail silently if field blank
-      this.args.isValidParams(false);
+      this.args.setValidParams(false);
       return EmberObject.create({
         failed: true,
       });
     } else if (!regString) {
       // Pass silently if no regex available for provider
-      this.args.isValidParams(true);
+      this.args.setValidParams(true);
       return EmberObject.create({
         ok: true,
       });
     } else if (regex.test(this.inputValue)) {
       // Test against regex
-      this.args.isValidParams(true);
+      this.args.setValidParams(true);
       return EmberObject.create({
         ok: true,
         reason: I18n.t(
@@ -34,7 +34,7 @@ export default class ChannelParamRow extends Component {
       });
     } else {
       // Failed regex
-      this.args.isValidParams(false);
+      this.args.setValidParams(false);
       return EmberObject.create({
         failed: true,
         reason: I18n.t(

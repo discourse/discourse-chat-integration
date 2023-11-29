@@ -50,8 +50,10 @@
 
   .admin-controls {
     padding: 10px;
+
     .nav-pills {
-      padding: 0;
+      //
+      padding: 0 10px;
     }
   }
 }

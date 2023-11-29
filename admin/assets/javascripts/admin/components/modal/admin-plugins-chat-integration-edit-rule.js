@@ -1,47 +1,43 @@
-import Controller from "@ember/controller";
-import ModalFunctionality from "discourse/mixins/modal-functionality";
+import Component from "@glimmer/component";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 
-export default class AdminPluginsChatIntegrationEditRule extends Controller.extend(
-  ModalFunctionality
-) {
+export default class AdminPluginsChatIntegrationEditRule extends Component {
   @service siteSettings;
+
   @tracked saveDisabled = false;
 
   get showCategory() {
-    return this.model.rule.type === "normal";
+    return this.args.model.rule.type === "normal";
   }
 
   get currentRuleType() {
-    return this.model.rule.type;
+    return this.args.model.rule.type;
   }
 
   @action
-  save(rule) {
+  async save(rule) {
     if (this.saveDisabled) {
       return;
     }
 
-    rule
-      .save()
-      .then(() => this.send("closeModal"))
-      .catch(popupAjaxError);
-  }
-
-  @action
-  handleKeyUp(e) {
-    if (e.code === "Enter") {
-      this.save();
+    try {
+      await rule.save();
+      this.args.closeModal();
+    } catch (e) {
+      popupAjaxError(e);
     }
   }
 
   @action
   onChangeRuleType(type) {
-    this.model.rule.type = type;
+    this.args.model.rule.type = type;
+    // TODO
     this.currentRuleType = type;
+
+    // TODO
     if (type !== "normal") {
       this.showCategory = false;
     } else {

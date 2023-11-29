@@ -6,11 +6,10 @@
 # version: 0.1
 # url: https://github.com/discourse/discourse-chat-integration
 # author: David Taylor
-# transpile_js: true
 
 enabled_site_setting :chat_integration_enabled
 
-register_asset "stylesheets/chat-integration-admin.scss"
+register_asset "stylesheets/chat-integration.scss"
 
 register_svg_icon "rocket" if respond_to?(:register_svg_icon)
 register_svg_icon "fa-arrow-circle-o-right" if respond_to?(:register_svg_icon)
