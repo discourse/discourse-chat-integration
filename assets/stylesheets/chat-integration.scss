@@ -12,7 +12,7 @@
   }
 
   div.table-footer {
-    margin: 10px;
+    margin-top: 10px;
   }
 
   div.error {
@@ -26,7 +26,7 @@
   }
 
   div.channel-details {
-    margin: 20px 10px;
+    margin-top: 20px;
     border: 1px solid var(--primary-low);
 
     div.channel-header {
@@ -48,13 +48,8 @@
     }
   }
 
-  .admin-controls {
-    padding: 10px;
-
-    .nav-pills {
-      //
-      padding: 0 10px;
-    }
+  .chat-integration-settings-button {
+    margin-right: 10px;
   }
 }
 
