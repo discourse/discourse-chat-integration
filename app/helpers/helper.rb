@@ -145,7 +145,7 @@ module DiscourseChatIntegration
     def self.delete_by_index(channel, index)
       rules = channel.rules.order_by_precedence
       return false if index < (1) || index > (rules.size)
-      return :deleted if rules[index - 1].destroy
+      :deleted if rules[index - 1].destroy
     end
 
     # Create a rule for a specific channel

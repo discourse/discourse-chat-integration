@@ -1,7 +1,7 @@
-import Controller from "@ember/controller";
-import showModal from "discourse/lib/show-modal";
 import { tracked } from "@glimmer/tracking";
+import Controller from "@ember/controller";
 import { action } from "@ember/object";
+import showModal from "discourse/lib/show-modal";
 
 const MODALS = {
   editChannel: "admin-plugins-chat-integration-edit-channel",

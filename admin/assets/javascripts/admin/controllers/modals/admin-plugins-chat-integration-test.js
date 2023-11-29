@@ -1,11 +1,11 @@
+import { tracked } from "@glimmer/tracking";
 import Controller from "@ember/controller";
+import { action } from "@ember/object";
 import { not } from "@ember/object/computed";
-import I18n from "I18n";
-import ModalFunctionality from "discourse/mixins/modal-functionality";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import { action } from "@ember/object";
-import { tracked } from "@glimmer/tracking";
+import ModalFunctionality from "discourse/mixins/modal-functionality";
+import I18n from "I18n";
 
 export default class AdminPluginsChatIntegrationTest extends Controller.extend(
   ModalFunctionality
