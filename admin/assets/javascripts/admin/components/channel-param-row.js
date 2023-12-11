@@ -6,7 +6,7 @@ import I18n from "I18n";
 export default class ChannelParamRow extends Component {
   @tracked inputValue = this.args.channel.data[this.args.param.key] || "";
 
-  get validate() {
+  get validation() {
     if (this.inputValue === "") {
       return { failed: true };
     } else if (!this.args.param.regex) {
