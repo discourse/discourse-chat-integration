@@ -23,18 +23,4 @@ export default class EditRule extends Component {
       popupAjaxError(e);
     }
   }
-
-  @action
-  onChangeRuleType(type) {
-    this.args.model.rule.type = type;
-    // TODO
-    this.currentRuleType = type;
-
-    // TODO
-    if (type !== "normal") {
-      this.showCategory = false;
-    } else {
-      this.showCategory = true;
-    }
-  }
 }
