@@ -15,12 +15,10 @@ export default class Transcript extends DiscourseRoute {
       return;
     }
 
-    const secret = params.secret;
-
     await this.router.replaceWith("discovery.latest").followRedirects();
 
     try {
-      const result = await ajax(`/chat-transcript/${secret}`);
+      const result = await ajax(`/chat-transcript/${params.secret}`);
       this.composer.openNewTopic({
         body: result.content,
       });
