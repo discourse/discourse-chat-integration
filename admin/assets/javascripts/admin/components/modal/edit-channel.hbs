@@ -30,12 +30,7 @@
         </tr>
 
         {{#each @model.provider.channel_parameters as |param|}}
-          <ChannelParamRow
-            @param={{param}}
-            @channel={{@model.channel}}
-            @validParams={{this.validParams}}
-            @setValidParams={{fn (mut this.validParams)}}
-          />
+          <ChannelParamRow @param={{param}} @channel={{@model.channel}} />
         {{/each}}
       </tbody>
     </table>
