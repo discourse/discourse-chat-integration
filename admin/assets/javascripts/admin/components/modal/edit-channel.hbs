@@ -32,7 +32,7 @@
         {{#each @model.provider.channel_parameters as |param|}}
           <ChannelParamRow
             @param={{param}}
-            @model={{@model}}
+            @channel={{@model.channel}}
             @validParams={{this.validParams}}
             @setValidParams={{fn (mut this.validParams)}}
           />

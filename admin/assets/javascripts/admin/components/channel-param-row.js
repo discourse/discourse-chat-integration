@@ -4,7 +4,7 @@ import { action } from "@ember/object";
 import I18n from "I18n";
 
 export default class ChannelParamRow extends Component {
-  @tracked inputValue = this.args.model.channel.data[this.args.param.key] || "";
+  @tracked inputValue = this.args.channel.data[this.args.param.key] || "";
 
   get validate() {
     if (this.inputValue === "") {
@@ -30,6 +30,6 @@ export default class ChannelParamRow extends Component {
 
   @action
   updateValue(event) {
-    this.args.model.channel.data[this.args.param.key] = event.target.value;
+    this.args.channel.data[this.args.param.key] = event.target.value;
   }
 }
