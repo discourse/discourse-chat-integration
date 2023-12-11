@@ -1,26 +1,28 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default class EditChannel extends Component {
-  @tracked validParams = false;
+  get validParams() {
+    return this.args.model.provider.channel_parameters.every((param) => {
+      const value = this.args.model.channel.get(`data.${param.key}`);
 
-  // @action
-  // handleKeyUp(e) {
-  //   if (e.code === "Enter" && this.validParams) {
-  //     this.save();
-  //   }
-  // }
+      if (value.trim() === "") {
+        return false;
+      }
+
+      if (!param.regex) {
+        return true;
+      }
+
+      return new RegExp(param.regex).test(value);
+    });
+  }
 
   @action
   async save() {
-    // if (!this.validParams) {
-    //   return;
-    // }
-
     try {
-      await this.model.channel.save();
+      await this.args.model.channel.save();
       this.args.closeModal();
     } catch (e) {
       popupAjaxError(e);

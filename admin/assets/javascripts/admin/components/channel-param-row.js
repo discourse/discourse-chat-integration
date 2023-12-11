@@ -1,17 +1,16 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import I18n from "I18n";
 
 export default class ChannelParamRow extends Component {
-  @tracked inputValue = this.args.channel.data[this.args.param.key] || "";
-
   get validation() {
-    if (this.inputValue === "") {
+    const value = this.args.channel.get(`data.${this.args.param.key}`);
+
+    if (value === "") {
       return { failed: true };
     } else if (!this.args.param.regex) {
       return { ok: true };
-    } else if (new RegExp(this.args.param.regex).test(this.inputValue)) {
+    } else if (new RegExp(this.args.param.regex).test(value)) {
       return {
         ok: true,
         reason: I18n.t(
@@ -30,6 +29,6 @@ export default class ChannelParamRow extends Component {
 
   @action
   updateValue(event) {
-    this.args.channel.data[this.args.param.key] = event.target.value;
+    this.args.channel.set(`data.${this.args.param.key}`, event.target.value);
   }
 }
