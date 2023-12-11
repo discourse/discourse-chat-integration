@@ -6,7 +6,7 @@ export default class ChannelParamRow extends Component {
   get validation() {
     const value = this.args.channel.get(`data.${this.args.param.key}`);
 
-    if (value === "") {
+    if (!value?.trim()) {
       return { failed: true };
     } else if (!this.args.param.regex) {
       return { ok: true };
