@@ -33,16 +33,6 @@ export default class AdminPluginsChatIntegrationProvider extends DiscourseRoute 
   }
 
   @action
-  closeModal() {
-    if (this.controller.modalShowing) {
-      this.refresh();
-      this.controller.modalShowing = false;
-    }
-
-    return true; // Continue bubbling up, so the modal actually closes
-  }
-
-  @action
   refreshProvider() {
     this.refresh();
   }
