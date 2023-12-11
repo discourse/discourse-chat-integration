@@ -5,7 +5,7 @@ import { inject as service } from "@ember/service";
 import ChannelErrorModal from "../components/modal/channel-error";
 import EditChannelModal from "../components/modal/edit-channel";
 import EditRuleModal from "../components/modal/edit-rule";
-import TestModal from "../components/modal/test";
+import TestModal from "../components/modal/test-integration";
 
 export default class AdminPluginsChatIntegrationProvider extends Controller {
   @service modal;
