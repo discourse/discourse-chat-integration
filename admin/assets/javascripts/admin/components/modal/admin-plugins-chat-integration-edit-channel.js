@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
-import { popupAjaxError } from "discourse/lib/ajax-error";
-import { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import { action } from "@ember/object";
+import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default class AdminPluginsChatIntegrationEditChannel extends Component {
   @tracked validParams = false;

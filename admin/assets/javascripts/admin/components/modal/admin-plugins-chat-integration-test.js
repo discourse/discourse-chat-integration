@@ -1,9 +1,9 @@
 import Component from "@glimmer/component";
-import I18n from "I18n";
+import { tracked } from "@glimmer/tracking";
+import { action } from "@ember/object";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import { action } from "@ember/object";
-import { tracked } from "@glimmer/tracking";
+import I18n from "I18n";
 
 export default class AdminPluginsChatIntegrationTest extends Component {
   @tracked loading = false;
