@@ -1,6 +1,6 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import EmberObject, { action } from "@ember/object";
+import { action } from "@ember/object";
 import I18n from "I18n";
 
 export default class ChannelParamRow extends Component {
@@ -14,33 +14,33 @@ export default class ChannelParamRow extends Component {
     if (this.inputValue === "") {
       // Fail silently if field blank
       this.args.setValidParams(false);
-      return EmberObject.create({
+      return {
         failed: true,
-      });
+      };
     } else if (!regString) {
       // Pass silently if no regex available for provider
       this.args.setValidParams(true);
-      return EmberObject.create({
+      return {
         ok: true,
-      });
+      };
     } else if (regex.test(this.inputValue)) {
       // Test against regex
       this.args.setValidParams(true);
-      return EmberObject.create({
+      return {
         ok: true,
         reason: I18n.t(
           "chat_integration.edit_channel_modal.channel_validation.ok"
         ),
-      });
+      };
     } else {
       // Failed regex
       this.args.setValidParams(false);
-      return EmberObject.create({
+      return {
         failed: true,
         reason: I18n.t(
           "chat_integration.edit_channel_modal.channel_validation.fail"
         ),
-      });
+      };
     }
   }
 
