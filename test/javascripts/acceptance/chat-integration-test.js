@@ -1,4 +1,4 @@
-import { click, fillIn, triggerKeyEvent, visit } from "@ember/test-helpers";
+import { click, fillIn, triggerEvent, visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 
@@ -131,11 +131,7 @@ acceptance("Chat Integration", function (needs) {
     assert.dom("#save-channel").isEnabled();
 
     // Press enter
-    await triggerKeyEvent(
-      "#chat-integration-edit-channel-modal input",
-      "keydown",
-      "Enter"
-    );
+    await triggerEvent("#chat-integration-edit-channel-modal", "submit");
 
     assert
       .dom("#chat-integration-edit-channel-modal")
