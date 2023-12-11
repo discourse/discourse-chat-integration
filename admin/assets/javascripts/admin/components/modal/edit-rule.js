@@ -6,14 +6,6 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 export default class EditRule extends Component {
   @service siteSettings;
 
-  get showCategory() {
-    return this.args.model.rule.type === "normal";
-  }
-
-  get currentRuleType() {
-    return this.args.model.rule.type;
-  }
-
   @action
   async save(rule) {
     try {
