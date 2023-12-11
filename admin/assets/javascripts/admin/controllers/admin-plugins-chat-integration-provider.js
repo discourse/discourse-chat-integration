@@ -2,10 +2,10 @@ import { tracked } from "@glimmer/tracking";
 import Controller from "@ember/controller";
 import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
-import ChannelErrorModal from "../components/modal/admin-plugins-chat-integration-channel-error";
-import EditChannelModal from "../components/modal/admin-plugins-chat-integration-edit-channel";
-import EditRuleModal from "../components/modal/admin-plugins-chat-integration-edit-rule";
-import TestModal from "../components/modal/admin-plugins-chat-integration-test";
+import ChannelErrorModal from "../components/modal/channel-error";
+import EditChannelModal from "../components/modal/edit-channel";
+import EditRuleModal from "../components/modal/edit-rule";
+import TestModal from "../components/modal/test";
 
 export default class AdminPluginsChatIntegrationProvider extends Controller {
   @service modal;

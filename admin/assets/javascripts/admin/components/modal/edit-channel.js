@@ -3,7 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
-export default class AdminPluginsChatIntegrationEditChannel extends Component {
+export default class EditChannel extends Component {
   @tracked validParams = false;
 
   // @action

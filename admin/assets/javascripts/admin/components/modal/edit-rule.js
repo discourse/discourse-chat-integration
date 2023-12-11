@@ -4,7 +4,7 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
-export default class AdminPluginsChatIntegrationEditRule extends Component {
+export default class EditRule extends Component {
   @service siteSettings;
 
   @tracked saveDisabled = false;

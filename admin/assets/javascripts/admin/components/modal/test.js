@@ -5,7 +5,7 @@ import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import I18n from "I18n";
 
-export default class AdminPluginsChatIntegrationTest extends Component {
+export default class Test extends Component {
   @tracked loading = false;
   @tracked flash;
 
