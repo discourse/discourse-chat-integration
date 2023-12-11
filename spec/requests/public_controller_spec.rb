@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
-describe "Public Controller", type: :request do
+RSpec.describe "Public Controller", type: :request do
   before { SiteSetting.chat_integration_enabled = true }
 
   describe "loading a transcript" do
