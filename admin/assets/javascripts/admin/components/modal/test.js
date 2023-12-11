@@ -8,10 +8,7 @@ import I18n from "I18n";
 export default class Test extends Component {
   @tracked loading = false;
   @tracked flash;
-
-  get sendDisabled() {
-    return !this.args.model.topic_id;
-  }
+  @tracked topicId;
 
   @action
   async send() {
@@ -21,7 +18,7 @@ export default class Test extends Component {
       await ajax("/admin/plugins/chat-integration/test", {
         data: {
           channel_id: this.args.model.channel.id,
-          topic_id: this.args.model.topic_id,
+          topic_id: this.topicId,
         },
         type: "POST",
       });
