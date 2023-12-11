@@ -7,25 +7,11 @@ export default class ChannelParamRow extends Component {
   @tracked inputValue = this.args.model.channel.data[this.args.param.key] || "";
 
   get validate() {
-    const parameter = this.args.param;
-    const regString = parameter.regex;
-    const regex = new RegExp(regString);
-
     if (this.inputValue === "") {
-      // Fail silently if field blank
-      this.args.setValidParams(false);
-      return {
-        failed: true,
-      };
-    } else if (!regString) {
-      // Pass silently if no regex available for provider
-      this.args.setValidParams(true);
-      return {
-        ok: true,
-      };
-    } else if (regex.test(this.inputValue)) {
-      // Test against regex
-      this.args.setValidParams(true);
+      return { failed: true };
+    } else if (!this.args.param.regex) {
+      return { ok: true };
+    } else if (new RegExp(this.args.param.regex).test(this.inputValue)) {
       return {
         ok: true,
         reason: I18n.t(
@@ -33,8 +19,6 @@ export default class ChannelParamRow extends Component {
         ),
       };
     } else {
-      // Failed regex
-      this.args.setValidParams(false);
       return {
         failed: true,
         reason: I18n.t(
