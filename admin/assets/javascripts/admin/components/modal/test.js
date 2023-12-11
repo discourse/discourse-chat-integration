@@ -15,10 +15,6 @@ export default class Test extends Component {
 
   @action
   async send() {
-    if (this.sendDisabled) {
-      return;
-    }
-
     this.loading = true;
 
     try {
