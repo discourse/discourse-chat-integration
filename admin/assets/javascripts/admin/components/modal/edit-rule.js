@@ -19,10 +19,6 @@ export default class EditRule extends Component {
 
   @action
   async save(rule) {
-    if (this.saveDisabled) {
-      return;
-    }
-
     try {
       await rule.save();
       this.args.closeModal();
