@@ -6,9 +6,11 @@
           <NavItem
             @route="adminPlugins.chat-integration.provider"
             @routeParam={{provider.name}}
-            @label={{(concat
-              "chat_integration.provider." provider.name ".title"
-            )}}
+            @label={{concat
+              "chat_integration.provider."
+              provider.name
+              ".title"
+            }}
           />
         {{/each}}
       </ul>

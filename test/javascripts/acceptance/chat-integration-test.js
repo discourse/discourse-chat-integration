@@ -1,11 +1,11 @@
+import { click, fillIn, triggerKeyEvent, visit } from "@ember/test-helpers";
+import { test } from "qunit";
 import {
   acceptance,
   exists,
   query,
   queryAll,
 } from "discourse/tests/helpers/qunit-helpers";
-import { test } from "qunit";
-import { click, fillIn, triggerKeyEvent, visit } from "@ember/test-helpers";
 
 const response = (object) => {
   return [200, { "Content-Type": "text/html; charset=utf-8" }, object];

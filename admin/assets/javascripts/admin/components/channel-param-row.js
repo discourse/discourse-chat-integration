@@ -1,6 +1,6 @@
 import Component from "@glimmer/component";
-import EmberObject, { action } from "@ember/object";
 import { tracked } from "@glimmer/tracking";
+import EmberObject, { action } from "@ember/object";
 import I18n from "I18n";
 
 export default class ChannelParamRow extends Component {

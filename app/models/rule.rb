@@ -9,7 +9,7 @@ class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
   scope :with_channel_id, ->(channel_id) { where("value::json->>'channel_id'=?", channel_id.to_s) }
 
   scope :with_category_id,
-        ->(category_id) {
+        ->(category_id) do
           if category_id.nil?
             where(
               "(value::json->'category_id') IS NULL OR json_typeof(value::json->'category_id')='null'",
@@ -17,13 +17,13 @@ class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
           else
             where("value::json->>'category_id'=?", category_id.to_s)
           end
-        }
+        end
 
   scope :with_group_ids,
         ->(group_id) { where("value::json->>'group_id' IN (?)", group_id.map!(&:to_s)) }
 
   scope :order_by_precedence,
-        -> {
+        -> do
           order(
             "
       CASE
@@ -42,7 +42,7 @@ class DiscourseChatIntegration::Rule < DiscourseChatIntegration::PluginModel
      END
     ",
           )
-        }
+        end
 
   after_initialize :init_filter
 

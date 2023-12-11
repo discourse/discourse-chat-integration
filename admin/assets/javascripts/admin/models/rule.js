@@ -1,7 +1,7 @@
-import I18n from "I18n";
-import RestModel from "discourse/models/rest";
-import Category from "discourse/models/category";
 import { tracked } from "@glimmer/tracking";
+import Category from "discourse/models/category";
+import RestModel from "discourse/models/rest";
+import I18n from "I18n";
 
 export default class Rule extends RestModel {
   @tracked type = "normal";
