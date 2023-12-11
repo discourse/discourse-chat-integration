@@ -7,7 +7,7 @@ export default class EditChannel extends Component {
     return this.args.model.provider.channel_parameters.every((param) => {
       const value = this.args.model.channel.get(`data.${param.key}`);
 
-      if (value.trim() === "") {
+      if (!value?.trim()) {
         return false;
       }
 
