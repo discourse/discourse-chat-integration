@@ -5,14 +5,14 @@
         @icon="pencil-alt"
         @title="chat_integration.edit_channel"
         @label="chat_integration.edit_channel"
-        @action={{action @editChannel @channel}}
+        @action={{fn @editChannel @channel}}
       />
 
       <DButton
         @icon="rocket"
         @title="chat_integration.test_channel"
         @label="chat_integration.test_channel"
-        @action={{action @test @channel}}
+        @action={{fn @test @channel}}
         @class="btn-chat-test"
       />
 
@@ -20,7 +20,7 @@
         @icon="trash-alt"
         @title="chat_integration.delete_channel"
         @label="chat_integration.delete_channel"
-        @action={{action this.deleteChannel @channel}}
+        @action={{fn this.deleteChannel @channel}}
         @class="cancel delete-channel"
       />
     </div>
@@ -30,7 +30,7 @@
         <DButton
           @class="delete btn-danger"
           @icon="exclamation-triangle"
-          @action={{action @showError @channel}}
+          @action={{fn @showError @channel}}
         />
       {{/if}}
 
@@ -56,7 +56,7 @@
         {{#each @channel.rules as |rule|}}
           <RuleRow
             @rule={{rule}}
-            @edit={{action @editRuleWithChannel rule @channel}}
+            @edit={{fn @editRuleWithChannel rule @channel}}
             @refresh={{@refresh}}
           />
         {{/each}}
@@ -71,7 +71,7 @@
         @icon="plus"
         @title="chat_integration.create_rule"
         @label="chat_integration.create_rule"
-        @action={{action @createRule @channel}}
+        @action={{fn @createRule @channel}}
       />
     </div>
   </div>

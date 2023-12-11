@@ -4,7 +4,7 @@
       {{i18n
         (concat
           "chat_integration.provider."
-          @model.channel.provider
+          @channel.provider
           ".param."
           @param.key
           ".title"
@@ -13,14 +13,14 @@
     </label>
   </td>
   <td>
-    <Input
-      name={{concat "param-" @param.key}}
-      @value={{this.inputValue}}
-      {{on "change" this.updateValue}}
+    <input
+      {{on "input" this.updateValue}}
+      value={{get @channel.data @param.key}}
+      type="text"
+      name="param-{{@param.key}}"
     />
 
-    <InputTip @validation={{this.validate}} />
-
+    <InputTip @validation={{this.validation}} />
   </td>
 </tr>
 
@@ -31,7 +31,7 @@
       {{i18n
         (concat
           "chat_integration.provider."
-          @model.channel.provider
+          @channel.provider
           ".param."
           @param.key
           ".help"

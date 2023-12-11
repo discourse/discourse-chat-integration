@@ -11,8 +11,6 @@ export default class AdminPluginsChatIntegration extends DiscourseRoute {
 
   @action
   showSettings() {
-    this.router.transitionTo("adminSiteSettingsCategory", "plugins", {
-      queryParams: { filter: "chat_integration" },
-    });
+    this.router.transitionTo("adminSiteSettingsCategory", "chat_integration");
   }
 }

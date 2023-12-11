@@ -11,23 +11,22 @@
   <ChannelDetails
     @channel={{channel}}
     @provider={{this.model.provider}}
-    @refresh={{action "refresh"}}
-    @editChannel={{action "editChannel"}}
-    @test={{action "testChannel"}}
-    @createRule={{action "createRule"}}
-    @editRuleWithChannel={{action "editRuleWithChannel"}}
-    @showError={{action "showError"}}
+    @refresh={{this.refresh}}
+    @editChannel={{this.editChannel}}
+    @test={{this.testChannel}}
+    @createRule={{this.createRule}}
+    @editRuleWithChannel={{this.editRuleWithChannel}}
+    @showError={{this.showError}}
   />
 {{/each}}
 
 <div class="table-footer">
   <div class="pull-right">
     <DButton
-      @id="create-channel"
-      @icon="plus"
-      @title="chat_integration.create_channel"
+      @action={{fn this.createChannel this.model.provider}}
       @label="chat_integration.create_channel"
-      @action={{action "createChannel" this.model.provider}}
+      @icon="plus"
+      @id="create-channel"
     />
   </div>
 </div>

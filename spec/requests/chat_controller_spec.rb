@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
 require_relative "../dummy_provider"
 
-describe "Chat Controller", type: :request do
+RSpec.describe "Chat Controller", type: :request do
   let(:topic) { Fabricate(:post).topic }
   let(:admin) { Fabricate(:admin) }
   let(:category) { Fabricate(:category) }
