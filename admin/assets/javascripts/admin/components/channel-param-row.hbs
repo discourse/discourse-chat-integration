@@ -14,9 +14,10 @@
   </td>
   <td>
     <Input
-      name="param-{{@param.key}}"
-      @value={{this.inputValue}}
       {{on "change" this.updateValue}}
+      @value={{this.inputValue}}
+      name="param-{{@param.key}}"
+      required
     />
 
     <InputTip @validation={{this.validation}} />
