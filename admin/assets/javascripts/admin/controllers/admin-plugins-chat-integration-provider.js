@@ -11,10 +11,9 @@ export default class AdminPluginsChatIntegrationProvider extends Controller {
   @service store;
 
   get anyErrors() {
-    const channels = this.model.channels;
     let anyErrors = false;
 
-    channels.forEach((channel) => {
+    this.model.channels.forEach((channel) => {
       if (channel.error_key) {
         anyErrors = true;
       }
