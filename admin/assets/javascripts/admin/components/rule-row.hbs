@@ -29,19 +29,17 @@
 
   <td>
     <DButton
-      @class="edit"
       @icon="pencil-alt"
       @title="chat_integration.rule_table.edit_rule"
-      @action={{@edit}}
-      @actionParam={{@rule}}
+      @action={{fn @edit @rule}}
+      class="edit"
     />
 
     <DButton
-      @class="delete"
       @icon="far-trash-alt"
       @title="chat_integration.rule_table.delete_rule"
-      @action={{this.delete}}
-      @actionParam={{@rule}}
+      @action={{fn this.delete @rule}}
+      class="delete"
     />
   </td>
 </tr>

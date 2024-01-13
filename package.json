@@ -1,13 +1,10 @@
 {
-  "name": "discourse",
-  "version": "1.0.0",
-  "repository": "git@github.com:discourse/discourse-chat-integration.git",
-  "author": "Discourse",
-  "license": "MIT",
+  "name": "discourse-chat-integration",
+  "private": true,
   "devDependencies": {
-    "@discourse/lint-configs": "^1.2.0",
+    "@discourse/lint-configs": "^1.3.4",
     "ember-template-lint": "^5.13.0",
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "prettier": "^2.8.8"
   }
 }

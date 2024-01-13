@@ -15,7 +15,7 @@ RSpec.describe DiscourseChatIntegration::Provider::GroupmeProvider do
       DiscourseChatIntegration::Channel.create!(
         provider: "groupme",
         data: {
-          groupme_bot_id: "1a2b3c4d5e6f7g",
+          groupme_instance_name: "my instance",
         },
       )
     end
