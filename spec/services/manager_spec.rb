@@ -379,7 +379,7 @@ RSpec.describe DiscourseChatIntegration::Manager do
       end
 
       describe "with create_small_action_post_for_tag_changes enabled" do
-        fab!(:admin) { Fabricate(:admin) }
+        fab!(:admin) { Fabricate(:admin, refresh_auto_groups: true) }
         fab!(:additional_tag) { Fabricate(:tag) }
 
         before { SiteSetting.create_post_for_category_and_tag_changes = true }
