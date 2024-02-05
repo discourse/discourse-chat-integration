@@ -1,9 +1,10 @@
 en:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Chat Integrations"
+  js:
     chat_integration:
       menu_title: "Chat Integrations"
       settings: "Settings"
