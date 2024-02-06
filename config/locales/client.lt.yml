@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 lt:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Pokalbių integracijos"
+  js:
     chat_integration:
       menu_title: "Pokalbių integracijos"
       settings: "Nustatymai"

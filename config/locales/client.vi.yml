@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 vi:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
+  js:
     chat_integration:
       menu_title: "Bạn cần thêm một vài dịch vụ Chat trong phần thiết lập plugin."
       settings: "Xác lập"

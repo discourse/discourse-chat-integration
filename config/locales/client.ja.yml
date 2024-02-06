@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 ja:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "チャットの統合"
+  js:
     chat_integration:
       menu_title: "チャットの統合"
       settings: "設定"

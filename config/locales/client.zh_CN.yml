@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 zh_CN:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "聊天集成"
+  js:
     chat_integration:
       menu_title: "聊天集成"
       settings: "设置"

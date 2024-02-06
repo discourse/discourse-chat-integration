@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 et:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Jututoa integratsioonid"
+  js:
     chat_integration:
       menu_title: "Jututoa integratsioonid"
       settings: "Seaded"

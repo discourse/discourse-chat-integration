@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 fa_IR:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "یکپارچگی گفتگو"
+  js:
     chat_integration:
       menu_title: "یکپارچگی گفتگو"
       settings: "تنظیمات"

@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 ar:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "تكاملات الدردشة"
+  js:
     chat_integration:
       menu_title: "تكاملات الدرشة"
       settings: "الإعدادات"
