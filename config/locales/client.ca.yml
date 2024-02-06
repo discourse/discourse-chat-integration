@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 ca:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Integracions de xat"
+  js:
     chat_integration:
       menu_title: "Integracions de xat"
       settings: "Configuració"

@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 he:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "שילובי צ׳אט"
+  js:
     chat_integration:
       menu_title: "שילובי צ׳אט"
       settings: "הגדרות"

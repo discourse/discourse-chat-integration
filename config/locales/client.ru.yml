@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 ru:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Интеграция с чатами"
+  js:
     chat_integration:
       menu_title: "Интеграция с чатами"
       settings: "Настройки"

@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 ur:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "چَیٹ اِنٹیگرَیشَن"
+  js:
     chat_integration:
       menu_title: "چَیٹ اِنٹیگرَیشَن"
       settings: "سیٹِنگ"

@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 nb_NO:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Sludreintegreringer"
+  js:
     chat_integration:
       menu_title: "Sludreintegreringer"
       settings: "Innstillinger"

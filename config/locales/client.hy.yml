@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 hy:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Զրույցի ինտեգրումներ"
+  js:
     chat_integration:
       menu_title: "Զրույցի ինտեգրումներ"
       settings: "Կարգավորումներ"

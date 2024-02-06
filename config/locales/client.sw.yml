@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 sw:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "Uwezo wa kuwasiliana"
+  js:
     chat_integration:
       menu_title: "Maongezi Shirikizo"
       settings: "Mipangilio"

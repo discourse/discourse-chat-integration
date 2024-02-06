@@ -5,11 +5,12 @@
 # https://translate.discourse.org/
 
 ko:
-  js:
+  admin_js:
     admin:
       site_settings:
         categories:
           chat_integration: "채팅 통합"
+  js:
     chat_integration:
       menu_title: "채팅 통합"
       settings: "설정"
