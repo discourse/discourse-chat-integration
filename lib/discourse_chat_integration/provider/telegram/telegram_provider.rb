@@ -115,4 +115,3 @@ module DiscourseChatIntegration
 end
 
 require_relative "telegram_command_controller.rb"
-require_relative "telegram_initializer.rb"

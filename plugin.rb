@@ -20,6 +20,21 @@ require_relative "lib/discourse_chat_integration/provider/slack/slack_enabled_se
 after_initialize do
   require_relative "app/initializers/discourse_chat_integration"
 
+  on(:site_setting_changed) do |setting_name, old_value, new_value|
+    isEnabledSetting = setting_name == :chat_integration_telegram_enabled
+    isAccessToken = setting_name == :chat_integration_telegram_access_token
+
+    if (isEnabledSetting || isAccessToken)
+      enabled = isEnabledSetting ? new_value == true : SiteSetting.chat_integration_telegram_enabled
+
+      if enabled && SiteSetting.chat_integration_telegram_access_token.present?
+        Scheduler::Defer.later("Setup Telegram Webhook") do
+          DiscourseChatIntegration::Provider::TelegramProvider.setup_webhook
+        end
+      end
+    end
+  end
+
   on(:post_created) do |post|
     # This will run for every post, even PMs. Don't worry, they're filtered out later.
     time = SiteSetting.chat_integration_delay_seconds.seconds
