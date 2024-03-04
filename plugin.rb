@@ -21,11 +21,11 @@ after_initialize do
   require_relative "app/initializers/discourse_chat_integration"
 
   on(:site_setting_changed) do |setting_name, old_value, new_value|
-    isEnabledSetting = setting_name == :chat_integration_telegram_enabled
-    isAccessToken = setting_name == :chat_integration_telegram_access_token
+    is_enabled_setting = setting_name == :chat_integration_telegram_enabled
+    is_access_token = setting_name == :chat_integration_telegram_access_token
 
-    if (isEnabledSetting || isAccessToken)
-      enabled = isEnabledSetting ? new_value == true : SiteSetting.chat_integration_telegram_enabled
+    if (is_enabled_setting || is_access_token)
+      enabled = is_enabled_setting ? new_value == true : SiteSetting.chat_integration_telegram_enabled
 
       if enabled && SiteSetting.chat_integration_telegram_access_token.present?
         Scheduler::Defer.later("Setup Telegram Webhook") do
