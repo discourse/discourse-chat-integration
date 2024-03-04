@@ -25,7 +25,8 @@ after_initialize do
     is_access_token = setting_name == :chat_integration_telegram_access_token
 
     if (is_enabled_setting || is_access_token)
-      enabled = is_enabled_setting ? new_value == true : SiteSetting.chat_integration_telegram_enabled
+      enabled =
+        is_enabled_setting ? new_value == true : SiteSetting.chat_integration_telegram_enabled
 
       if enabled && SiteSetting.chat_integration_telegram_access_token.present?
         Scheduler::Defer.later("Setup Telegram Webhook") do
