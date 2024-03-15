@@ -19,6 +19,7 @@ require_relative "lib/discourse_chat_integration/provider/slack/slack_enabled_se
 
 after_initialize do
   require_relative "app/initializers/discourse_chat_integration"
+  require_relative "app/services/problem_check/channel_errors"
 
   on(:site_setting_changed) do |setting_name, old_value, new_value|
     is_enabled_setting = setting_name == :chat_integration_telegram_enabled
@@ -43,22 +44,6 @@ after_initialize do
   end
 
   add_admin_route "chat_integration.menu_title", "chat-integration"
-
-  AdminDashboardData.add_problem_check do
-    next if !SiteSetting.chat_integration_enabled
-
-    error = false
-    DiscourseChatIntegration::Channel.find_each do |channel|
-      next if channel.error_key.blank?
-      next if !::DiscourseChatIntegration::Provider.is_enabled(channel.provider)
-      error = true
-    end
-
-    if error
-      base_path = Discourse.respond_to?(:base_path) ? Discourse.base_path : Discourse.base_uri
-      I18n.t("chat_integration.admin_error", base_path: base_path)
-    end
-  end
 
   DiscourseChatIntegration::Provider.mount_engines
 
