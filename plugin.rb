@@ -19,7 +19,10 @@ require_relative "lib/discourse_chat_integration/provider/slack/slack_enabled_se
 
 after_initialize do
   require_relative "app/initializers/discourse_chat_integration"
+
   require_relative "app/services/problem_check/channel_errors"
+
+  register_problem_check ProblemCheck::ChannelErrors
 
   on(:site_setting_changed) do |setting_name, old_value, new_value|
     is_enabled_setting = setting_name == :chat_integration_telegram_enabled
