@@ -14,6 +14,13 @@ RSpec.describe DiscourseChatIntegration::Manager do
   let(:tag2) { Fabricate(:tag) }
   let(:tag3) { Fabricate(:tag) }
 
+  before do
+    I18n.backend.store_translations(
+      :en,
+      { chat_integration: { provider: { dummy: I18n.t("chat_integration.provider.slack") } } },
+    )
+  end
+
   describe ".process_command" do
     describe "add new rule" do
       # Not testing how filters are merged here, that's done in .smart_create_rule
@@ -163,12 +170,12 @@ RSpec.describe DiscourseChatIntegration::Manager do
     context "with no rules" do
       it "includes the heading" do
         string = DiscourseChatIntegration::Helper.status_for_channel(chan1)
-        expect(string).to include("dummy.status.header")
+        expect(string).to include(I18n.t("chat_integration.provider.dummy.status.header"))
       end
 
       it "includes the no_rules string" do
         string = DiscourseChatIntegration::Helper.status_for_channel(chan1)
-        expect(string).to include("dummy.status.no_rules")
+        expect(string).to include(I18n.t("chat_integration.provider.dummy.status.no_rules"))
       end
     end
 
@@ -211,16 +218,16 @@ RSpec.describe DiscourseChatIntegration::Manager do
 
       it "displays the correct rules" do
         string = DiscourseChatIntegration::Helper.status_for_channel(chan1)
-        expect(string.scan("status.rule_string").size).to eq(4)
+        expect(string.scan("posts in").size).to eq(4)
       end
 
       it "only displays tags for rules with tags" do
         string = DiscourseChatIntegration::Helper.status_for_channel(chan1)
-        expect(string.scan("rule_string_tags_suffix").size).to eq(0)
+        expect(string.scan("with tags").size).to eq(0)
 
         SiteSetting.tagging_enabled = true
         string = DiscourseChatIntegration::Helper.status_for_channel(chan1)
-        expect(string.scan("rule_string_tags_suffix").size).to eq(1)
+        expect(string.scan("with tags").size).to eq(1)
       end
     end
   end
