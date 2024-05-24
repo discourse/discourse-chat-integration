@@ -306,3 +306,10 @@ en:
         new_topic: "New topic on %{site_title}"
         author: "by @%{username}"
         link: "View on %{site_title}"
+
+      #######################################
+      ########## GROUPME STRINGS ###########
+      #######################################
+      groupme:
+        errors:
+          instance_names_issue: "instance names incorrectly formatted or not provided"
