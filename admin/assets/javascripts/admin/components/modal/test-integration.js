@@ -29,4 +29,9 @@ export default class TestIntegration extends Component {
       popupAjaxError(e);
     }
   }
+
+  @action
+  newTopicSelected(topic) {
+    this.topicId = topic.id;
+  }
 }
