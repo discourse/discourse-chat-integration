@@ -39,7 +39,7 @@ class DiscourseChatIntegration::Channel < DiscourseChatIntegration::PluginModel
 
   def data_valid?
     # If provider is invalid, don't try and check data
-    return unless ::DiscourseChatIntegration::Provider.provider_names.include? provider
+    return if ::DiscourseChatIntegration::Provider.provider_names.exclude? provider
 
     params = ::DiscourseChatIntegration::Provider.get_by_name(provider)::CHANNEL_PARAMETERS
 
