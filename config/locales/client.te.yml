@@ -10,10 +10,13 @@ te:
       settings: "అమరికలు"
       all_categories: "(అన్ని వర్గాలు)"
       delete_channel: "తొలగించు"
+      test_channel: "పరీక్షించండి"
       edit_channel: "సవరించు"
       test_modal:
         topic: "విషయం"
         close: "మూసివేయి"
+      type:
+        normal: సాధారణ పరిమాణం
       filter:
         mute: 'నిశ్శబ్దం'
       rule_table:
@@ -37,6 +40,7 @@ te:
             name:
               title: "పేరు"
         discord:
+          title: "డిస్కోర్డ్"
           param:
             name:
               title: "పేరు"
@@ -72,5 +76,7 @@ te:
       scriptables:
         send_slack_message:
           fields:
+            message:
+              label: సందేశం పంపించండి
             url:
               label: యూఆర్ యల్

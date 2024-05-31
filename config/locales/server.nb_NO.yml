@@ -7,3 +7,6 @@
 nb_NO:
   chat_integration:
     all_categories: "(alle kategorier)"
+    provider:
+      flowdock:
+        message_title: "skrevet"

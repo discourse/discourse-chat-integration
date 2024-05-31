@@ -7,3 +7,6 @@
 ro:
   chat_integration:
     all_categories: "(toate categoriile)"
+    provider:
+      flowdock:
+        message_title: "postat(e)"

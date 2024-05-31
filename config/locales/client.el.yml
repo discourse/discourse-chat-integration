@@ -9,6 +9,7 @@ el:
     chat_integration:
       settings: "Ρυθμίσεις"
       all_categories: "(όλες οι κατηγορίες)"
+      all_tags: "(όλες οι ετικέτες)"
       delete_channel: "Σβήσιμο"
       test_channel: "Δοκιμή"
       edit_channel: "Επεξεργασία"

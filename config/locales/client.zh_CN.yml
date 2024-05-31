@@ -178,7 +178,6 @@ zh_CN:
               help: "站点设置中列出的 Groupme 实例的名称。使用 'all' 可以发送到所有实例"
           errors:
             not_found: "未找到您尝试将消息发布到的路径。检查站点设置中的机器人 ID。"
-            instance_names_issue: "实例名称格式不正确或未提供"
         teams:
           title: "Microsoft Teams"
           param:

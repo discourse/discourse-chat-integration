@@ -212,3 +212,6 @@ pl_PL:
         new_topic: "Nowy temat na %{site_title}"
         author: "przez @%{username}"
         link: "Zobacz na %{site_title}"
+      groupme:
+        errors:
+          instance_names_issue: "nazwy instancji są nieprawidłowo sformatowane lub nie zostały podane"

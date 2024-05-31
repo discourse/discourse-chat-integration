@@ -178,7 +178,6 @@ pt_BR:
               help: "o nome da instância GroupMe como listado nas configurações do site. Use \"todas\" para enviar a todas as instâncias"
           errors:
             not_found: "O caminho para qual você tentou publicar sua mensagem não foi encontrado. Verifique o ID de Robô nas Configurações do Site."
-            instance_names_issue: "Nomes de instância formatados incorretamente ou não fornecidos"
         teams:
           title: "Microsoft Teams"
           param:

@@ -202,3 +202,6 @@ gl:
         new_topic: "Novo tema en %{site_title}"
         author: "de %{username}"
         link: "Ver en %{site_title}"
+      groupme:
+        errors:
+          instance_names_issue: "nomes de instancias con formato incorrecto ou non proporcionados"

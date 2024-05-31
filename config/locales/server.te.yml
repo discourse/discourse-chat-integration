@@ -7,3 +7,6 @@
 te:
   chat_integration:
     all_categories: "(అన్ని వర్గాలు)"
+    provider:
+      flowdock:
+        message_title: "పోస్ట్ చేయబడింది"

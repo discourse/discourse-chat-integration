@@ -7,3 +7,6 @@
 bg:
   chat_integration:
     all_categories: "(всички категории)"
+    provider:
+      flowdock:
+        message_title: "публикувано"

@@ -7,3 +7,6 @@
 hu:
   chat_integration:
     all_categories: "(összes kategória)"
+    provider:
+      flowdock:
+        message_title: "közzétett"

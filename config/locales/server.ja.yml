@@ -205,3 +205,6 @@ ja:
         new_topic: "「%{site_title}」に新しいトピックがあります"
         author: "作成者: @%{username}"
         link: "「%{site_title}」で表示"
+      groupme:
+        errors:
+          instance_names_issue: "インスタンス名のフォーマットが誤っているか、指定されていません"

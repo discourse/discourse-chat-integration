@@ -178,7 +178,6 @@ nl:
               help: "Naam van de Groupme-instantie zoals vermeld in Site-instellingen. Gebruik 'all' om naar alle instanties te sturen."
           errors:
             not_found: "Het pad waarin je je bericht probeerde te plaatsen, kon niet worden gevonden. Controleer de Bot-ID in Site-instellingen."
-            instance_names_issue: "instantienamen onjuist geschreven of niet opgegeven"
         teams:
           title: "Microsoft Teams"
           param:

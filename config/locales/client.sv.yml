@@ -174,7 +174,6 @@ sv:
               help: "namn på Groupme-instans som visas i listan i webbplatsinställningar. använd 'all' för att skicka till alla instanser"
           errors:
             not_found: "Adressen du försökte skicka ditt meddelande till hittades inte. Kontrollera Bot-ID i webbplatsinställningar."
-            instance_names_issue: "instansnamn felaktigt formaterade eller är inte angivna"
         teams:
           title: "Microsoft Teams"
           param:

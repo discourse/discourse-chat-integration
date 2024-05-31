@@ -178,7 +178,6 @@ ja:
               help: "サイト設定にリストされている GroupMe インスタンスの名前。すべてのインスタンスに送信するには「all」を使用します"
           errors:
             not_found: "メッセージの投稿先のパスが見つかりません。サイト設定でボット ID を確認してください。"
-            instance_names_issue: "インスタンス名のフォーマットが誤っているか、指定されていません"
         teams:
           title: "Microsoft Teams"
           param:

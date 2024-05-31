@@ -217,3 +217,6 @@ ar:
         new_topic: "منشور جديد على %{site_title}"
         author: "من قِبل @%{username}"
         link: "العرض على %{site_title}"
+      groupme:
+        errors:
+          instance_names_issue: "لم يتم إدخال أسماء المثيلات أو أن تنسيقاتها غير صحيحة"

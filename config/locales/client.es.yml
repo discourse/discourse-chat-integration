@@ -178,7 +178,6 @@ es:
               help: "nombre de la instancia de Groupme tal como se indica en Configuración del sitio. Utiliza 'all' para enviar a todas las instancias"
           errors:
             not_found: "No se encontró la ruta en la que intentaste publicar tu mensaje. Comprueba el ID del bot en la configuración del sitio."
-            instance_names_issue: "nombres de instancias con formato incorrecto o no proporcionadas"
         teams:
           title: "Microsoft Teams"
           param:

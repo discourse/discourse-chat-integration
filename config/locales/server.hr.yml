@@ -9,3 +9,6 @@ hr:
     all_categories: "(sve kategorije)"
     group_mention_template: "spominjanje: @%{name}"
     group_message_template: "poruke na: @%{name}"
+    provider:
+      flowdock:
+        message_title: "objavljeno"
