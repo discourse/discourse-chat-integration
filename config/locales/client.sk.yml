@@ -75,10 +75,14 @@ sk:
           param:
             name:
               title: "Meno"
+            webhook_url:
+              title: Webová adresa URL
         guilded:
           param:
             name:
               title: "Meno"
+            webhook_url:
+              title: Webová adresa URL
         mattermost:
           title: "Mattermost"
           param:
@@ -107,18 +111,26 @@ sk:
           param:
             name:
               title: "Meno"
+            webhook_url:
+              title: "Webová adresa URL"
         teams:
           param:
             name:
               title: "Meno"
+            webhook_url:
+              title: "Webová adresa URL"
         webex:
           param:
             name:
               title: "Meno"
+            webhook_url:
+              title: "Webová adresa URL"
         google:
           param:
             name:
               title: "Meno"
+            webhook_url:
+              title: "Webová adresa URL"
     discourse_automation:
       scriptables:
         send_slack_message:

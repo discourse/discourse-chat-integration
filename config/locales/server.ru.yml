@@ -212,3 +212,6 @@ ru:
         new_topic: "Новая тема на %{site_title}"
         author: "от @%{username}"
         link: "Посмотреть на %{site_title}"
+      groupme:
+        errors:
+          instance_names_issue: "Имена экземпляров неправильно отформатированы или не указаны"

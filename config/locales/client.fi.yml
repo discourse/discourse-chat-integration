@@ -178,7 +178,6 @@ fi:
               help: "Groupme-esiintymän nimi, joka on ilmoitettu sivuston asetuksissa. Lähetä kaikkiin esiintymiin käyttämällä \"kaikki\"-valintaa."
           errors:
             not_found: "Polkua, johon yritit lähettää viestisi, ei löytynyt. Tarkista botin tunnus sivuston asetuksista."
-            instance_names_issue: "Esiintymien nimet on muotoiltu väärin tai niitä ei ole annettu"
         teams:
           title: "Microsoft Teams"
           param:

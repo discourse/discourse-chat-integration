@@ -26,5 +26,7 @@ fa_IR:
       mattermost:
         status:
           rule_string: "*%{index})* *%{filter}* نوشته در *%{category}*"
+      flowdock:
+        message_title: "ارسال شده"
       google:
         new_post: "نوشته جدید در %{site_title}"

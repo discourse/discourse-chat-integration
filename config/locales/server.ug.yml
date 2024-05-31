@@ -4,9 +4,9 @@
 # To work with us on translations, join this project:
 # https://translate.discourse.org/
 
-zh_TW:
+ug:
   chat_integration:
-    all_categories: "(所有分類)"
+    all_categories: "(ھەممە سەھىپە)"
     provider:
       flowdock:
-        message_title: "發表於"
+        message_title: "يوللانغان ۋاقىت"

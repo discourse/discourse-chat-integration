@@ -22,3 +22,6 @@ bs_BA:
     chat_integration_mattermost_incoming_webhook_token: 'Token verifikacije koji se koristi za provjeru autentičnosti dolaznih zahtjeva'
   chat_integration:
     all_categories: "(sve kategorije)"
+    provider:
+      flowdock:
+        message_title: "zadnja objava"

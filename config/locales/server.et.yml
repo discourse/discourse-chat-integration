@@ -21,3 +21,5 @@ et:
       mattermost:
         delete:
           success: "Reegel on kustutatud"
+      flowdock:
+        message_title: "postitatud"

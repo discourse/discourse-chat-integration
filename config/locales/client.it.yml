@@ -178,7 +178,6 @@ it:
               help: "nome dell'istanza GroupMe come mostrata nell'elenco in Impostazioni sito. Usa l'opzione 'all' per inviare a tutte le istanze"
           errors:
             not_found: "Il percorso in cui hai tentato di pubblicare il tuo messaggio non è stato trovato. Controlla l'ID del bot in Impostazioni sito."
-            instance_names_issue: "nomi di istanze formattati erroneamente o non forniti"
         teams:
           title: "Microsoft Teams"
           param:

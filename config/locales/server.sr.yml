@@ -5,3 +5,7 @@
 # https://translate.discourse.org/
 
 sr:
+  chat_integration:
+    provider:
+      flowdock:
+        message_title: "pisao"

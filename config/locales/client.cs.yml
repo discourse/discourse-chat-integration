@@ -9,6 +9,7 @@ cs:
     chat_integration:
       settings: "Nastavení"
       all_categories: "(všechny kategorie)"
+      all_tags: "(všechny štítky)"
       delete_channel: "Smazat"
       edit_channel: "Upravit"
       test_modal:

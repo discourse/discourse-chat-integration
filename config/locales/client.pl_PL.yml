@@ -177,7 +177,6 @@ pl_PL:
               help: "Nazwa instancji GroupMe wymieniona w ustawieniach witryny. Użyj 'all', aby wysłać do wszystkich instancji."
           errors:
             not_found: "Nie znaleziono ścieżki, na którą próbujesz wysłać wiadomość. Sprawdź identyfikator bota w ustawieniach witryny."
-            instance_names_issue: "nazwy instancji są nieprawidłowo sformatowane lub nie zostały podane"
         teams:
           title: "Microsoft Teams"
           param:

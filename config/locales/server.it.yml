@@ -217,3 +217,6 @@ it:
         new_topic: "Nuovo argomento su %{site_title}"
         author: "da @%{username}"
         link: "Visualizza su %{site_title}"
+      groupme:
+        errors:
+          instance_names_issue: "nomi di istanze formattati erroneamente o non forniti"

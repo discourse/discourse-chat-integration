@@ -7,3 +7,6 @@
 el:
   chat_integration:
     all_categories: "(όλες οι κατηγορίες)"
+    provider:
+      flowdock:
+        message_title: "αναρτήθηκε"

@@ -11,6 +11,7 @@ zh_TW:
       all_categories: "(所有分類)"
       all_tags: "(所有標籤)"
       delete_channel: "刪除"
+      test_channel: "測試"
       edit_channel: "編輯"
       test_modal:
         topic: "話題"
@@ -40,6 +41,7 @@ zh_TW:
             name:
               title: "名稱"
         discord:
+          title: "Discord"
           param:
             name:
               title: "名稱"

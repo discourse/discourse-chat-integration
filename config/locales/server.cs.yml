@@ -7,3 +7,6 @@
 cs:
   chat_integration:
     all_categories: "(všechny kategorie)"
+    provider:
+      flowdock:
+        message_title: "zveřejněno"
