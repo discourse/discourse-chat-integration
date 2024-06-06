@@ -211,7 +211,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
         created_at: Time.zone.now,
         updated_at: Time.zone.now,
       },
-      unique_by: %i[topic_id name],
+      unique_by: :index_topic_custom_fields_on_topic_id_and_slack_thread_id,
     )
   end
 end
