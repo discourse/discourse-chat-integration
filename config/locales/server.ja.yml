@@ -69,7 +69,6 @@ ja:
     deleted_group: "（削除されたグループ）"
     group_mention_template: "メンション: @%{name}"
     group_message_template: "メッセージの宛先: @%{name}"
-    admin_error: "一部のチャット統合チャンネルにエラーがあります。詳細については、<a href='%{base_path}/admin/plugins/chat-integration'>チャット統合のセクション</a>をご覧ください。"
     provider:
       slack:
         status:

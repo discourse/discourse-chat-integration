@@ -69,7 +69,6 @@ fi:
     deleted_group: "(poistettu ryhmä)"
     group_mention_template: "@%{name} mainittu"
     group_message_template: "Viestejä käyttäjälle: @%{name}"
-    admin_error: "Joissakin chat-integraatokanavissa on virheitä. Lisätietoja saat <a href='%{base_path}/admin/plugins/chat-integration'>chatin integrointiosiossa</a>."
     provider:
       slack:
         status:

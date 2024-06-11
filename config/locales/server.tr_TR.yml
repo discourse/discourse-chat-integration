@@ -69,7 +69,6 @@ tr_TR:
     deleted_group: "(silinmiş grup)"
     group_mention_template: "şu kullanıcıdan bahsedildi: @%{name}"
     group_message_template: "şu kullanıcıya mesaj gönderildi: @%{name}"
-    admin_error: "Bazı sohbet entegrasyon kanallarında hatalar var. Daha fazla bilgi edinmek için <a href='%{base_path}/admin/plugins/chat-integration'>sohbet entegrasyonu bölümünü</a> ziyaret edin."
     provider:
       slack:
         status:
