@@ -69,7 +69,6 @@ zh_CN:
     deleted_group: "（已删除的群组）"
     group_mention_template: "提及：@%{name}"
     group_message_template: "发送消息给：@%{name}"
-    admin_error: "某些聊天集成频道存在错误。请访问<a href='%{base_path}/admin/plugins/chat-integration'>聊天集成部分</a>了解更多信息。"
     provider:
       slack:
         status:

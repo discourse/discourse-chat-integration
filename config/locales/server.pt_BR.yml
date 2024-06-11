@@ -69,7 +69,6 @@ pt_BR:
     deleted_group: "(grupo excluído)"
     group_mention_template: "menções de: @%{name}"
     group_message_template: "mensagens para: @%{name}"
-    admin_error: "Alguns canais de integração de bate-papo contêm erros. Acesse <a href='%{base_path}/admin/plugins/chat-integration'>the chat integration section</a> para descobrir mais."
     provider:
       slack:
         status:
