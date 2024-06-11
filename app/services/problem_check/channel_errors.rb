@@ -18,8 +18,4 @@ class ProblemCheck::ChannelErrors < ProblemCheck
         ::DiscourseChatIntegration::Provider.is_enabled(channel.provider)
     end
   end
-
-  def translation_key
-    "chat_integration.admin_error"
-  end
 end

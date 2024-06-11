@@ -111,6 +111,10 @@ en:
     chat_integration_google_enabled: "Enable the 'Google Chat' chat integration provider"
     chat_integration_google_excerpt_length: "Google Chat post excerpt length"
 
+  dashboard:
+    problem:
+      channel_errors: "Some chat integration channels have errors. Visit <a href='%{base_path}/admin/plugins/chat-integration'>the chat integration section</a> to find out more."
+
   discourse_automation:
     scriptables:
       send_slack_message:
@@ -123,8 +127,6 @@ en:
 
     group_mention_template: "mentions of: @%{name}"
     group_message_template: "messages to: @%{name}"
-
-    admin_error: "Some chat integration channels have errors. Visit <a href='%{base_path}/admin/plugins/chat-integration'>the chat integration section</a> to find out more."
 
     provider:
 
