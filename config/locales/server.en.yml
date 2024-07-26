@@ -99,6 +99,12 @@ en:
     chat_integration_teams_enabled: "Enable the Microsoft Teams chat integration provider"
     chat_integration_teams_excerpt_length: "Microsoft Team post excerpt length"
 
+    ####################################################
+    ######## MICROSOFT POWER AUTOMATE SETTINGS #########
+    ####################################################
+    chat_integration_powerautomate_enabled: "Enable the Microsoft Power Automate integration provider"
+    chat_integration_powerautomate_excerpt_length: "Microsoft Power Automate post excerpt length"
+
     ###########################################
     ######## WEBEX TEAMS SETTINGS #########
     ###########################################

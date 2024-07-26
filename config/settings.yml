@@ -148,9 +148,16 @@ chat_integration:
     default: false
   chat_integration_teams_excerpt_length:
     default: 400
-###########################################
-######## WEBEX TEAMS SETTINGS #########
-###########################################
+####################################################
+######## MICROSOFT POWER AUTOMATE SETTINGS #########
+####################################################
+  chat_integration_powerautomate_enabled:
+    default: false
+  chat_integration_powerautomate_excerpt_length:
+    default: 400
+#################################
+######## WEBEX SETTINGS #########
+#################################
   chat_integration_webex_enabled:
     default: false
   chat_integration_webex_excerpt_length:
