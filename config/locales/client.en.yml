@@ -72,7 +72,6 @@ en:
           tags: "If specified, this rule will only apply to topics which have at least one of these tags"
 
       provider:
-
         #######################################
         ########### SLACK STRINGS #############
         #######################################
@@ -230,6 +229,23 @@ en:
               help: "The URL provided when you create a new incoming webhook"
           errors:
             invalid_channel: "That channel does not exist on Microsoft Teams"
+        #####################################################
+        ######### MICROSOFT POWER AUTOMATE STRINGS ##########
+        #####################################################
+        powerautomate:
+          title: "Microsoft Power Automate"
+          param:
+            name:
+              title: "Name"
+              help: "A name for the channel (only shown in the Discourse admin interface)"
+            webhook_url:
+              title: "Webhook URL"
+              help: "The URL provided when you create a new incoming webhook"
+          errors:
+            invalid_webhook: "That webhook URL is not valid."
+        ########################################
+        ######### CISCO WEBEX STRINGS ##########
+        ########################################
         webex:
           title: "Webex Teams"
           param:
