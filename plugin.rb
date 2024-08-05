@@ -58,7 +58,7 @@ after_initialize do
 
       version 1
 
-      triggerables %i[point_in_time recurring]
+      triggerables %i[point_in_time recurring topic_tags_changed]
 
       script do |context, fields, automation|
         sender = Discourse.system_user
