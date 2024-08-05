@@ -64,6 +64,21 @@ after_initialize do
         sender = Discourse.system_user
 
         content = fields.dig("message", "value")
+        if context["topic"] && content.include?("${TOPIC}")
+          topic = context["topic"]
+          content = content.gsub("${TOPIC}", topic.title)
+        end
+
+        if context["removed_tags"] && content.include?("${REMOVED_TAGS}")
+          removed_tags_names = context["removed_tags"].join(", ")
+          content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
+        end
+
+        if context["added_tags"] && content.include?("${ADDED_TAGS}")
+          added_tags_names = context["added_tags"].join(", ")
+          content = content.gsub("${ADDED_TAGS}", added_tags_names)
+        end
+
         url = fields.dig("url", "value")
         full_content = "#{content} - #{url}"
         channel_name = fields.dig("channel", "value")

@@ -256,7 +256,10 @@ en:
           title: Send Slack message
           fields:
             message:
-              label: Message
+              label: Message.
+              description: >-
+                           Use ${TOPIC} for topic name, ${REMOVED_TAGS} for removed tags and ${ADDED_TAGS}.
+                           only available if trigger is set to Topic tags changed.
             url:
               label: URL
             channel:
