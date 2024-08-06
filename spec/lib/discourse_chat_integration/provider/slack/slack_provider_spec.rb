@@ -209,4 +209,51 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
       end
     end
   end
+
+  describe ".create_slack_message" do
+    it "should work with a simple message" do
+      content = "Simple message"
+      url = "http://example.com"
+      message = { channel: "#general", username: "Discourse", content: "#{content} - #{url}" }
+      result =
+        described_class.create_slack_message(
+          context: {
+          },
+          content: content,
+          channel_name: "general",
+          url: url,
+        )
+      expect(
+        {
+          channel: result[:channel],
+          username: result[:username],
+          content: result[:attachments][0][:text],
+        },
+      ).to eq(message)
+    end
+
+    it "should do the replacements" do
+      topic = Fabricate(:topic)
+      content =
+        "The topic title is: ${TOPIC}
+         removed tags: ${REMOVED_TAGS}
+         added tags: ${ADDED_TAGS}"
+
+      result =
+        described_class.create_slack_message(
+          context: {
+            "topic" => topic,
+            "removed_tags" => %w[tag1 tag2],
+            "added_tags" => %w[tag3 tag4],
+          },
+          content: content,
+          channel_name: "general",
+          url: "http://example.com",
+        )
+      text = result[:attachments][0][:text]
+      expect(text).to include(topic.title)
+      expect(text).to include("tag1, tag2")
+      expect(text).to include("tag3, tag4")
+    end
+  end
 end
