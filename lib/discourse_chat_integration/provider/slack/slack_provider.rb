@@ -111,7 +111,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
             .join(", ")
         content = content.gsub("${ADDED_TAGS}", added_tags_names)
       end
-      
+
       content = content.gsub("${URL}", url) if content.include?("${URL}")
     end
 

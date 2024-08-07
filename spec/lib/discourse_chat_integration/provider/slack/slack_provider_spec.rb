@@ -234,6 +234,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
 
     it "should do the replacements" do
       topic = Fabricate(:topic)
+      tag1, tag2, tag3, tag4 = [Fabricate(:tag), Fabricate(:tag), Fabricate(:tag), Fabricate(:tag)]
       content =
         "The topic title is: ${TOPIC}
          removed tags: ${REMOVED_TAGS}
@@ -243,8 +244,9 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
         described_class.create_slack_message(
           context: {
             "topic" => topic,
-            "removed_tags" => %w[tag1 tag2],
-            "added_tags" => %w[tag3 tag4],
+            "removed_tags" => [tag1.name, tag2.name],
+            "added_tags" => [tag3.name, tag4.name],
+            "kind" => DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED,
           },
           content: content,
           channel_name: "general",
@@ -252,8 +254,8 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
         )
       text = result[:attachments][0][:text]
       expect(text).to include(topic.title)
-      expect(text).to include("tag1, tag2")
-      expect(text).to include("tag3, tag4")
+      expect(text).to include("#{tag1.name}, #{tag2.name}")
+      expect(text).to include("#{tag3.name}, #{tag4.name}")
     end
   end
 end
