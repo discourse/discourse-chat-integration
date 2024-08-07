@@ -234,6 +234,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
 
     it "should do the replacements" do
       topic = Fabricate(:topic)
+      topic.posts << Fabricate(:post, topic: topic)
       tag1, tag2, tag3, tag4 = [Fabricate(:tag), Fabricate(:tag), Fabricate(:tag), Fabricate(:tag)]
       content =
         "The topic title is: ${TOPIC}
