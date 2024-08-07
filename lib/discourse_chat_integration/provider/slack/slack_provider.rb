@@ -179,7 +179,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     message[:attachments].push(summary)
-    [message, true]
+    message
   end
 
   def self.send_via_api(post, channel, message)
