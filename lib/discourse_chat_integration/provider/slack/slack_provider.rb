@@ -89,14 +89,14 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
   def self.create_slack_message(context:, content:, url:, channel_name:)
     sender = ::DiscourseChatIntegration::Helper.formatted_display_name(Discourse.system_user)
-
     if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
       if context["topic"] && content.include?("${TOPIC}")
         topic = context["topic"]
         content = content.gsub("${TOPIC}", topic.title)
       end
 
-      if context["removed_tags"] && content.include?("${REMOVED_TAGS}")
+      if content.include?("${REMOVED_TAGS}")
+        return nil, false if context["removed_tags"].empty?
         removed_tags_names =
           context["removed_tags"]
             .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
@@ -104,7 +104,8 @@ module DiscourseChatIntegration::Provider::SlackProvider
         content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
       end
 
-      if context["added_tags"] && content.include?("${ADDED_TAGS}")
+      if content.include?("${ADDED_TAGS}")
+        return nil, false if context["added_tags"].empty?
         added_tags_names =
           context["added_tags"]
             .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
@@ -174,7 +175,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     message[:attachments].push(summary)
-    message
+    [message, true]
   end
 
   def self.send_via_api(post, channel, message)

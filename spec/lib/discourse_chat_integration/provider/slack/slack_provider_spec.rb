@@ -215,7 +215,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
       content = "Simple message"
       url = "http://example.com"
       message = { channel: "#general", username: "Discourse", content: "#{content} - #{url}" }
-      result =
+      result, _ =
         described_class.create_slack_message(
           context: {
           },
@@ -241,7 +241,7 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
          removed tags: ${REMOVED_TAGS}
          added tags: ${ADDED_TAGS}"
 
-      result =
+      result, _ =
         described_class.create_slack_message(
           context: {
             "topic" => topic,

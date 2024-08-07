@@ -70,14 +70,16 @@ after_initialize do
             },
           )
 
-        message =
+        message, should_send =
           DiscourseChatIntegration::Provider::SlackProvider.create_slack_message(
             context: context,
             content: fields.dig("message", "value"),
             url: fields.dig("url", "value"),
             channel_name: channel_name,
           )
-        DiscourseChatIntegration::Provider::SlackProvider.send_via_api(nil, channel, message)
+        if should_send
+          DiscourseChatIntegration::Provider::SlackProvider.send_via_api(nil, channel, message)
+        end
       end
     end
   end
