@@ -96,7 +96,9 @@ module DiscourseChatIntegration::Provider::SlackProvider
       end
 
       if content.include?("${REMOVED_TAGS}")
-        return nil, false if context["removed_tags"].empty?
+        if context["removed_tags"].empty?
+          raise StandardError.new "No tags but content includes reference."
+        end
         removed_tags_names =
           context["removed_tags"]
             .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
@@ -105,7 +107,9 @@ module DiscourseChatIntegration::Provider::SlackProvider
       end
 
       if content.include?("${ADDED_TAGS}")
-        return nil, false if context["added_tags"].empty?
+        if context["added_tags"].empty?
+          raise StandardError.new "No tags but content includes reference."
+        end
         added_tags_names =
           context["added_tags"]
             .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }

@@ -70,15 +70,17 @@ after_initialize do
             },
           )
 
-        message, should_send =
-          DiscourseChatIntegration::Provider::SlackProvider.create_slack_message(
-            context: context,
-            content: fields.dig("message", "value"),
-            url: fields.dig("url", "value"),
-            channel_name: channel_name,
-          )
-        if should_send
+        begin
+          message =
+            DiscourseChatIntegration::Provider::SlackProvider.create_slack_message(
+              context: context,
+              content: fields.dig("message", "value"),
+              url: fields.dig("url", "value"),
+              channel_name: channel_name,
+            )
           DiscourseChatIntegration::Provider::SlackProvider.send_via_api(nil, channel, message)
+        rescue StandardError => _
+          # StandardError here is when there are no tags but content includes reference to them.
         end
       end
     end
