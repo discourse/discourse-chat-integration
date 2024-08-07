@@ -89,36 +89,9 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
   def self.create_slack_message(context:, content:, url:, channel_name:)
     sender = ::DiscourseChatIntegration::Helper.formatted_display_name(Discourse.system_user)
-    if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
-      if context["topic"] && content.include?("${TOPIC}")
-        topic = context["topic"]
-        content = content.gsub("${TOPIC}", topic.title)
-      end
 
-      if content.include?("${REMOVED_TAGS}")
-        if context["removed_tags"].empty?
-          raise StandardError.new "No tags but content includes reference."
-        end
-        removed_tags_names =
-          context["removed_tags"]
-            .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
-            .join(", ")
-        content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
-      end
-
-      if content.include?("${ADDED_TAGS}")
-        if context["added_tags"].empty?
-          raise StandardError.new "No tags but content includes reference."
-        end
-        added_tags_names =
-          context["added_tags"]
-            .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
-            .join(", ")
-        content = content.gsub("${ADDED_TAGS}", added_tags_names)
-      end
-
-      content = content.gsub("${URL}", url) if content.include?("${URL}")
-    end
+    content = replace_placehoders(content, context) if context["kind"] ==
+      DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
 
     full_content =
       if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
@@ -308,6 +281,37 @@ module DiscourseChatIntegration::Provider::SlackProvider
       },
       unique_by: :index_topic_custom_fields_on_topic_id_and_slack_thread_id,
     )
+  end
+
+  def self.replace_placehoders(content, context)
+    if context["topic"] && content.include?("${TOPIC}")
+      topic = context["topic"]
+      content = content.gsub("${TOPIC}", topic.title)
+    end
+
+    if content.include?("${REMOVED_TAGS}")
+      if context["removed_tags"].empty?
+        raise StandardError.new "No tags but content includes reference."
+      end
+      removed_tags_names = create_tag_list(context["removed_tags"])
+      content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
+    end
+
+    if content.include?("${ADDED_TAGS}")
+      if context["added_tags"].empty?
+        raise StandardError.new "No tags but content includes reference."
+      end
+      added_tags_names = create_tag_list(context["added_tags"])
+      content = content.gsub("${ADDED_TAGS}", added_tags_names)
+    end
+
+    content = content.gsub("${URL}", url) if content.include?("${URL}")
+
+    content
+  end
+
+  def self.create_tag_list(tag_list)
+    tag_list.map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }.join(", ")
   end
 end
 
