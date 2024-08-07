@@ -258,5 +258,72 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
       expect(text).to include("<#{tag1.full_url}|#{tag1.name}>, <#{tag2.full_url}|#{tag2.name}>")
       expect(text).to include("<#{tag3.full_url}|#{tag3.name}>, <#{tag4.full_url}|#{tag4.name}>")
     end
+
+    it "should do the replacements for ${ADDED_AND_REMOVED}" do
+      topic = Fabricate(:topic)
+      topic.posts << Fabricate(:post, topic: topic)
+      tag1, tag2 = [Fabricate(:tag), Fabricate(:tag)]
+      content = "${ADDED_AND_REMOVED}"
+      result =
+        described_class.create_slack_message(
+          context: {
+            "topic" => topic,
+            "removed_tags" => [tag1.name],
+            "added_tags" => [tag2.name],
+            "kind" => DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED,
+          },
+          content: content,
+          channel_name: "general",
+          url: "http://example.com",
+        )
+      text = result[:attachments][0][:text]
+      expect(text).to include(
+        I18n.t(
+          "chat_integration.provider.slack.messaging.topic_tag_changed.added_and_removed",
+          added: "<#{tag1.full_url}|#{tag1.name}>",
+          removed: "<#{tag2.full_url}|#{tag2.name}>",
+        ),
+      )
+
+      result =
+        described_class.create_slack_message(
+          context: {
+            "topic" => topic,
+            "removed_tags" => [tag1.name],
+            "added_tags" => [],
+            "kind" => DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED,
+          },
+          content: content,
+          channel_name: "general",
+          url: "http://example.com",
+        )
+      text = result[:attachments][0][:text]
+      expect(text).to include(
+        I18n.t(
+          "chat_integration.provider.slack.messaging.topic_tag_changed.removed",
+          removed: "<#{tag1.full_url}|#{tag1.name}>",
+        ),
+      )
+
+      result =
+        described_class.create_slack_message(
+          context: {
+            "topic" => topic,
+            "removed_tags" => [],
+            "added_tags" => [tag2.name],
+            "kind" => DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED,
+          },
+          content: content,
+          channel_name: "general",
+          url: "http://example.com",
+        )
+      text = result[:attachments][0][:text]
+      expect(text).to include(
+        I18n.t(
+          "chat_integration.provider.slack.messaging.topic_tag_changed.added",
+          added: "<#{tag2.full_url}|#{tag2.name}>",
+        ),
+      )
+    end
   end
 end

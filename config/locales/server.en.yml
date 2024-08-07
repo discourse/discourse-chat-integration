@@ -33,7 +33,7 @@ en:
     chat_integration_discord_enabled: "Enable the Discord chat-integration provider"
     chat_integration_discord_message_content: "The message to include above the summary when sending a notification to Discord"
     chat_integration_discord_excerpt_length: "Discord post excerpt length"
-      
+
     #######################################
     ########## GUILDED SETTINGS ###########
     #######################################
@@ -187,6 +187,11 @@ en:
           error_users: "Error: unable to fetch users from Slack"
           error_history: "Error: unable to fetch channel history from Slack"
           error_ts: "Error: unable to fetch requested message from Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Added %{added} and removed %{removed}"
+            added: "Added %{added}"
+            removed: "Removed %{removed}"
 
       #######################################
       ########## TELEGRAM STRINGS ###########

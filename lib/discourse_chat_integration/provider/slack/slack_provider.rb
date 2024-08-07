@@ -305,6 +305,29 @@ module DiscourseChatIntegration::Provider::SlackProvider
       content = content.gsub("${ADDED_TAGS}", added_tags_names)
     end
 
+    if content.include?("${ADDED_AND_REMOVED}")
+      text =
+        if !context["added_tags"].empty? && !context["removed_tags"].empty?
+          I18n.t(
+            "chat_integration.provider.slack.messaging.topic_tag_changed.added_and_removed",
+            added: create_tag_list(context["added_tags"]),
+            removed: create_tag_list(context["removed_tags"]),
+          )
+        elsif !context["added_tags"].empty?
+          I18n.t(
+            "chat_integration.provider.slack.messaging.topic_tag_changed.added",
+            added: create_tag_list(context["added_tags"]),
+          )
+        elsif !context["removed_tags"].empty?
+          I18n.t(
+            "chat_integration.provider.slack.messaging.topic_tag_changed.removed",
+            removed: create_tag_list(context["removed_tags"]),
+          )
+        end
+
+      content = content.gsub("${ADDED_AND_REMOVED}", text)
+    end
+
     content = content.gsub("${URL}", url) if content.include?("${URL}")
 
     content

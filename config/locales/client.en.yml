@@ -258,7 +258,8 @@ en:
             message:
               label: Message.
               description: >-
-                           Use ${TOPIC} for topic name, ${URL} for used URL, ${REMOVED_TAGS} for removed tags and ${ADDED_TAGS}.
+                           Use ${TOPIC} for topic name, ${URL} for used URL, ${REMOVED_TAGS} for removed tags, ${ADDED_TAGS} for added tags,
+                           ${ADDED_AND_REMOVED} for default text.
                            only available if trigger is set to Topic tags changed.
             url:
               label: URL
