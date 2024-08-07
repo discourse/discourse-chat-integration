@@ -88,24 +88,39 @@ module DiscourseChatIntegration::Provider::SlackProvider
   end
 
   def self.create_slack_message(context:, content:, url:, channel_name:)
-    sender = Discourse.system_user
+    sender = ::DiscourseChatIntegration::Helper.formatted_display_name(Discourse.system_user)
 
-    if context["topic"] && content.include?("${TOPIC}")
-      topic = context["topic"]
-      content = content.gsub("${TOPIC}", topic.title)
+    if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+      if context["topic"] && content.include?("${TOPIC}")
+        topic = context["topic"]
+        content = content.gsub("${TOPIC}", topic.title)
+      end
+
+      if context["removed_tags"] && content.include?("${REMOVED_TAGS}")
+        removed_tags_names =
+          context["removed_tags"]
+            .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
+            .join(", ")
+        content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
+      end
+
+      if context["added_tags"] && content.include?("${ADDED_TAGS}")
+        added_tags_names =
+          context["added_tags"]
+            .map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }
+            .join(", ")
+        content = content.gsub("${ADDED_TAGS}", added_tags_names)
+      end
+      
+      content = content.gsub("${URL}", url) if content.include?("${URL}")
     end
 
-    if context["removed_tags"] && content.include?("${REMOVED_TAGS}")
-      removed_tags_names = context["removed_tags"].join(", ")
-      content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
-    end
-
-    if context["added_tags"] && content.include?("${ADDED_TAGS}")
-      added_tags_names = context["added_tags"].join(", ")
-      content = content.gsub("${ADDED_TAGS}", added_tags_names)
-    end
-
-    full_content = "#{content} - #{url}"
+    full_content =
+      if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+        content
+      else
+        "#{content} - #{url}"
+      end
 
     icon_url =
       if SiteSetting.chat_integration_slack_icon_url.present?
@@ -138,6 +153,25 @@ module DiscourseChatIntegration::Provider::SlackProvider
       title_link: url,
       thumb_url: nil,
     }
+
+    if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+      topic = context["topic"]
+      category =
+        if topic.category&.uncategorized?
+          "[#{I18n.t("uncategorized_category_name")}]"
+        elsif topic.category
+          if (topic.category.parent_category)
+            "[#{topic.category.parent_category.name}/#{topic.category.name}]"
+          else
+            "[#{topic.category.name}]"
+          end
+        end
+      summary[:title_link] = topic.posts.first.full_url
+      summary[
+        :title
+      ] = "#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(", ") : ""}"
+      summary[:thumb_url]
+    end
 
     message[:attachments].push(summary)
     message
