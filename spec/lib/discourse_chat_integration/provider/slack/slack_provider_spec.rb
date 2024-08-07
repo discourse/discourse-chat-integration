@@ -255,8 +255,8 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
         )
       text = result[:attachments][0][:text]
       expect(text).to include(topic.title)
-      expect(text).to include("#{tag1.name}, #{tag2.name}")
-      expect(text).to include("#{tag3.name}, #{tag4.name}")
+      expect(text).to include("<#{tag1.full_url}|#{tag1.name}>, <#{tag2.full_url}|#{tag2.name}>")
+      expect(text).to include("<#{tag3.full_url}|#{tag3.name}>, <#{tag4.full_url}|#{tag4.name}>")
     end
   end
 end
