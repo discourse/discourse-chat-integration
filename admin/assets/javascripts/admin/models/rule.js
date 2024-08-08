@@ -47,11 +47,6 @@ export default class Rule extends RestModel {
         icon: "circle",
       },
       {
-        id: "tag_added",
-        name: I18n.t("chat_integration.filter.tag_added"),
-        icon: "tag",
-      },
-      {
         id: "mute",
         name: I18n.t("chat_integration.filter.mute"),
         icon: "times-circle",
