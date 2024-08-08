@@ -325,5 +325,25 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
         ),
       )
     end
+
+    it "should raise errors if tags are not present but uses in content" do
+      topic = Fabricate(:topic)
+      topic.posts << Fabricate(:post, topic: topic)
+      content = "This should not work ${ADDED_TAGS}"
+
+      expect {
+        described_class.create_slack_message(
+          context: {
+            "topic" => topic,
+            "kind" => DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED,
+            "added_tags" => [],
+            "removed_tags" => [],
+          },
+          content: content,
+          channel_name: "general",
+          url: "http://example.com",
+        )
+      }.to raise_error(StandardError)
+    end
   end
 end
