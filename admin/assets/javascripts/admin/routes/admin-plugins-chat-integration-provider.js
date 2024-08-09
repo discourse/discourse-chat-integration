@@ -16,11 +16,15 @@ export default class AdminPluginsChatIntegrationProvider extends DiscourseRoute 
     channels.forEach((channel) => {
       channel.set(
         "rules",
-        channel.rules.map((rule) => {
-          rule = this.store.createRecord("rule", rule);
-          rule.set("channel", channel);
-          return rule;
-        })
+        channel.rules
+          .filter((rule) => {
+            return rule.filter !== "tag_added";
+          })
+          .map((rule) => {
+            rule = this.store.createRecord("rule", rule);
+            rule.set("channel", channel);
+            return rule;
+          })
       );
     });
 

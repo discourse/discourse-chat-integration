@@ -58,14 +58,9 @@ after_initialize do
 
       version 1
 
-      triggerables %i[point_in_time recurring]
+      triggerables %i[point_in_time recurring topic_tags_changed]
 
       script do |context, fields, automation|
-        sender = Discourse.system_user
-
-        content = fields.dig("message", "value")
-        url = fields.dig("url", "value")
-        full_content = "#{content} - #{url}"
         channel_name = fields.dig("channel", "value")
         channel =
           DiscourseChatIntegration::Channel.new(
@@ -75,43 +70,18 @@ after_initialize do
             },
           )
 
-        icon_url =
-          if SiteSetting.chat_integration_slack_icon_url.present?
-            "#{Discourse.base_url}#{SiteSetting.chat_integration_slack_icon_url}"
-          elsif (
-                url = (SiteSetting.try(:site_logo_small_url) || SiteSetting.logo_small_url)
-              ).present?
-            "#{Discourse.base_url}#{url}"
-          end
-
-        slack_username =
-          if SiteSetting.chat_integration_slack_username.present?
-            SiteSetting.chat_integration_slack_username
-          else
-            SiteSetting.title || "Discourse"
-          end
-
-        message = {
-          channel: "##{channel_name}",
-          username: slack_username,
-          icon_url: icon_url,
-          attachments: [],
-        }
-
-        summary = {
-          fallback: content.truncate(100),
-          author_name: sender,
-          color: nil,
-          text: full_content,
-          mrkdwn_in: ["text"],
-          title: content.truncate(100),
-          title_link: url,
-          thumb_url: nil,
-        }
-
-        message[:attachments].push(summary)
-
-        DiscourseChatIntegration::Provider::SlackProvider.send_via_api(nil, channel, message)
+        begin
+          message =
+            DiscourseChatIntegration::Provider::SlackProvider.create_slack_message(
+              context: context,
+              content: fields.dig("message", "value"),
+              url: fields.dig("url", "value"),
+              channel_name: channel_name,
+            )
+          DiscourseChatIntegration::Provider::SlackProvider.send_via_api(nil, channel, message)
+        rescue StandardError => _
+          # StandardError here is when there are no tags but content includes reference to them.
+        end
       end
     end
   end
