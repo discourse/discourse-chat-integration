@@ -27,23 +27,13 @@ class MigrateTagAddedFromFilterToAutomation < ActiveRecord::Migration[7.1]
           # Triggers:
           # Watching categories
 
-          metadata =
-            if category_id
-              { "value" => [category_id] }
-            else
-              {}
-            end
+          metadata = (category_id ? { "value" => [category_id] } : {})
 
           automation.upsert_field!("watching_categories", "categories", metadata, target: "trigger")
 
           # Watching tags
 
-          metadata =
-            if tags
-              { "value" => tags }
-            else
-              {}
-            end
+          metadata = (tags ? { "value" => tags } : {})
 
           automation.upsert_field!("watching_tags", "tags", metadata, target: "trigger")
 
