@@ -306,22 +306,27 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     if content.include?("${ADDED_AND_REMOVED}")
+      current_tags = context["added_tags"]
+      old_tags = context["removed_tags"]
+      missing_tags = old_tags - current_tags
+      added_tags = current_tags - old_tags
+
       text =
-        if !context["added_tags"].empty? && !context["removed_tags"].empty?
+        if !added_tags.empty? && !missing_tags.empty?
           I18n.t(
             "chat_integration.provider.slack.messaging.topic_tag_changed.added_and_removed",
-            added: create_tag_list(context["added_tags"]),
-            removed: create_tag_list(context["removed_tags"]),
+            added: create_tag_list(added_tags),
+            removed: create_tag_list(missing_tags),
           )
-        elsif !context["added_tags"].empty?
+        elsif !added_tags.empty?
           I18n.t(
             "chat_integration.provider.slack.messaging.topic_tag_changed.added",
-            added: create_tag_list(context["added_tags"]),
+            added: create_tag_list(added_tags),
           )
-        elsif !context["removed_tags"].empty?
+        elsif !missing_tags.empty?
           I18n.t(
             "chat_integration.provider.slack.messaging.topic_tag_changed.removed",
-            removed: create_tag_list(context["removed_tags"]),
+            removed: create_tag_list(missing_tags),
           )
         end
 
