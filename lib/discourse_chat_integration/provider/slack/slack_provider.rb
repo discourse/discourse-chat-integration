@@ -306,10 +306,8 @@ module DiscourseChatIntegration::Provider::SlackProvider
     end
 
     if content.include?("${ADDED_AND_REMOVED}")
-      current_tags = context["added_tags"]
-      old_tags = context["removed_tags"]
-      missing_tags = old_tags - current_tags
-      added_tags = current_tags - old_tags
+      added_tags = context["added_tags"]
+      missing_tags = context["removed_tags"]
 
       text =
         if !added_tags.empty? && !missing_tags.empty?
