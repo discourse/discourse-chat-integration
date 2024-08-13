@@ -1,4 +1,5 @@
 import { action } from "@ember/object";
+import { getOwner } from "@ember/owner";
 import Group from "discourse/models/group";
 import DiscourseRoute from "discourse/routes/discourse";
 
@@ -13,14 +14,18 @@ export default class AdminPluginsChatIntegrationProvider extends DiscourseRoute 
       Group.findAll(),
     ]);
 
+    const enabledFilters =
+      getOwner(this).lookup("model:rule").possible_filters_id;
     channels.forEach((channel) => {
       channel.set(
         "rules",
-        channel.rules.map((rule) => {
-          rule = this.store.createRecord("rule", rule);
-          rule.set("channel", channel);
-          return rule;
-        })
+        channel.rules
+          .filter((rule) => enabledFilters.includes(rule.filter))
+          .map((rule) => {
+            rule = this.store.createRecord("rule", rule);
+            rule.set("channel", channel);
+            return rule;
+          })
       );
     });
 
