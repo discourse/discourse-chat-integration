@@ -23,6 +23,8 @@ export default class Rule extends RestModel {
     },
   ];
 
+  possible_filters_id = ["thread", "watch", "follow", "mute"];
+
   get available_filters() {
     const available = [];
     const provider = this.channel.provider;
