@@ -208,7 +208,7 @@ gl:
         send_slack_message:
           fields:
             message:
-              label: Mensaxe
+              label: Mensaxe.
             url:
               label: URL
             channel:

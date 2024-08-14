@@ -136,7 +136,7 @@ sk:
         send_slack_message:
           fields:
             message:
-              label: Správa
+              label: Správa.
             url:
               label: URL
             channel:

@@ -127,6 +127,11 @@ es:
           error_users: "Error: no se pueden obtener los usuarios de Slack"
           error_history: "Error: no se puede recuperar el historial del canal de Slack"
           error_ts: "Error: no se puede obtener el mensaje solicitado de Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Añadido %{added} y eliminado %{removed}"
+            added: "Añadido %{added}"
+            removed: "Eliminado %{removed}"
       telegram:
         unknown_chat: "Este chat no está configurado en %{site_title}. Pide a un administrador que añada un canal con «ID de chat» %{chat_id}."
         known_chat: "Este chat está configurado en %{site_title}. Configúralo en el panel del administrador. (ID del chat: %{chat_id})"

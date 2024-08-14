@@ -126,6 +126,11 @@ ru:
           error_users: "Ошибка: не удается получить пользователей из Slack"
           error_history: "Ошибка: не удается получить историю канала из Slack"
           error_ts: "Ошибка: не удается получить запрошенное сообщение из Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Добавлено — %{added}, удалено — %{removed}"
+            added: "Добавлено: %{added}"
+            removed: "Удалил(а) %{removed}"
       telegram:
         unknown_chat: "Этот чат не настроен на %{site_title}. Попросите администратора добавить канал с идентификатором чата %{chat_id}."
         known_chat: "Этот чат настроен на %{site_title}. Настройте его в панели администратора. (Идентификатор чата: %{chat_id})"

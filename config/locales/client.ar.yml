@@ -43,7 +43,6 @@ ar:
         mute: 'صامت'
         follow: 'أول منشور فقط'
         watch: 'كل المنشورات والردود'
-        tag_added: 'تمت إضافة الوسم إلى الموضوع'
         thread: 'كل المنشورات ذات الردود المسلسلة'
       rule_table:
         filter: "تصفية"
@@ -215,7 +214,7 @@ ar:
           title: إرسال رسالة Slack
           fields:
             message:
-              label: رسالة
+              label: رسالة.
             url:
               label: عنوان URL
             channel:

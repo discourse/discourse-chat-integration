@@ -127,6 +127,11 @@ de:
           error_users: "Fehler: Benutzer können nicht von Slack abgerufen werden"
           error_history: "Fehler: Kanalverlauf kann nicht von Slack abgerufen werden"
           error_ts: "Fehler: Angeforderte Nachricht kann nicht von Slack abgerufen werden"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "%{added} hinzugefügt und %{removed} entfernt"
+            added: "%{added} hinzugefügt"
+            removed: "%{removed} entfernt"
       telegram:
         unknown_chat: "Dieser Chat ist auf %{site_title} nicht eingerichtet. Bitte einen Administrator, einen Kanal mit der „Chat-ID“ %{chat_id} hinzuzufügen."
         known_chat: "Dieser Chat ist auf %{site_title} eingerichtet. Konfiguriere ihn im Administrationsbereich. (Chat-ID: %{chat_id})"

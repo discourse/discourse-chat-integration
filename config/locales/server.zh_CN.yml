@@ -127,6 +127,11 @@ zh_CN:
           error_users: "错误：无法从 Slack 获取用户"
           error_history: "错误：无法从 Slack 获取频道历史记录"
           error_ts: "错误：无法从 Slack 获取请求的消息"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "添加了 %{added}，移除了 %{removed}"
+            added: "添加了 %{added}"
+            removed: "移除了 %{removed}"
       telegram:
         unknown_chat: "此聊天未在 %{site_title} 上设置。请要求管理员添加一个聊天 ID 为 %{chat_id} 的频道。"
         known_chat: "此聊天已在 %{site_title} 上设置。在管理面板中进行配置。（聊天 ID：%{chat_id}）"

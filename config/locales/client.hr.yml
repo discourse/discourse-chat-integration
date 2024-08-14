@@ -147,7 +147,7 @@ hr:
         send_slack_message:
           fields:
             message:
-              label: Poruka
+              label: Poruka.
             url:
               label: URL
             channel:

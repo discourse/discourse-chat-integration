@@ -75,6 +75,6 @@ sq:
         send_slack_message:
           fields:
             message:
-              label: Mesazh
+              label: Mesazh.
             url:
               label: URL

@@ -43,7 +43,6 @@ zh_CN:
         mute: '免打扰'
         follow: '仅第一个帖子'
         watch: '所有帖子和回复'
-        tag_added: '标签已添加到话题'
         thread: '所有带有按线索组织的回复的帖子'
       rule_table:
         filter: "筛选器"
@@ -215,7 +214,7 @@ zh_CN:
           title: 发送 Slack 消息
           fields:
             message:
-              label: 消息
+              label: 发送私信.
             url:
               label: URL
             channel:

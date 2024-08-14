@@ -127,6 +127,11 @@ he:
           error_users: "שגיאה: לא ניתן למשוך את המשתמשים מ־Slack"
           error_history: "שגיאה: לא ניתן למשוך את היסטוריית הערוץ מ־Slack"
           error_ts: "שגיאה: לא ניתן למשוך את ההודעה המבוקשת מ־Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "נוספו %{added} והוסרו %{removed}"
+            added: "נוספו %{added}"
+            removed: "הוסרו %{removed}"
       telegram:
         unknown_chat: "צ׳אט זה אינו מוגדר באתר %{site_title}. נא לבקש מההנהלה להוסיף ערוץ עם ‚מזהה צ׳אט’ כזה %{chat_id}."
         known_chat: "צ׳אט זה מוגדר באתר %{site_title}. יש להגדיר אותו דרך לוח ההנהלה. (מזהה צ׳אט: %{chat_id})"

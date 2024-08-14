@@ -10,5 +10,11 @@ hr:
     group_mention_template: "spominjanje: @%{name}"
     group_message_template: "poruke na: @%{name}"
     provider:
+      slack:
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Dodano %{added} i uklonjeno %{removed}"
+            added: "Dodano %{added}"
+            removed: "je uklonio %{removed}"
       flowdock:
         message_title: "objavljeno"

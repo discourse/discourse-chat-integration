@@ -73,6 +73,6 @@ be:
         send_slack_message:
           fields:
             message:
-              label: Паказаць выдаленыя паведамленні...
+              label: паведамленне.
             url:
               label: URL спасылка

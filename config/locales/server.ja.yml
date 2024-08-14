@@ -127,6 +127,11 @@ ja:
           error_users: "エラー: Slack からユーザーを取得できません"
           error_history: "エラー: Slack からチャンネル履歴を取得できません"
           error_ts: "エラー: Slack からリクエストされたメッセージを取得できません"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "%{added} を追加して %{removed} を削除しました"
+            added: "%{added} を追加しました"
+            removed: "%{removed} を削除しました"
       telegram:
         unknown_chat: "このチャットは %{site_title} でセットアップされていません。「チャット ID」%{chat_id} のチャンネルを追加するよう、管理者に依頼してください。"
         known_chat: "このチャットは %{site_title} でセットアップ済みです。管理者パネルで構成してください。（チャット ID: %{chat_id}）"

@@ -73,6 +73,6 @@ th:
         send_slack_message:
           fields:
             message:
-              label: ข้อความ
+              label: ข้อความ.
             url:
               label: URL

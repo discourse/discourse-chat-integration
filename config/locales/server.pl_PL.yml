@@ -120,6 +120,11 @@ pl_PL:
           error_users: "Błąd: nie można pobrać użytkowników ze Slacka"
           error_history: "Błąd: nie można pobrać historii kanału ze Slacka"
           error_ts: "Błąd: nie można pobrać żądanej wiadomości ze Slacka"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Dodano %{added} i usunięto %{removed}"
+            added: "Dodano %{added}"
+            removed: "Usunięto %{removed}"
       telegram:
         unknown_chat: "Czat nie jest skonfigurowany na %{site_title}. Poproś administratora o dodanie kanału z ID czatu: %{chat_id}."
         known_chat: "Czat nie jest skonfigurowany na %{site_title}. Skonfiguruj go w panelu administratora. (ID czatu: %{chat_id})"
