@@ -8,5 +8,11 @@ sk:
   chat_integration:
     all_categories: "(všetky kategórie)"
     provider:
+      slack:
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Pridané %{added} a odstránené %{removed}"
+            added: "Pridané %{added}"
+            removed: "Odstránené %{removed}"
       flowdock:
         message_title: "odoslané"

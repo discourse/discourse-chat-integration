@@ -177,7 +177,7 @@ pt:
         send_slack_message:
           fields:
             message:
-              label: Mensagem
+              label: Mensagem.
             url:
               label: URL
             channel:

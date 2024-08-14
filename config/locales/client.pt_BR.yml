@@ -43,7 +43,6 @@ pt_BR:
         mute: 'Silenciar'
         follow: 'Somente a primeira postagem'
         watch: 'Todas as postagens e respostas'
-        tag_added: 'Etiqueta adicionada ao tópico'
         thread: 'Todas as postagens encadeadas'
       rule_table:
         filter: "Filtro"
@@ -215,7 +214,7 @@ pt_BR:
           title: Enviar uma mensagem do Slack
           fields:
             message:
-              label: Mensagem
+              label: Mensagem.
             url:
               label: URL
             channel:

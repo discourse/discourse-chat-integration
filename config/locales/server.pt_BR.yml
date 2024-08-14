@@ -127,6 +127,11 @@ pt_BR:
           error_users: "Erro: não é possível buscar no Slack"
           error_history: "Erro: não é possível buscar histórico de canais no Slack"
           error_ts: "Erro: não é possível buscar mensagem solicitada no Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Adicionou %{added} e removeu %{removed}"
+            added: "Adicionou %{added}"
+            removed: "Removeu %{removed}"
       telegram:
         unknown_chat: "Este bate-papo não está configurado em %{site_title}. Peça a um administrador para adicionar um canal com \"ID de Bate-Papo\" %{chat_id}."
         known_chat: "Este bate-papo está configurado em %{site_title}. Configure-o no painel de administração. (ID do Bate-Papo: %{chat_id})"

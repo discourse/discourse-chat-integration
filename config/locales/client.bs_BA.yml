@@ -76,6 +76,6 @@ bs_BA:
         send_slack_message:
           fields:
             message:
-              label: Privatna Poruka
+              label: Privatna Poruka.
             url:
               label: URL

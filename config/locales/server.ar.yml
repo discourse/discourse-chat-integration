@@ -127,6 +127,11 @@ ar:
           error_users: "خطأ: يتعذَّر جلب المستخدمين من Slack"
           error_history: "خطأ: يتعذَّر جلب سجل القناة من Slack"
           error_ts: "خطأ: يتعذَّر جلب الرسالة المطلوبة من Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "تمت إضافة %{added} وإزالة %{removed}"
+            added: "تمت إضافة %{added}"
+            removed: "تمت إزالة %{removed}"
       telegram:
         unknown_chat: "لم يتم إعداد الدردشة على %{site_title}. اطلب من المسؤول إضافة قناة باستخدام \"مُعرِّف الدردشة\" %{chat_id}."
         known_chat: "تم إعداد هذه الدردشة على %{site_title}. يمكنك إعدادها في لوحة المسؤول. (مُعرِّف الدردشة: %{chat_id})"

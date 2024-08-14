@@ -76,6 +76,6 @@ bg:
         send_slack_message:
           fields:
             message:
-              label: Съобщение
+              label: Съобщение.
             url:
               label: URL

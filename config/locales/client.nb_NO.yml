@@ -142,7 +142,7 @@ nb_NO:
         send_slack_message:
           fields:
             message:
-              label: Send
+              label: Send.
             url:
               label: URL
             channel:

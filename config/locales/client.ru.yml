@@ -43,7 +43,6 @@ ru:
         mute: 'Отключить'
         follow: 'Только первый пост'
         watch: 'Все сообщения и ответы'
-        tag_added: 'Тег добавлен в тему'
         thread: 'Все сообщения с ответами'
       rule_table:
         filter: "Фильтр"
@@ -215,7 +214,7 @@ ru:
           title: Отправить Slack-сообщение
           fields:
             message:
-              label: Сообщение
+              label: Сообщение.
             url:
               label: URL
             channel:

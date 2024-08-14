@@ -127,6 +127,11 @@ nl:
           error_users: "Fout: kan gebruikers niet ophalen van Slack"
           error_history: "Fout: kan kanaalgeschiedenis niet ophalen van Slack"
           error_ts: "Fout: kan verzochte bericht niet ophalen van Slack"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "%{added} toegevoegd en %{removed} verwijderd"
+            added: "%{added} toegevoegd"
+            removed: "%{removed} verwijderd"
       telegram:
         unknown_chat: "Deze chat is niet ingesteld op %{site_title}. Vraag een beheerder om een kanaal toe te voegen met chat-ID %{chat_id}."
         known_chat: "Deze chat is ingesteld op %{site_title}. Configureer hem in het beheerscherm. (Chat-ID: %{chat_id})"

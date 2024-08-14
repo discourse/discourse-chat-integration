@@ -77,6 +77,6 @@ cs:
         send_slack_message:
           fields:
             message:
-              label: Zpráva
+              label: Odeslat.
             url:
               label: URL

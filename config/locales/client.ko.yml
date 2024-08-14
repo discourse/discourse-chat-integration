@@ -172,7 +172,7 @@ ko:
         send_slack_message:
           fields:
             message:
-              label: 메시지 보내기
+              label: 메시지 보내기.
             url:
               label: URL
             channel:

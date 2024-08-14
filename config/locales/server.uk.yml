@@ -28,6 +28,11 @@ uk:
         transcript:
           change_first_message: "Змінити перше повідомлення ..."
           change_last_message: "Змінити останнє повідомлення ..."
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Додано %{added} і видалено %{removed}"
+            added: "Додано %{added}"
+            removed: "Видалено %{removed}"
       telegram:
         status:
           no_rules: "Для цього каналу немає правил. Запустіть <code>/help</code> для нструкцій."

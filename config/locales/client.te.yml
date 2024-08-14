@@ -76,7 +76,5 @@ te:
       scriptables:
         send_slack_message:
           fields:
-            message:
-              label: సందేశం పంపించండి
             url:
               label: యూఆర్ యల్

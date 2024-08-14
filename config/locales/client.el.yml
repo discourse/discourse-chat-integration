@@ -78,6 +78,6 @@ el:
         send_slack_message:
           fields:
             message:
-              label: Μήνυμα
+              label: Μήνυμα.
             url:
               label: URL

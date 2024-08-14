@@ -107,6 +107,6 @@ vi:
         send_slack_message:
           fields:
             message:
-              label: Tin nhắn
+              label: Tin nhắn.
             url:
               label: URL

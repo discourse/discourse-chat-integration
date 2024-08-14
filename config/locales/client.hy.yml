@@ -188,7 +188,7 @@ hy:
         send_slack_message:
           fields:
             message:
-              label: Նոր Հաղորդագրություն
+              label: Նոր Հաղորդագրություն.
             url:
               label: URL
             channel:

@@ -188,7 +188,7 @@ ca:
         send_slack_message:
           fields:
             message:
-              label: Missatge
+              label: Missatge.
             url:
               label: URL
             channel:

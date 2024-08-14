@@ -127,6 +127,11 @@ fi:
           error_users: "Virhe: käyttäjiä ei voitu hakea Slackista"
           error_history: "Virhe: kanavahistoriaa ei voitu hakea Slackista"
           error_ts: "Virhe: pyydettyä viestiä ei voitu hakea Slackista"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "Lisättiin %{added} ja poistettiin %{removed}"
+            added: "Lisättiin %{added}"
+            removed: "Poistettu tunniste %{removed}"
       telegram:
         unknown_chat: "Tätä keskustelua ei ole määritetty sivustolla %{site_title}. Pyydä järjestelmänvalvojaa lisäämään kanava keskustelutunnuksella %{chat_id}."
         known_chat: "Tämä keskustelu on määritetty sivustolla %{site_title}. Määritä se hallintapaneelissa. (Keskustelutunnus: %{chat_id})"

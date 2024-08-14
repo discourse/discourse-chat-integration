@@ -120,7 +120,7 @@ ro:
         send_slack_message:
           fields:
             message:
-              label: Mesaj
+              label: Mesaj.
             url:
               label: URL
             channel:

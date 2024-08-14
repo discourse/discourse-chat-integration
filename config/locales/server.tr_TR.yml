@@ -127,6 +127,11 @@ tr_TR:
           error_users: "Hata: Slack'ten kullanıcı alınamıyor"
           error_history: "Hata: Slack'ten kanal geçmişi alınamıyor"
           error_ts: "Hata: Slack'ten talep edilen mesaj alınamıyor"
+        messaging:
+          topic_tag_changed:
+            added_and_removed: "%{added} eklendi ve %{removed} kaldırıldı"
+            added: "%{added} eklendi"
+            removed: "%{removed} kaldırıldı"
       telegram:
         unknown_chat: "Bu sohbet %{site_title} adresinde ayarlanmamış. Bir yöneticiden \"Sohbet Kimliği\" %{chat_id} ile bir kanal eklemesini isteyin."
         known_chat: "Bu sohbet %{site_title} adresinde kurulmuş. Yönetici panelinde yapılandırın. (Sohbet Kimliği: %{chat_id})"

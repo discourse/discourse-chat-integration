@@ -23,6 +23,9 @@ fa_IR:
           rule_string: "*%{index})* *%{filter}* نوشته در *%{category}*"
         transcript:
           posted_in: "نوشته شده در %{name}"
+        messaging:
+          topic_tag_changed:
+            added: "%{added} اضافه شد"
       mattermost:
         status:
           rule_string: "*%{index})* *%{filter}* نوشته در *%{category}*"
