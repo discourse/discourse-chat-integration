@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DiscourseChatIntegration::Provider::PowerAutomateProvider
-  PROVIDER_NAME = "powerautomate".freeze
+  PROVIDER_NAME = "powerautomate"
   PROVIDER_ENABLED_SETTING = :chat_integration_powerautomate_enabled
   CHANNEL_PARAMETERS = [
     { key: "name", regex: '^\S+$', unique: true },
@@ -59,79 +59,73 @@ module DiscourseChatIntegration::Provider::PowerAutomateProvider
         )
     end
 
-
-
-
     message = {
       type: "message",
       attachments: [
         {
           contentType: "application/vnd.microsoft.card.adaptive",
-          contentUrl:nil,
+          contentUrl: nil,
           content: {
             type: "AdaptiveCard",
-            body:[
+            body: [
               {
-                type:"TextBlock",
+                type: "TextBlock",
                 size: "Large",
                 weight: "Bolder",
-                text:"[#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(", ") : ""}](#{post.full_url})",
+                text:
+                  "[#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(", ") : ""}](#{post.full_url})",
                 wrap: true,
-                spacing:"None"
+                spacing: "None",
               },
               {
-                type:"ColumnSet",
+                type: "ColumnSet",
                 columns: [
                   {
-                    type:"Column",
-                    items:[
-                      {
-                        type:"Image",
-                        style:"Person",
-                        url: post.user.small_avatar_url,
-                        altText: full_name,
-                        size:"Small"
-                      }
-                    ],
-                    width:"auto"
-                  },
-                  {
-                    type:"Column",
+                    type: "Column",
                     items: [
                       {
-                        type:"TextBlock",
-                        weight:"Bolder",
-                        text:full_name,
-                        wrap:true
+                        type: "Image",
+                        style: "Person",
+                        url: post.user.small_avatar_url,
+                        altText: full_name,
+                        size: " Small",
                       },
-                      {
-                        type:"TextBlock",
-                        spacing:"None",
-                        text:display_name,
-                        isSubtle:true,
-                        wrap:true
-                      }
                     ],
-                    width:"stretch"
-                  }
-                ]
+                    width: "auto",
+                  },
+                  {
+                    type: "Column",
+                    items: [
+                      { type: "TextBlock", weight: "Bolder", text: full_name, wrap: true },
+                      {
+                        type: "TextBlock",
+                        spacing: "None",
+                        text: display_name,
+                        isSubtle: true,
+                        wrap: true,
+                      },
+                    ],
+                    width: "stretch",
+                  },
+                ],
               },
               {
-                type:"TextBlock",
-                text:post.excerpt(
-                  SiteSetting.chat_integration_powerautomate_excerpt_length,
-                  text_entities: true,
-                  strip_links: true,
-                  remap_emoji: true,
-                ),
-                wrap:true
-              }
+                type: "TextBlock",
+                text:
+                  post.excerpt(
+                    SiteSetting.chat_integration_powerautomate_excerpt_length,
+                    text_entities: true,
+                    strip_links: true,
+                    remap_emoji: true,
+                  ),
+                wrap: true,
+              },
             ],
-            "$schema":"http://adaptivecards.io/schemas/adaptive-card.json",
-            version: "1.2"
-          }
-        }
-      ]
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            version: "1.2",
+          },
+        },
+      ],
     }
 
     message
