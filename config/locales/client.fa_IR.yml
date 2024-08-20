@@ -121,6 +121,12 @@ fa_IR:
               title: "نام"
             webhook_url:
               title: "نشانی اینترنتی وب‌هوک"
+        powerautomate:
+          param:
+            name:
+              title: "نام"
+            webhook_url:
+              title: "نشانی اینترنتی وب‌هوک"
         webex:
           param:
             name:

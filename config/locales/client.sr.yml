@@ -59,6 +59,10 @@ sr:
           param:
             name:
               title: "Ime foruma"
+        powerautomate:
+          param:
+            name:
+              title: "Ime foruma"
         webex:
           param:
             name:

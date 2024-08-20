@@ -188,6 +188,14 @@ ja:
               help: "新しい着信 Webhook を作成するときに提供される URL"
           errors:
             invalid_channel: "そのチャンネルは Microsoft Teams に存在しません"
+        powerautomate:
+          param:
+            name:
+              title: "名前"
+              help: "チャンネルの名前（Discourse 管理者インターフェースにのみ表示）"
+            webhook_url:
+              title: "Webhook URL"
+              help: "新しい着信 Webhook を作成するときに提供される URL"
         webex:
           title: "Webex Teams"
           param:

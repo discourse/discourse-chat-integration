@@ -188,6 +188,14 @@ pl_PL:
               help: "Adres URL podany podczas tworzenia nowego przychodzącego webhooka"
           errors:
             invalid_channel: "Ten kanał nie istnieje w Microsoft Teams"
+        powerautomate:
+          param:
+            name:
+              title: "Nazwa"
+              help: "Nazwa kanału (wyświetlana tylko w interfejsie administratora Discourse)"
+            webhook_url:
+              title: "URL webhook"
+              help: "Adres URL podany podczas tworzenia nowego przychodzącego webhooka"
         webex:
           title: "Zespoły Webex"
           param:

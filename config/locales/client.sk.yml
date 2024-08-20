@@ -119,6 +119,12 @@ sk:
               title: "Meno"
             webhook_url:
               title: "Webová adresa URL"
+        powerautomate:
+          param:
+            name:
+              title: "Meno"
+            webhook_url:
+              title: "Webová adresa URL"
         webex:
           param:
             name:

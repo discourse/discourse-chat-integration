@@ -155,6 +155,12 @@ ko:
               title: "그룹명"
             webhook_url:
               title: "웹 후크 URL"
+        powerautomate:
+          param:
+            name:
+              title: "그룹명"
+            webhook_url:
+              title: "웹 후크 URL"
         webex:
           param:
             name:

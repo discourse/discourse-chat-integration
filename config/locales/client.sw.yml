@@ -159,6 +159,12 @@ sw:
               title: "Jina"
             webhook_url:
               title: "Anwani ya Webhook"
+        powerautomate:
+          param:
+            name:
+              title: "Jina"
+            webhook_url:
+              title: "Anwani ya Webhook"
         webex:
           param:
             name:

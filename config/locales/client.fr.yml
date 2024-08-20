@@ -188,6 +188,14 @@ fr:
               help: "L'adresse URL fournie lorsque vous créez un nouveau webhook entrant"
           errors:
             invalid_channel: "Ce canal n'existe pas sur Microsoft Teams"
+        powerautomate:
+          param:
+            name:
+              title: "Nom"
+              help: "Un nom pour le canal (uniquement affiché dans l'interface d'administration Discourse)"
+            webhook_url:
+              title: "URL du webhook"
+              help: "L'adresse URL fournie lorsque vous créez un nouveau webhook entrant"
         webex:
           title: "Webex Teams"
           param:

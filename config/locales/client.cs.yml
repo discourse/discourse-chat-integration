@@ -64,6 +64,10 @@ cs:
           param:
             name:
               title: "Jméno"
+        powerautomate:
+          param:
+            name:
+              title: "Jméno"
         webex:
           param:
             name:

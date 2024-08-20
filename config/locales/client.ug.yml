@@ -74,6 +74,12 @@ ug:
               title: "ئىسمى"
             webhook_url:
               title: "تور ئىلمىكى تور ئادرېسى"
+        powerautomate:
+          param:
+            name:
+              title: "ئىسمى"
+            webhook_url:
+              title: "تور ئىلمىكى تور ئادرېسى"
         webex:
           param:
             name:

@@ -114,6 +114,10 @@ et:
           param:
             name:
               title: "Nimi"
+        powerautomate:
+          param:
+            name:
+              title: "Nimi"
         webex:
           param:
             name:

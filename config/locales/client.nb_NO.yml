@@ -129,6 +129,10 @@ nb_NO:
           param:
             name:
               title: "Navn"
+        powerautomate:
+          param:
+            name:
+              title: "Navn"
         webex:
           param:
             name:

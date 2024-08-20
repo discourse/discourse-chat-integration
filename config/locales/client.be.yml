@@ -60,6 +60,10 @@ be:
           param:
             name:
               title: "Назва"
+        powerautomate:
+          param:
+            name:
+              title: "Назва"
         webex:
           param:
             name:

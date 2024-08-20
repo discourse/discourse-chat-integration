@@ -188,6 +188,14 @@ zh_CN:
               help: "创建新的入站网络钩子时提供的 URL"
           errors:
             invalid_channel: "该频道在 Microsoft Teams 上不存在"
+        powerautomate:
+          param:
+            name:
+              title: "名称"
+              help: "频道名称（仅在 Discourse 管理界面中显示）"
+            webhook_url:
+              title: "网络钩子 URL"
+              help: "创建新的入站网络钩子时提供的 URL"
         webex:
           title: "Webex Teams"
           param:

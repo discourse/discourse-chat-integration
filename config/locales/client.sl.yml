@@ -65,6 +65,10 @@ sl:
           param:
             name:
               title: "Ime"
+        powerautomate:
+          param:
+            name:
+              title: "Ime"
         webex:
           param:
             name:

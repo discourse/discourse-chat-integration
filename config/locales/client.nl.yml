@@ -188,6 +188,14 @@ nl:
               help: "De opgegeven URL wanneer je een nieuwe inkomende webhook maakt"
           errors:
             invalid_channel: "Dat kanaal bestaat niet op Microsoft Teams"
+        powerautomate:
+          param:
+            name:
+              title: "Naam"
+              help: "Een naam voor het kanaal (alleen weergegeven in de beheerinterface van Discourse)"
+            webhook_url:
+              title: "Webhook-URL"
+              help: "De opgegeven URL wanneer je een nieuwe inkomende webhook maakt"
         webex:
           title: "Webex Teams"
           param:

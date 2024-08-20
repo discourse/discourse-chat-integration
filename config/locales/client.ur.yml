@@ -171,6 +171,12 @@ ur:
               title: "نام"
             webhook_url:
               title: "وَیب ھُوک URL"
+        powerautomate:
+          param:
+            name:
+              title: "نام"
+            webhook_url:
+              title: "وَیب ھُوک URL"
         webex:
           param:
             name:

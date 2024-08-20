@@ -65,6 +65,12 @@ el:
           param:
             name:
               title: "Όνομα"
+        powerautomate:
+          param:
+            name:
+              title: "Όνομα"
+            webhook_url:
+              title: "Webhook URL"
         webex:
           param:
             name:

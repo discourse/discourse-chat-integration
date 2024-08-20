@@ -184,6 +184,13 @@ gl:
               title: "URL do gancho"
           errors:
             invalid_channel: "Esa canle non existe en Microsoft Teams"
+        powerautomate:
+          param:
+            name:
+              title: "Nome"
+              help: "Un nome para a canle (só se mostra na interface de administración do Discourse)"
+            webhook_url:
+              title: "URL do gancho"
         webex:
           title: "Webex Teams"
           param:

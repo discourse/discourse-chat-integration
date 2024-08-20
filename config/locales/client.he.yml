@@ -188,6 +188,17 @@ he:
               help: "הכתובת שתסופק ביצירת התליית רשת נכנסת חדשה"
           errors:
             invalid_channel: "ערוץ זה לא קיים ב־Microsoft Teams"
+        powerautomate:
+          title: "Microsoft Power Automate"
+          param:
+            name:
+              title: "שם"
+              help: "שם לערוץ (מופיע רק במנשק הניהול של Discourse)"
+            webhook_url:
+              title: "כתובת התלייה"
+              help: "הכתובת שתסופק ביצירת התליית רשת נכנסת חדשה"
+          errors:
+            invalid_webhook: "כתובת ההתלייה שגויה."
         webex:
           title: "Webex Teams"
           param:
@@ -215,6 +226,8 @@ he:
           fields:
             message:
               label: הודעה.
+              description: >-
+                להשתמש בביטוי ${TOPIC} לשם הנושא, ${URL} לכתובות לשימוש, ${REMOVED_TAGS} לתגיות שהוסרו, ${ADDED_TAGS} לתגיות שנוספו, ${ADDED_AND_REMOVED} לטקסט ברירת המחדל. זמין רק אם ההזנקה מוגדרת לשינוי תגיות נושא.
             url:
               label: כתובת
             channel:

@@ -188,6 +188,14 @@ tr_TR:
               help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
           errors:
             invalid_channel: "Bu kanal Microsoft Teams'te mevcut değil"
+        powerautomate:
+          param:
+            name:
+              title: "Ad"
+              help: "Kanal için bir ad (yalnızca Discourse yönetici arayüzünde gösterilir)"
+            webhook_url:
+              title: "Web kancası URL'si"
+              help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
         webex:
           title: "Webex Ekipleri"
           param:

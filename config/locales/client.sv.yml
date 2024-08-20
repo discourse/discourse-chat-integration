@@ -185,6 +185,14 @@ sv:
               help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
           errors:
             invalid_channel: "Den kanalen finns inte hos Microsoft Teams"
+        powerautomate:
+          param:
+            name:
+              title: "Namn"
+              help: "Ett namn på kanalen (visas endast i Discourse-administratörspanelen)"
+            webhook_url:
+              title: "Webhook-URL"
+              help: "URL som tillhandahålls när du skapar en ny inkommande webhook"
         webex:
           title: "Webex-team"
           param:

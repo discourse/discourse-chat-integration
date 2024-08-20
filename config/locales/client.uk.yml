@@ -170,6 +170,12 @@ uk:
               title: "Імʼя"
             webhook_url:
               title: "Webhook URL"
+        powerautomate:
+          param:
+            name:
+              title: "Імʼя"
+            webhook_url:
+              title: "URL-адреса веб-хука"
         webex:
           param:
             name:

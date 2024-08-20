@@ -63,6 +63,10 @@ bg:
           param:
             name:
               title: "Име"
+        powerautomate:
+          param:
+            name:
+              title: "Име"
         webex:
           param:
             name:

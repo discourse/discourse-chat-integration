@@ -63,6 +63,10 @@ lv:
           param:
             name:
               title: "Vārds"
+        powerautomate:
+          param:
+            name:
+              title: "Vārds"
         webex:
           param:
             name:

@@ -188,6 +188,14 @@ fi:
               help: "URL-osoite, joka annetaan, kun luot uuden saapuvan webhookin"
           errors:
             invalid_channel: "Tätä kanavaa ei ole olemassa Microsoft Teamsissa"
+        powerautomate:
+          param:
+            name:
+              title: "Nimi"
+              help: "Kanavan nimi (näkyy vain Discoursen ylläpitäjän käyttöliittymässä)"
+            webhook_url:
+              title: "Webhookin URL-osoite"
+              help: "URL-osoite, joka annetaan, kun luot uuden saapuvan webhookin"
         webex:
           title: "Webex Teams"
           param:

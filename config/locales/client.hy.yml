@@ -171,6 +171,12 @@ hy:
               title: "Անուն"
             webhook_url:
               title: "Webhook -ի URL"
+        powerautomate:
+          param:
+            name:
+              title: "Անուն"
+            webhook_url:
+              title: "Webhook -ի URL"
         webex:
           param:
             name:

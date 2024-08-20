@@ -160,6 +160,12 @@ pt:
               title: "Nome"
             webhook_url:
               title: "URL de Webhook"
+        powerautomate:
+          param:
+            name:
+              title: "Nome"
+            webhook_url:
+              title: "URL de Webhook"
         webex:
           param:
             name:
