@@ -65,6 +65,10 @@ zh_TW:
           param:
             name:
               title: "名稱"
+        powerautomate:
+          param:
+            name:
+              title: "名稱"
         webex:
           param:
             name:

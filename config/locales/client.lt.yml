@@ -70,6 +70,10 @@ lt:
           param:
             name:
               title: "Vardas"
+        powerautomate:
+          param:
+            name:
+              title: "Vardas"
         webex:
           param:
             name:

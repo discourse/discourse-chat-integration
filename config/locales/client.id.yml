@@ -62,6 +62,10 @@ id:
           param:
             name:
               title: "Nama"
+        powerautomate:
+          param:
+            name:
+              title: "Nama"
         webex:
           param:
             name:

@@ -188,6 +188,14 @@ ar:
               help: "عنوان URL الذي يتم إدخاله عند إنشاء خطاف ويب وارد جديد"
           errors:
             invalid_channel: "هذه القناة غير موجودة على Microsoft Teams"
+        powerautomate:
+          param:
+            name:
+              title: "الاسم"
+              help: "اسم للقناة (يظهر فقط في واجهة مسؤول Discourse)"
+            webhook_url:
+              title: "عنوان URL لخطاف الويب"
+              help: "عنوان URL الذي يتم إدخاله عند إنشاء خطاف ويب وارد جديد"
         webex:
           title: "Webex Teams"
           param:

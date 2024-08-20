@@ -62,6 +62,10 @@ sq:
           param:
             name:
               title: "Emri"
+        powerautomate:
+          param:
+            name:
+              title: "Emri"
         webex:
           param:
             name:

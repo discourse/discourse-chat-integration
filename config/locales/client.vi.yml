@@ -94,6 +94,10 @@ vi:
           param:
             name:
               title: "Tên"
+        powerautomate:
+          param:
+            name:
+              title: "Tên"
         webex:
           param:
             name:

@@ -107,6 +107,10 @@ ro:
           param:
             name:
               title: "Nume"
+        powerautomate:
+          param:
+            name:
+              title: "Nume"
         webex:
           param:
             name:

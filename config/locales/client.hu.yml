@@ -117,6 +117,13 @@ hu:
             webhook_url:
               title: "Webhook URL"
               help: "Az új bejövő webhook létrehozásakor megadott URL"
+        powerautomate:
+          param:
+            name:
+              title: "Név"
+            webhook_url:
+              title: "Webhook URL"
+              help: "Az új bejövő webhook létrehozásakor megadott URL"
         webex:
           param:
             name:

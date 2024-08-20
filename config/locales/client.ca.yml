@@ -171,6 +171,12 @@ ca:
               title: "Nom"
             webhook_url:
               title: "URL del webhook"
+        powerautomate:
+          param:
+            name:
+              title: "Nom"
+            webhook_url:
+              title: "URL del webhook"
         webex:
           param:
             name:

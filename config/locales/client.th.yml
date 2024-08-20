@@ -60,6 +60,10 @@ th:
           param:
             name:
               title: "ชื่อ"
+        powerautomate:
+          param:
+            name:
+              title: "ชื่อ"
         webex:
           param:
             name:

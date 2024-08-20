@@ -64,6 +64,10 @@ te:
           param:
             name:
               title: "పేరు"
+        powerautomate:
+          param:
+            name:
+              title: "పేరు"
         webex:
           param:
             name:
