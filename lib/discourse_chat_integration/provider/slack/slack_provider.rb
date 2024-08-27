@@ -87,6 +87,74 @@ module DiscourseChatIntegration::Provider::SlackProvider
     message
   end
 
+  def self.create_slack_message(context:, content:, url:, channel_name:)
+    sender = ::DiscourseChatIntegration::Helper.formatted_display_name(Discourse.system_user)
+
+    content = replace_placehoders(content, context) if context["kind"] ==
+      DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+
+    full_content =
+      if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+        content
+      else
+        "#{content} - #{url}"
+      end
+
+    icon_url =
+      if SiteSetting.chat_integration_slack_icon_url.present?
+        "#{Discourse.base_url}#{SiteSetting.chat_integration_slack_icon_url}"
+      elsif (url = (SiteSetting.try(:site_logo_small_url) || SiteSetting.logo_small_url)).present?
+        "#{Discourse.base_url}#{url}"
+      end
+
+    slack_username =
+      if SiteSetting.chat_integration_slack_username.present?
+        SiteSetting.chat_integration_slack_username
+      else
+        SiteSetting.title || "Discourse"
+      end
+
+    message = {
+      channel: "##{channel_name}",
+      username: slack_username,
+      icon_url: icon_url,
+      attachments: [],
+    }
+
+    summary = {
+      fallback: content.truncate(100),
+      author_name: sender,
+      color: nil,
+      text: full_content,
+      mrkdwn_in: ["text"],
+      title: content.truncate(100),
+      title_link: url,
+      thumb_url: nil,
+    }
+
+    if context["kind"] == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+      topic = context["topic"]
+      category =
+        if topic.category&.uncategorized?
+          "[#{I18n.t("uncategorized_category_name")}]"
+        elsif topic.category
+          if (topic.category.parent_category)
+            "[#{topic.category.parent_category.name}/#{topic.category.name}]"
+          else
+            "[#{topic.category.name}]"
+          end
+        end
+      summary[:title_link] = topic.posts.first.full_url
+      summary[
+        :title
+      ] = "#{topic.title} #{category} #{topic.tags.present? ? topic.tags.map(&:name).join(", ") : ""}"
+      summary[:thumb_url]
+    end
+
+    message[:attachments].push(summary)
+    message
+  end
+
   def self.send_via_api(post, channel, message)
     http = slack_api_http
 
@@ -213,6 +281,63 @@ module DiscourseChatIntegration::Provider::SlackProvider
       },
       unique_by: :index_topic_custom_fields_on_topic_id_and_slack_thread_id,
     )
+  end
+
+  def self.replace_placehoders(content, context)
+    if context["topic"] && content.include?("${TOPIC}")
+      topic = context["topic"]
+      content = content.gsub("${TOPIC}", topic.title)
+    end
+
+    if content.include?("${REMOVED_TAGS}")
+      if context["removed_tags"].empty?
+        raise StandardError.new "No tags but content includes reference."
+      end
+      removed_tags_names = create_tag_list(context["removed_tags"])
+      content = content.gsub("${REMOVED_TAGS}", removed_tags_names)
+    end
+
+    if content.include?("${ADDED_TAGS}")
+      if context["added_tags"].empty?
+        raise StandardError.new "No tags but content includes reference."
+      end
+      added_tags_names = create_tag_list(context["added_tags"])
+      content = content.gsub("${ADDED_TAGS}", added_tags_names)
+    end
+
+    if content.include?("${ADDED_AND_REMOVED}")
+      added_tags = context["added_tags"]
+      missing_tags = context["removed_tags"]
+
+      text =
+        if !added_tags.empty? && !missing_tags.empty?
+          I18n.t(
+            "chat_integration.provider.slack.messaging.topic_tag_changed.added_and_removed",
+            added: create_tag_list(added_tags),
+            removed: create_tag_list(missing_tags),
+          )
+        elsif !added_tags.empty?
+          I18n.t(
+            "chat_integration.provider.slack.messaging.topic_tag_changed.added",
+            added: create_tag_list(added_tags),
+          )
+        elsif !missing_tags.empty?
+          I18n.t(
+            "chat_integration.provider.slack.messaging.topic_tag_changed.removed",
+            removed: create_tag_list(missing_tags),
+          )
+        end
+
+      content = content.gsub("${ADDED_AND_REMOVED}", text)
+    end
+
+    content = content.gsub("${URL}", url) if content.include?("${URL}")
+
+    content
+  end
+
+  def self.create_tag_list(tag_list)
+    tag_list.map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }.join(", ")
   end
 end
 
