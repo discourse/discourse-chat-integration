@@ -281,3 +281,5 @@ en:
               label: URL
             channel:
               label: Channel
+            provider:
+              label: Provider

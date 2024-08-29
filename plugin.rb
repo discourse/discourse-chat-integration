@@ -52,6 +52,15 @@ after_initialize do
 
   if defined?(DiscourseAutomation)
     add_automation_scriptable("send_slack_message") do
+      field :provider,
+            component: :choices,
+            extra: {
+              content:
+                DiscourseChatIntegration::Provider.enabled_provider_names.map do |provider|
+                  { id: provider, name: "chat_integration.provider.#{provider}.title" }
+                end,
+            },
+            required: true
       field :message, component: :message, required: true, accepts_placeholders: true
       field :url, component: :text, required: true
       field :channel, component: :text, required: true
@@ -82,6 +91,17 @@ after_initialize do
         rescue StandardError => _
           # StandardError here is when there are no tags but content includes reference to them.
         end
+
+        # TODO:
+        # provider = fields.dig("provider", "value")
+        # post = DiscourseChatIntegration::ChatIntegrationReferencePost.new(context)
+        # provider = ::DiscourseChatIntegration::Provider.get_by_name(provider)
+
+        # begin
+        #   provider.trigger_notification(post, channel_name, rule = nil) #idk rule part
+        # rescue StandardError => _
+        #   # StandardError here is when there are no tags but content includes reference to them.
+        # end
       end
     end
   end
