@@ -26,8 +26,7 @@ module DiscourseChatIntegration
 
     def excerpt(maxlength = nil, options = {})
       return @excerpt if @excerpt
-      cooked = PostAnalyzer.new(@raw, @topic.id).cook(@raw)
-      @excerpt = Post.excerpt(cooked, maxlength, options.merge(post: self)) # gotta test this well
+      @excerpt = Post.new(raw: raw, topic_id: topic.id, user: user).excerpt(maxlength, options)
       @excerpt
     end
 
@@ -46,7 +45,7 @@ module DiscourseChatIntegration
           lambda { |tag_list| tag_list.sort.map { |tag_name| "##{tag_name}" }.join(", ") }
         added_tags = @context["added_tags"]
         removed_tags = @context["removed_tags"]
-        
+
         @raw =
           if added_tags.present? && removed_tags.present?
             I18n.t(
