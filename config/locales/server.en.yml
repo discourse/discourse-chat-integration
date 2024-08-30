@@ -125,6 +125,8 @@ en:
     scriptables:
       send_slack_message:
         title: Send Slack message
+      send_chat_integration_message:
+        title: Send Chat-Integration message
   chat_integration:
 
     all_categories: "(all categories)"

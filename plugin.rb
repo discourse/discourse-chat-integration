@@ -16,6 +16,7 @@ register_svg_icon "fa-arrow-circle-o-right" if respond_to?(:register_svg_icon)
 
 # Site setting validators must be loaded before initialize
 require_relative "lib/discourse_chat_integration/provider/slack/slack_enabled_setting_validator"
+require_relative "lib/discourse_chat_integration/chat_integration_reference_post"
 
 after_initialize do
   require_relative "app/initializers/discourse_chat_integration"
@@ -52,15 +53,6 @@ after_initialize do
 
   if defined?(DiscourseAutomation)
     add_automation_scriptable("send_slack_message") do
-      field :provider,
-            component: :choices,
-            extra: {
-              content:
-                DiscourseChatIntegration::Provider.enabled_provider_names.map do |provider|
-                  { id: provider, name: "chat_integration.provider.#{provider}.title" }
-                end,
-            },
-            required: true
       field :message, component: :message, required: true, accepts_placeholders: true
       field :url, component: :text, required: true
       field :channel, component: :text, required: true
@@ -91,17 +83,37 @@ after_initialize do
         rescue StandardError => _
           # StandardError here is when there are no tags but content includes reference to them.
         end
+      end
+    end
 
-        # TODO:
-        # provider = fields.dig("provider", "value")
-        # post = DiscourseChatIntegration::ChatIntegrationReferencePost.new(context)
-        # provider = ::DiscourseChatIntegration::Provider.get_by_name(provider)
+    add_automation_scriptable("send_chat_integration_message") do
+      field :provider,
+            component: :choices,
+            extra: {
+              content:
+                DiscourseChatIntegration::Provider.enabled_provider_names.map do |provider|
+                  { id: provider, name: "chat_integration.provider.#{provider}.title" }
+                end,
+            },
+            required: true
+      field :channel_name, component: :text, required: true
 
-        # begin
-        #   provider.trigger_notification(post, channel_name, rule = nil) #idk rule part
-        # rescue StandardError => _
-        #   # StandardError here is when there are no tags but content includes reference to them.
-        # end
+      version 1
+
+      triggerables %i[topic_tags_changed]
+
+      script do |context, fields, automation|
+        provider = fields.dig("provider", "value")
+        channel_name = fields.dig("channel_name", "value")
+
+        post = DiscourseChatIntegration::ChatIntegrationReferencePost.new(context)
+        provider = DiscourseChatIntegration::Provider.get_by_name(provider)
+
+        channel = provider.get_channel_by_name(channel_name) # user must have created a channel in /admin/plugins/chat-integration/<provider> page
+        begin
+          provider.trigger_notification(post, channel, nil)
+        rescue StandardError => _
+        end
       end
     end
   end

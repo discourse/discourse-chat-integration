@@ -281,5 +281,11 @@ en:
               label: URL
             channel:
               label: Channel
-            provider:
-              label: Provider
+
+        send_chat_integration_message:
+            title: Send Chat-Integration message
+            fields:
+              channel_name:
+                label: Channel name as shown in the Discourse admin interface
+              provider:
+                label: Provider

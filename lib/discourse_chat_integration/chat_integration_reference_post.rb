@@ -8,6 +8,7 @@ module DiscourseChatIntegration
       @user = context["user"]
       @topic = context["topic"]
       @kind = context["kind"]
+      @raw = context["raw"] if context["raw"].present?
       @full_url = (@topic.posts.empty? ? @topic.full_url : @topic.posts.first.full_url)
       @created_at = Time.zone.now
     end
@@ -25,9 +26,9 @@ module DiscourseChatIntegration
     end
 
     def excerpt(maxlength = nil, options = {})
-      return @excerpt if @excerpt
-      @excerpt = Post.new(raw: raw, topic_id: topic.id, user: user).excerpt(maxlength, options)
-      @excerpt
+      cooked = PrettyText.cook(raw, { user_id: user.id })
+      maxlength ||= SiteSetting.post_excerpt_maxlength
+      PrettyText.excerpt(cooked, maxlength, options)
     end
 
     def is_first_post?
@@ -39,8 +40,7 @@ module DiscourseChatIntegration
     end
 
     def raw
-      return @raw if @raw
-      if @kind == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
+      if @raw.nil? && @kind == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
         tag_list_to_raw =
           lambda { |tag_list| tag_list.sort.map { |tag_name| "##{tag_name}" }.join(", ") }
         added_tags = @context["added_tags"]
@@ -59,6 +59,8 @@ module DiscourseChatIntegration
             I18n.t("topic_tag_changed.removed", removed: tag_list_to_raw.call(removed_tags))
           end
       end
+
+      @raw
     end
   end
 end
