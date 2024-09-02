@@ -39,6 +39,7 @@ fa_IR:
         mute: 'بی صدا'
         follow: 'فقط اولین نوشته'
         watch: 'همه نوشته‌ها و پاسخ‌ها'
+        tag_added: 'برچسب به موضوع اضافه شد'
       rule_table:
         filter: "فیلتر"
         category: "دسته‌بندی"
