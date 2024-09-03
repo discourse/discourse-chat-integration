@@ -84,4 +84,11 @@ module DiscourseChatIntegration::Provider::GroupmeProvider
     data_package = generate_groupme_message(post)
     self.send_via_webhook(data_package, channel)
   end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value("groupme_instance_name", name)
+      .first
+  end
 end

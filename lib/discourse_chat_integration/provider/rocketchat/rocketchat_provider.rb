@@ -82,4 +82,11 @@ module DiscourseChatIntegration::Provider::RocketchatProvider
 
     self.send_via_webhook(message)
   end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value("identifier", name)
+      .first
+  end
 end

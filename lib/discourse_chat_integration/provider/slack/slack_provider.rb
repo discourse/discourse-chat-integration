@@ -339,6 +339,13 @@ module DiscourseChatIntegration::Provider::SlackProvider
   def self.create_tag_list(tag_list)
     tag_list.map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }.join(", ")
   end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value("identifier", name)
+      .first
+  end
 end
 
 require_relative "slack_message_formatter"

@@ -71,4 +71,11 @@ module DiscourseChatIntegration::Provider::WebexProvider
 
     { markdown: markdown }
   end
+
+  def self.get_channel_by_name(channel_name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value("name", name)
+      .first
+  end
 end

@@ -60,4 +60,14 @@ module DiscourseChatIntegration::Provider::FlowdockProvider
                                                           }
     end
   end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value(
+        "flow_token", # this is really weird but is the only way to identify a channel in this provider
+        name,
+      )
+      .first
+  end
 end

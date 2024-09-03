@@ -43,6 +43,13 @@ module DiscourseChatIntegration
 
         "[__#{display_name}__ - #{topic.title} - #{category_name}](#{post.full_url})"
       end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value("name", name)
+          .first
+      end
     end
   end
 end
