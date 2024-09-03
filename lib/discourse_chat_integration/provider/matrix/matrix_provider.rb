@@ -95,6 +95,11 @@ module DiscourseChatIntegration
           .with_data_value("name", name)
           .first
       end
+
+      # used in the MigrateTagAddedFilterToAllProviders migration
+      def self.get_channel_name(channel)
+        channel.data["name"]
+      end
     end
   end
 end

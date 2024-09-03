@@ -286,6 +286,7 @@ en:
             title: Send Chat-Integration message
             fields:
               channel_name:
-                label: Channel name as shown in the Discourse admin interface
+                label: Channel name
+                description: "You can find the channel name in the Chat Integration settings"
               provider:
                 label: Provider

@@ -91,4 +91,9 @@ module DiscourseChatIntegration::Provider::GroupmeProvider
       .with_data_value("groupme_instance_name", name)
       .first
   end
+
+  # used in the MigrateTagAddedFilterToAllProviders migration
+  def self.get_channel_name(channel)
+    channel.data["groupme_instance_name"]
+  end
 end

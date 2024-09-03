@@ -70,4 +70,9 @@ module DiscourseChatIntegration::Provider::FlowdockProvider
       )
       .first
   end
+
+  # used in the MigrateTagAddedFilterToAllProviders migration
+  def self.get_channel_name(channel)
+    channel.data["flow_token"]
+  end
 end

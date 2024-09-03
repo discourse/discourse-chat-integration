@@ -100,6 +100,11 @@ module DiscourseChatIntegration
           .with_data_value("identifier", name)
           .first
       end
+
+      # used in the MigrateTagAddedFilterToAllProviders migration
+      def self.get_channel_name(channel)
+        channel.data["identifier"]
+      end
     end
   end
 end
