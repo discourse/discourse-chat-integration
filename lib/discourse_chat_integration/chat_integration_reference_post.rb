@@ -49,14 +49,20 @@ module DiscourseChatIntegration
         @raw =
           if added_tags.present? && removed_tags.present?
             I18n.t(
-              "topic_tag_changed.added_and_removed",
+              "topic_tag_changed.topic_tag_changed.added_and_removed",
               added: tag_list_to_raw.call(added_tags),
               removed: tag_list_to_raw.call(removed_tags),
             )
           elsif added_tags.present?
-            I18n.t("topic_tag_changed.added", added: tag_list_to_raw.call(added_tags))
+            I18n.t(
+              "topic_tag_changed.topic_tag_changed.added",
+              added: tag_list_to_raw.call(added_tags),
+            )
           elsif removed.present?
-            I18n.t("topic_tag_changed.removed", removed: tag_list_to_raw.call(removed_tags))
+            I18n.t(
+              "topic_tag_changed.topic_tag_changed.removed",
+              removed: tag_list_to_raw.call(removed_tags),
+            )
           end
       end
 

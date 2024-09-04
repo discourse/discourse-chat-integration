@@ -3,6 +3,20 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
   def up
     if defined?(DiscourseAutomation)
       begin
+        # Trash old migration
+        if DiscourseChatIntegration::Channel.with_provider("slack").exists?
+          DiscourseAutomation::Automation
+            .where(script: "send_slack_message", trigger: "topic_tags_changed")
+            .each do |automation|
+              # if is the same name as created and message is the same
+              if automation.name == "When tags change in topic" &&
+                   automation.fields.where(name: "message").first.metadata["value"] ==
+                     "${ADDED_AND_REMOVED}"
+                automation.destroy!
+              end
+            end
+        end
+
         DiscourseChatIntegration::Rule
           .where("value::json->>'filter'=?", "tag_added")
           .each do |rule|
@@ -66,6 +80,7 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
       end
     end
   end
+
   def down
     if defined?(DiscourseAutomation)
       DiscourseAutomation::Automation
