@@ -47,6 +47,7 @@ module DiscourseChatIntegration
         tag_list_to_raw = ->(tag_list) do
           tag_list.sort.map { |tag_name| "##{tag_name}" }.join(", ")
         end
+
         added_tags = @context["added_tags"]
         removed_tags = @context["removed_tags"]
 
@@ -69,7 +70,6 @@ module DiscourseChatIntegration
             )
           end
       end
-
       @raw
     end
   end
