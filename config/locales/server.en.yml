@@ -141,7 +141,7 @@ en:
       added_and_removed: "Added %{added} and removed %{removed}"
       added: "Added %{added}"
       removed: "Removed %{removed}"
-      
+
     provider:
 
       #######################################
