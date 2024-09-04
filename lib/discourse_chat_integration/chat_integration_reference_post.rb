@@ -9,7 +9,6 @@ module DiscourseChatIntegration
       @topic = context["topic"]
       @kind = context["kind"]
       @raw = context["raw"] if context["raw"].present?
-      @full_url = (@topic.posts.empty? ? @topic.full_url : @topic.posts.first.full_url)
       @created_at = Time.zone.now
     end
 
@@ -22,7 +21,11 @@ module DiscourseChatIntegration
     end
 
     def full_url
-      @full_url
+      if @topic.posts.empty?
+        @topic.full_url
+      else
+        @topic.posts.first.full_url
+      end
     end
 
     def excerpt(maxlength = nil, options = {})
@@ -41,8 +44,9 @@ module DiscourseChatIntegration
 
     def raw
       if @raw.nil? && @kind == DiscourseAutomation::Triggers::TOPIC_TAGS_CHANGED
-        tag_list_to_raw =
-          lambda { |tag_list| tag_list.sort.map { |tag_name| "##{tag_name}" }.join(", ") }
+        tag_list_to_raw = ->(tag_list) do
+          tag_list.sort.map { |tag_name| "##{tag_name}" }.join(", ")
+        end
         added_tags = @context["added_tags"]
         removed_tags = @context["removed_tags"]
 
@@ -58,7 +62,7 @@ module DiscourseChatIntegration
               "topic_tag_changed.topic_tag_changed.added",
               added: tag_list_to_raw.call(added_tags),
             )
-          elsif removed.present?
+          elsif removed_tags.present?
             I18n.t(
               "topic_tag_changed.topic_tag_changed.removed",
               removed: tag_list_to_raw.call(removed_tags),

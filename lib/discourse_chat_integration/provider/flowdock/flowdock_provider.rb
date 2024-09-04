@@ -3,6 +3,7 @@
 module DiscourseChatIntegration::Provider::FlowdockProvider
   PROVIDER_NAME = "flowdock".freeze
   PROVIDER_ENABLED_SETTING = :chat_integration_flowdock_enabled
+  CHANNEL_IDENTIFIER_KEY = "flow_token".freeze # this is really weird but is the only way to identify a channel in this provider
   CHANNEL_PARAMETERS = [{ key: "flow_token", regex: '^\S+', unique: true, hidden: true }]
 
   def self.send_message(url, message)
@@ -64,15 +65,12 @@ module DiscourseChatIntegration::Provider::FlowdockProvider
   def self.get_channel_by_name(name)
     DiscourseChatIntegration::Channel
       .with_provider(PROVIDER_NAME)
-      .with_data_value(
-        "flow_token", # this is really weird but is the only way to identify a channel in this provider
-        name,
-      )
+      .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
       .first
   end
 
   # used in the MigrateTagAddedFilterToAllProviders migration
   def self.get_channel_name(channel)
-    channel.data["flow_token"]
+    channel.data[CHANNEL_IDENTIFIER_KEY]
   end
 end

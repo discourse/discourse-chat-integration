@@ -2,6 +2,7 @@
 module DiscourseChatIntegration::Provider::GroupmeProvider
   PROVIDER_NAME = "groupme".freeze
   PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
+  CHANNEL_IDENTIFIER_KEY = "groupme_instance_name".freeze
   CHANNEL_PARAMETERS = [{ key: "groupme_instance_name", regex: '[\s\S]*', unique: true }]
 
   def self.generate_groupme_message(post)
@@ -88,12 +89,12 @@ module DiscourseChatIntegration::Provider::GroupmeProvider
   def self.get_channel_by_name(name)
     DiscourseChatIntegration::Channel
       .with_provider(PROVIDER_NAME)
-      .with_data_value("groupme_instance_name", name)
+      .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
       .first
   end
 
   # used in the MigrateTagAddedFilterToAllProviders migration
   def self.get_channel_name(channel)
-    channel.data["groupme_instance_name"]
+    channel.data[CHANNEL_IDENTIFIER_KEY]
   end
 end

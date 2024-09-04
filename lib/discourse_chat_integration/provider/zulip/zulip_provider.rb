@@ -5,6 +5,7 @@ module DiscourseChatIntegration
     module ZulipProvider
       PROVIDER_NAME = "zulip".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_zulip_enabled
+      CHANNEL_IDENTIFIER_KEY = "stream".freeze
       CHANNEL_PARAMETERS = [
         { key: "stream", unique: true, regex: '^\S+' },
         { key: "subject", unique: true, regex: '^\S+' },
@@ -75,13 +76,13 @@ module DiscourseChatIntegration
       def self.get_channel_by_name(name)
         DiscourseChatIntegration::Channel
           .with_provider(PROVIDER_NAME)
-          .with_data_value("stream", name)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
           .first
       end
 
       # used in the MigrateTagAddedFilterToAllProviders migration
       def self.get_channel_name(channel)
-        channel.data["stream"]
+        channel.data[CHANNEL_IDENTIFIER_KEY]
       end
     end
   end

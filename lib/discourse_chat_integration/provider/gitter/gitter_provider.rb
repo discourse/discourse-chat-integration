@@ -5,6 +5,7 @@ module DiscourseChatIntegration
     module GitterProvider
       PROVIDER_NAME = "gitter".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_gitter_enabled
+      CHANNEL_IDENTIFIER_KEY = "name".freeze
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+$', unique: true },
         {
@@ -47,13 +48,13 @@ module DiscourseChatIntegration
       def self.get_channel_by_name(name)
         DiscourseChatIntegration::Channel
           .with_provider(PROVIDER_NAME)
-          .with_data_value("name", name)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
           .first
       end
 
       # used in the MigrateTagAddedFilterToAllProviders migration
       def self.get_channel_name(channel)
-        channel.data["name"]
+        channel.data[CHANNEL_IDENTIFIER_KEY]
       end
     end
   end
