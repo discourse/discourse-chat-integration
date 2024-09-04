@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module DiscourseChatIntegration
-  # This _emulates_ a post, but is not a real post
   class ChatIntegrationReferencePost
     def initialize(context)
       @context = context
@@ -21,11 +20,7 @@ module DiscourseChatIntegration
     end
 
     def full_url
-      if @topic.posts.empty?
-        @topic.full_url
-      else
-        @topic.posts.first.full_url
-      end
+      @topic.posts.empty? ? @topic.full_url : @topic.posts.first.full_url
     end
 
     def excerpt(maxlength = nil, options = {})
