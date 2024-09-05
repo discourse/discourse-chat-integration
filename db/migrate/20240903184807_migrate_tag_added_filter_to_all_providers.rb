@@ -3,7 +3,7 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
   def up
     if defined?(DiscourseAutomation)
       begin
-        slack_count = DB.exec <<~SQL
+        slack_usage_rows = DB.query <<~SQL
         SELECT plugin_store_rows.* FROM plugin_store_rows
         WHERE plugin_store_rows.type_name = 'JSON'
         AND plugin_store_rows.plugin_name = 'discourse-chat-integration'
@@ -16,7 +16,7 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
         WHERE id IN (
           SELECT a.id
           FROM discourse_automation_automations a
-          JOIN discourse_automation_automation_fields f ON f.automation_id = a.id
+          JOIN discourse_automation_fields f ON f.automation_id = a.id
           WHERE a.script = 'send_slack_message'
             AND a.trigger = 'topic_tags_changed'
             AND a.name = 'When tags change in topic'
@@ -24,9 +24,8 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
             AND f.metadata->>'value' = '${ADDED_AND_REMOVED}'
         )
         SQL
-
         # Trash old migration
-        DB.exec old_migration_delete if slack_count > 0
+        DB.exec old_migration_delete if slack_usage_rows.count > 0
 
         rules_with_tag_added = <<~SQL
         SELECT value
@@ -142,7 +141,7 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
             )
           end
       rescue StandardError
-        Rails.logger.warn("Failed to migrate tag_added rule to all providers automations")
+        puts "Error migrating tag_added filters to all providers"
       end
     end
   end
