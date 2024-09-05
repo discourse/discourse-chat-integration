@@ -82,6 +82,6 @@ module DiscourseChatIntegration::Provider::WebexProvider
 
   # used in the MigrateTagAddedFilterToAllProviders migration
   def self.get_channel_name(channel)
-    channel.data[CHANNEL_IDENTIFIER_KEY]
+    channel[:data][CHANNEL_IDENTIFIER_KEY]
   end
 end
