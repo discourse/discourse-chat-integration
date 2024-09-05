@@ -40,6 +40,7 @@ RSpec.shared_context "with validated dummy provider" do
     module ::DiscourseChatIntegration::Provider::Dummy2Provider
       PROVIDER_NAME = "dummy2".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_enabled # Tie to main plugin enabled setting
+      CHANNEL_IDENTIFIER_KEY = "val".freeze
       CHANNEL_PARAMETERS = [{ key: "val", regex: '^\S+$', unique: true }]
 
       @@sent_messages = []
@@ -51,8 +52,17 @@ RSpec.shared_context "with validated dummy provider" do
       def self.sent_messages
         @@sent_messages
       end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+          .first
+      end
     end
   end
 
   after(:each) { ::DiscourseChatIntegration::Provider.send(:remove_const, :Dummy2Provider) }
+
+  let(:validated_provider) { ::DiscourseChatIntegration::Provider::Dummy2Provider }
 end

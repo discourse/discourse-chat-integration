@@ -11,6 +11,10 @@ module DiscourseChatIntegration
       @created_at = Time.zone.now
     end
 
+    def id
+      @topic.posts.empty? ? @topic.id : @topic.posts.first.id
+    end
+
     def user
       @user
     end
