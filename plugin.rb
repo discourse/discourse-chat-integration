@@ -113,6 +113,7 @@ after_initialize do
         begin
           provider.trigger_notification(post, channel, nil)
         rescue StandardError => _
+          Rails.logger.error("Error while sending chat integration message")
         end
       end
     end
