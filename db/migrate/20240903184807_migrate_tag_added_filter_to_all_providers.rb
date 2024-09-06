@@ -45,6 +45,17 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
         LIMIT 1
         SQL
 
+        automation_creation = <<~SQL
+              INSERT INTO discourse_automation_automations (script, trigger, name, enabled, last_updated_by_id, created_at, updated_at)
+              VALUES ('send_chat_integration_message', 'topic_tags_changed', 'When tags change in topic', true, -1, NOW(), NOW())
+              RETURNING id
+        SQL
+
+        create_automation_field = <<~SQL
+              INSERT INTO discourse_automation_fields (automation_id, name, component, metadata, target, created_at, updated_at)
+              VALUES (:automation_id, :name, :component, :metadata, :target, NOW(), NOW())
+        SQL
+
         DB
           .query(rules_with_tag_added)
           .each do |row|
@@ -61,83 +72,50 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
             category_id = rule[:category_id]
             tags = rule[:tags]
 
-            automation_creation = <<~SQL
-            WITH new_automation AS (
-              INSERT INTO discourse_automation_automations
-              (script, trigger, name, enabled, last_updated_by_id, created_at, updated_at)
-              VALUES
-              ('send_chat_integration_message', 'topic_tags_changed', 'When tags change in topic', true,
-              (SELECT id FROM users WHERE admin = true ORDER BY id ASC LIMIT 1), -- assuming this gets the system user
-              NOW(), NOW())
-              RETURNING id
-            )
-            -- Insert watching_categories field
-            INSERT INTO discourse_automation_fields
-            (automation_id, name, type, metadata, target, created_at, updated_at)
-            SELECT
-              new_automation.id,
-              'watching_categories',
-              'categories',
-              CASE
-                WHEN :category_id IS NOT NULL THEN jsonb_build_object('value', jsonb_build_array(:category_id))
-                ELSE '{}'::jsonb
-              END,
-              'trigger',
-              NOW(),
-              NOW()
-            FROM new_automation
-            WHERE :category_id IS NOT NULL;
+            automation_id = DB.query(automation_creation).first.id
 
-            -- Insert watching_tags field
-            INSERT INTO discourse_automation_fields
-            (automation_id, name, type, metadata, target, created_at, updated_at)
-            SELECT
-              new_automation.id,
-              'watching_tags',
-              'tags',
-              CASE
-                WHEN :tags IS NOT NULL AND :tags <> '{}' THEN jsonb_build_object('value', :tags::jsonb)
-                ELSE '{}'::jsonb
-              END,
-              'trigger',
-              NOW(),
-              NOW()
-            FROM new_automation
-            WHERE :tags IS NOT NULL AND :tags <> '{}';
-
-            -- Insert provider field
-            INSERT INTO discourse_automation_fields
-            (automation_id, name, type, metadata, target, created_at, updated_at)
-            SELECT
-              new_automation.id,
-              'provider',
-              'choices',
-              jsonb_build_object('value', :provider_name),
-              'script',
-              NOW(),
-              NOW()
-            FROM new_automation;
-
-            -- Insert channel_name field
-            INSERT INTO discourse_automation_fields
-            (automation_id, name, type, metadata, target, created_at, updated_at)
-            SELECT
-              new_automation.id,
-              'channel_name',
-              'text',
-              jsonb_build_object('value', :channel_name),
-              'script',
-              NOW(),
-              NOW()
-            FROM new_automation;
-            SQL
-
+            # Triggers:
+            # Watching categories
+            metadata = (category_id ? { "value" => [category_id] } : {}).to_json
             DB.exec(
-              automation_creation,
-              category_id: category_id,
-              tags: tags,
-              provider_name: provider_name,
-              channel_name: channel_name,
+              create_automation_field,
+              automation_id: automation_id,
+              name: "watching_categories",
+              component: "categories",
+              metadata: metadata,
+              target: "trigger",
+            )
+
+            # Watching tags
+            metadata = (tags.present? ? { "value" => tags } : {}).to_json
+            DB.exec(
+              create_automation_field,
+              automation_id: automation_id,
+              name: "watching_tags",
+              component: "tags",
+              metadata: metadata,
+              target: "trigger",
+            )
+
+            # Script options:
+            # Provider
+            DB.exec(
+              create_automation_field,
+              automation_id: automation_id,
+              name: "provider",
+              component: "choices",
+              metadata: { "value" => provider_name }.to_json,
+              target: "script",
+            )
+
+            # Channel name
+            DB.exec(
+              create_automation_field,
+              automation_id: automation_id,
+              name: "channel_name",
+              component: "text",
+              metadata: { "value" => channel_name }.to_json,
+              target: "script",
             )
           end
       rescue StandardError
