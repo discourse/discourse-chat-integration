@@ -16,8 +16,8 @@ RSpec.describe "Triggering notifications" do
         enabled: true,
       )
     end
-    let(:chan1) do
-      DiscourseChatIntegration::Channel.create!(provider: "dummy2", data: { val: "chan" })
+    let(:channel1) do
+      DiscourseChatIntegration::Channel.create!(provider: "dummy2", data: { val: "channel" })
     end
 
     before do
