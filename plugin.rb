@@ -106,14 +106,29 @@ after_initialize do
         provider = fields.dig("provider", "value")
         channel_name = fields.dig("channel_name", "value")
 
-        post = DiscourseChatIntegration::ChatIntegrationReferencePost.new(context)
+        post =
+          DiscourseChatIntegration::ChatIntegrationReferencePost.new(
+            user: context["user"],
+            topic: context["topic"],
+            kind: context["kind"],
+            context: {
+              "added_tags" => context["added_tags"],
+              "removed_tags" => context["removed_tags"],
+            },
+          )
         provider = DiscourseChatIntegration::Provider.get_by_name(provider)
 
         channel = provider.get_channel_by_name(channel_name) # user must have created a channel in /admin/plugins/chat-integration/<provider> page
+
+        if channel.nil?
+          Rails.logger.warn "[discourse-automation] Channel not found. Automation ID: #{automation.id}"
+          next
+        end
+
         begin
           provider.trigger_notification(post, channel, nil)
         rescue StandardError => _
-          Rails.logger.error("Error while sending chat integration message")
+          Rails.logger.warn "[discourse-automation] Error while sending chat integration message. Automation ID: #{automation.id}"
         end
       end
     end

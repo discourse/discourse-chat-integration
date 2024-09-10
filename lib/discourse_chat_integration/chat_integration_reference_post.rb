@@ -2,12 +2,12 @@
 
 module DiscourseChatIntegration
   class ChatIntegrationReferencePost
-    def initialize(context)
+    def initialize(user:, topic:, kind:, raw: nil, context: {})
+      @user = user
+      @topic = topic
+      @kind = kind
+      @raw = raw if raw.present?
       @context = context
-      @user = context["user"]
-      @topic = context["topic"]
-      @kind = context["kind"]
-      @raw = context["raw"] if context["raw"].present?
       @created_at = Time.zone.now
     end
 

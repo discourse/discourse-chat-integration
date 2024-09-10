@@ -67,7 +67,13 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
               ).with_indifferent_access
 
             provider_name = channel[:provider]
-            provider = DiscourseChatIntegration::Provider.get_by_name(provider_name)
+            provider =
+              DiscourseChatIntegration::Provider
+                .constants
+                .select { |constant| constant.to_s =~ /Provider$/ }
+                .map { |p| DiscourseChatIntegration::Provider.const_get(p) }
+                .find { |p| p::PROVIDER_NAME == provider_name }
+
             channel_name = provider.get_channel_name(channel)
             category_id = rule[:category_id]
             tags = rule[:tags]
