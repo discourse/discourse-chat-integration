@@ -43,7 +43,7 @@ RSpec.describe "Triggering notifications" do
       automation.upsert_field!(
         "provider",
         "choices",
-        { "value" => chan1.provider },
+        { "value" => channel1.provider },
         target: "script",
       )
       automation.upsert_field!("channel_name", "text", { "value" => "chan" }, target: "script")
@@ -56,7 +56,7 @@ RSpec.describe "Triggering notifications" do
 
       expect(validated_provider.sent_messages.length).to eq(1)
       expect(validated_provider.sent_messages.first[:post]).to eq(topic.id)
-      expect(validated_provider.sent_messages.first[:channel]).to eq(chan1)
+      expect(validated_provider.sent_messages.first[:channel]).to eq(channel1)
     end
 
     it "only triggers for the correct tag" do

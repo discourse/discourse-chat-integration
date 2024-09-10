@@ -56,6 +56,24 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
               VALUES (:automation_id, :name, :component, :metadata, :target, NOW(), NOW())
         SQL
 
+        providers = %i[
+          GroupmeProvider
+          DiscordProvider
+          GuildedProvider
+          MattermostProvider
+          MatrixProvider
+          TeamsProvider
+          ZulipProvider
+          PowerAutomateProvider
+          RocketchatProvider
+          GitterProvider
+          TelegramProvider
+          FlowdockProvider
+          GoogleProvider
+          WebexProvider
+          SlackProvider
+        ]
+
         DB
           .query(rules_with_tag_added)
           .each do |row|
@@ -68,9 +86,7 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
 
             provider_name = channel[:provider]
             provider =
-              DiscourseChatIntegration::Provider
-                .constants
-                .select { |constant| constant.to_s =~ /Provider$/ }
+              providers
                 .map { |p| DiscourseChatIntegration::Provider.const_get(p) }
                 .find { |p| p::PROVIDER_NAME == provider_name }
 

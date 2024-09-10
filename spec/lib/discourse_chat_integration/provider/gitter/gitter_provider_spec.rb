@@ -37,4 +37,18 @@ RSpec.describe DiscourseChatIntegration::Provider::GitterProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "gitter",
+          data: {
+            name: "gitterHQ/services",
+            webhook_url: "https://webhooks.gitter.im/e/a1e2i3o4u5",
+          },
+        )
+      expect(described_class.get_channel_by_name("gitterHQ/services")).to eq(expected)
+    end
+  end
 end

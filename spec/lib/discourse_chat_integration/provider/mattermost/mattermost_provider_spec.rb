@@ -57,4 +57,17 @@ RSpec.describe DiscourseChatIntegration::Provider::MattermostProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "mattermost",
+          data: {
+            identifier: "#awesomechannel",
+          },
+        )
+      expect(described_class.get_channel_by_name("#awesomechannel")).to eq(expected)
+    end
+  end
 end

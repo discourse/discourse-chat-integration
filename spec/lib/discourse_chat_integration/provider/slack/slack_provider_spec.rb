@@ -346,4 +346,17 @@ RSpec.describe DiscourseChatIntegration::Provider::SlackProvider do
       }.to raise_error(StandardError)
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "slack",
+          data: {
+            identifier: "#general",
+          },
+        )
+      expect(described_class.get_channel_by_name("#general")).to eq(expected)
+    end
+  end
 end

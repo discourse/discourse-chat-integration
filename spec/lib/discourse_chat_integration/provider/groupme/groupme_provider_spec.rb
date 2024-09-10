@@ -39,4 +39,17 @@ RSpec.describe DiscourseChatIntegration::Provider::GroupmeProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "groupme",
+          data: {
+            groupme_instance_name: "my instance",
+          },
+        )
+      expect(described_class.get_channel_by_name("my instance")).to eq(expected)
+    end
+  end
 end

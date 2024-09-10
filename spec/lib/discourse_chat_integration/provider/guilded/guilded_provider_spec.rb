@@ -35,4 +35,18 @@ RSpec.describe DiscourseChatIntegration::Provider::GuildedProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "guilded",
+          data: {
+            name: "Awesome Channel",
+            webhook_url: "https://media.guilded.gg/webhooks/1234/abcd",
+          },
+        )
+      expect(described_class.get_channel_by_name("Awesome Channel")).to eq(expected)
+    end
+  end
 end

@@ -36,4 +36,19 @@ RSpec.describe DiscourseChatIntegration::Provider::FlowdockProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "flowdock",
+          data: {
+            flow_token: "5d1fe04cf66e078d6a2b579ddb8a465b",
+          },
+        )
+      expect(described_class.get_channel_by_name("5d1fe04cf66e078d6a2b579ddb8a465b")).to eq(
+        expected,
+      )
+    end
+  end
 end
