@@ -283,10 +283,10 @@ en:
               label: Channel
 
         send_chat_integration_message:
-            title: Send Chat-Integration message
-            fields:
-              channel_name:
-                label: Channel name
-                description: "You can find the channel name in the Chat Integration settings"
-              provider:
-                label: Provider
+          title: Send Chat-Integration message
+          fields:
+            channel_name:
+              label: Channel name
+              description: "You can find the channel name in the Chat Integration settings"
+            provider:
+              label: Provider
