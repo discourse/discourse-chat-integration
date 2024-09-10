@@ -90,9 +90,4 @@ module DiscourseChatIntegration::Provider::TeamsProvider
       .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
       .first
   end
-
-  # used in the MigrateTagAddedFilterToAllProviders migration
-  def self.get_channel_name(channel)
-    channel[:data][CHANNEL_IDENTIFIER_KEY]
-  end
 end

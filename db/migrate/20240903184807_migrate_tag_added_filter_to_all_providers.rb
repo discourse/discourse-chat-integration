@@ -56,23 +56,23 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
               VALUES (:automation_id, :name, :component, :metadata, :target, NOW(), NOW())
         SQL
 
-        providers = %i[
-          GroupmeProvider
-          DiscordProvider
-          GuildedProvider
-          MattermostProvider
-          MatrixProvider
-          TeamsProvider
-          ZulipProvider
-          PowerAutomateProvider
-          RocketchatProvider
-          GitterProvider
-          TelegramProvider
-          FlowdockProvider
-          GoogleProvider
-          WebexProvider
-          SlackProvider
-        ]
+        provider_identifier_map = {
+          "groupme" => "groupme_instance_name",
+          "discord" => "name",
+          "guilded" => "name",
+          "mattermost" => "identifier",
+          "matrix" => "name",
+          "teams" => "name",
+          "zulip" => "stream",
+          "powerautomate" => "name",
+          "rocketchat" => "identifier",
+          "gitter" => "name",
+          "telegram" => "name",
+          "flowdock" => "flow_token",
+          "google" => "name",
+          "webex" => "name",
+          "slack" => "identifier",
+        }
 
         DB
           .query(rules_with_tag_added)
@@ -85,12 +85,8 @@ class MigrateTagAddedFilterToAllProviders < ActiveRecord::Migration[7.1]
               ).with_indifferent_access
 
             provider_name = channel[:provider]
-            provider =
-              providers
-                .map { |p| DiscourseChatIntegration::Provider.const_get(p) }
-                .find { |p| p::PROVIDER_NAME == provider_name }
+            channel_name = channel[:data][provider_identifier_map[provider_name]]
 
-            channel_name = provider.get_channel_name(channel)
             category_id = rule[:category_id]
             tags = rule[:tags]
 
