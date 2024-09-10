@@ -8,7 +8,7 @@ module DiscourseChatIntegration
       @kind = kind
       @raw = raw if raw.present?
       @context = context
-      @created_at = Time.zone.now
+      @created_at = Time.current
     end
 
     def id
