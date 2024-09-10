@@ -32,7 +32,7 @@ RSpec.describe DiscourseChatIntegration::ChatIntegrationReferencePost do
       expect(post.raw).to eq("Added #tag1, #tag2 and removed #tag3, #tag4")
     end
 
-    it "should have a working excerpt" do
+    it "has a working excerpt" do
       post =
         described_class.new(
           user: context["user"],
