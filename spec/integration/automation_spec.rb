@@ -46,7 +46,7 @@ RSpec.describe "Triggering notifications" do
         { "value" => channel1.provider },
         target: "script",
       )
-      automation.upsert_field!("channel_name", "text", { "value" => "chan" }, target: "script")
+      automation.upsert_field!("channel_name", "text", { "value" => "channel" }, target: "script")
     end
 
     it "triggers a notification" do

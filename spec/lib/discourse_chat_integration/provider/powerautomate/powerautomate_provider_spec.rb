@@ -46,7 +46,7 @@ RSpec.describe DiscourseChatIntegration::Provider::PowerAutomateProvider do
               "https://prod-189.westus.logic.azure.com:443/workflows/c94b462906e64fe8a7299043706be96e/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-cmkg1oG-88dP3Yqdh62yTG1LUtJFcB91rQisorfw_w",
           },
         )
-      expect(described_class.get_channel_by_name("powerautomate")).to eq(expected)
+      expect(described_class.get_channel_by_name("discourse")).to eq(expected)
     end
   end
 end
