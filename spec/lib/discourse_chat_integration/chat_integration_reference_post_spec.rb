@@ -18,7 +18,7 @@ RSpec.describe DiscourseChatIntegration::ChatIntegrationReferencePost do
       context["removed_tags"] = %w[tag3 tag4]
     end
 
-    it "should create a post with the correct raw" do
+    it "creates a post with the correct raw" do
       post =
         described_class.new(
           user: context["user"],
