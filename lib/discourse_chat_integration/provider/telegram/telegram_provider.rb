@@ -5,6 +5,7 @@ module DiscourseChatIntegration
     module TelegramProvider
       PROVIDER_NAME = "telegram".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_telegram_enabled
+      CHANNEL_IDENTIFIER_KEY = "name".freeze
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+' },
         { key: "chat_id", regex: '^(-?[0-9]+|@\S+)$', unique: true },
@@ -109,6 +110,13 @@ module DiscourseChatIntegration
                                                                 response_body: response,
                                                               }
         end
+      end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+          .first
       end
     end
   end

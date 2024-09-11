@@ -5,7 +5,7 @@ module DiscourseChatIntegration
     module GuildedProvider
       PROVIDER_NAME = "guilded".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_guilded_enabled
-
+      CHANNEL_IDENTIFIER_KEY = "name".freeze
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+' },
         {
@@ -91,6 +91,13 @@ module DiscourseChatIntegration
       def self.ensure_protocol(url)
         return url if !url.start_with?("//")
         "http:#{url}"
+      end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+          .first
       end
     end
   end

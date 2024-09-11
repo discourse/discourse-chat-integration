@@ -42,4 +42,19 @@ RSpec.describe DiscourseChatIntegration::Provider::ZulipProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      created =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "zulip",
+          data: {
+            stream: "foo",
+            subject: "Discourse Notifications",
+          },
+        )
+      channel = described_class.get_channel_by_name("foo")
+      expect(channel).to eq(created)
+    end
+  end
 end

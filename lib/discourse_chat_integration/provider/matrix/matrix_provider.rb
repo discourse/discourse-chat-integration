@@ -5,6 +5,7 @@ module DiscourseChatIntegration
     module MatrixProvider
       PROVIDER_NAME = "matrix".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_matrix_enabled
+      CHANNEL_IDENTIFIER_KEY = "name".freeze
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+' },
         { key: "room_id", regex: '^\!\S+:\S+$', unique: true, hidden: true },
@@ -87,6 +88,13 @@ module DiscourseChatIntegration
                                                                 }
           end
         end
+      end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+          .first
       end
     end
   end

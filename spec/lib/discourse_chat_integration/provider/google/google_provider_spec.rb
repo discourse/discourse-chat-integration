@@ -33,4 +33,18 @@ RSpec.describe DiscourseChatIntegration::Provider::GoogleProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "google",
+          data: {
+            name: "discourse",
+            webhook_url: "https://chat.googleapis.com/v1/abcdefg",
+          },
+        )
+      expect(described_class.get_channel_by_name("discourse")).to eq(expected)
+    end
+  end
 end

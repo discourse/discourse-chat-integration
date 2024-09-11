@@ -48,4 +48,18 @@ RSpec.describe DiscourseChatIntegration::Provider::TelegramProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "telegram",
+          data: {
+            name: "Awesome Channel",
+            chat_id: "123",
+          },
+        )
+      expect(described_class.get_channel_by_name("Awesome Channel")).to eq(expected)
+    end
+  end
 end

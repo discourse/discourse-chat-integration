@@ -2,6 +2,7 @@
 module DiscourseChatIntegration::Provider::GroupmeProvider
   PROVIDER_NAME = "groupme".freeze
   PROVIDER_ENABLED_SETTING = :chat_integration_groupme_enabled
+  CHANNEL_IDENTIFIER_KEY = "groupme_instance_name".freeze
   CHANNEL_PARAMETERS = [{ key: "groupme_instance_name", regex: '[\s\S]*', unique: true }]
 
   def self.generate_groupme_message(post)
@@ -83,5 +84,12 @@ module DiscourseChatIntegration::Provider::GroupmeProvider
   def self.trigger_notification(post, channel, rule)
     data_package = generate_groupme_message(post)
     self.send_via_webhook(data_package, channel)
+  end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+      .first
   end
 end

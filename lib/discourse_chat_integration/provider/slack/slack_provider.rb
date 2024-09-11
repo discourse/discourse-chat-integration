@@ -12,7 +12,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
   THREAD_LEGACY = "thread"
 
   PROVIDER_ENABLED_SETTING = :chat_integration_slack_enabled
-
+  CHANNEL_IDENTIFIER_KEY = "identifier".freeze
   CHANNEL_PARAMETERS = [{ key: "identifier", regex: '^[@#]?\S*$', unique: true }]
 
   require_dependency "topic"
@@ -338,6 +338,13 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
   def self.create_tag_list(tag_list)
     tag_list.map { |tag_name| "<#{Tag.find_by_name(tag_name).full_url}|#{tag_name}>" }.join(", ")
+  end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+      .first
   end
 end
 

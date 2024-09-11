@@ -4,7 +4,7 @@ module DiscourseChatIntegration::Provider::RocketchatProvider
   PROVIDER_NAME = "rocketchat".freeze
 
   PROVIDER_ENABLED_SETTING = :chat_integration_rocketchat_enabled
-
+  CHANNEL_IDENTIFIER_KEY = "identifier".freeze
   CHANNEL_PARAMETERS = [{ key: "identifier", regex: '^[@#]\S*$', unique: true }]
 
   def self.rocketchat_message(post, channel)
@@ -81,5 +81,12 @@ module DiscourseChatIntegration::Provider::RocketchatProvider
     message = rocketchat_message(post, channel_id)
 
     self.send_via_webhook(message)
+  end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+      .first
   end
 end

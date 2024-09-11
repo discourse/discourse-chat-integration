@@ -5,7 +5,7 @@ module DiscourseChatIntegration
     module DiscordProvider
       PROVIDER_NAME = "discord".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_discord_enabled
-
+      CHANNEL_IDENTIFIER_KEY = "name".freeze
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+' },
         {
@@ -93,6 +93,13 @@ module DiscourseChatIntegration
                   },
                 )
         end
+      end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+          .first
       end
     end
   end

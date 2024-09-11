@@ -5,6 +5,7 @@ module DiscourseChatIntegration
     module GoogleProvider
       PROVIDER_NAME = "google".freeze
       PROVIDER_ENABLED_SETTING = :chat_integration_google_enabled
+      CHANNEL_IDENTIFIER_KEY = "name".freeze
       CHANNEL_PARAMETERS = [
         { key: "name", regex: '^\S+$', unique: true },
         {
@@ -106,6 +107,13 @@ module DiscourseChatIntegration
             },
           ],
         }
+      end
+
+      def self.get_channel_by_name(name)
+        DiscourseChatIntegration::Channel
+          .with_provider(PROVIDER_NAME)
+          .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+          .first
       end
     end
   end

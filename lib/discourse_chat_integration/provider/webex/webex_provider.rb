@@ -3,6 +3,7 @@
 module DiscourseChatIntegration::Provider::WebexProvider
   PROVIDER_NAME = "webex".freeze
   PROVIDER_ENABLED_SETTING = :chat_integration_webex_enabled
+  CHANNEL_IDENTIFIER_KEY = "name".freeze
   CHANNEL_PARAMETERS = [
     { key: "name", regex: '^\S+$', unique: true },
     {
@@ -70,5 +71,12 @@ module DiscourseChatIntegration::Provider::WebexProvider
       )
 
     { markdown: markdown }
+  end
+
+  def self.get_channel_by_name(name)
+    DiscourseChatIntegration::Channel
+      .with_provider(PROVIDER_NAME)
+      .with_data_value(CHANNEL_IDENTIFIER_KEY, name)
+      .first
   end
 end

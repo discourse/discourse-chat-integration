@@ -35,4 +35,17 @@ RSpec.describe DiscourseChatIntegration::Provider::RocketchatProvider do
       expect(stub1).to have_been_requested.once
     end
   end
+
+  describe ".get_channel_by_name" do
+    it "returns the right channel" do
+      expected =
+        DiscourseChatIntegration::Channel.create!(
+          provider: "rocketchat",
+          data: {
+            identifier: "#general",
+          },
+        )
+      expect(described_class.get_channel_by_name("#general")).to eq(expected)
+    end
+  end
 end
