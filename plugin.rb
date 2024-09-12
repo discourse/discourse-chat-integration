@@ -127,8 +127,11 @@ after_initialize do
 
         begin
           provider.trigger_notification(post, channel, nil)
-        rescue StandardError => _
+        rescue StandardError => e
           Rails.logger.warn "[discourse-automation] Error while sending chat integration message. Automation ID: #{automation.id}"
+          Rails.logger.warn "[discourse-chat-integration] Error: #{e}"
+          Rails.logger.warn "[discourse-chat-integration] Channel: #{channel_name}"
+          Rails.logger.warn "[discourse-chat-integration] Reference post: #{post.inspect}"
         end
       end
     end
