@@ -15,11 +15,11 @@ module DiscourseChatIntegration
       # Abort if the post is blank
       return if post.blank?
 
-      # Abort if post is not either regular or a 'category_changed' small action
+      # Abort if post is not either regular, or a 'tags_changed'/'category_changed' small action
       if (post.post_type != Post.types[:regular]) &&
            !(
              post.post_type == Post.types[:small_action] &&
-               %w[category_changed].include?(post.action_code)
+               %w[tags_changed category_changed].include?(post.action_code)
            )
         return
       end
@@ -55,7 +55,34 @@ module DiscourseChatIntegration
         end
       end
 
-      matching_rules = matching_rules.select { |rule| rule.filter != "tag_added" } # ignore tag_added rules, now uses Automation
+      if post.action_code == "tags_changed"
+        # Post is a small_action post regarding tags changing for the topic. Check if any tags were _added_
+        # and if so, corresponding rules with `filter: tag_added`
+        tags_added = post.custom_fields["tags_added"]
+        tags_added = [tags_added].compact if !tags_added.is_a?(Array)
+        return if tags_added.blank?
+
+        tags_removed = post.custom_fields["tags_removed"]
+        tags_removed = [tags_removed].compact if !tags_removed.is_a?(Array)
+
+        unchanged_tags = topic.tags.map(&:name) - tags_added - tags_removed
+
+        matching_rules =
+          matching_rules.select do |rule|
+            # Only rules that match this post, are ones where the filter is "tag_added"
+            next false if rule.filter != "tag_added"
+            next true if rule.tags.blank?
+
+            # Skip if the topic already has one of the tags in the rule, applied
+            next false if unchanged_tags.any? && (unchanged_tags & rule.tags).any?
+
+            # We don't need to do any additional filtering here because topics are filtered
+            # by tag later
+            true
+          end
+      else
+        matching_rules = matching_rules.select { |rule| rule.filter != "tag_added" }
+      end
 
       # If tagging is enabled, thow away rules that don't apply to this topic
       if SiteSetting.tagging_enabled
@@ -70,7 +97,7 @@ module DiscourseChatIntegration
 
       # Sort by order of precedence
       t_prec = { "group_message" => 0, "group_mention" => 1, "normal" => 2 } # Group things win
-      f_prec = { "mute" => 0, "thread" => 1, "watch" => 2, "follow" => 3 } #(mute always wins; thread beats watch beats follow)
+      f_prec = { "mute" => 0, "thread" => 1, "watch" => 2, "follow" => 3, "tag_added" => 4 } #(mute always wins; thread beats watch beats follow)
       sort_func =
         proc { |a, b| [t_prec[a.type], f_prec[a.filter]] <=> [t_prec[b.type], f_prec[b.filter]] }
       matching_rules = matching_rules.sort(&sort_func)
