@@ -105,8 +105,7 @@ after_initialize do
       script do |context, fields, automation|
         provider = fields.dig("provider", "value")
         channel_name = fields.dig("channel_name", "value")
-        puts "topic: #{context["topic"].url}"
-        puts "topic: #{context["topic"].relative_url}"
+
         post =
           DiscourseChatIntegration::ChatIntegrationReferencePost.new(
             user: context["user"],
