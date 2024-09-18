@@ -24,7 +24,7 @@ module DiscourseChatIntegration
     end
 
     def full_url
-      @topic.posts.empty? ? @topic.full_url : @topic.posts.first.full_url
+      @topic.posts.empty? ? @topic.url : @topic.posts.first.full_url
     end
 
     def excerpt(maxlength = nil, options = {})
