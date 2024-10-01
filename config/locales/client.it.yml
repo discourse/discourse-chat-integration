@@ -228,3 +228,9 @@ it:
               label: URL
             channel:
               label: Canale
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Nome del canale
+            provider:
+              label: Fornitore

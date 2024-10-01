@@ -7,6 +7,10 @@
 bg:
   chat_integration:
     all_categories: "(всички категории)"
+    topic_tag_changed:
+      added_and_removed: "Добавен е %{added} и е премахнат %{removed}"
+      added: "Добавен %{added}"
+      removed: "Премахнат %{removed}"
     provider:
       slack:
         messaging:

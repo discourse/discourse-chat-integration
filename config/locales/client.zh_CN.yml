@@ -228,3 +228,9 @@ zh_CN:
               label: URL
             channel:
               label: 频道
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: 频道名称
+            provider:
+              label: 提供商

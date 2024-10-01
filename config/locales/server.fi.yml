@@ -72,6 +72,10 @@ fi:
     deleted_group: "(poistettu ryhmä)"
     group_mention_template: "@%{name} mainittu"
     group_message_template: "Viestejä käyttäjälle: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "Lisättiin %{added} ja poistettiin %{removed}"
+      added: "Lisättiin %{added}"
+      removed: "Poistettu tunniste %{removed}"
     provider:
       slack:
         status:

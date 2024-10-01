@@ -187,3 +187,7 @@ sw:
               label: Anwani ya mtandao
             channel:
               label: Chaneli
+        send_chat_integration_message:
+          fields:
+            provider:
+              label: Mkimu

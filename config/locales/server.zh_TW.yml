@@ -7,6 +7,9 @@
 zh_TW:
   chat_integration:
     all_categories: "(所有分類)"
+    topic_tag_changed:
+      added: "已新增 %{added}"
+      removed: "已移除 %{removed}"
     provider:
       slack:
         messaging:

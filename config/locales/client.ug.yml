@@ -100,3 +100,7 @@ ug:
               label: ئۇچۇر.
             url:
               label: تور ئادرېسى
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: قانال ئىسمى

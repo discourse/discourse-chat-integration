@@ -7,6 +7,10 @@
 cs:
   chat_integration:
     all_categories: "(všechny kategorie)"
+    topic_tag_changed:
+      added_and_removed: "Přidáno %{added} a odebráno %{removed}"
+      added: "Přidáno %{added}"
+      removed: "Odebráno %{removed}"
     provider:
       slack:
         messaging:

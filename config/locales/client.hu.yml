@@ -147,3 +147,9 @@ hu:
               label: URL
             channel:
               label: Csatorna
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Csatorna neve
+            provider:
+              label: Szolgáltató

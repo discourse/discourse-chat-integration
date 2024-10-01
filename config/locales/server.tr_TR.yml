@@ -72,6 +72,10 @@ tr_TR:
     deleted_group: "(silinmiş grup)"
     group_mention_template: "şu kullanıcıdan bahsedildi: @%{name}"
     group_message_template: "şu kullanıcıya mesaj gönderildi: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "%{added} eklendi ve %{removed} kaldırıldı"
+      added: "%{added} eklendi"
+      removed: "%{removed} kaldırıldı"
     provider:
       slack:
         status:

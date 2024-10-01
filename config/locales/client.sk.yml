@@ -147,3 +147,9 @@ sk:
               label: URL
             channel:
               label: Kanál
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Názov kanála
+            provider:
+              label: Poskytovateľ

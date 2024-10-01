@@ -7,6 +7,10 @@
 ug:
   chat_integration:
     all_categories: "(ھەممە سەھىپە)"
+    topic_tag_changed:
+      added_and_removed: "%{added} قوشۇلدى ۋە %{removed} چىقىرىۋېتىلدى"
+      added: "%{added} قوشۇلدى"
+      removed: "%{removed} چىقىرىۋېتىلدى"
     provider:
       slack:
         messaging:

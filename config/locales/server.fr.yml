@@ -72,6 +72,10 @@ fr:
     deleted_group: "(groupe supprimé)"
     group_mention_template: "mentions de : @%{name}"
     group_message_template: "messages à : @%{name}"
+    topic_tag_changed:
+      added_and_removed: "Ajout de %{added} et suppression de %{removed}"
+      added: "Ajout de %{added}"
+      removed: "A retiré %{removed}"
     provider:
       slack:
         status:

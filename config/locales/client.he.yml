@@ -233,3 +233,9 @@ he:
               label: כתובת
             channel:
               label: ערוץ
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: שם הערוץ
+            provider:
+              label: ספק

@@ -72,6 +72,10 @@ ru:
     deleted_group: "(удаленная группа)"
     group_mention_template: "Упоминания о: @ %{name}"
     group_message_template: "сообщения для: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "Добавлено — %{added}, удалено — %{removed}"
+      added: "Добавлено: %{added}"
+      removed: "Удалил(а) %{removed}"
     provider:
       slack:
         status:

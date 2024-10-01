@@ -228,3 +228,9 @@ pt_BR:
               label: URL
             channel:
               label: Canal
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Nome do canal
+            provider:
+              label: Provedor

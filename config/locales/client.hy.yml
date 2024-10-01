@@ -199,3 +199,7 @@ hy:
               label: URL
             channel:
               label: Ալիք
+        send_chat_integration_message:
+          fields:
+            provider:
+              label: Մատակարար

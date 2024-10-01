@@ -199,3 +199,7 @@ ur:
               label: URL
             channel:
               label: چَینل
+        send_chat_integration_message:
+          fields:
+            provider:
+              label: پرووَائیڈر

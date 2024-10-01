@@ -7,6 +7,8 @@
 nb_NO:
   chat_integration:
     all_categories: "(alle kategorier)"
+    topic_tag_changed:
+      added: "Lagt til %{added}"
     provider:
       flowdock:
         message_title: "skrevet"

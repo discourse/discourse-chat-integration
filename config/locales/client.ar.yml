@@ -228,3 +228,9 @@ ar:
               label: عنوان URL
             channel:
               label: القناة
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: اسم القناة
+            provider:
+              label: مقدِّم الخدمة

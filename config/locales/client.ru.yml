@@ -228,3 +228,9 @@ ru:
               label: URL
             channel:
               label: Канал
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Название канала
+            provider:
+              label: Провайдер

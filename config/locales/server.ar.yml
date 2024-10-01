@@ -72,6 +72,10 @@ ar:
     deleted_group: "(مجموعة محذوفة)"
     group_mention_template: "الإشارات إلى: @%{name}"
     group_message_template: "الرسائل إلى: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "تمت إضافة %{added} وإزالة %{removed}"
+      added: "تمت إضافة %{added}"
+      removed: "تمت إزالة %{removed}"
     provider:
       slack:
         status:
