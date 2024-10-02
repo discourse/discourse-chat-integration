@@ -85,3 +85,7 @@ zh_TW:
               label: 訊息.
             url:
               label: 網址
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: 變更名稱

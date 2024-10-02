@@ -72,6 +72,10 @@ ja:
     deleted_group: "（削除されたグループ）"
     group_mention_template: "メンション: @%{name}"
     group_message_template: "メッセージの宛先: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "%{added} を追加して %{removed} を削除しました"
+      added: "%{added} を追加しました"
+      removed: "%{removed} を削除しました"
     provider:
       slack:
         status:

@@ -13,6 +13,10 @@ uk:
     deleted_category: "(видалена категорія)"
     deleted_group: "(видалена група)"
     group_message_template: "повідомлення до: @ %{name}"
+    topic_tag_changed:
+      added_and_removed: "Додано %{added} і видалено %{removed}"
+      added: "Додано %{added}"
+      removed: "Видалено %{removed}"
     provider:
       slack:
         status:

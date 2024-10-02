@@ -183,3 +183,9 @@ ko:
               label: URL
             channel:
               label: 채널
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: 채널명
+            provider:
+              label: 공급자

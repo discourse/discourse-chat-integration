@@ -220,3 +220,7 @@ gl:
               label: URL
             channel:
               label: Canle
+        send_chat_integration_message:
+          fields:
+            provider:
+              label: Fornecedor

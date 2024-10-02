@@ -67,6 +67,10 @@ sv:
     deleted_group: "(raderad grupp)"
     group_mention_template: "omnämnanden av: @%{name}"
     group_message_template: "meddelanden till: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "Lade till %{added} och tog bort %{removed}"
+      added: "Lade till %{added}"
+      removed: "Tog bort %{removed}"
     provider:
       slack:
         status:

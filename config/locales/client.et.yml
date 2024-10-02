@@ -136,3 +136,7 @@ et:
               label: URL
             channel:
               label: Kanal
+        send_chat_integration_message:
+          fields:
+            provider:
+              label: Teenusepakkuja

@@ -228,3 +228,9 @@ ja:
               label: URL
             channel:
               label: チャンネル
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: チャンネル名
+            provider:
+              label: プロバイダー

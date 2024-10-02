@@ -151,3 +151,9 @@ fa_IR:
               label: نشانی اینترنتی
             channel:
               label: کانال
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: نام کانال
+            provider:
+              label: ارائه‌دهنده

@@ -9,6 +9,10 @@ hr:
     all_categories: "(sve kategorije)"
     group_mention_template: "spominjanje: @%{name}"
     group_message_template: "poruke na: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "Dodano %{added} i uklonjeno %{removed}"
+      added: "Dodano %{added}"
+      removed: "je uklonio %{removed}"
     provider:
       slack:
         messaging:

@@ -7,6 +7,10 @@
 el:
   chat_integration:
     all_categories: "(όλες οι κατηγορίες)"
+    topic_tag_changed:
+      added_and_removed: "Προστέθηκε %{added} και αφαιρέθηκε %{removed}"
+      added: "Προστέθηκε %{added}"
+      removed: "Αφαιρέθηκε %{removed}"
     provider:
       slack:
         messaging:

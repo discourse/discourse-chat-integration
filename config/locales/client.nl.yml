@@ -228,3 +228,9 @@ nl:
               label: URL
             channel:
               label: Kanaal
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Kanaalnaam
+            provider:
+              label: Provider

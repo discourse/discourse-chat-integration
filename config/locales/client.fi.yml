@@ -228,3 +228,9 @@ fi:
               label: URL
             channel:
               label: Kanava
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Kanavan nimi
+            provider:
+              label: Palveluntarjoaja

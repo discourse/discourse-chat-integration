@@ -17,6 +17,8 @@ fa_IR:
     all_categories: "(تمام دسته بندی ها)"
     group_mention_template: "اشاره شده: @%{name}"
     group_message_template: "پیغام‌ها به: @%{name}"
+    topic_tag_changed:
+      added: "%{added} اضافه شد"
     provider:
       slack:
         status:

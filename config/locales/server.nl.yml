@@ -72,6 +72,10 @@ nl:
     deleted_group: "(verwijderde groep)"
     group_mention_template: "vermeldingen van: @%{name}"
     group_message_template: "berichten naar: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "%{added} toegevoegd en %{removed} verwijderd"
+      added: "%{added} toegevoegd"
+      removed: "%{removed} verwijderd"
     provider:
       slack:
         status:

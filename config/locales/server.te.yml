@@ -7,6 +7,9 @@
 te:
   chat_integration:
     all_categories: "(అన్ని వర్గాలు)"
+    topic_tag_changed:
+      added: "%{added} జోడించబడింది"
+      removed: "తీసివేయబడింది %{removed}"
     provider:
       slack:
         messaging:

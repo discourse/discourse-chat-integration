@@ -8,6 +8,8 @@ da:
   chat_integration:
     all_categories: "(alle kategorier)"
     group_message_template: "meddelelser til: @%{name}"
+    topic_tag_changed:
+      added: "Tilføjet %{added}"
     provider:
       slack:
         transcript:

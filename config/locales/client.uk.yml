@@ -198,3 +198,9 @@ uk:
               label: Посилання
             channel:
               label: Канал
+        send_chat_integration_message:
+          fields:
+            channel_name:
+              label: Назва каналу
+            provider:
+              label: Постачальник

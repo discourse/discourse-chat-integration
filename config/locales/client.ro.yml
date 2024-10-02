@@ -129,3 +129,7 @@ ro:
               label: URL
             channel:
               label: Canal
+        send_chat_integration_message:
+          fields:
+            provider:
+              label: Furnizor

@@ -66,6 +66,10 @@ pl_PL:
     deleted_group: "(usunięta grupa)"
     group_mention_template: "Wzmianki o: @%{name}"
     group_message_template: "Wiadomości do: @%{name}"
+    topic_tag_changed:
+      added_and_removed: "Dodano %{added} i usunięto %{removed}"
+      added: "Dodano %{added}"
+      removed: "Usunięto %{removed}"
     provider:
       slack:
         status:

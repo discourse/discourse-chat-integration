@@ -74,6 +74,10 @@ he:
     deleted_group: "(קבוצה שנמחקה)"
     group_mention_template: "אזכורים של: ‎‎@%{name}‎"
     group_message_template: "הודעות אל: ‎‎@%{name}‎"
+    topic_tag_changed:
+      added_and_removed: "נוספו %{added} והוסרו %{removed}"
+      added: "נוספו %{added}"
+      removed: "הוסרו %{removed}"
     provider:
       slack:
         status:

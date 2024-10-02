@@ -7,6 +7,10 @@
 hu:
   chat_integration:
     all_categories: "(összes kategória)"
+    topic_tag_changed:
+      added_and_removed: "Hozzáadva %{added} és eltávolítva %{removed}"
+      added: "Hozzáadva %{added}"
+      removed: "Eltávolítva %{removed}"
     provider:
       slack:
         messaging:

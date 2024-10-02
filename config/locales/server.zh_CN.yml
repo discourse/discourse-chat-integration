@@ -72,6 +72,10 @@ zh_CN:
     deleted_group: "（已删除的群组）"
     group_mention_template: "提及：@%{name}"
     group_message_template: "发送消息给：@%{name}"
+    topic_tag_changed:
+      added_and_removed: "添加了 %{added}，移除了 %{removed}"
+      added: "添加了 %{added}"
+      removed: "移除了 %{removed}"
     provider:
       slack:
         status:
