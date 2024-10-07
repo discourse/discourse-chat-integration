@@ -103,6 +103,8 @@ after_initialize do
       triggerables %i[topic_tags_changed]
 
       script do |context, fields, automation|
+        next if context["topic"].private_message?
+
         # DiscourseTagging.tag_topic_by_names runs on topic creation and on tags change
         # we only want to send a message when tags change
         next if context["topic"].new_record?

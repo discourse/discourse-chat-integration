@@ -29,6 +29,8 @@ RSpec.describe "Triggering notifications" do
       SiteSetting.create_tag_allowed_groups = Group::AUTO_GROUPS[:everyone]
       SiteSetting.tag_topic_allowed_groups = Group::AUTO_GROUPS[:everyone]
 
+      SiteSetting.pm_tags_allowed_for_groups = Group::AUTO_GROUPS[:everyone]
+
       automation.upsert_field!(
         "watching_categories",
         "categories",
@@ -82,6 +84,25 @@ RSpec.describe "Triggering notifications" do
         Guardian.new(admin),
         valid_attrs.merge(tags: [tag.name], category: category.id),
       )
+      expect(validated_provider.sent_messages.length).to eq(0)
+    end
+
+    it "should not trigger notifications for PMs" do
+      automation.upsert_field!(
+        "watching_categories",
+        "categories",
+        { "value" => [nil] },
+        target: "trigger",
+      )
+
+      topic =
+        TopicCreator.create(
+          admin,
+          Guardian.new(admin),
+          valid_attrs.merge(archetype: Archetype.private_message, target_usernames: admin.username),
+        )
+
+      DiscourseTagging.tag_topic_by_names(topic, Guardian.new(admin), [tag.name])
       expect(validated_provider.sent_messages.length).to eq(0)
     end
   end
