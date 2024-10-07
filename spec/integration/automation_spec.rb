@@ -7,6 +7,7 @@ RSpec.describe "Triggering notifications" do
     fab!(:admin)
     fab!(:category)
     fab!(:tag)
+    let(:valid_attrs) { Fabricate.attributes_for(:topic) }
 
     fab!(:automation) do
       Fabricate(
@@ -72,6 +73,15 @@ RSpec.describe "Triggering notifications" do
 
       DiscourseTagging.tag_topic_by_names(topic, Guardian.new(admin), [tag.name])
 
+      expect(validated_provider.sent_messages.length).to eq(0)
+    end
+
+    it "should not trigger a provider notification on topic creation for topic_tags_changed script" do
+      TopicCreator.create(
+        admin,
+        Guardian.new(admin),
+        valid_attrs.merge(tags: [tag.name], category: category.id),
+      )
       expect(validated_provider.sent_messages.length).to eq(0)
     end
   end
