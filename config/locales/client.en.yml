@@ -290,3 +290,5 @@ en:
               description: "You can find the channel name in the Chat Integration settings"
             provider:
               label: Provider
+            trigger_with_pms:
+              label: Trigger with PMs

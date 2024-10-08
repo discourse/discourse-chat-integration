@@ -97,13 +97,16 @@ after_initialize do
             },
             required: true
       field :channel_name, component: :text, required: true
+      field :trigger_with_pms, component: :boolean
 
       version 1
 
       triggerables %i[topic_tags_changed]
 
       script do |context, fields, automation|
-        next if context["topic"].private_message?
+        if context["topic"].private_message?
+          next unless fields.dig("trigger_with_pms", "value")
+        end
 
         # DiscourseTagging.tag_topic_by_names runs on topic creation and on tags change
         # we only want to send a message when tags change

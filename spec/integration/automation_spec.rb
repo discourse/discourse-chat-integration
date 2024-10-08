@@ -87,7 +87,7 @@ RSpec.describe "Triggering notifications" do
       expect(validated_provider.sent_messages.length).to eq(0)
     end
 
-    it "should not trigger notifications for PMs" do
+    it "should not trigger notifications for PMs by default" do
       automation.upsert_field!(
         "watching_categories",
         "categories",
@@ -95,15 +95,25 @@ RSpec.describe "Triggering notifications" do
         target: "trigger",
       )
 
-      topic =
-        TopicCreator.create(
-          admin,
-          Guardian.new(admin),
-          valid_attrs.merge(archetype: Archetype.private_message, target_usernames: admin.username),
-        )
+      pm = Fabricate(:private_message_topic)
+      DiscourseTagging.tag_topic_by_names(pm, Guardian.new(admin), [tag.name])
 
-      DiscourseTagging.tag_topic_by_names(topic, Guardian.new(admin), [tag.name])
       expect(validated_provider.sent_messages.length).to eq(0)
+    end
+
+    it "should trigger notifications for PMs when trigger_with_pms is set" do
+      automation.upsert_field!(
+        "watching_categories",
+        "categories",
+        { "value" => [nil] },
+        target: "trigger",
+      )
+      automation.upsert_field!("trigger_with_pms", "boolean", { "value" => true }, target: "script")
+
+      pm = Fabricate(:private_message_topic)
+      DiscourseTagging.tag_topic_by_names(pm, Guardian.new(admin), [tag.name])
+
+      expect(validated_provider.sent_messages.length).to eq(1)
     end
   end
 end
