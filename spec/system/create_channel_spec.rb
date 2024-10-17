@@ -1,7 +1,15 @@
 # frozen_string_literal: true
+require_relative "../dummy_provider"
 
 RSpec.describe "Create channel", type: :system do
   fab!(:admin)
+
+  include_context "with dummy provider"
+  let(:manager) { ::DiscourseChatIntegration::Manager }
+  let(:chan1) { DiscourseChatIntegration::Channel.create!(provider: "dummy") }
+  let(:category) { Fabricate(:category) }
+  let(:topic) { Fabricate(:topic, category_id: category.id) }
+  let(:first_post) { Fabricate(:post, topic: topic) }
 
   before do
     SiteSetting.chat_integration_enabled = true
@@ -22,5 +30,26 @@ RSpec.describe "Create channel", type: :system do
 
     expect(page).to have_css(".channel-details")
     expect(find(".channel-info")).to have_content("bloop")
+  end
+
+  it "shows error in chanel modal" do
+    DiscourseChatIntegration::Rule.create!(
+      channel: chan1,
+      filter: "watch",
+      category_id: category.id,
+    )
+
+    visit("/admin/plugins/chat-integration/dummy")
+
+    provider.set_raise_exception(
+      DiscourseChatIntegration::ProviderError.new info: { error_key: "hello" }
+    )
+    manager.trigger_notifications(first_post.id)
+    expect(find(".error-message")).to have_content(
+      I18n.t("js.chat_integration.channels_with_errors"),
+    )
+
+    find(".channel-title").find("button").click
+    expect(page).to have_content "{\n  \"error_key\": \"hello\"\n}"
   end
 end
