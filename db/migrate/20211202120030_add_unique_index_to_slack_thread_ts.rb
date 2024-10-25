@@ -8,4 +8,8 @@ class AddUniqueIndexToSlackThreadTs < ActiveRecord::Migration[6.1]
               where: "(name LIKE 'slack_thread_id_%')",
               name: "index_topic_custom_fields_on_topic_id_and_slack_thread_id"
   end
+
+  def down
+    raise ActiveRecord::IrreversibleMigration
+  end
 end
