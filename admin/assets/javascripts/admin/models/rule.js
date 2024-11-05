@@ -23,6 +23,8 @@ export default class Rule extends RestModel {
     },
   ];
 
+  possible_filters_id = ["thread", "watch", "follow", "mute"];
+
   get available_filters() {
     const available = [];
     const provider = this.channel.provider;
@@ -45,11 +47,6 @@ export default class Rule extends RestModel {
         id: "follow",
         name: I18n.t("chat_integration.filter.follow"),
         icon: "circle",
-      },
-      {
-        id: "tag_added",
-        name: I18n.t("chat_integration.filter.tag_added"),
-        icon: "tag",
       },
       {
         id: "mute",
