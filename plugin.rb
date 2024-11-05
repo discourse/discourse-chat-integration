@@ -136,6 +136,7 @@ after_initialize do
           Rails.logger.warn "[discourse-chat-integration] Error: #{e.inspect}"
           Rails.logger.warn "[discourse-chat-integration] Channel: #{channel_name}"
           Rails.logger.warn "[discourse-chat-integration] Reference post: #{post.inspect}"
+        end
       end
     end
   end
