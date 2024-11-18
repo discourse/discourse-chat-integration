@@ -1,6 +1,6 @@
 import Controller from "@ember/controller";
 import { action } from "@ember/object";
-import { inject as service } from "@ember/service";
+import { service } from "@ember/service";
 import ChannelErrorModal from "../components/modal/channel-error";
 import EditChannelModal from "../components/modal/edit-channel";
 import EditRuleModal from "../components/modal/edit-rule";
