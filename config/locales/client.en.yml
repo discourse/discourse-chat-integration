@@ -271,7 +271,7 @@ en:
           title: Send Slack message
           fields:
             message:
-              label: Message.
+              label: Message
               description: >-
                            Use ${TOPIC} for topic name, ${URL} for used URL, ${REMOVED_TAGS} for removed tags, ${ADDED_TAGS} for added tags,
                            ${ADDED_AND_REMOVED} for default text.
