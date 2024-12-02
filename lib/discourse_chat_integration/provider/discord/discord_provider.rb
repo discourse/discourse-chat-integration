@@ -79,8 +79,12 @@ module DiscourseChatIntegration
       end
 
       def self.trigger_notification(post, channel, rule)
+        # Splitting the URL in order to support custom query parameters (e.g. thread_id=1234)
+        splitted_url = channel.data["webhook_url"].split("?")
         # Adding ?wait=true means that we actually get a success/failure response, rather than returning asynchronously
-        webhook_url = "#{channel.data["webhook_url"]}?wait=true"
+        webhook_url = "#{splitted_url[0]}?wait=true"
+
+        webhook_url += "&" + splitted_url[1] if splitted_url.length > 1
         message = generate_discord_message(post)
         response = send_message(webhook_url, message)
 
