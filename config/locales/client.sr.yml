@@ -76,6 +76,6 @@ sr:
         send_slack_message:
           fields:
             message:
-              label: Privatna poruka.
+              label: Privatna poruka
             url:
               label: URL

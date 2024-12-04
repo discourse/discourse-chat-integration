@@ -189,6 +189,7 @@ zh_CN:
           errors:
             invalid_channel: "该频道在 Microsoft Teams 上不存在"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "名称"
@@ -196,6 +197,8 @@ zh_CN:
             webhook_url:
               title: "网络钩子 URL"
               help: "创建新的入站网络钩子时提供的 URL"
+          errors:
+            invalid_webhook: "该网络钩子 URL 无效。"
         webex:
           title: "Webex Teams"
           param:
@@ -222,14 +225,18 @@ zh_CN:
           title: 发送 Slack 消息
           fields:
             message:
-              label: 发送私信.
+              label: 发送私信
+              description: >-
+                为话题名称使用 ${TOPIC}，为使用的 URL 使用 ${URL}，为移除的标签使用 ${REMOVED_TAGS}，为添加的标签使用 ${ADDED_TAGS}，为默认文本使用 ${ADDED_AND_REMOVED}。仅在触发器设置为“话题标签已更改”时可用。
             url:
               label: URL
             channel:
               label: 频道
         send_chat_integration_message:
+          title: 发送聊天集成消息
           fields:
             channel_name:
               label: 频道名称
+              description: "您可以在聊天集成设置中找到频道名称"
             provider:
-              label: 提供商
+              label: 提供程序

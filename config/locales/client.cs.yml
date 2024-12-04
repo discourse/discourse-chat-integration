@@ -81,6 +81,6 @@ cs:
         send_slack_message:
           fields:
             message:
-              label: Odeslat.
+              label: Odeslat
             url:
               label: URL

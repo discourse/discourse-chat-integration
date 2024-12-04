@@ -193,7 +193,7 @@ uk:
         send_slack_message:
           fields:
             message:
-              label: Повідомлення.
+              label: Повідомлення
             url:
               label: Посилання
             channel:

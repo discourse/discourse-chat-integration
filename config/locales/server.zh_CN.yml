@@ -55,6 +55,8 @@ zh_CN:
     chat_integration_groupme_instance_names: "*必填* GroupMe 聊天的名称，有多个时使用 ',' 分隔（与机器人 ID 的顺序相同）"
     chat_integration_teams_enabled: "启用 Microsoft Teams 聊天集成提供程序"
     chat_integration_teams_excerpt_length: "Microsoft Team 帖子摘要长度"
+    chat_integration_powerautomate_enabled: "启用 Microsoft Power Automate 集成提供程序"
+    chat_integration_powerautomate_excerpt_length: "Microsoft Power Automate 帖子摘要长度"
     chat_integration_webex_enabled: "启用 Webex Teams 聊天集成提供程序"
     chat_integration_webex_excerpt_length: "Webex Team 帖子摘要长度"
     chat_integration_google_enabled: "启用 Google Chat 聊天集成提供程序"
@@ -66,6 +68,8 @@ zh_CN:
     scriptables:
       send_slack_message:
         title: 发送 Slack 消息
+      send_chat_integration_message:
+        title: 发送聊天集成消息
   chat_integration:
     all_categories: "（所有类别）"
     deleted_category: "（已删除的类别）"

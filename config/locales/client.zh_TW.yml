@@ -82,7 +82,7 @@ zh_TW:
         send_slack_message:
           fields:
             message:
-              label: 訊息.
+              label: 訊息
             url:
               label: 網址
         send_chat_integration_message:

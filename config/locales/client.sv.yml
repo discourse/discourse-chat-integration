@@ -219,7 +219,7 @@ sv:
           title: Skicka Slack-meddelande
           fields:
             message:
-              label: Meddelande.
+              label: Meddelande
             url:
               label: URL
             channel:

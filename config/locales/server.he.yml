@@ -68,6 +68,8 @@ he:
     scriptables:
       send_slack_message:
         title: שליחת הודעה ב־Slack
+      send_chat_integration_message:
+        title: שליחת הודעת שילוב צ׳אט
   chat_integration:
     all_categories: "(כל הקטגוריות)"
     deleted_category: "(קטגוריה שנמחקה)"

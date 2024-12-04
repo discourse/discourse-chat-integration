@@ -189,6 +189,7 @@ tr_TR:
           errors:
             invalid_channel: "Bu kanal Microsoft Teams'te mevcut değil"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "Ad"
@@ -196,6 +197,8 @@ tr_TR:
             webhook_url:
               title: "Web kancası URL'si"
               help: "Yeni bir gelen web kancası oluşturduğunuzda sağlanan URL"
+          errors:
+            invalid_webhook: "Bu web kancası URL'si geçerli değil."
         webex:
           title: "Webex Ekipleri"
           param:
@@ -222,14 +225,18 @@ tr_TR:
           title: Slack mesajı gönder
           fields:
             message:
-              label: Mesaj.
+              label: Mesaj
+              description: >-
+                Konu adı için ${TOPIC}, kullanılan URL için ${URL}, kaldırılan etiketler için ${REMOVED_TAGS}, eklenen etiketler için ${ADDED_TAGS}, varsayılan metin için ${ADDED_AND_REMOVED} kullanın. Yalnızca tetikleyici, Konu etiketleri değiştirildi olarak ayarlanmışsa kullanılabilir.
             url:
               label: URL
             channel:
               label: Kanal
         send_chat_integration_message:
+          title: Chat-Integration mesajı gönderin
           fields:
             channel_name:
               label: Kanal adı
+              description: "Kanal adını Chat Integration ayarlarında bulabilirsiniz"
             provider:
               label: Sağlayıcı

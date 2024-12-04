@@ -225,7 +225,7 @@ he:
           title: שליחת הודעה ב־Slack
           fields:
             message:
-              label: הודעה.
+              label: הודעה
               description: >-
                 להשתמש בביטוי ${TOPIC} לשם הנושא, ${URL} לכתובות לשימוש, ${REMOVED_TAGS} לתגיות שהוסרו, ${ADDED_TAGS} לתגיות שנוספו, ${ADDED_AND_REMOVED} לטקסט ברירת המחדל. זמין רק אם ההזנקה מוגדרת לשינוי תגיות נושא.
             url:
@@ -233,8 +233,10 @@ he:
             channel:
               label: ערוץ
         send_chat_integration_message:
+          title: שליחת הודעת שילוב צ׳אט
           fields:
             channel_name:
               label: שם הערוץ
+              description: "אפשר למצוא את שם הערוץ בהגדרות שילוב הצ׳אט"
             provider:
               label: ספק

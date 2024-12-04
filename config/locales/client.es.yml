@@ -189,6 +189,7 @@ es:
           errors:
             invalid_channel: "Ese canal no existe en Microsoft Teams"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "Nombre"
@@ -196,6 +197,8 @@ es:
             webhook_url:
               title: "URL del webhook"
               help: "La URL proporcionada al crear un nuevo webhook entrante"
+          errors:
+            invalid_webhook: "Esa URL de webhook no es válida."
         webex:
           title: "Webex Teams"
           param:
@@ -222,14 +225,18 @@ es:
           title: Enviar mensaje de Slack
           fields:
             message:
-              label: Mensaje.
+              label: Mensaje
+              description: >-
+                Utiliza ${TOPIC} para el nombre del tema, ${URL} para la URL utilizada, ${REMOVED_TAGS} para las etiquetas eliminadas, ${ADDED_TAGS} para las etiquetas añadidas, ${ADDED_AND_REMOVED} para el texto por defecto. Solo disponible si el activador que está configurado como Etiquetas del tema ha cambiado.
             url:
               label: URL
             channel:
               label: Canal
         send_chat_integration_message:
+          title: Enviar mensaje de Chat-Integration
           fields:
             channel_name:
               label: Nombre del canal
+              description: "Puedes encontrar el nombre del canal en los ajustes de Chat Integration"
             provider:
               label: Proveedor

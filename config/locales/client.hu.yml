@@ -142,7 +142,7 @@ hu:
         send_slack_message:
           fields:
             message:
-              label: Üzenet.
+              label: Üzenet
             url:
               label: URL
             channel:

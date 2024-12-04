@@ -222,7 +222,7 @@ pl_PL:
           title: Wyślij wiadomość Slack
           fields:
             message:
-              label: Wiadomość.
+              label: Wiadomość
             url:
               label: URL
             channel:

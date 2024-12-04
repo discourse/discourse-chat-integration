@@ -189,6 +189,7 @@ ru:
           errors:
             invalid_channel: "Этот канал не существует в Microsoft Teams"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "Название"
@@ -196,6 +197,8 @@ ru:
             webhook_url:
               title: "URL вебхука"
               help: "URL-адрес, указанный при создании нового входящего вебхука"
+          errors:
+            invalid_webhook: "Этот URL-адрес вебхука недействителен."
         webex:
           title: "Webex Teams"
           param:
@@ -222,14 +225,18 @@ ru:
           title: Отправить Slack-сообщение
           fields:
             message:
-              label: Сообщение.
+              label: Сообщение
+              description: >-
+                Используйте ${TOPIC} для названия темы, ${URL} для используемого URL-адреса, ${REMOVED_TAGS} для удаленных тегов, ${ADDED_TAGS} для добавленных тегов, ${ADDED_AND_REMOVED} для текста по умолчанию. Доступно, только если триггер настроен на изменение тегов темы.
             url:
               label: URL
             channel:
               label: Канал
         send_chat_integration_message:
+          title: Отправка сообщения с помощью плагина Chat-Integration
           fields:
             channel_name:
               label: Название канала
+              description: "Название канала можно найти в настройках плагина Chat Integration."
             provider:
-              label: Провайдер
+              label: Поставщик

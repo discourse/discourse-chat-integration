@@ -80,6 +80,6 @@ lv:
         send_slack_message:
           fields:
             message:
-              label: Ziņa.
+              label: Ziņa
             url:
               label: URL

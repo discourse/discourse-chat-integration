@@ -87,6 +87,6 @@ lt:
         send_slack_message:
           fields:
             message:
-              label: Žinutės.
+              label: Žinutės
             url:
               label: Nuoroda

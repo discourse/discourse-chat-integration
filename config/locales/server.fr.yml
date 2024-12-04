@@ -55,6 +55,8 @@ fr:
     chat_integration_groupme_instance_names: " *obligatoire* Nom du ou des chats GroupMe, séparés par des virgules s'il y en a plusieurs (même ordre que les ID des bots)"
     chat_integration_teams_enabled: "Activer le fournisseur d'intégration de chat Microsoft Teams"
     chat_integration_teams_excerpt_length: "Longueur des extraits de messages Microsoft Teams"
+    chat_integration_powerautomate_enabled: "Activer le fournisseur d'intégration Microsoft Power Automate"
+    chat_integration_powerautomate_excerpt_length: "Longueur de l'extrait de publication Microsoft Power Automate"
     chat_integration_webex_enabled: "Activer le fournisseur d'intégration de chat Webex Teams"
     chat_integration_webex_excerpt_length: "Longueur des extraits de messages Webex Teams"
     chat_integration_google_enabled: "Activer le fournisseur d'intégration de chat Google Chat"
@@ -66,6 +68,8 @@ fr:
     scriptables:
       send_slack_message:
         title: Envoyer un message Slack
+      send_chat_integration_message:
+        title: Envoyer un message d'intégration de discussion
   chat_integration:
     all_categories: "(toutes les catégories)"
     deleted_category: "(catégorie supprimée)"
@@ -75,7 +79,7 @@ fr:
     topic_tag_changed:
       added_and_removed: "Ajout de %{added} et suppression de %{removed}"
       added: "Ajout de %{added}"
-      removed: "A retiré %{removed}"
+      removed: "Suppression de %{removed}"
     provider:
       slack:
         status:
@@ -135,7 +139,7 @@ fr:
           topic_tag_changed:
             added_and_removed: "Ajout de %{added} et suppression de %{removed}"
             added: "Ajout de %{added}"
-            removed: "A retiré %{removed}"
+            removed: "Suppression de %{removed}"
       telegram:
         unknown_chat: "Ce chat n'est pas configuré sur %{site_title}. Demandez à un administrateur d'ajouter un canal avec l'ID de chat %{chat_id}."
         known_chat: "Ce chat est configuré sur %{site_title}. Configurez-le dans le panneau d'administration. (ID de chat : %{chat_id})"

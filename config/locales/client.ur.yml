@@ -194,7 +194,7 @@ ur:
         send_slack_message:
           fields:
             message:
-              label: پیغام.
+              label: پیغام
             url:
               label: URL
             channel:

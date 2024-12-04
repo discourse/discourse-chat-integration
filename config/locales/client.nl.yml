@@ -189,6 +189,7 @@ nl:
           errors:
             invalid_channel: "Dat kanaal bestaat niet op Microsoft Teams"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "Naam"
@@ -196,6 +197,8 @@ nl:
             webhook_url:
               title: "Webhook-URL"
               help: "De opgegeven URL wanneer je een nieuwe inkomende webhook maakt"
+          errors:
+            invalid_webhook: "Deze webhook-URL is ongeldig."
         webex:
           title: "Webex Teams"
           param:
@@ -222,14 +225,18 @@ nl:
           title: Slack-bericht sturen
           fields:
             message:
-              label: Bericht.
+              label: Bericht
+              description: >-
+                Gebruik ${TOPIC} voor de topicnaam, ${URL} voor de gebruikte URL, ${REMOVED_TAGS} voor verwijderde tags, ${ADDED_TAGS} voor toegevoegde tags, ${ADDED_AND_REMOVED} voor standaardtekst. Alleen beschikbaar als de trigger is ingesteld op Topictags gewijzigd.
             url:
               label: URL
             channel:
               label: Kanaal
         send_chat_integration_message:
+          title: Chatintegratiebericht verzenden
           fields:
             channel_name:
               label: Kanaalnaam
+              description: "Je kunt de kanaalnaam vinden in de Chatintegratie-instellingen"
             provider:
               label: Provider

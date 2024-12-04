@@ -189,6 +189,7 @@ ja:
           errors:
             invalid_channel: "そのチャンネルは Microsoft Teams に存在しません"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "名前"
@@ -196,6 +197,8 @@ ja:
             webhook_url:
               title: "Webhook URL"
               help: "新しい着信 Webhook を作成するときに提供される URL"
+          errors:
+            invalid_webhook: "その webhook URL は有効ではありません。"
         webex:
           title: "Webex Teams"
           param:
@@ -222,14 +225,18 @@ ja:
           title: Slack メッセージを送信する
           fields:
             message:
-              label: メッセージ.
+              label: メッセージ
+              description: >-
+                トピック名に ${TOPIC}、使用されている URL に ${URL}、削除されたタグに ${REMOVED_TAGS}、追加されたタグに ${ADDED_TAGS}、デフォルトのテキストに ${ADDED_AND_REMOVED} を使用します。トリガーが「トピックタグの変更」に設定されている場合にのみ使用できます。
             url:
               label: URL
             channel:
               label: チャンネル
         send_chat_integration_message:
+          title: チャット統合メッセージの送信
           fields:
             channel_name:
               label: チャンネル名
+              description: "チャンネル名はチャット統合の設定で確認できます"
             provider:
               label: プロバイダー

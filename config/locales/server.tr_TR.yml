@@ -55,6 +55,8 @@ tr_TR:
     chat_integration_groupme_instance_names: " *gerekli* GroupMe sohbetinin adı, birden fazla varsa \",\" ile ayrılır (Bot Kimlikleri ile aynı sırada)"
     chat_integration_teams_enabled: "Microsoft Teams sohbet tümleştirme sağlayıcısını etkinleştirin"
     chat_integration_teams_excerpt_length: "Microsoft Team gönderisi alıntı uzunluğu"
+    chat_integration_powerautomate_enabled: "Microsoft Power Automate entegrasyon sağlayıcısını etkinleştirin"
+    chat_integration_powerautomate_excerpt_length: "Microsoft Power Automate gönderi alıntısı uzunluğu"
     chat_integration_webex_enabled: "Webex Teams sohbet tümleştirme sağlayıcısını etkinleştirin"
     chat_integration_webex_excerpt_length: "Webex Team gönderisi alıntı uzunluğu"
     chat_integration_google_enabled: "\"Google Chat\" sohbet entegrasyon sağlayıcısını etkinleştirin"
@@ -66,6 +68,8 @@ tr_TR:
     scriptables:
       send_slack_message:
         title: Slack mesajı gönder
+      send_chat_integration_message:
+        title: Chat-Integration mesajı gönderin
   chat_integration:
     all_categories: "(tüm kategoriler)"
     deleted_category: "(silinmiş kategori)"
