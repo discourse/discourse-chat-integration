@@ -189,6 +189,7 @@ fi:
           errors:
             invalid_channel: "Tätä kanavaa ei ole olemassa Microsoft Teamsissa"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "Nimi"
@@ -196,6 +197,8 @@ fi:
             webhook_url:
               title: "Webhookin URL-osoite"
               help: "URL-osoite, joka annetaan, kun luot uuden saapuvan webhookin"
+          errors:
+            invalid_webhook: "Tämä webhookin URL ei ole kelvollinen."
         webex:
           title: "Webex Teams"
           param:
@@ -222,14 +225,18 @@ fi:
           title: Lähetä Slack-viesti
           fields:
             message:
-              label: Viesti.
+              label: Viesti
+              description: >-
+                Käytä ${TOPIC} ketjun nimelle, ${URL} käytetylle URL-osoitteelle, ${REMOVED_TAGS} poistetuille tunnisteille, ${ADDED_TAGS} lisätyille tunnisteille, ${ADDED_AND_REMOVED} oletustekstille. Käytettävissä vain, jos triggeriksi on asetettu ketjun tunnisteiden muutos.
             url:
               label: URL
             channel:
               label: Kanava
         send_chat_integration_message:
+          title: Lähetä chat-integraatioviesti
           fields:
             channel_name:
               label: Kanavan nimi
+              description: "Löydät kanavan nimen chat-integraation asetuksista"
             provider:
               label: Palveluntarjoaja

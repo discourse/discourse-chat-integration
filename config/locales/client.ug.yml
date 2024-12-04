@@ -97,7 +97,7 @@ ug:
         send_slack_message:
           fields:
             message:
-              label: ئۇچۇر.
+              label: ئۇچۇر
             url:
               label: تور ئادرېسى
         send_chat_integration_message:

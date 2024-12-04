@@ -145,7 +145,7 @@ fa_IR:
           title: ارسال پیام اسلک
           fields:
             message:
-              label: پیام.
+              label: پیام
             url:
               label: نشانی اینترنتی
             channel:

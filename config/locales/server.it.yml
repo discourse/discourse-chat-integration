@@ -55,6 +55,8 @@ it:
     chat_integration_groupme_instance_names: " Nome della chat GroupMe *richiesto*, separati da ',' se sono più di uno (nello stesso ordine degli ID Bot)"
     chat_integration_teams_enabled: "Abilita il fornitore per l'integrazione della chat Microsoft Teams"
     chat_integration_teams_excerpt_length: "Lunghezza dell'estratto del messaggio Microsoft Team"
+    chat_integration_powerautomate_enabled: "Abilita il fornitore per l'integrazione di Microsoft Power Automate"
+    chat_integration_powerautomate_excerpt_length: "Lunghezza dell'estratto del messaggio di Microsoft Power Automate"
     chat_integration_webex_enabled: "Abilita il fornitore per l'integrazione della chat WebexTeams"
     chat_integration_webex_excerpt_length: "Lunghezza dell'estratto del messaggio Webex Team"
     chat_integration_google_enabled: "Abilita il fornitore per l'integrazione della chat 'Google Chat'"
@@ -66,6 +68,8 @@ it:
     scriptables:
       send_slack_message:
         title: Invia messaggio Slack
+      send_chat_integration_message:
+        title: Invia messaggio di Chat-Integration
   chat_integration:
     all_categories: "(tutte le categorie)"
     deleted_category: "(categoria eliminata)"
@@ -75,7 +79,7 @@ it:
     topic_tag_changed:
       added_and_removed: "Aggiunto %{added} e rimosso %{removed}"
       added: "Aggiunto %{added}"
-      removed: "Ha rimosso %{removed}"
+      removed: "Rimosso %{removed}"
     provider:
       slack:
         status:
@@ -135,7 +139,7 @@ it:
           topic_tag_changed:
             added_and_removed: "Aggiunto %{added} e rimosso %{removed}"
             added: "Aggiunto %{added}"
-            removed: "Ha rimosso %{removed}"
+            removed: "Rimosso %{removed}"
       telegram:
         unknown_chat: "Questa chat non è configurata su %{site_title}. Chiedi a un amministratore di aggiungere un canale con 'Chat ID' %{chat_id}."
         known_chat: "Questa chat è configurata su %{site_title}. Configurala nel pannello di amministrazione. (Chat ID: %{chat_id})"

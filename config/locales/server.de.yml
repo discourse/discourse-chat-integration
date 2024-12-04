@@ -55,6 +55,8 @@ de:
     chat_integration_groupme_instance_names: " *erforderlich* Name des GroupMe-Chats getrennt durch „,“ (Komma), falls mehrere vorhanden sind (gleiche Reihenfolge wie Bot-IDs)"
     chat_integration_teams_enabled: "Aktiviere den Chat-Integration-Provider für Microsoft Teams"
     chat_integration_teams_excerpt_length: "Auszugslänge für „Microsoft Teams“-Beiträge"
+    chat_integration_powerautomate_enabled: "„Microsoft Power Automate“-Integrationsanbieter aktivieren"
+    chat_integration_powerautomate_excerpt_length: "Auszugslänge für „Microsoft Power Automate“-Beiträge"
     chat_integration_webex_enabled: "Aktiviere den Chat-Integration-Provider für Webex Teams"
     chat_integration_webex_excerpt_length: "Auszugslänge für „Webex Teams“-Beiträge"
     chat_integration_google_enabled: "Aktiviere den Chat-Integration-Provider für Google Chat"
@@ -66,6 +68,8 @@ de:
     scriptables:
       send_slack_message:
         title: Slack-Nachricht senden
+      send_chat_integration_message:
+        title: Chat-Integration-Nachricht senden
   chat_integration:
     all_categories: "(alle Kategorien)"
     deleted_category: "(Kategorie gelöscht)"

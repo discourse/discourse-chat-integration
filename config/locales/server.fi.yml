@@ -55,6 +55,8 @@ fi:
     chat_integration_groupme_instance_names: " *pakollinen* GroupMe-keskutelun nimi, erotettuna pilkulla, jos niitä on useita (sama järjestys kuin bottitunnuksilla)"
     chat_integration_teams_enabled: "Ota Microsoft Teamsin chat-integraatiopalveluntarjoaja käyttöön"
     chat_integration_teams_excerpt_length: "Microsoft Teams -viestin otteen pituus"
+    chat_integration_powerautomate_enabled: "Ota Microsoft Power Automate -integraatiopalveluntarjoaja käyttöön"
+    chat_integration_powerautomate_excerpt_length: "Microsoft Power Automate -viestin otteen pituus"
     chat_integration_webex_enabled: "Ota Webexin chat-integraatiopalveluntarjoaja käyttöön"
     chat_integration_webex_excerpt_length: "Webex Team -viestin otteen pituus"
     chat_integration_google_enabled: "Ota Google Chatin chat-integraatiopalveluntarjoaja käyttöön"
@@ -66,6 +68,8 @@ fi:
     scriptables:
       send_slack_message:
         title: Lähetä Slack-viesti
+      send_chat_integration_message:
+        title: Lähetä chat-integraatioviesti
   chat_integration:
     all_categories: "(kaikki alueet)"
     deleted_category: "(poistettu alue)"
@@ -75,7 +79,7 @@ fi:
     topic_tag_changed:
       added_and_removed: "Lisättiin %{added} ja poistettiin %{removed}"
       added: "Lisättiin %{added}"
-      removed: "Poistettu tunniste %{removed}"
+      removed: "Poistettiin %{removed}"
     provider:
       slack:
         status:
@@ -135,7 +139,7 @@ fi:
           topic_tag_changed:
             added_and_removed: "Lisättiin %{added} ja poistettiin %{removed}"
             added: "Lisättiin %{added}"
-            removed: "Poistettu tunniste %{removed}"
+            removed: "Poistettiin %{removed}"
       telegram:
         unknown_chat: "Tätä keskustelua ei ole määritetty sivustolla %{site_title}. Pyydä järjestelmänvalvojaa lisäämään kanava keskustelutunnuksella %{chat_id}."
         known_chat: "Tämä keskustelu on määritetty sivustolla %{site_title}. Määritä se hallintapaneelissa. (Keskustelutunnus: %{chat_id})"

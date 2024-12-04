@@ -182,7 +182,7 @@ sw:
         send_slack_message:
           fields:
             message:
-              label: Ujumbe.
+              label: Ujumbe
             url:
               label: Anwani ya mtandao
             channel:

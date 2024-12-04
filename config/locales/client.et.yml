@@ -131,7 +131,7 @@ et:
         send_slack_message:
           fields:
             message:
-              label: Sõnum.
+              label: Sõnum
             url:
               label: URL
             channel:

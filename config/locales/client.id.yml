@@ -79,4 +79,4 @@ id:
         send_slack_message:
           fields:
             message:
-              label: pesan.
+              label: pesan

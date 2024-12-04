@@ -55,6 +55,8 @@ pt_BR:
     chat_integration_groupme_instance_names: " Nome do bate-papo do GroupMe *necessário*, separado por \",\", se houver vários (mesma ordem de IDs de Robô)"
     chat_integration_teams_enabled: "Ativar o provedor de integração de bate-papo do Microsoft Teams"
     chat_integration_teams_excerpt_length: "Tamanho do trecho da publicação do Microsoft Teams"
+    chat_integration_powerautomate_enabled: "Ativar o provedor de integração de bate-papo do Microsoft Power Automate"
+    chat_integration_powerautomate_excerpt_length: "Tamanho do trecho da publicação do Microsoft Power Automate"
     chat_integration_webex_enabled: "Ativar o provedor de integração de bate-papo do Webex Teams"
     chat_integration_webex_excerpt_length: "Tamanho do trecho da postagem do Webex Teams"
     chat_integration_google_enabled: "Ative o provedor de integração de bate-papo do \"Google Chat\""
@@ -66,6 +68,8 @@ pt_BR:
     scriptables:
       send_slack_message:
         title: Enviar uma mensagem do Slack
+      send_chat_integration_message:
+        title: Enviar mensagem de integração com chat
   chat_integration:
     all_categories: "(todas as categorias)"
     deleted_category: "(categoria excluída)"

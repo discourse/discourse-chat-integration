@@ -55,6 +55,8 @@ ru:
     chat_integration_groupme_instance_names: " *требуются* имена GroupMe, разделенные запятыми, при наличии нескольких элементов (в том же порядке, что и идентификаторы ботов)"
     chat_integration_teams_enabled: "Включить интеграцию с Microsoft Teams"
     chat_integration_teams_excerpt_length: "Размер сообщения в Microsoft Team"
+    chat_integration_powerautomate_enabled: "Включить интеграцию с Microsoft Power Automate"
+    chat_integration_powerautomate_excerpt_length: "Размер публикации в Microsoft Power Automate"
     chat_integration_webex_enabled: "Включить службу интеграции с чатом Webex Teams"
     chat_integration_webex_excerpt_length: "Размер сообщения в Webex Teams"
     chat_integration_google_enabled: "Включить провайдера для чат-интеграции c Google Chat"
@@ -66,6 +68,8 @@ ru:
     scriptables:
       send_slack_message:
         title: Отправить Slack-сообщение
+      send_chat_integration_message:
+        title: Отправка сообщения с помощью плагина Chat-Integration
   chat_integration:
     all_categories: "(все категории)"
     deleted_category: "(удаленный раздел)"
@@ -75,7 +79,7 @@ ru:
     topic_tag_changed:
       added_and_removed: "Добавлено — %{added}, удалено — %{removed}"
       added: "Добавлено: %{added}"
-      removed: "Удалил(а) %{removed}"
+      removed: "Удалено: %{removed}"
     provider:
       slack:
         status:
@@ -134,7 +138,7 @@ ru:
           topic_tag_changed:
             added_and_removed: "Добавлено — %{added}, удалено — %{removed}"
             added: "Добавлено: %{added}"
-            removed: "Удалил(а) %{removed}"
+            removed: "Удалено: %{removed}"
       telegram:
         unknown_chat: "Этот чат не настроен на %{site_title}. Попросите администратора добавить канал с идентификатором чата %{chat_id}."
         known_chat: "Этот чат настроен на %{site_title}. Настройте его в панели администратора. (Идентификатор чата: %{chat_id})"

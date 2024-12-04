@@ -222,7 +222,7 @@ ar:
           title: إرسال رسالة Slack
           fields:
             message:
-              label: رسالة.
+              label: رسالة
             url:
               label: عنوان URL
             channel:
