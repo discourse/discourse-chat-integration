@@ -2,7 +2,7 @@
   <div class="channel-header">
     <div class="pull-right">
       <DButton
-        @icon="pencil-alt"
+        @icon="pencil"
         @title="chat_integration.edit_channel"
         @label="chat_integration.edit_channel"
         @action={{fn @editChannel @channel}}
@@ -17,7 +17,7 @@
       />
 
       <DButton
-        @icon="trash-alt"
+        @icon="trash-can"
         @title="chat_integration.delete_channel"
         @label="chat_integration.delete_channel"
         @action={{fn this.deleteChannel @channel}}
@@ -28,7 +28,7 @@
     <span class="channel-title">
       {{#if @channel.error_key}}
         <DButton
-          @icon="exclamation-triangle"
+          @icon="triangle-exclamation"
           @action={{fn @showError @channel}}
           class="delete btn-danger"
         />
