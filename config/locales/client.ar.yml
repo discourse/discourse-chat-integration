@@ -189,6 +189,7 @@ ar:
           errors:
             invalid_channel: "هذه القناة غير موجودة على Microsoft Teams"
         powerautomate:
+          title: "Microsoft Power Automate"
           param:
             name:
               title: "الاسم"
@@ -196,6 +197,8 @@ ar:
             webhook_url:
               title: "عنوان URL لخطاف الويب"
               help: "عنوان URL الذي يتم إدخاله عند إنشاء خطاف ويب وارد جديد"
+          errors:
+            invalid_webhook: "عنوان URL لخطاف الويب هذا غير صالح."
         webex:
           title: "Webex Teams"
           param:
@@ -223,13 +226,17 @@ ar:
           fields:
             message:
               label: رسالة
+              description: >-
+                استخدم ${TOPIC} لاسم الموضوع، و${URL} لعنوان URL المستخدم، و${REMOVED_TAGS} للوسوم المحذوفة، و${ADDED_TAGS} للوسوم المُضافة، و${ADDED_AND_REMOVED} للنص الافتراضي. متاح فقط إذا تم تعيين المشغِّل على وسوم الموضوع التي تم تغييرها.
             url:
               label: عنوان URL
             channel:
               label: القناة
         send_chat_integration_message:
+          title: إرسال رسالة Chat-Integration
           fields:
             channel_name:
               label: اسم القناة
+              description: "يمكنك العثور على اسم القناة في إعدادات تكامل الدردشة"
             provider:
               label: مقدِّم الخدمة
