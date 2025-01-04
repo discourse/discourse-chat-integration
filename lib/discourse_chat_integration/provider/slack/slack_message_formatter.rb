@@ -10,7 +10,7 @@ module DiscourseChatIntegration::Provider::SlackProvider
 
     def self.format(html = "")
       me = self.new
-      parser = Nokogiri::HTML::SAX::Parser.new(me)
+      parser = Nokogiri::HTML4::SAX::Parser.new(me, Encoding::UTF_8)
       parser.parse(html)
       me.excerpt
     end
