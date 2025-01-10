@@ -41,7 +41,7 @@ export default class Rule extends RestModel {
       {
         id: "watch",
         name: I18n.t("chat_integration.filter.watch"),
-        icon: "exclamation-circle",
+        icon: "circle-exclamation",
       },
       {
         id: "follow",
@@ -51,7 +51,7 @@ export default class Rule extends RestModel {
       {
         id: "mute",
         name: I18n.t("chat_integration.filter.mute"),
-        icon: "times-circle",
+        icon: "circle-xmark",
       }
     );
 
