@@ -15,10 +15,10 @@ module DiscourseChatIntegration
       # Abort if the post is blank
       return if post.blank?
 
-      # Abort if post is not either regular or a 'category_changed' small action
+      # Abort if post is not either regular or a 'category_changed' whisper
       if (post.post_type != Post.types[:regular]) &&
            !(
-             post.post_type == Post.types[:small_action] &&
+             post.post_type == Post.types[:whisper] &&
                %w[category_changed].include?(post.action_code)
            )
         return
