@@ -346,5 +346,41 @@ RSpec.describe DiscourseChatIntegration::Manager do
         expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
       end
     end
+
+    describe "with whispers and actions enabled" do
+      before do
+        SiteSetting.create_post_for_category_and_tag_changes = true
+        SiteSetting.whispers_allowed_groups = "#{Group::AUTO_GROUPS[:staff]}"
+      end
+
+      it "should notify about category changes" do
+        DiscourseChatIntegration::Rule.create!(
+          channel: chan1,
+          filter: "watch",
+          category_id: category.id,
+        )
+
+        new_category = Fabricate(:category)
+        DiscourseChatIntegration::Rule.create!(
+          channel: chan1,
+          filter: "watch",
+          category_id: new_category.id,
+        )
+
+        manager.trigger_notifications(first_post.id)
+        expect(provider.sent_to_channel_ids).to contain_exactly(chan1.id)
+
+        # Change category
+        PostRevisor.new(first_post, topic).revise!(
+          Discourse.system_user,
+          category_id: new_category.id,
+        )
+
+        last_topic_post = topic.posts.last
+        manager.trigger_notifications(last_topic_post.id)
+        expect(provider.sent_messages.count).to eq(2)
+        expect(provider.sent_messages.last).to eq(post: last_topic_post.id, channel: chan1)
+      end
+    end
   end
 end
