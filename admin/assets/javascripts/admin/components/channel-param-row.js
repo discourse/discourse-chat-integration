@@ -1,6 +1,6 @@
 import Component from "@glimmer/component";
 import { action } from "@ember/object";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 export default class ChannelParamRow extends Component {
   get validation() {
@@ -13,14 +13,14 @@ export default class ChannelParamRow extends Component {
     } else if (new RegExp(this.args.param.regex).test(value)) {
       return {
         ok: true,
-        reason: I18n.t(
+        reason: i18n(
           "chat_integration.edit_channel_modal.channel_validation.ok"
         ),
       };
     } else {
       return {
         failed: true,
-        reason: I18n.t(
+        reason: i18n(
           "chat_integration.edit_channel_modal.channel_validation.fail"
         ),
       };

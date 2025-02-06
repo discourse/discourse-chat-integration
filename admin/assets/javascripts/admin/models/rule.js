@@ -1,7 +1,7 @@
 import { tracked } from "@glimmer/tracking";
 import Category from "discourse/models/category";
 import RestModel from "discourse/models/rest";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 export default class Rule extends RestModel {
   @tracked type = "normal";
@@ -12,14 +12,14 @@ export default class Rule extends RestModel {
   @tracked error_key = null;
 
   available_types = [
-    { id: "normal", name: I18n.t("chat_integration.type.normal") },
+    { id: "normal", name: i18n("chat_integration.type.normal") },
     {
       id: "group_message",
-      name: I18n.t("chat_integration.type.group_message"),
+      name: i18n("chat_integration.type.group_message"),
     },
     {
       id: "group_mention",
-      name: I18n.t("chat_integration.type.group_mention"),
+      name: i18n("chat_integration.type.group_mention"),
     },
   ];
 
@@ -32,7 +32,7 @@ export default class Rule extends RestModel {
     if (provider === "slack") {
       available.push({
         id: "thread",
-        name: I18n.t("chat_integration.filter.thread"),
+        name: i18n("chat_integration.filter.thread"),
         icon: "chevron-right",
       });
     }
@@ -40,17 +40,17 @@ export default class Rule extends RestModel {
     available.push(
       {
         id: "watch",
-        name: I18n.t("chat_integration.filter.watch"),
+        name: i18n("chat_integration.filter.watch"),
         icon: "circle-exclamation",
       },
       {
         id: "follow",
-        name: I18n.t("chat_integration.filter.follow"),
+        name: i18n("chat_integration.filter.follow"),
         icon: "circle",
       },
       {
         id: "mute",
-        name: I18n.t("chat_integration.filter.mute"),
+        name: i18n("chat_integration.filter.mute"),
         icon: "circle-xmark",
       }
     );
@@ -69,7 +69,7 @@ export default class Rule extends RestModel {
   }
 
   get filterName() {
-    return I18n.t(`chat_integration.filter.${this.filter}`);
+    return i18n(`chat_integration.filter.${this.filter}`);
   }
 
   updateProperties() {
