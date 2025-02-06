@@ -3,7 +3,7 @@ import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 export default class TestIntegration extends Component {
   @tracked loading = false;
@@ -24,7 +24,7 @@ export default class TestIntegration extends Component {
       });
 
       this.loading = false;
-      this.flash = I18n.t("chat_integration.test_modal.success");
+      this.flash = i18n("chat_integration.test_modal.success");
     } catch (e) {
       popupAjaxError(e);
     }
