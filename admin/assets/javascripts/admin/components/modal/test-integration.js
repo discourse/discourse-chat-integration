@@ -32,6 +32,6 @@ export default class TestIntegration extends Component {
 
   @action
   newTopicSelected(topic) {
-    this.topicId = topic.id;
+    this.topicId = topic?.id;
   }
 }
