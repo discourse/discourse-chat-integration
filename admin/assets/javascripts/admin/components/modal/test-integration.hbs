@@ -17,7 +17,10 @@
             </label>
           </td>
           <td>
-            <ChooseTopic @topicChangedCallback={{this.newTopicSelected}} />
+            <ChooseTopic
+              @topicChangedCallback={{this.newTopicSelected}}
+              @selectedTopicId={{this.topicId}}
+            />
           </td>
         </tr>
       </tbody>
