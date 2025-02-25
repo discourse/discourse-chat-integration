@@ -88,6 +88,16 @@ module DiscourseChatIntegration
         message = generate_discord_message(post)
         response = send_message(webhook_url, message)
 
+        # If the message fails to send, it might be because it's a forum channel.
+        if !response.kind_of?(Net::HTTPSuccess)
+          error = JSON.parse(response.body)
+          # Error code 220001 occurs when trying to post to a forum channel without a thread_name.
+          if error["code"] == 220_001
+            message[:thread_name] = message[:embeds][0][:title]
+            response = send_message(webhook_url, message)
+          end
+        end
+
         if !response.kind_of?(Net::HTTPSuccess)
           raise ::DiscourseChatIntegration::ProviderError.new(
                   info: {
