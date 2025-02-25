@@ -41,12 +41,27 @@ RSpec.describe DiscourseChatIntegration::Provider::DiscordProvider do
       stub1 =
         stub_request(:post, "https://discord.com/api/webhooks/1234/abcd?wait=true").to_return(
           status: 400,
+          body: '{"message": "This is an error!", "code": 400}',
         )
       expect(stub1).to have_been_requested.times(0)
       expect { described_class.trigger_notification(post, chan1, nil) }.to raise_exception(
         ::DiscourseChatIntegration::ProviderError,
       )
       expect(stub1).to have_been_requested.once
+    end
+
+    it "handles posting to forum channels" do
+      stub1 =
+        stub_request(:post, "https://discord.com/api/webhooks/1234/abcd?wait=true")
+          .with { |request| !JSON.parse(request.body)["thread_name"].present? }
+          .to_return(status: 400, body: '{"message": "This is an error!", "code": 220001}')
+      stub2 =
+        stub_request(:post, "https://discord.com/api/webhooks/1234/abcd?wait=true")
+          .with { |request| JSON.parse(request.body)["thread_name"].present? }
+          .to_return(status: 200)
+      described_class.trigger_notification(post, chan1, nil)
+      expect(stub1).to have_been_requested.once
+      expect(stub2).to have_been_requested.once
     end
   end
 
