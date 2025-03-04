@@ -1,10 +1,4 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
-bs_BA:
+bs:
   site_settings:
     chat_integration_enabled: 'Omogućite dodatak za integraciju diskursa'
     chat_integration_discourse_username: 'Korisničko ime korisnika da se ponaša kao prilikom preuzimanja sadržaja.'
